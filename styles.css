@@ -311,11 +311,19 @@ a {
 /* Placeholder visuel */
 .project-page-visual {
   width: 100%;
-  aspect-ratio: 16 / 9;
   border-radius: 12px;
+  overflow: hidden;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.07);
   margin-bottom: 3rem;
+  aspect-ratio: 16 / 9;
+}
+
+.project-prototype-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 /* Corps */
@@ -649,11 +657,17 @@ a {
 
 .pv-wireframe-frame {
   width: 100%;
-  height: 680px; /* fallback, overridden by JS onLoad */
+  aspect-ratio: 16 / 9;
+  height: auto;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 10px;
   background: #f5f4f0;
   display: block;
+}
+
+.pv-wireframe-img {
+  aspect-ratio: unset;
+  height: auto;
 }
 
 .pv-wireframe-expand {

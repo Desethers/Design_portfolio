@@ -7,32 +7,33 @@ export const projects = [
     year: "2024",
     desc: "Redesign du booking flow d'une app de réservation — de la recherche terrain au prototype validé.",
     tags: ["UX Research", "UI Design", "Prototypage"],
+    video: "/Sans titre.mov",
     process: {
-      role: "Product Designer (solo)",
-      duration: "6 semaines",
-      tools: ["Figma", "Maze", "Notion"],
+      role: "Product Designer & Développeur (solo)",
+      duration: "Side project en cours",
+      tools: ["Figma", "Cursor", "Stripe", "Vercel"],
       brief:
-        "Redesigner le flow de réservation d'une application mobile existante. L'objectif : réduire les abandons en cours de booking et augmenter le taux de conversion.",
+        "Redesigner le flow de réservation d'un service d'accrochage d'œuvres d'art. L'objectif : garder les utilisateurs sur hanging.fr du début à la fin — du choix du plan jusqu'au paiement — sans les rediriger vers un outil tiers.",
       problem: {
         statement:
-          "60 % des utilisateurs abandonnaient la réservation avant la confirmation. Le flow comportait 7 étapes avec trop de friction à chaque transition.",
-        user: "Les utilisateurs se perdaient dans la navigation, ne comprenaient pas où ils en étaient dans le processus et n'avaient pas confiance au moment du paiement.",
-        business: "Chaque point de taux d'abandon représentait un manque à gagner direct pour le client. L'objectif était d'atteindre un taux de complétion ≥ 75 %.",
+          "Hanging utilisait Calendly pour gérer les réservations. À chaque booking, l'utilisateur quittait hanging.fr pour atterrir sur une URL calendly.com — changement d'interface, changement de branding, perte totale du contexte de marque — au moment le plus critique du parcours : juste avant de payer.",
+        user: "L'utilisateur venait de découvrir un service premium d'accrochage d'œuvres d'art. En arrivant sur une interface générique bleue Calendly, le sentiment de confiance construit sur la landing page s'effondrait. Pas de récapitulatif du plan choisi, pas de prix visible, pas de continuité visuelle.",
+        business: "La redirection vers un outil tiers créait une rupture au moment de conversion le plus important. L'objectif était de rapatrier l'intégralité du flow — choix du créneau, formulaire, paiement Stripe — directement sur hanging.fr pour ne plus perdre l'utilisateur en chemin.",
       },
       research: {
-        methods: ["5 entretiens utilisateurs", "Analyse des heatmaps (Hotjar)", "Benchmark de 6 apps concurrentes", "Audit heuristique du flow existant"],
+        intro: "Sans analytics sur le flow Calendly, la recherche s'est appuyée sur une analyse heuristique du parcours existant et un benchmark d'outils de réservation comparables (Calendly, Cal.com, interfaces de booking hôtelier).\n\nTrois hypothèses de friction ont orienté le redesign :",
+        methods: ["Analyse heuristique", "Benchmark concurrentiel", "Audit du flow existant"],
         insights: [
-          { label: "Friction au paiement", detail: "3 utilisateurs sur 5 disaient ne pas se sentir en confiance au moment d'entrer leur carte bancaire." },
-          { label: "Progression invisible", detail: "Aucun indicateur de progression — les utilisateurs ne savaient pas combien d'étapes restaient." },
-          { label: "Trop d'informations d'un coup", detail: "L'écran de récapitulatif surchargeait cognitivement : prix, conditions, disponibilités, tout au même niveau visuel." },
+          { label: "Confiance au paiement", detail: "Quitter hanging.fr pour une page Calendly générique au moment d'entrer ses coordonnées bancaires casse le sentiment de sécurité construit sur la landing. C'est un pattern documenté en UX e-commerce." },
+          { label: "Progression invisible", detail: "Calendly n'affiche pas d'indicateur d'étapes. L'utilisateur ne sait pas ce qui l'attend après avoir choisi un créneau — formulaire ? paiement ? confirmation ?" },
+          { label: "Surcharge cognitive", detail: "Les informations produit (ce qui est inclus, les conditions) étaient mélangées aux informations de planning dans la sidebar Calendly, sans hiérarchie visuelle claire." },
         ],
       },
       ideation:
         "2 sessions de sketching rapide (crazy 8s), puis sélection de 2 directions à prototyper. Direction retenue : flow en 4 étapes avec stepper visible, récapitulatif progressif et page de confirmation rassurante.",
       wireframes: [
-        { title: "V1 — Calendly (état existant)", src: "/wireframes/hanging-before.html" },
-        { title: "V2 — Custom flow", src: "/wireframes/hanging-after.html" },
-        { title: "Comparaison V1 → V2", src: "/wireframes/hanging-compare.html" },
+        { title: "V1 — Calendly (état existant)", src: "/wireframes/wireframe-v1.png", type: "image" },
+        { title: "V2 — Custom flow", src: "/wireframes/wireframe-v2.png", type: "image" },
       ],
       testing: {
         method: "Tests modérés sur prototype Figma avec 5 participants (profils variés, 25-45 ans).",

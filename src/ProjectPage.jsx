@@ -65,11 +65,16 @@ function ProcessView({ p }) {
           <span className="pv-label">Recherche</span>
         </div>
         <div className="pv-section-body">
-          <div className="pv-methods">
-            {pr.research.methods.map((m, i) => (
-              <span key={i} className="pv-method-tag">{m}</span>
-            ))}
-          </div>
+          {pr.research.intro && (
+            <p className="pv-text" style={{ whiteSpace: "pre-line", marginBottom: "1.2rem" }}>{pr.research.intro}</p>
+          )}
+          {pr.research.methods?.length > 0 && (
+            <div className="pv-methods">
+              {pr.research.methods.map((m, i) => (
+                <span key={i} className="pv-method-tag">{m}</span>
+              ))}
+            </div>
+          )}
           <div className="pv-insights">
             {pr.research.insights.map((ins, i) => (
               <div key={i} className="pv-insight-card">
@@ -118,16 +123,20 @@ function ProcessView({ p }) {
                       Plein écran ↗
                     </a>
                   </div>
-                  <iframe
-                    src={wf.src}
-                    className="pv-wireframe-frame"
-                    title={wf.title}
-                    scrolling="no"
-                    onLoad={(e) => {
-                      const doc = e.target.contentWindow.document;
-                      e.target.style.height = doc.documentElement.scrollHeight + "px";
-                    }}
-                  />
+                  {wf.type === "image" ? (
+                    <img
+                      src={wf.src}
+                      alt={wf.title}
+                      className="pv-wireframe-frame pv-wireframe-img"
+                    />
+                  ) : (
+                    <iframe
+                      src={wf.src}
+                      className="pv-wireframe-frame"
+                      title={wf.title}
+                      scrolling="no"
+                    />
+                  )}
                 </div>
               ))}
             </div>
@@ -274,7 +283,20 @@ export default function ProjectPage() {
         </div>
       </div>
 
-      {tab === "prototype" && <div className="project-page-visual" />}
+      {tab === "prototype" && (
+        <div className="project-page-visual">
+          {project.video && (
+            <video
+              className="project-prototype-video"
+              src={project.video}
+              autoPlay
+              loop
+              muted
+              playsInline
+            />
+          )}
+        </div>
+      )}
       {tab === "process" && <ProcessView p={project} />}
 
       <nav className="project-nav">
