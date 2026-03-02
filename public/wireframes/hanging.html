@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wireframes — Hanging Booking Flow</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1a1a;
+    --muted: #888;
+    --wire: #c8c8c8;
+    --fill: #e8e8e8;
+    --bg: #f5f4f0;
+    --white: #fff;
+    --accent: #1a1a1a;
+    --red: #e84040;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    padding: 60px 40px;
+  }
+
+  .page-header {
+    margin-bottom: 64px;
+  }
+
+  .label-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: inline-block;
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    color: var(--muted);
+    font-size: 15px;
+    font-weight: 300;
+  }
+
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 56px 0 40px;
+  }
+
+  .section-divider .badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+    font-weight: 500;
+  }
+
+  .badge-before { background: #ffe0e0; color: #c00; }
+  .badge-after  { background: #d4f0d4; color: #2a7a2a; }
+
+  .divider-line { height: 1px; background: var(--wire); flex: 1; }
+
+  .wireframe-wrap {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+  }
+
+  .wireframe-card {
+    background: var(--white);
+    border: 1.5px solid var(--wire);
+    border-radius: 12px;
+    overflow: hidden;
+    flex: 1;
+    position: relative;
+  }
+
+  .wireframe-title-bar {
+    background: var(--fill);
+    border-bottom: 1.5px solid var(--wire);
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--wire); }
+  .wireframe-url { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); margin-left: 8px; }
+
+  .wireframe-body { padding: 20px; }
+
+  .wf-block { background: var(--fill); border-radius: 4px; }
+  .wf-line  { height: 10px; background: var(--fill); border-radius: 3px; margin-bottom: 6px; }
+  .wf-text-sm { height: 8px; background: var(--fill); border-radius: 3px; margin-bottom: 5px; }
+
+  .wf-btn { background: var(--ink); border-radius: 6px; height: 36px; display: flex; align-items: center; justify-content: center; }
+  .wf-btn-outline { border: 1.5px solid var(--wire); border-radius: 6px; height: 36px; }
+
+  /* ===== BEFORE — Calendly ===== */
+  .calendly-layout {
+    display: grid;
+    grid-template-columns: 180px 1fr 1fr;
+    gap: 0;
+    min-height: 400px;
+  }
+
+  .cal-sidebar { border-right: 1.5px solid var(--wire); padding: 20px 16px; }
+  .cal-sidebar-logo { height: 16px; width: 60px; background: var(--fill); border-radius: 3px; margin-bottom: 6px; }
+  .cal-sidebar-title { height: 18px; background: var(--fill); border-radius: 3px; margin-bottom: 4px; }
+  .cal-sidebar-title.thin { height: 14px; width: 80%; }
+  .cal-sidebar-meta { display: flex; align-items: center; gap: 5px; margin: 12px 0; }
+  .cal-icon { width: 10px; height: 10px; background: var(--wire); border-radius: 50%; flex-shrink: 0; }
+  .cal-meta-line { height: 8px; background: var(--fill); border-radius: 3px; flex: 1; }
+  .cal-info-block { margin: 10px 0; }
+  .cal-info-label { height: 9px; width: 90%; background: #d0d0d0; border-radius: 3px; margin-bottom: 5px; }
+  .cal-info-text { height: 8px; background: var(--fill); border-radius: 3px; margin-bottom: 3px; }
+
+  .cal-calendar { border-right: 1.5px solid var(--wire); padding: 20px 16px; }
+  .cal-month-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+  .cal-nav-arrow { width: 24px; height: 24px; background: var(--fill); border-radius: 50%; }
+  .cal-month-label { height: 14px; width: 80px; background: var(--fill); border-radius: 3px; }
+  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+  .cal-day-head { height: 8px; background: var(--fill); border-radius: 2px; margin-bottom: 8px; }
+  .cal-day { aspect-ratio: 1; border-radius: 50%; background: var(--fill); display: flex; align-items: center; justify-content: center; }
+  .cal-day.active    { background: #2d7ff9; }
+  .cal-day.available { background: #dbeafe; }
+  .cal-day.empty     { background: transparent; }
+  .cal-timezone { margin-top: 14px; display: flex; align-items: center; gap: 6px; }
+  .cal-tz-icon { width: 12px; height: 12px; background: var(--fill); border-radius: 50%; }
+  .cal-tz-text { height: 9px; width: 120px; background: var(--fill); border-radius: 3px; }
+
+  .cal-times { padding: 20px 16px; }
+  .cal-times-title { height: 14px; width: 120px; background: var(--fill); border-radius: 3px; margin-bottom: 16px; }
+  .cal-time-slot { border: 1.5px solid #2d7ff9; border-radius: 6px; height: 36px; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; }
+  .cal-time-slot-text { height: 9px; width: 40px; background: #2d7ff9; border-radius: 3px; }
+
+  .annotation { flex-shrink: 0; width: 200px; }
+  .annotation-item { display: flex; gap: 10px; margin-bottom: 20px; align-items: flex-start; }
+  .annotation-dot { width: 20px; height: 20px; border-radius: 50%; background: var(--ink); color: var(--white); font-family: 'DM Mono', monospace; font-size: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .annotation-dot.red   { background: var(--red); }
+  .annotation-dot.green { background: #2a7a2a; }
+  .annotation-text { font-size: 12px; line-height: 1.5; color: var(--ink); }
+  .annotation-text strong { display: block; font-weight: 600; margin-bottom: 2px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+  /* ===== AFTER — Custom ===== */
+  .custom-layout { display: grid; grid-template-columns: 1fr 220px; gap: 20px; padding: 20px; min-height: 400px; }
+
+  .wf-breadcrumb { display: flex; align-items: center; gap: 6px; margin-bottom: 16px; }
+  .wf-back { width: 16px; height: 10px; background: var(--fill); border-radius: 2px; }
+  .wf-bc-text { height: 9px; width: 40px; background: var(--fill); border-radius: 3px; }
+  .wf-page-title { height: 26px; width: 60%; background: #d0d0d0; border-radius: 4px; margin-bottom: 20px; }
+
+  .wf-stepper-card { border: 1.5px solid var(--wire); border-radius: 10px; margin-bottom: 10px; overflow: hidden; }
+  .wf-stepper-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; background: var(--white); }
+  .wf-stepper-label { height: 12px; background: #d0d0d0; border-radius: 3px; }
+  .wf-stepper-chevron { width: 14px; height: 14px; background: var(--fill); border-radius: 3px; }
+  .wf-stepper-open { border-top: 1.5px solid var(--wire); padding: 16px; background: #fafafa; }
+
+  .wf-mini-cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-top: 8px; }
+  .wf-mini-day { aspect-ratio: 1; border-radius: 50%; background: var(--fill); }
+  .wf-mini-day.empty { background: transparent; }
+  .wf-mini-month { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 10px; }
+  .wf-mini-nav { width: 20px; height: 20px; background: var(--fill); border-radius: 50%; }
+  .wf-mini-month-text { height: 11px; width: 70px; background: #d0d0d0; border-radius: 3px; }
+
+  .sticky-panel { border: 1.5px solid var(--wire); border-radius: 10px; overflow: hidden; position: sticky; top: 20px; }
+  .sticky-header { padding: 16px; border-bottom: 1.5px solid var(--wire); }
+  .sticky-plan-name { height: 16px; width: 80px; background: #d0d0d0; border-radius: 3px; margin-bottom: 8px; }
+  .sticky-plan-desc { height: 8px; background: var(--fill); border-radius: 3px; margin-bottom: 4px; }
+  .sticky-features { padding: 12px 16px; border-bottom: 1.5px solid var(--wire); }
+  .sticky-feature-row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .sticky-feature-icon { width: 10px; height: 10px; background: var(--wire); flex-shrink: 0; }
+  .sticky-feature-text { height: 8px; background: var(--fill); border-radius: 3px; flex: 1; }
+  .sticky-price-row { padding: 12px 16px; border-bottom: 1.5px solid var(--wire); }
+  .price-line { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+  .price-label { height: 9px; width: 100px; background: var(--fill); border-radius: 3px; }
+  .price-amount { height: 9px; width: 40px; background: #d0d0d0; border-radius: 3px; }
+  .price-total-label { height: 12px; width: 60px; background: #d0d0d0; border-radius: 3px; }
+  .price-total-amount { height: 12px; width: 50px; background: var(--ink); border-radius: 3px; }
+  .sticky-cta { padding: 12px 16px; background: var(--ink); height: 44px; display: flex; align-items: center; justify-content: center; gap: 6px; }
+  .sticky-cta-icon { width: 12px; height: 12px; background: rgba(255,255,255,0.3); border-radius: 3px; }
+  .sticky-cta-text { height: 10px; width: 80px; background: rgba(255,255,255,0.6); border-radius: 3px; }
+
+  .problem-banner { background: #fff8f0; border: 1.5px solid #f0d0a0; border-radius: 10px; padding: 16px 20px; margin-top: 16px; }
+  .problem-banner-title { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #b07000; margin-bottom: 8px; }
+  .problem-banner p { font-size: 13px; line-height: 1.6; color: #7a5000; }
+
+  .wireframe-caption { margin-top: 16px; font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); text-align: center; letter-spacing: 0.05em; }
+
+  .version-label { position: absolute; top: 12px; right: 12px; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; }
+  .version-v1 { background: #ffe0e0; color: #c00; }
+  .version-v2 { background: #d4f0d4; color: #2a7a2a; }
+
+  .comparison-table { margin-top: 56px; border: 1.5px solid var(--wire); border-radius: 12px; overflow: hidden; background: var(--white); }
+  .comparison-header { display: grid; grid-template-columns: 1fr 1fr 1fr; background: var(--fill); border-bottom: 1.5px solid var(--wire); }
+  .comp-h { padding: 12px 20px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+  .comp-h:not(:last-child) { border-right: 1.5px solid var(--wire); }
+  .comparison-row { display: grid; grid-template-columns: 1fr 1fr 1fr; border-bottom: 1.5px solid var(--wire); }
+  .comparison-row:last-child { border-bottom: none; }
+  .comp-cell { padding: 14px 20px; font-size: 13px; line-height: 1.5; }
+  .comp-cell:not(:last-child) { border-right: 1.5px solid var(--wire); }
+  .comp-cell.criteria { font-weight: 500; font-size: 12px; color: var(--muted); }
+  .comp-cell .bad  { color: var(--red); font-weight: 500; }
+  .comp-cell .good { color: #2a7a2a; font-weight: 500; }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <span class="label-tag">Case Study — Hanging</span>
+  <h1>Booking Flow Redesign</h1>
+  <p class="subtitle">Wireframes exploratoires — du problème à la solution</p>
+</div>
+
+<!-- BEFORE -->
+<div class="section-divider">
+  <span class="badge badge-before">V1 — Calendly (Existant)</span>
+  <div class="divider-line"></div>
+</div>
+
+<div class="wireframe-wrap">
+  <div class="wireframe-card">
+    <span class="version-label version-v1">V1 · Calendly</span>
+    <div class="wireframe-title-bar">
+      <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+      <span class="wireframe-url">calendly.com/hanging/reservation-group-show</span>
+    </div>
+    <div class="calendly-layout">
+      <div class="cal-sidebar">
+        <div class="cal-sidebar-logo"></div>
+        <div style="height:6px"></div>
+        <div class="cal-sidebar-title"></div>
+        <div class="cal-sidebar-title thin"></div>
+        <div class="cal-sidebar-meta"><div class="cal-icon"></div><div class="cal-meta-line"></div></div>
+        <div class="cal-sidebar-meta"><div class="cal-icon"></div><div class="cal-meta-line" style="width:60%"></div></div>
+        <div style="height:10px"></div>
+        <div class="cal-info-block">
+          <div class="cal-info-label"></div>
+          <div class="cal-info-text"></div><div class="cal-info-text" style="width:80%"></div><div class="cal-info-text" style="width:60%"></div>
+        </div>
+        <div class="cal-info-block">
+          <div class="cal-info-label"></div>
+          <div class="cal-info-text"></div><div class="cal-info-text" style="width:70%"></div>
+        </div>
+        <div class="cal-info-block">
+          <div class="cal-info-label"></div>
+          <div class="cal-info-text"></div><div class="cal-info-text" style="width:90%"></div><div class="cal-info-text" style="width:50%"></div>
+        </div>
+      </div>
+      <div class="cal-calendar">
+        <div class="cal-month-nav">
+          <div class="cal-nav-arrow"></div>
+          <div class="cal-month-label"></div>
+          <div class="cal-nav-arrow"></div>
+        </div>
+        <div class="cal-grid">
+          <div class="cal-day-head"></div><div class="cal-day-head"></div><div class="cal-day-head"></div><div class="cal-day-head"></div><div class="cal-day-head"></div><div class="cal-day-head"></div><div class="cal-day-head"></div>
+          <div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day available"></div>
+          <div class="cal-day active"></div><div class="cal-day available"></div><div class="cal-day available"></div><div class="cal-day available"></div><div class="cal-day available"></div><div class="cal-day"></div><div class="cal-day"></div>
+          <div class="cal-day available"></div><div class="cal-day available"></div><div class="cal-day available"></div><div class="cal-day available"></div><div class="cal-day available"></div><div class="cal-day"></div><div class="cal-day"></div>
+          <div class="cal-day available"></div><div class="cal-day available"></div><div class="cal-day available"></div><div class="cal-day available"></div><div class="cal-day available"></div><div class="cal-day"></div><div class="cal-day"></div>
+        </div>
+        <div class="cal-timezone"><div class="cal-tz-icon"></div><div class="cal-tz-text"></div></div>
+      </div>
+      <div class="cal-times">
+        <div class="cal-times-title"></div>
+        <div class="cal-time-slot"><div class="cal-time-slot-text"></div></div>
+        <div class="cal-time-slot"><div class="cal-time-slot-text"></div></div>
+        <div class="cal-time-slot"><div class="cal-time-slot-text"></div></div>
+        <div class="cal-time-slot"><div class="cal-time-slot-text"></div></div>
+        <div class="cal-time-slot"><div class="cal-time-slot-text"></div></div>
+        <div class="cal-time-slot"><div class="cal-time-slot-text"></div></div>
+        <div class="cal-time-slot"><div class="cal-time-slot-text"></div></div>
+      </div>
+    </div>
+    <div style="padding: 0 20px 16px;">
+      <div class="problem-banner">
+        <div class="problem-banner-title">⚠ Frictions identifiées</div>
+        <p>Interface générique Calendly — branding bleu non cohérent avec l'identité Hanging. Layout dense 3 colonnes. Paiement absent : l'utilisateur doit aller sur une autre page pour régler. Pas de récapitulatif du plan sélectionné.</p>
+      </div>
+    </div>
+  </div>
+  <div class="annotation">
+    <div style="margin-top: 60px;">
+      <div class="annotation-item"><div class="annotation-dot red">1</div><div class="annotation-text"><strong>Branding cassé</strong>Interface bleue Calendly, aucun lien visuel avec Hanging.</div></div>
+      <div class="annotation-item"><div class="annotation-dot red">2</div><div class="annotation-text"><strong>Layout confus</strong>3 colonnes denses, hiérarchie peu claire entre info produit et calendrier.</div></div>
+      <div class="annotation-item"><div class="annotation-dot red">3</div><div class="annotation-text"><strong>Paiement absent</strong>Pas de Stripe intégré — l'utilisateur sort du contexte pour payer.</div></div>
+      <div class="annotation-item"><div class="annotation-dot red">4</div><div class="annotation-text"><strong>Pas de récap</strong>Aucun résumé du prix ou du plan choisi pendant la réservation.</div></div>
+    </div>
+  </div>
+</div>
+<p class="wireframe-caption">Fig. 1 — État initial · Flow Calendly + redirect paiement externe</p>
+
+<!-- AFTER -->
+<div class="section-divider">
+  <span class="badge badge-after">V2 — Custom (Redesign)</span>
+  <div class="divider-line"></div>
+</div>
+
+<div class="wireframe-wrap">
+  <div class="wireframe-card">
+    <span class="version-label version-v2">V2 · Custom</span>
+    <div class="wireframe-title-bar">
+      <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+      <span class="wireframe-url">hanging.fr/booking?plan=solo</span>
+    </div>
+    <div class="custom-layout">
+      <div class="custom-left">
+        <div class="wf-breadcrumb"><div class="wf-back"></div><div class="wf-bc-text"></div></div>
+        <div class="wf-page-title"></div>
+        <div class="wf-stepper-card">
+          <div class="wf-stepper-header">
+            <div class="wf-stepper-label" style="width: 140px;"></div>
+            <div class="wf-stepper-chevron"></div>
+          </div>
+          <div class="wf-stepper-open">
+            <div class="wf-mini-month">
+              <div class="wf-mini-nav"></div>
+              <div class="wf-mini-month-text"></div>
+              <div class="wf-mini-nav"></div>
+            </div>
+            <div class="wf-mini-cal">
+              <div class="cal-day-head"></div><div class="cal-day-head"></div><div class="cal-day-head"></div><div class="cal-day-head"></div><div class="cal-day-head"></div><div class="cal-day-head"></div>
+              <div class="cal-day empty"></div>
+              <div class="wf-mini-day"></div><div class="wf-mini-day"></div><div class="wf-mini-day"></div>
+              <div class="wf-mini-day" style="background:#d0d0d0"></div>
+              <div class="wf-mini-day"></div><div class="wf-mini-day"></div><div class="wf-mini-day"></div>
+              <div class="wf-mini-day"></div><div class="wf-mini-day"></div><div class="wf-mini-day"></div>
+              <div class="wf-mini-day" style="background:#1a1a1a"></div>
+              <div class="wf-mini-day"></div><div class="wf-mini-day"></div><div class="wf-mini-day"></div>
+              <div class="wf-mini-day"></div><div class="wf-mini-day"></div><div class="wf-mini-day"></div>
+              <div class="wf-mini-day"></div><div class="wf-mini-day"></div><div class="wf-mini-day"></div>
+              <div class="wf-mini-day"></div>
+            </div>
+          </div>
+        </div>
+        <div class="wf-stepper-card"><div class="wf-stepper-header" style="background:#f9f9f9"><div class="wf-stepper-label" style="width:160px;background:var(--wire)"></div><div class="wf-stepper-chevron"></div></div></div>
+        <div class="wf-stepper-card"><div class="wf-stepper-header" style="background:#f9f9f9"><div class="wf-stepper-label" style="width:120px;background:var(--wire)"></div><div class="wf-stepper-chevron"></div></div></div>
+        <div class="wf-stepper-card"><div class="wf-stepper-header" style="background:#f9f9f9"><div class="wf-stepper-label" style="width:180px;background:var(--wire)"></div><div class="wf-stepper-chevron"></div></div></div>
+      </div>
+      <div class="custom-right">
+        <div class="sticky-panel">
+          <div class="sticky-header">
+            <div class="sticky-plan-name"></div>
+            <div class="sticky-plan-desc"></div>
+            <div class="sticky-plan-desc" style="width:70%"></div>
+          </div>
+          <div class="sticky-features">
+            <div class="sticky-feature-row"><div class="sticky-feature-icon"></div><div class="sticky-feature-text"></div></div>
+            <div class="sticky-feature-row"><div class="sticky-feature-icon"></div><div class="sticky-feature-text" style="width:70%"></div></div>
+            <div class="sticky-feature-row"><div class="sticky-feature-icon"></div><div class="sticky-feature-text" style="width:80%"></div></div>
+            <div class="sticky-feature-row"><div class="sticky-feature-icon"></div><div class="sticky-feature-text" style="width:90%"></div></div>
+          </div>
+          <div class="sticky-price-row"><div class="price-line"><div class="price-label"></div><div class="price-amount"></div></div></div>
+          <div class="sticky-price-row" style="border-bottom:none"><div class="price-line"><div class="price-total-label"></div><div class="price-total-amount"></div></div></div>
+          <div class="sticky-cta"><div class="sticky-cta-icon"></div><div class="sticky-cta-text"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="annotation">
+    <div style="margin-top: 60px;">
+      <div class="annotation-item"><div class="annotation-dot green">1</div><div class="annotation-text"><strong>Identité propre</strong>Design system Hanging — typo, couleurs, ton cohérents avec la marque.</div></div>
+      <div class="annotation-item"><div class="annotation-dot green">2</div><div class="annotation-text"><strong>Stepper progressif</strong>4 étapes dépliables. L'utilisateur ne voit que ce qui est pertinent à son stade.</div></div>
+      <div class="annotation-item"><div class="annotation-dot green">3</div><div class="annotation-text"><strong>Récap sticky</strong>Plan + prix toujours visible à droite. Moins d'hésitation avant de payer.</div></div>
+      <div class="annotation-item"><div class="annotation-dot green">4</div><div class="annotation-text"><strong>Paiement intégré</strong>Stripe directement dans le flow — pas de redirection, pas de friction.</div></div>
+    </div>
+  </div>
+</div>
+<p class="wireframe-caption">Fig. 2 — Redesign custom · Stepper + récap sticky + Stripe intégré</p>
+
+<!-- Comparison table -->
+<div class="comparison-table">
+  <div class="comparison-header">
+    <div class="comp-h">Critère</div>
+    <div class="comp-h">V1 — Calendly</div>
+    <div class="comp-h">V2 — Custom</div>
+  </div>
+  <div class="comparison-row">
+    <div class="comp-cell criteria">Branding</div>
+    <div class="comp-cell"><span class="bad">✕</span> Générique bleu Calendly</div>
+    <div class="comp-cell"><span class="good">✓</span> Identité Hanging</div>
+  </div>
+  <div class="comparison-row">
+    <div class="comp-cell criteria">Paiement</div>
+    <div class="comp-cell"><span class="bad">✕</span> Redirection externe</div>
+    <div class="comp-cell"><span class="good">✓</span> Stripe intégré au flow</div>
+  </div>
+  <div class="comparison-row">
+    <div class="comp-cell criteria">Récapitulatif</div>
+    <div class="comp-cell"><span class="bad">✕</span> Absent pendant la résa</div>
+    <div class="comp-cell"><span class="good">✓</span> Panel sticky permanent</div>
+  </div>
+  <div class="comparison-row">
+    <div class="comp-cell criteria">Progression</div>
+    <div class="comp-cell"><span class="bad">✕</span> Layout dense 3 colonnes</div>
+    <div class="comp-cell"><span class="good">✓</span> Stepper 4 étapes guidé</div>
+  </div>
+  <div class="comparison-row">
+    <div class="comp-cell criteria">Propriété</div>
+    <div class="comp-cell"><span class="bad">✕</span> Dépendance outil tiers</div>
+    <div class="comp-cell"><span class="good">✓</span> Ownership total du code</div>
+  </div>
+</div>
+
+</body>
+</html>

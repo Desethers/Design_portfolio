@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --ink:#1a1a1a; --muted:#888; --wire:#c8c8c8; --fill:#e8e8e8; --bg:#f5f4f0; --white:#fff; --red:#e84040; }
+  body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--ink); padding:32px; }
+
+  .badge { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.1em; text-transform:uppercase; padding:4px 10px; border-radius:20px; background:#ffe0e0; color:#c00; font-weight:500; display:inline-block; margin-bottom:20px; }
+
+  .wireframe-wrap { display:flex; gap:20px; align-items:flex-start; }
+  .wireframe-card { background:var(--white); border:1.5px solid var(--wire); border-radius:12px; overflow:hidden; flex:1; }
+  .wireframe-title-bar { background:var(--fill); border-bottom:1.5px solid var(--wire); padding:10px 16px; display:flex; align-items:center; gap:8px; }
+  .dot { width:8px; height:8px; border-radius:50%; background:var(--wire); }
+  .wireframe-url { font-family:'DM Mono',monospace; font-size:10px; color:var(--muted); margin-left:8px; }
+
+  .calendly-layout { display:grid; grid-template-columns:180px 1fr 1fr; gap:0; min-height:360px; }
+
+  .cal-sidebar { border-right:1.5px solid var(--wire); padding:20px 16px; }
+  .cal-sidebar-logo { height:16px; width:60px; background:var(--fill); border-radius:3px; margin-bottom:6px; }
+  .cal-sidebar-title { height:18px; background:var(--fill); border-radius:3px; margin-bottom:4px; }
+  .cal-sidebar-title.thin { height:14px; width:80%; }
+  .cal-sidebar-meta { display:flex; align-items:center; gap:5px; margin:12px 0; }
+  .cal-icon { width:10px; height:10px; background:var(--wire); border-radius:50%; flex-shrink:0; }
+  .cal-meta-line { height:8px; background:var(--fill); border-radius:3px; flex:1; }
+  .cal-info-block { margin:10px 0; }
+  .cal-info-label { height:9px; width:90%; background:#d0d0d0; border-radius:3px; margin-bottom:5px; }
+  .cal-info-text { height:8px; background:var(--fill); border-radius:3px; margin-bottom:3px; }
+
+  .cal-calendar { border-right:1.5px solid var(--wire); padding:20px 16px; }
+  .cal-month-nav { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; }
+  .cal-nav-arrow { width:24px; height:24px; background:var(--fill); border-radius:50%; }
+  .cal-month-label { height:14px; width:80px; background:var(--fill); border-radius:3px; }
+  .cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; }
+  .cal-day-head { height:8px; background:var(--fill); border-radius:2px; margin-bottom:8px; }
+  .cal-day { aspect-ratio:1; border-radius:50%; background:var(--fill); }
+  .cal-day.active { background:#2d7ff9; }
+  .cal-day.available { background:#dbeafe; }
+  .cal-day.empty { background:transparent; }
+  .cal-timezone { margin-top:14px; display:flex; align-items:center; gap:6px; }
+  .cal-tz-icon { width:12px; height:12px; background:var(--fill); border-radius:50%; }
+  .cal-tz-text { height:9px; width:120px; background:var(--fill); border-radius:3px; }
+
+  .cal-times { padding:20px 16px; }
+  .cal-times-title { height:14px; width:120px; background:var(--fill); border-radius:3px; margin-bottom:16px; }
+  .cal-time-slot { border:1.5px solid #2d7ff9; border-radius:6px; height:36px; margin-bottom:8px; display:flex; align-items:center; justify-content:center; }
+  .cal-time-slot-text { height:9px; width:40px; background:#2d7ff9; border-radius:3px; }
+
+  .annotation { flex-shrink:0; width:180px; }
+  .annotation-item { display:flex; gap:10px; margin-bottom:16px; align-items:flex-start; }
+  .annotation-dot { width:20px; height:20px; border-radius:50%; background:var(--red); color:#fff; font-family:'DM Mono',monospace; font-size:10px; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px; }
+  .annotation-text { font-size:12px; line-height:1.5; color:var(--ink); }
+  .annotation-text strong { display:block; font-weight:600; margin-bottom:2px; font-size:11px; text-transform:uppercase; letter-spacing:.05em; }
+
+  .problem-banner { background:#fff8f0; border:1.5px solid #f0d0a0; border-radius:10px; padding:14px 18px; margin:12px 0 0; }
+  .problem-banner-title { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:#b07000; margin-bottom:6px; }
+  .problem-banner p { font-size:12px; line-height:1.6; color:#7a5000; }
+  .caption { margin-top:12px; font-family:'DM Mono',monospace; font-size:10px; color:var(--muted); letter-spacing:.05em; }
+</style>
+</head>
+<body>
+<span class="badge">V1 — Calendly · État existant</span>
+<div class="wireframe-wrap">
+  <div class="wireframe-card">
+    <div class="wireframe-title-bar">
+      <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+      <span class="wireframe-url">calendly.com/hanging/reservation-group-show</span>
+    </div>
+    <div class="calendly-layout">
+      <div class="cal-sidebar">
+        <div class="cal-sidebar-logo"></div>
+        <div style="height:6px"></div>
+        <div class="cal-sidebar-title"></div>
+        <div class="cal-sidebar-title thin"></div>
+        <div class="cal-sidebar-meta"><div class="cal-icon"></div><div class="cal-meta-line"></div></div>
+        <div class="cal-sidebar-meta"><div class="cal-icon"></div><div class="cal-meta-line" style="width:60%"></div></div>
+        <div style="height:10px"></div>
+        <div class="cal-info-block"><div class="cal-info-label"></div><div class="cal-info-text"></div><div class="cal-info-text" style="width:80%"></div><div class="cal-info-text" style="width:60%"></div></div>
+        <div class="cal-info-block"><div class="cal-info-label"></div><div class="cal-info-text"></div><div class="cal-info-text" style="width:70%"></div></div>
+        <div class="cal-info-block"><div class="cal-info-label"></div><div class="cal-info-text"></div><div class="cal-info-text" style="width:90%"></div></div>
+      </div>
+      <div class="cal-calendar">
+        <div class="cal-month-nav"><div class="cal-nav-arrow"></div><div class="cal-month-label"></div><div class="cal-nav-arrow"></div></div>
+        <div class="cal-grid">
+          <div class="cal-day-head"></div><div class="cal-day-head"></div><div class="cal-day-head"></div><div class="cal-day-head"></div><div class="cal-day-head"></div><div class="cal-day-head"></div><div class="cal-day-head"></div>
+          <div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day available"></div>
+          <div class="cal-day active"></div><div class="cal-day available"></div><div class="cal-day available"></div><div class="cal-day available"></div><div class="cal-day available"></div><div class="cal-day"></div><div class="cal-day"></div>
+          <div class="cal-day available"></div><div class="cal-day available"></div><div class="cal-day available"></div><div class="cal-day available"></div><div class="cal-day available"></div><div class="cal-day"></div><div class="cal-day"></div>
+          <div class="cal-day available"></div><div class="cal-day available"></div><div class="cal-day available"></div><div class="cal-day available"></div><div class="cal-day available"></div><div class="cal-day"></div><div class="cal-day"></div>
+        </div>
+        <div class="cal-timezone"><div class="cal-tz-icon"></div><div class="cal-tz-text"></div></div>
+      </div>
+      <div class="cal-times">
+        <div class="cal-times-title"></div>
+        <div class="cal-time-slot"><div class="cal-time-slot-text"></div></div>
+        <div class="cal-time-slot"><div class="cal-time-slot-text"></div></div>
+        <div class="cal-time-slot"><div class="cal-time-slot-text"></div></div>
+        <div class="cal-time-slot"><div class="cal-time-slot-text"></div></div>
+        <div class="cal-time-slot"><div class="cal-time-slot-text"></div></div>
+        <div class="cal-time-slot"><div class="cal-time-slot-text"></div></div>
+      </div>
+    </div>
+    <div style="padding:0 16px 16px">
+      <div class="problem-banner">
+        <div class="problem-banner-title">⚠ Frictions identifiées</div>
+        <p>Branding bleu Calendly non cohérent. Layout 3 colonnes dense. Paiement absent — redirection externe. Pas de récapitulatif du plan sélectionné.</p>
+      </div>
+    </div>
+  </div>
+  <div class="annotation">
+    <div style="margin-top:54px">
+      <div class="annotation-item"><div class="annotation-dot">1</div><div class="annotation-text"><strong>Branding cassé</strong>Interface bleue Calendly, aucun lien visuel avec Hanging.</div></div>
+      <div class="annotation-item"><div class="annotation-dot">2</div><div class="annotation-text"><strong>Layout confus</strong>3 colonnes denses, hiérarchie peu claire.</div></div>
+      <div class="annotation-item"><div class="annotation-dot">3</div><div class="annotation-text"><strong>Paiement absent</strong>L'utilisateur sort du contexte pour payer.</div></div>
+      <div class="annotation-item"><div class="annotation-dot">4</div><div class="annotation-text"><strong>Pas de récap</strong>Aucun résumé du prix ou du plan choisi.</div></div>
+    </div>
+  </div>
+</div>
+<p class="caption">Fig. 1 — État initial · Flow Calendly + redirect paiement externe</p>
+</body>
+</html>

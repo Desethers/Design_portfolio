@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
+  * { box-sizing:border-box; margin:0; padding:0; }
+  :root { --ink:#1a1a1a; --muted:#888; --wire:#c8c8c8; --fill:#e8e8e8; --bg:#f5f4f0; --white:#fff; }
+  body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--ink); padding:24px; }
+
+  .badge { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.1em; text-transform:uppercase; padding:4px 10px; border-radius:20px; background:#d4f0d4; color:#2a7a2a; font-weight:500; display:inline-block; margin-bottom:16px; }
+
+  /* Browser shell — aspect ratio paysage fixe */
+  .browser { background:var(--white); border:1.5px solid var(--wire); border-radius:12px; overflow:hidden; aspect-ratio:16/9; display:flex; flex-direction:column; }
+  .browser-bar { background:var(--fill); border-bottom:1.5px solid var(--wire); padding:8px 14px; display:flex; align-items:center; gap:7px; flex-shrink:0; }
+  .bdot { width:7px; height:7px; border-radius:50%; background:var(--wire); }
+  .browser-url { font-family:'DM Mono',monospace; font-size:10px; color:var(--muted); margin-left:6px; }
+
+  /* Scrollable inner page */
+  .page { padding:16px 20px 20px; flex:1; overflow:hidden; display:flex; flex-direction:column; }
+
+  .page-nav { display:flex; align-items:center; gap:8px; margin-bottom:10px; flex-shrink:0; }
+  .nav-logo { width:12px; height:12px; background:var(--fill); border-radius:3px; }
+  .nav-name { height:8px; width:64px; background:var(--fill); border-radius:3px; }
+
+  .stepper-bar { height:4px; background:var(--fill); border-radius:3px; width:68%; margin-bottom:14px; position:relative; overflow:hidden; flex-shrink:0; }
+  .stepper-bar::after { content:''; position:absolute; left:0; top:0; width:48%; height:100%; background:var(--ink); border-radius:3px; }
+
+  /* 2-col layout */
+  .layout { display:grid; grid-template-columns:1fr 260px; gap:16px; flex:1; min-height:0; }
+
+  /* Accordion cards */
+  .accordion { display:flex; flex-direction:column; gap:8px; overflow:hidden; }
+
+  .acc-card { background:var(--white); border:1.5px solid var(--wire); border-radius:8px; overflow:hidden; flex-shrink:0; }
+  .acc-head { padding:10px 14px; display:flex; align-items:center; justify-content:space-between; }
+  .acc-lbl { height:9px; background:var(--fill); border-radius:3px; }
+  .acc-toggle { width:12px; height:12px; background:var(--fill); border-radius:3px; flex-shrink:0; }
+
+  /* Calendar body */
+  .cal-body { border-top:1.5px solid var(--wire); padding:10px 14px 12px; }
+  .cal-month-row { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+  .cal-arrow { width:18px; height:18px; background:var(--fill); border-radius:50%; }
+  .cal-month-lbl { height:9px; width:60px; background:var(--fill); border-radius:3px; }
+  .cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; }
+  .cal-d { aspect-ratio:1; border-radius:50%; background:var(--fill); }
+  .cal-d.selected { background:var(--ink); }
+  .cal-d.x { background:transparent; }
+  .cal-d.dim { background:#ddd; }
+
+  /* Summary panel */
+  .summary { background:var(--white); border:1.5px solid var(--wire); border-radius:8px; overflow:hidden; display:flex; flex-direction:column; }
+
+  .sum-sec { padding:10px 14px; border-bottom:1.5px solid var(--wire); flex-shrink:0; }
+  .sum-sec:last-child { border-bottom:none; }
+
+  .bar { height:9px; background:var(--fill); border-radius:3px; margin-bottom:5px; }
+  .bar:last-child { margin-bottom:0; }
+
+  .sum-items { display:flex; flex-direction:column; gap:8px; }
+  .sum-item { display:flex; gap:7px; align-items:flex-start; }
+  .sum-sq { width:9px; height:9px; background:var(--fill); border-radius:2px; flex-shrink:0; margin-top:1px; }
+  .sum-lines { flex:1; display:flex; flex-direction:column; gap:3px; }
+  .sum-line { height:8px; background:var(--fill); border-radius:3px; }
+
+  .sum-row { display:flex; align-items:center; justify-content:space-between; }
+  .sum-row-left { display:flex; align-items:center; gap:5px; }
+  .sum-circ { width:9px; height:9px; background:var(--fill); border-radius:50%; }
+  .sum-lbl { height:8px; background:var(--fill); border-radius:3px; }
+  .sum-price { height:8px; background:#d0d0d0; border-radius:3px; }
+
+  .sum-btn-sm { height:24px; width:62px; background:var(--ink); border-radius:5px; flex-shrink:0; }
+
+  .sum-cta { padding:10px 14px; }
+  .sum-cta-btn { height:36px; background:var(--ink); border-radius:7px; width:100%; }
+
+  .caption { margin-top:10px; font-family:'DM Mono',monospace; font-size:10px; color:var(--muted); letter-spacing:.05em; }
+</style>
+</head>
+<body>
+<span class="badge">V2 — Custom · Redesign</span>
+
+<div class="browser">
+  <div class="browser-bar">
+    <div class="bdot"></div><div class="bdot"></div><div class="bdot"></div>
+    <span class="browser-url">hanging.fr/booking</span>
+  </div>
+  <div class="page">
+
+    <div class="page-nav">
+      <div class="nav-logo"></div>
+      <div class="nav-name"></div>
+    </div>
+    <div class="stepper-bar"></div>
+
+    <div class="layout">
+
+      <!-- Left: accordion steps -->
+      <div class="accordion">
+
+        <!-- Card 1 — open, calendar -->
+        <div class="acc-card">
+          <div class="acc-head">
+            <div class="acc-lbl" style="width:46%"></div>
+            <div class="acc-toggle"></div>
+          </div>
+          <div class="cal-body">
+            <div class="cal-month-row">
+              <div class="cal-arrow"></div>
+              <div class="cal-month-lbl"></div>
+              <div class="cal-arrow"></div>
+            </div>
+            <div class="cal-grid">
+              <div class="cal-d dim"></div><div class="cal-d dim"></div><div class="cal-d dim"></div><div class="cal-d dim"></div><div class="cal-d selected"></div><div class="cal-d dim"></div><div class="cal-d"></div>
+              <div class="cal-d"></div><div class="cal-d"></div><div class="cal-d"></div><div class="cal-d"></div><div class="cal-d"></div><div class="cal-d"></div><div class="cal-d"></div>
+              <div class="cal-d"></div><div class="cal-d"></div><div class="cal-d"></div><div class="cal-d"></div><div class="cal-d"></div><div class="cal-d"></div><div class="cal-d"></div>
+              <div class="cal-d"></div><div class="cal-d"></div><div class="cal-d"></div><div class="cal-d"></div><div class="cal-d x"></div><div class="cal-d x"></div><div class="cal-d x"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="acc-card">
+          <div class="acc-head">
+            <div class="acc-lbl" style="width:54%"></div>
+            <div class="acc-toggle"></div>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="acc-card">
+          <div class="acc-head">
+            <div class="acc-lbl" style="width:48%"></div>
+            <div class="acc-toggle"></div>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="acc-card">
+          <div class="acc-head">
+            <div class="acc-lbl" style="width:38%"></div>
+            <div class="acc-toggle"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right: summary panel -->
+      <div class="summary">
+
+        <div class="sum-sec">
+          <div class="bar" style="width:62%"></div>
+          <div class="bar" style="width:46%"></div>
+          <div class="bar" style="width:54%; margin-bottom:0"></div>
+        </div>
+
+        <div class="sum-sec">
+          <div class="sum-items">
+            <div class="sum-item">
+              <div class="sum-sq"></div>
+              <div class="sum-lines">
+                <div class="sum-line" style="width:88%"></div>
+                <div class="sum-line" style="width:72%"></div>
+              </div>
+            </div>
+            <div class="sum-item">
+              <div class="sum-sq"></div>
+              <div class="sum-lines">
+                <div class="sum-line" style="width:80%"></div>
+                <div class="sum-line" style="width:60%"></div>
+              </div>
+            </div>
+            <div class="sum-item">
+              <div class="sum-sq"></div>
+              <div class="sum-lines">
+                <div class="sum-line" style="width:76%"></div>
+                <div class="sum-line" style="width:50%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sum-sec">
+          <div class="sum-row">
+            <div class="sum-row-left"><div class="sum-circ"></div><div class="sum-lbl" style="width:58px"></div></div>
+            <div class="sum-price" style="width:32px"></div>
+          </div>
+        </div>
+
+        <div class="sum-sec">
+          <div class="sum-row">
+            <div class="sum-lbl" style="width:48px"></div>
+            <div class="sum-price" style="width:40px"></div>
+          </div>
+        </div>
+
+        <div class="sum-sec">
+          <div class="sum-row">
+            <div class="sum-lbl" style="width:52px"></div>
+            <div class="sum-btn-sm"></div>
+          </div>
+        </div>
+
+        <div class="sum-cta">
+          <div class="sum-cta-btn"></div>
+        </div>
+
+        <div class="sum-sec" style="padding-top:8px; padding-bottom:10px;">
+          <div class="bar" style="width:65%; height:7px; background:#ddd; margin-bottom:0;"></div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<p class="caption">Fig. 2 — Redesign custom · Stepper + récap sticky + Stripe intégré</p>
+</body>
+</html>

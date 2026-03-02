@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
+  * { box-sizing:border-box; margin:0; padding:0; }
+  :root { --ink:#1a1a1a; --muted:#888; --wire:#c8c8c8; --fill:#e8e8e8; --bg:#f5f4f0; --white:#fff; --red:#e84040; }
+  body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--ink); padding:32px; }
+
+  .badge { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.1em; text-transform:uppercase; padding:4px 10px; border-radius:20px; background:var(--fill); color:var(--muted); font-weight:500; display:inline-block; margin-bottom:20px; }
+
+  .comparison-table { border:1.5px solid var(--wire); border-radius:12px; overflow:hidden; background:var(--white); }
+  .comparison-header { display:grid; grid-template-columns:1fr 1fr 1fr; background:var(--fill); border-bottom:1.5px solid var(--wire); }
+  .comp-h { padding:12px 20px; font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); font-weight:500; }
+  .comp-h:not(:last-child) { border-right:1.5px solid var(--wire); }
+  .comparison-row { display:grid; grid-template-columns:1fr 1fr 1fr; border-bottom:1.5px solid var(--wire); }
+  .comparison-row:last-child { border-bottom:none; }
+  .comp-cell { padding:14px 20px; font-size:13px; line-height:1.5; }
+  .comp-cell:not(:last-child) { border-right:1.5px solid var(--wire); }
+  .comp-cell.criteria { font-weight:500; font-size:12px; color:var(--muted); }
+  .bad  { color:var(--red); font-weight:500; }
+  .good { color:#2a7a2a; font-weight:500; }
+
+  .caption { margin-top:12px; font-family:'DM Mono',monospace; font-size:10px; color:var(--muted); letter-spacing:.05em; }
+</style>
+</head>
+<body>
+<span class="badge">Synthèse comparative · V1 vs V2</span>
+<div class="comparison-table">
+  <div class="comparison-header">
+    <div class="comp-h">Critère</div>
+    <div class="comp-h">V1 — Calendly</div>
+    <div class="comp-h">V2 — Custom</div>
+  </div>
+  <div class="comparison-row">
+    <div class="comp-cell criteria">Branding</div>
+    <div class="comp-cell"><span class="bad">✕</span> Générique bleu Calendly</div>
+    <div class="comp-cell"><span class="good">✓</span> Identité Hanging</div>
+  </div>
+  <div class="comparison-row">
+    <div class="comp-cell criteria">Paiement</div>
+    <div class="comp-cell"><span class="bad">✕</span> Redirection externe</div>
+    <div class="comp-cell"><span class="good">✓</span> Stripe intégré au flow</div>
+  </div>
+  <div class="comparison-row">
+    <div class="comp-cell criteria">Récapitulatif</div>
+    <div class="comp-cell"><span class="bad">✕</span> Absent pendant la résa</div>
+    <div class="comp-cell"><span class="good">✓</span> Panel sticky permanent</div>
+  </div>
+  <div class="comparison-row">
+    <div class="comp-cell criteria">Progression</div>
+    <div class="comp-cell"><span class="bad">✕</span> Layout dense 3 colonnes</div>
+    <div class="comp-cell"><span class="good">✓</span> Stepper 4 étapes guidé</div>
+  </div>
+  <div class="comparison-row">
+    <div class="comp-cell criteria">Propriété</div>
+    <div class="comp-cell"><span class="bad">✕</span> Dépendance outil tiers</div>
+    <div class="comp-cell"><span class="good">✓</span> Ownership total du code</div>
+  </div>
+</div>
+<p class="caption">Fig. 3 — Comparaison critères clés V1 → V2</p>
+</body>
+</html>
