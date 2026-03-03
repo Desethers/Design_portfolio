@@ -29,31 +29,26 @@ export const projects = [
           { label: "Surcharge cognitive", detail: "Les informations produit (ce qui est inclus, les conditions) étaient mélangées aux informations de planning dans la sidebar Calendly, sans hiérarchie visuelle claire." },
         ],
       },
-      ideation:
-        "2 sessions de sketching rapide (crazy 8s), puis sélection de 2 directions à prototyper. Direction retenue : flow en 4 étapes avec stepper visible, récapitulatif progressif et page de confirmation rassurante.",
       wireframes: [
         { title: "V1 — Calendly (état existant)", src: "/wireframes/wireframe-v1.png", type: "image" },
         { title: "V2 — Custom flow", src: "/wireframes/wireframe-v2.png", type: "image" },
       ],
+      execution: "Ce projet n'a pas été confié à un développeur. Le design et le code ont été produits par la même personne, en itérant directement dans le navigateur plutôt que de rester dans Figma.",
+      stack: [
+        { tool: "Figma", description: "Wireframes basse fidélité uniquement. Valider la structure du flow avant de passer au code." },
+        { tool: "Claude Code", description: "Initialiser la structure du projet, générer les composants de base et accélérer les décisions d'architecture." },
+        { tool: "Cursor", description: "Éditeur principal pour le frontend. Itérer sur les composants React et corriger les bugs au fil des tests." },
+        { tool: "Supabase", description: "Base de données pour les créneaux et les réservations. Setup rapide, intégration directe avec Stripe." },
+        { tool: "Stripe", description: "Paiement via Stripe Checkout. Flow fiable et rassurant sans solution custom." },
+        { tool: "Vercel", description: "Déploiement continu depuis GitHub. Chaque push en production visible sur hanging.fr en moins d'une minute." },
+      ],
       testing: {
-        method: "Tests modérés sur prototype Figma avec 5 participants (profils variés, 25-45 ans).",
-        results: [
-          { metric: "Taux de complétion", before: "40 %", after: "78 %" },
-          { metric: "Temps moyen par flow", before: "4 min 20 s", after: "2 min 10 s" },
-          { metric: "Erreurs de navigation", before: "8,2 / session", after: "1,4 / session" },
-        ],
-        quote: "« Je savais exactement où j'en étais, c'était rassurant. » — Participant 3",
+        method: "Le produit est live mais n'a pas encore enregistré de réservation. À ce stade du projet, l'objectif était de construire et de shipper un flow complet et fonctionnel — du choix du créneau jusqu'au paiement Stripe — sur hanging.fr. La phase de validation utilisateur vient ensuite.",
+        results: [],
+        quote: "",
       },
-      iterations: [
-        "Ajout d'un récapitulatif flottant persistent (bottom sheet) après test 1 : les utilisateurs voulaient voir le prix à tout moment.",
-        "Simplification de l'écran paiement : suppression des champs optionnels, passage à un formulaire en 2 colonnes.",
-        "Renforcement des signaux de confiance (badge SSL, nombre d'avis) sur l'écran final.",
-      ],
-      impact: [
-        { value: "+38 pts", label: "Taux de complétion" },
-        { value: "−50 %", label: "Temps par réservation" },
-        { value: "4,4/5", label: "Satisfaction (SUS simplifié)" },
-      ],
+      iterations: [],
+      impact: "Le produit est en production sur hanging.fr. Les métriques de conversion seront mesurées et documentées lors des premières réservations.",
       retrospective:
         "J'aurais dû tester les wireframes plus tôt, dès la basse fidélité. J'ai perdu du temps sur des détails UI avant d'avoir validé la structure. La prochaine fois : tester le flow en noir et blanc avant de toucher aux couleurs.",
     },
