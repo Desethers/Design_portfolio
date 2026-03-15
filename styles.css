@@ -654,6 +654,9 @@ a {
   display: flex;
   flex-direction: column;
   gap: 0.7rem;
+  padding: 20px 28px;
+  border-radius: 16px;
+  background: #fff;
 }
 
 .pv-problem-image {
