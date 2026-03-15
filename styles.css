@@ -62,7 +62,7 @@ a {
 /* Main */
 .main {
   flex: 1;
-  max-width: 1100px;
+  max-width: 1320px;
   margin: 0 auto;
   width: 100%;
   padding: 3rem 1.5rem 4rem;
@@ -218,7 +218,7 @@ a {
 /* ─── Page projet ────────────────────────────────────────────────────── */
 .project-page {
   flex: 1;
-  max-width: 780px;
+  max-width: 1040px;
   margin: 0 auto;
   width: 100%;
   padding: 2.5rem 1.5rem 5rem;
@@ -272,6 +272,14 @@ a {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
+}
+
+.project-page-description {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #1a1a1a;
+  margin: 1rem 0 0;
+  max-width: 42em;
 }
 
 /* Segmented control */
@@ -611,6 +619,57 @@ a {
   gap: 0.75rem;
 }
 
+.process-view #problem .pv-problem-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.pv-problem-grid:has(.pv-problem-num) {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.pv-problem-domain {
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.pv-problem-num {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: #1a1a1a;
+  font-variant-numeric: tabular-nums;
+}
+
+.pv-problem-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.pv-problem-visual {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.pv-problem-image {
+  width: 100%;
+  display: block;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: #fff;
+}
+
+.pv-problem-caption {
+  font-size: 0.74rem;
+  color: rgba(0, 0, 0, 0.62);
+  line-height: 1.45;
+}
+
 .pv-problem-card {
   padding: 1rem;
   border-radius: 10px;
@@ -619,6 +678,11 @@ a {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  transition: background 0.2s ease;
+}
+
+.pv-problem-card:hover {
+  background: #fff;
 }
 
 .pv-problem-type {
@@ -887,6 +951,10 @@ a {
   }
 
   .pv-problem-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pv-problem-grid:has(.pv-problem-num) {
     grid-template-columns: 1fr;
   }
 
