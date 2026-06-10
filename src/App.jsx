@@ -521,6 +521,42 @@ const STACKS = [
 ];
 
 function StackIcon({ id }) {
+  const iconAssets = {
+    "claude-code": {
+      src: "/icones/claudecode-text.svg",
+      className: "stack-tile--asset stack-tile--claude",
+    },
+    codex: {
+      src: "/icones/cursor.svg",
+      className: "stack-tile--asset stack-tile--cursor",
+    },
+    jitter: {
+      src: "/icones/icon jittr.png",
+      className: "stack-tile--asset",
+    },
+    sanity: {
+      src: "/icones/id1OvBeURQ_1781124483536.png",
+      className: "stack-tile--asset",
+    },
+    supabase: {
+      src: "/icones/supabase-logo-icon.svg",
+      className: "stack-tile--asset stack-tile--supabase",
+    },
+    vercel: {
+      src: "/icones/vercel.svg",
+      className: "stack-tile--asset stack-tile--vercel",
+    },
+  };
+  const asset = iconAssets[id];
+
+  if (asset) {
+    return (
+      <span className={`stack-tile ${asset.className}`}>
+        <img src={asset.src} alt="" aria-hidden="true" />
+      </span>
+    );
+  }
+
   switch (id) {
     case "claude-code":
       return (
@@ -595,97 +631,6 @@ function StackIcon({ id }) {
   }
 }
 
-function StackDock({ stacks, activeId, onChange }) {
-  const trackRef = useRef(null);
-  const programmaticRef = useRef(false);
-  const programmaticTimer = useRef(null);
-
-  const centerOn = (node, smooth = true) => {
-    const el = trackRef.current;
-    if (!el || !node) return;
-    const target = node.offsetLeft + node.offsetWidth / 2 - el.clientWidth / 2;
-    // Verrouille la détection au scroll le temps du défilement programmé,
-    // sinon les icônes intermédiaires reprennent la sélection en cours de route.
-    programmaticRef.current = true;
-    clearTimeout(programmaticTimer.current);
-    programmaticTimer.current = setTimeout(() => {
-      programmaticRef.current = false;
-    }, smooth ? 700 : 50);
-    el.scrollTo({ left: target, behavior: smooth ? "smooth" : "auto" });
-  };
-
-  const settleTimer = useRef(null);
-
-  const handleScroll = () => {
-    const el = trackRef.current;
-    if (!el || programmaticRef.current) return;
-    const center = el.scrollLeft + el.clientWidth / 2;
-    let best = null;
-    let bestNode = null;
-    let bestDist = Infinity;
-    el.querySelectorAll("[data-stack]").forEach((node) => {
-      const d = Math.abs(node.offsetLeft + node.offsetWidth / 2 - center);
-      if (d < bestDist) {
-        bestDist = d;
-        best = node.dataset.stack;
-        bestNode = node;
-      }
-    });
-    if (best && best !== activeId) onChange(best);
-    // Auto-centrage doux une fois le scroll utilisateur terminé.
-    clearTimeout(settleTimer.current);
-    settleTimer.current = setTimeout(() => {
-      if (!programmaticRef.current && bestNode && bestDist > 2) centerOn(bestNode);
-    }, 220);
-  };
-
-  const handleWheel = (e) => {
-    const el = trackRef.current;
-    if (!el) return;
-    e.preventDefault();
-    // L'input utilisateur reprend toujours la main sur un recentrage en cours.
-    programmaticRef.current = false;
-    clearTimeout(programmaticTimer.current);
-    const delta = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
-    el.scrollLeft += delta;
-    // Certains environnements n'émettent pas d'événement scroll sur mutation
-    // programmée de scrollLeft : on synchronise directement.
-    handleScroll();
-  };
-
-  useEffect(() => {
-    const el = trackRef.current;
-    const node = el?.querySelector(`[data-stack="${activeId}"]`);
-    if (!el || !node) return;
-    // Si la sélection vient d'ailleurs (clic sur une card latérale), on recentre l'icône.
-    const offset = Math.abs(node.offsetLeft + node.offsetWidth / 2 - (el.scrollLeft + el.clientWidth / 2));
-    if (offset > 40) centerOn(node);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeId]);
-
-  return (
-    <nav className="stack-dock" aria-label="Stacks">
-      <div className="stack-dock-track" ref={trackRef} onScroll={handleScroll} onWheel={handleWheel}>
-        {stacks.map((stack) => (
-          <button
-            key={stack.id}
-            type="button"
-            data-stack={stack.id}
-            className={`stack-dock-item${stack.id === activeId ? " is-active" : ""}`}
-            onClick={(e) => {
-              onChange(stack.id);
-              centerOn(e.currentTarget);
-            }}
-          >
-            <StackIcon id={stack.id} />
-            <small>{stack.name}</small>
-          </button>
-        ))}
-      </div>
-    </nav>
-  );
-}
-
 function BentoContact() {
   return (
     <a href={`mailto:${SITE.email}`} className="bento-card bento-card--contact">
@@ -707,55 +652,79 @@ function SalesAgentCard() {
   return (
     <article className="sales-agent-preview">
       <div className="sales-agent-inner">
-        <div className="sales-agent-heading">
-          <svg viewBox="0 0 32 32" aria-hidden="true">
-            <path d="M11 8V5.5A2.5 2.5 0 0 1 13.5 3h5A2.5 2.5 0 0 1 21 5.5V8" />
-            <rect x="5" y="8" width="22" height="17" rx="3" />
-            <path d="M10 15v4M16 15v4M22 15v4" />
-          </svg>
-          <h2>Sales Agent</h2>
+        <div className="sales-agent-content">
+          <div className="sales-agent-heading">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 8V4H8" />
+              <rect width="16" height="12" x="4" y="8" rx="2" />
+              <path d="M2 14h2M20 14h2M15 13v2M9 13v2" />
+            </svg>
+            <h2>Sales Agent</h2>
+          </div>
+          <p>Brouillon IA pour chaque réponse client entrante</p>
         </div>
-        <p>Brouillon IA pour chaque réponse client entrante</p>
-        <span className="sales-agent-arrow" aria-hidden="true">↗</span>
+        <span className="sales-agent-arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M7 7h10v10M7 17 17 7" />
+          </svg>
+        </span>
       </div>
     </article>
   );
 }
 
+function StackCardBadge({ stack }) {
+  return (
+    <span className="stack-card-badge" aria-label={stack.name}>
+      <StackIcon id={stack.id} />
+    </span>
+  );
+}
+
 function Home() {
-  const [activeStack, setActiveStack] = useState(STACKS[0].id);
-  const idx = Math.max(0, STACKS.findIndex((s) => s.id === activeStack));
+  const cardsTrackRef = useRef(null);
   const projectOf = (s) => bentoProjects.find((p) => p.slug === s.projects[0]);
 
   const slots = [
-    { offset: -2, pos: "left-tall", projectSlug: "vitreen" },
-    { offset: -1, pos: "left-small", customContent: "sales-agent" },
-    { offset: 1, pos: "center-top" },
-    { offset: 0, pos: "center-main" },
-    { offset: 2, pos: "right-tall" },
-    { offset: 3, pos: "right-small" },
-  ].map(({ offset, pos, projectSlug, customContent }) => ({
-    stack: STACKS[(idx + offset + STACKS.length) % STACKS.length],
-    pos,
-    projectSlug,
-    customContent,
-  }));
+    { stack: STACKS[0], projectSlug: "vitreen" },
+    { stack: STACKS[1], customContent: "sales-agent" },
+    { stack: STACKS[2] },
+    { stack: STACKS[3] },
+    { stack: STACKS[4] },
+    { stack: STACKS[5] },
+  ];
 
   return (
     <main className="main main--stack">
       <header id="about" className="home-hero">
         <h1 className="home-hero-title">Raphaël Rossi</h1>
-        <p className="home-hero-subtitle">Designer produit</p>
+        <p className="home-hero-subtitle">
+          Product Designer · Cultural Technology · Digital Products
+        </p>
+        <div className="home-hero-bio">
+          <p>
+            J&apos;explore les outils de design et d&apos;intelligence artificielle pour
+            simplifier des workflows complexes et concevoir des expériences utiles et
+            intuitives. J&apos;applique cette démarche à différents projets, notamment
+            dans le secteur culturel et le monde de l&apos;art, à travers des initiatives
+            comme Vitreen et Hanging.
+          </p>
+        </div>
       </header>
 
-      <section className="stack-cards" aria-label="Projets" key={activeStack}>
-        {slots.map(({ stack, pos, projectSlug, customContent }) => {
+      <section
+        className="stack-cards"
+        aria-label="Projets"
+        ref={cardsTrackRef}
+      >
+        {slots.map(({ stack, projectSlug, customContent }) => {
           if (customContent === "sales-agent") {
             return (
               <div
-                key={pos}
-                className={`stack-card-slot stack-card-slot--${pos} stack-card-slot--sales-agent`}
+                key={stack.id}
+                className="stack-card-slot stack-card-slot--sales-agent"
               >
+                <StackCardBadge stack={stack} />
                 <SalesAgentCard />
               </div>
             );
@@ -768,22 +737,16 @@ function Home() {
           return (
             <div
               key={stack.id}
-              className={`stack-card-slot stack-card-slot--${pos}${
+              className={`stack-card-slot${
                 projectSlug ? " stack-card-slot--desktop-preview" : ""
-              }${stack.id === activeStack ? " is-active" : ""}`}
-              onClick={
-                stack.id === activeStack
-                  ? undefined
-                  : () => setActiveStack(stack.id)
-              }
+              }`}
             >
+              <StackCardBadge stack={stack} />
               <BentoCard project={project} />
             </div>
           );
         })}
       </section>
-
-      <StackDock stacks={STACKS} activeId={activeStack} onChange={setActiveStack} />
     </main>
   );
 }
