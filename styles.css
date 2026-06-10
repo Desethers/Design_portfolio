@@ -306,40 +306,53 @@ a {
 .vitreen-hero-html {
   position: absolute;
   inset: 0;
+  overflow: hidden;
+  background: #fff;
+}
+
+/* Tout le hero est composé aux dimensions réelles du site (px), puis réduit à 45 % */
+.vitreen-hero-scale {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 222.23%;
+  height: 222.23%;
+  transform: scale(0.45);
+  transform-origin: top left;
   display: flex;
   flex-direction: column;
-  padding: 1.1rem 1.1rem 0;
+  padding: 0 40px;
   background: #fff;
 }
 
 .vitreen-nav {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.6rem;
-  margin: -0.35rem 0 0.75rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 0.5px solid #e8e8e6;
+  flex-shrink: 0;
+  height: 52px;
 }
 
 .vitreen-nav-logo {
   flex-shrink: 0;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: -0.025em;
   color: #111110;
 }
 
 .vitreen-nav-links {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   align-items: center;
-  gap: 0.65rem;
-  min-width: 0;
-  overflow: hidden;
+  gap: 28px;
 }
 
 .vitreen-nav-links span {
-  font-size: 0.56rem;
+  font-size: 14px;
   color: #6b6a67;
   white-space: nowrap;
   transition: color 0.2s ease;
@@ -351,51 +364,66 @@ a {
 
 .vitreen-nav-cta {
   flex-shrink: 0;
-  padding: 0.28rem 0.55rem;
+  padding: 7px 12px;
   border-radius: 999px;
   background: #111110;
   color: #fff;
-  font-size: 0.54rem;
+  font-size: 12px;
   font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.vitreen-hero-copy {
+  flex-shrink: 0;
+  padding-top: 44px;
 }
 
 .vitreen-hero-copy h3 {
   margin: 0;
-  font-size: 0.95rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  color: #171717;
+  max-width: 900px;
+  font-size: 30px;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 1.3;
+  color: #111110;
 }
 
 .vitreen-hero-copy p {
-  margin: 0.35rem 0 0;
-  max-width: 34em;
-  font-size: 0.62rem;
-  line-height: 1.5;
-  color: #6b6b6b;
+  margin: 16px 0 0;
+  max-width: 700px;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: -0.02em;
+  color: #6b6a67;
 }
 
 .vitreen-hero-actions {
   display: flex;
-  gap: 0.4rem;
-  margin-top: 0.6rem;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: 22px;
 }
 
 .vitreen-btn {
   display: inline-flex;
   align-items: center;
-  padding: 0.32rem 0.7rem;
-  border: 1px solid #e2e2e2;
+  justify-content: center;
+  padding: 14px 32px;
+  border: 1px solid transparent;
   border-radius: 999px;
-  font-size: 0.58rem;
+  font-size: 15px;
   font-weight: 500;
-  color: #171717;
+  letter-spacing: -0.01em;
+  color: #111110;
   background: #fff;
+  border-color: #e8e8e6;
 }
 
 .vitreen-btn--dark {
-  background: #171717;
-  border-color: #171717;
+  background: #111110;
+  border-color: #111110;
   color: #fff;
 }
 
@@ -405,21 +433,11 @@ a {
   position: relative;
   flex: 1;
   min-height: 0;
-  margin-top: 0.9rem;
-  border: 1px solid #ececec;
+  margin-top: 40px;
+  border: 1px solid #d4d4d0;
   border-bottom: 0;
-  border-radius: 8px 8px 0 0;
+  border-radius: 4px 4px 0 0;
   overflow: hidden;
-}
-
-.vitreen-stage-scale {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 222.23%;
-  height: 222.23%;
-  transform: scale(0.45);
-  transform-origin: top left;
 }
 
 .vitreen-stage-bg {
@@ -2293,4 +2311,719 @@ a {
   .pv-impact-grid {
     gap: 0.5rem;
   }
+}
+
+/* ─── Card 04 — Mockup Gmail × Gallery OS (extension Vitreen) ─── */
+.gmck-demo {
+  background: #f6f8fc;
+  color: #202124;
+}
+
+.gmck-embed {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  background: #f6f8fc;
+}
+
+/* Scène composée aux dimensions réelles (px) puis réduite à 40 % */
+.gmck-scale {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 250%;
+  height: 250%;
+  transform: scale(0.4);
+  transform-origin: top left;
+  font-family: inherit;
+  background: #f6f8fc;
+}
+
+/* Inbox en arrière-plan */
+.gmck-inbox {
+  position: absolute;
+  inset: 10px 64px 10px 12px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 12px 16px;
+  overflow: hidden;
+}
+
+.gmck-inbox-top {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f1f3f4;
+  font-size: 12px;
+  color: #5f6368;
+}
+
+.gmck-tab em {
+  font-style: normal;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: 8px;
+  color: #fff;
+}
+
+.gmck-tab em.is-green { background: #188038; }
+.gmck-tab em.is-blue { background: #1a73e8; }
+.gmck-tab em.is-orange { background: #e8710a; }
+
+.gmck-count {
+  margin-left: auto;
+  font-size: 11px;
+  color: #5f6368;
+}
+
+.gmck-inbox-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 2px;
+  border-bottom: 1px solid #f5f6f7;
+}
+
+.gmck-inbox-row i {
+  width: 12px;
+  height: 12px;
+  border: 1.5px solid #dadce0;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.gmck-inbox-row b {
+  height: 7px;
+  border-radius: 4px;
+  background: #eceef1;
+}
+
+/* Rail d'icônes Google à droite */
+.gmck-rail {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 52px;
+  background: #f6f8fc;
+  border-left: 1px solid #e8eaed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  gap: 17px;
+}
+
+.gmck-rail > span {
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.gmck-rail-cal {
+  background: #1a73e8;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.gmck-rail-keep {
+  background: radial-gradient(circle at 50% 38%, #fff3c4 0 28%, #fbbc04 60%, #f9ab00 100%);
+  border-radius: 50%;
+}
+
+.gmck-rail-tasks {
+  background: #1a73e8;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.gmck-rail-contact {
+  position: relative;
+  background: #d2e3fc;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.gmck-rail-contact::before {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #1a73e8;
+}
+
+.gmck-rail-contact::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 17px;
+  height: 11px;
+  border-radius: 8px 8px 0 0;
+  background: #1a73e8;
+}
+
+.gmck-rail-sep {
+  width: 26px;
+  height: 1px;
+  background: #dadce0;
+  flex-shrink: 0;
+}
+
+.gmck-rail-vitreen {
+  position: relative;
+  border-radius: 50%;
+  color: #111110;
+  animation: gmck-rail-active 13s infinite;
+}
+
+.gmck-rail-vitreen .gmck-glyph {
+  width: 17px;
+}
+
+.gmck-rail-plus {
+  color: #444746;
+  font-size: 19px;
+  font-weight: 300;
+}
+
+.gmck-glyph {
+  display: block;
+  width: 18px;
+}
+
+.gmck-glyph.is-blue {
+  color: #1a73e8;
+  width: 26px;
+}
+
+/* Brouillon New Message */
+.gmck-compose {
+  position: absolute;
+  left: 14px;
+  bottom: 0;
+  width: 330px;
+  height: 290px;
+  background: #fff;
+  border-radius: 10px 10px 0 0;
+  box-shadow: 0 4px 22px rgba(32, 33, 36, 0.22);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.gmck-compose-bar,
+.gmck-win-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  height: 30px;
+  padding: 0 12px;
+  background: #404043;
+  color: #fff;
+}
+
+.gmck-compose-bar strong,
+.gmck-win-bar strong {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.gmck-compose-bar span,
+.gmck-win-bar span {
+  font-size: 11px;
+  opacity: 0.85;
+}
+
+.gmck-compose-to {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-bottom: 1px solid #f1f3f4;
+  font-size: 11px;
+}
+
+.gmck-compose-to .is-muted {
+  color: #5f6368;
+}
+
+.gmck-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 8px 2px 2px;
+  border: 1px solid #e0e0e0;
+  border-radius: 999px;
+  font-size: 10.5px;
+  color: #202124;
+}
+
+.gmck-chip b {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #7b1fa2;
+  color: #fff;
+  font-size: 9px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gmck-compose-subject {
+  padding: 8px 12px;
+  border-bottom: 1px solid #f1f3f4;
+  font-size: 11px;
+  color: #202124;
+}
+
+.gmck-compose-body {
+  flex: 1;
+}
+
+.gmck-compose-footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  padding: 8px 12px 10px;
+}
+
+.gmck-send {
+  padding: 6px 18px;
+  border-radius: 999px;
+  background: #0b57d0;
+  color: #fff;
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+.gmck-tools {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #444746;
+}
+
+.gmck-tools svg {
+  width: 14px;
+  height: 14px;
+}
+
+.gmck-tool-aa {
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.gmck-tool-vitreen {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  color: #111110;
+  animation: gmck-tool-active 13s infinite;
+}
+
+.gmck-tool-vitreen .gmck-glyph {
+  width: 15px;
+}
+
+.gmck-tool-dots {
+  font-style: normal;
+  font-size: 13px;
+}
+
+.gmck-trash {
+  width: 14px;
+  height: 14px;
+  margin-left: auto;
+  color: #444746;
+}
+
+/* Panneau latéral Vitreen */
+.gmck-panel {
+  position: absolute;
+  top: 8px;
+  right: 56px;
+  bottom: 8px;
+  width: 248px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: -2px 4px 18px rgba(32, 33, 36, 0.16);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: gmck-panel 13s infinite;
+}
+
+.gmck-panel-app {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-bottom: 1px solid #f1f3f4;
+}
+
+.gmck-panel-app > span,
+.gmck-panel-status > span {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.gmck-panel-app strong {
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+.gmck-panel-app small,
+.gmck-panel-status small {
+  font-size: 10.5px;
+  color: #5f6368;
+}
+
+.gmck-panel-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 14px;
+  border-bottom: 1px solid #f1f3f4;
+}
+
+.gmck-panel-status i {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #188038;
+  color: #fff;
+  font-size: 10px;
+  font-style: normal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.gmck-panel-status strong {
+  font-size: 11.5px;
+  font-weight: 700;
+}
+
+.gmck-panel-row {
+  padding: 10px 14px;
+  border-bottom: 1px solid #f1f3f4;
+}
+
+.gmck-panel-row small {
+  display: block;
+  font-size: 10.5px;
+  color: #5f6368;
+  margin-bottom: 3px;
+}
+
+.gmck-panel-row p {
+  margin: 0;
+  font-size: 11.5px;
+  color: #202124;
+}
+
+.gmck-panel-row p.is-muted {
+  color: #80868b;
+  font-size: 10.5px;
+}
+
+.gmck-panel-row b.is-green { color: #188038; }
+.gmck-panel-row b.is-orange { color: #e8710a; }
+
+.gmck-panel-help {
+  margin: 0;
+  padding: 11px 14px;
+  font-size: 10.5px;
+  line-height: 1.5;
+  color: #3c4043;
+}
+
+.gmck-panel-footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px 12px;
+}
+
+.gmck-btn-ghost {
+  padding: 5px 13px;
+  border: 1px solid #dadce0;
+  border-radius: 999px;
+  font-size: 10.5px;
+  font-weight: 500;
+  color: #3c4043;
+}
+
+.gmck-btn-blue {
+  padding: 5px 14px;
+  border-radius: 999px;
+  background: #1a73e8;
+  color: #fff;
+  font-size: 10.5px;
+  font-weight: 600;
+}
+
+/* Fenêtre Insérer une œuvre */
+.gmck-dialog {
+  position: absolute;
+  left: 22px;
+  top: 36px;
+  width: 282px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 8px 30px rgba(32, 33, 36, 0.28);
+  overflow: hidden;
+  animation: gmck-dialog 13s infinite;
+}
+
+.gmck-dialog-body {
+  padding: 12px 16px 14px;
+  display: flex;
+  flex-direction: column;
+}
+
+.gmck-dialog-body > strong {
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.gmck-dialog-body > small {
+  font-size: 11px;
+  color: #5f6368;
+  margin-top: 1px;
+}
+
+.gmck-input {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  height: 32px;
+  padding: 0 10px;
+  border: 1.5px solid #dadce0;
+  border-radius: 8px;
+  font-size: 12px;
+  color: #202124;
+}
+
+.gmck-typed {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 7ch;
+  animation: gmck-typed 13s infinite;
+}
+
+.gmck-caret {
+  width: 1.5px;
+  height: 15px;
+  margin-left: 1px;
+  background: #1a73e8;
+  animation: gmck-caret 1s steps(2, jump-none) infinite;
+}
+
+.gmck-hint {
+  margin-top: 6px;
+  font-size: 9.5px;
+  color: #80868b;
+}
+
+.gmck-search-btn {
+  align-self: flex-start;
+  margin-top: 9px;
+  padding: 6px 18px;
+  font-size: 11px;
+}
+
+.gmck-result {
+  margin-top: 11px;
+  animation: gmck-result 13s infinite;
+}
+
+.gmck-result > small {
+  font-size: 10.5px;
+  color: #5f6368;
+}
+
+.gmck-result-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 7px;
+}
+
+.gmck-result-item img {
+  width: 34px;
+  height: 34px;
+  object-fit: cover;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.gmck-result-item > span {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.gmck-result-item small {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: #5f6368;
+}
+
+.gmck-result-item em {
+  font-size: 11.5px;
+  color: #202124;
+}
+
+.gmck-result-price {
+  font-size: 10.5px;
+  color: #202124;
+}
+
+.gmck-result-price b {
+  color: #188038;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+/* Curseur + impulsions de clic */
+.gmck-cursor {
+  position: absolute;
+  z-index: 6;
+  width: 20px;
+  height: 20px;
+  animation: gmck-cursor 13s infinite ease-in-out;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+.gmck-pulse {
+  position: absolute;
+  z-index: 5;
+  width: 30px;
+  height: 30px;
+  border: 2px solid #1a73e8;
+  border-radius: 50%;
+  opacity: 0;
+}
+
+.gmck-pulse-1 {
+  left: 585px;
+  top: 208px;
+  animation: gmck-pulse-1 13s infinite;
+}
+
+.gmck-pulse-2 {
+  left: 190px;
+  top: 355px;
+  animation: gmck-pulse-2 13s infinite;
+}
+
+.gmck-pulse-3 {
+  left: 71px;
+  top: 190px;
+  animation: gmck-pulse-3 13s infinite;
+}
+
+/* Timeline 13 s : clic rail → panneau → clic brouillon → fenêtre → frappe → recherche → résultat */
+@keyframes gmck-cursor {
+  0%, 6% { left: 300px; top: 140px; }
+  13%, 30% { left: 596px; top: 218px; }
+  37%, 56% { left: 201px; top: 368px; }
+  63%, 92% { left: 82px; top: 203px; }
+  98%, 100% { left: 300px; top: 140px; }
+}
+
+@keyframes gmck-rail-active {
+  0%, 12% { background: transparent; }
+  14%, 93% { background: #e1e5ea; }
+  97%, 100% { background: transparent; }
+}
+
+@keyframes gmck-panel {
+  0%, 13% { transform: translateX(120%); opacity: 0; }
+  15% { opacity: 1; }
+  21%, 93% { transform: translateX(0); opacity: 1; }
+  98%, 100% { transform: translateX(120%); opacity: 0; }
+}
+
+@keyframes gmck-tool-active {
+  0%, 36% { background: transparent; }
+  38%, 93% { background: #e8f0fe; }
+  97%, 100% { background: transparent; }
+}
+
+@keyframes gmck-dialog {
+  0%, 38% { opacity: 0; transform: scale(0.94) translateY(6px); }
+  43%, 93% { opacity: 1; transform: scale(1) translateY(0); }
+  97%, 100% { opacity: 0; }
+}
+
+@keyframes gmck-typed {
+  0%, 45% { width: 0; animation-timing-function: steps(7, end); }
+  57%, 100% { width: 7ch; }
+}
+
+@keyframes gmck-caret {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@keyframes gmck-result {
+  0%, 66% { opacity: 0; transform: translateY(5px); }
+  72%, 100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes gmck-pulse-1 {
+  0%, 12.5% { opacity: 0; transform: scale(0.3); }
+  13.5% { opacity: 0.55; }
+  19%, 100% { opacity: 0; transform: scale(1.5); }
+}
+
+@keyframes gmck-pulse-2 {
+  0%, 36.5% { opacity: 0; transform: scale(0.3); }
+  37.5% { opacity: 0.55; }
+  43%, 100% { opacity: 0; transform: scale(1.5); }
+}
+
+@keyframes gmck-pulse-3 {
+  0%, 63.5% { opacity: 0; transform: scale(0.3); }
+  64.5% { opacity: 0.55; }
+  70%, 100% { opacity: 0; transform: scale(1.5); }
+}
+
+.gmck-demo:hover .vitreen-card-caption {
+  opacity: 1;
+  transform: translateY(0);
 }
