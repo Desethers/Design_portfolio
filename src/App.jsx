@@ -296,6 +296,10 @@ function BentoContact() {
   );
 }
 
+function BentoEmpty() {
+  return <div className="bento-card bento-card--sm bento-card--empty" aria-hidden="true" />;
+}
+
 function Home() {
   return (
     <main className="main main--home">
@@ -317,6 +321,7 @@ function Home() {
         {bentoProjects.map((p) => (
           <BentoCard key={p.id} project={p} />
         ))}
+        <BentoEmpty />
         <BentoContact />
       </section>
     </main>

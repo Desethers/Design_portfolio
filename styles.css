@@ -182,6 +182,10 @@ a {
   background: var(--color-bg-elevated);
 }
 
+.bento-card--empty {
+  background: transparent;
+}
+
 .bento-card--text {
   justify-content: flex-end;
 }
