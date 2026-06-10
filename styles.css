@@ -3062,6 +3062,8 @@ a {
 }
 
 .stack-card-slot--side {
+  /* Compense le vide créé par le scale pour resserrer les cards */
+  margin-inline: -64px;
   transform: scale(0.72);
   opacity: 0.45;
   cursor: pointer;
