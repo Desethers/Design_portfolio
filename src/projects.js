@@ -255,7 +255,7 @@ export const projects = [
     tags: ["Product Design", "UX B2B", "Gallery OS", "Prototypage"],
     description:
       "Vitreen pose la promesse (vitreen.art) — Gallery OS est l'atelier opérationnel (dashboard, inventaire, inquiries, Vitreen Studio). Deux couches, une marque : « Powered by Vitreen ».",
-    video: "/vitreen/demo-vitreen.mp4",
+    video: "/vitreen/Scene-4.mp4",
     process: {
       role: "Product Designer & Founder (solo)",
       duration: "Projet en cours — 2025–2026",
@@ -452,6 +452,7 @@ export const projects = [
     id: 3,
     slug: "design-system",
     featured: false,
+    cover: "/vitreen/Scene-4.mp4",
     title: "Projet 03",
     type: "Design System",
     year: "2023",
