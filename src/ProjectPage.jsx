@@ -1,8 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { projects } from "./projects.js";
 
-/* ─── Case study view (Hanging) ───────────────────────────────────────── */
+function TldrBox({ tldr }) {
+  if (!tldr) return null;
+  return (
+    <aside className="case-tldr" aria-label="Résumé">
+      <span className="case-tldr-label">En bref</span>
+      <p className="case-tldr-headline">{tldr.headline}</p>
+      {tldr.bullets?.length > 0 && (
+        <ul className="case-tldr-list">
+          {tldr.bullets.map((item, i) => (
+            <li key={i}>{item}</li>
+          ))}
+        </ul>
+      )}
+    </aside>
+  );
+}
+
+/* ─── Case study view (Hanging / Vitreen) ─────────────────────────────── */
 function CaseStudyView({ content }) {
   const { problem, objectifs, gtm, business, product, decisions, ai, learnings } = content;
   return (
@@ -20,16 +37,29 @@ function CaseStudyView({ content }) {
           <div className="pv-methods">
             <span className="pv-method-tag">{problem.sousCitation}</span>
           </div>
-          <figure className="pv-problem-visual">
-            <video
-              src="/Naviguation claude google.mov"
-              className="pv-problem-image"
-              autoPlay
-              loop
-              muted
-              playsInline
-            />
-          </figure>
+          {problem.visual && (
+            <figure className="pv-problem-visual">
+              {problem.visual.type === "video" || /\.(mp4|mov|webm)$/i.test(problem.visual.src) ? (
+                <video
+                  src={problem.visual.src}
+                  className="pv-problem-image"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                />
+              ) : (
+                <img
+                  src={problem.visual.src}
+                  alt={problem.visual.alt ?? ""}
+                  className="pv-problem-image"
+                />
+              )}
+              {problem.visual.caption && (
+                <figcaption className="pv-problem-caption">{problem.visual.caption}</figcaption>
+              )}
+            </figure>
+          )}
           <div className="pv-problem-grid">
             {problem.cards.map((card, i) => (
               <div key={i} className="pv-problem-card">
@@ -117,21 +147,55 @@ function CaseStudyView({ content }) {
           <span className="pv-label">Le produit</span>
         </div>
         <div className="pv-section-body">
-          <div className="pv-insight-card">
-            <span className="pv-insight-label">{product.processAnnotation}</span>
-            <p className="pv-text">{product.processCaption}</p>
-          </div>
-          <div className="pv-problem-grid">
-            <div className="pv-problem-card">
-              <span className="pv-problem-type">Consultation</span>
-              <p className="pv-text">{product.consultationCaption}</p>
+          {product.processAnnotation && (
+            <div className="pv-insight-card">
+              <span className="pv-insight-label">{product.processAnnotation}</span>
+              <p className="pv-text">{product.processCaption}</p>
             </div>
-            <div className="pv-problem-card">
-              <span className="pv-problem-type">Réservation</span>
-              <span className="pv-problem-title">{product.bookingAnnotation}</span>
-              <p className="pv-text">{product.bookingCaption}</p>
+          )}
+          {product.screens ? (
+            <div className="pv-wireframe-cards">
+              {product.screens.map((screen, i) => (
+                <div key={i} className="pv-wireframe-card">
+                  <div className="pv-wireframe-card-header">
+                    <span className="pv-wireframe-card-title">{screen.title}</span>
+                    <span className="pv-problem-type">{screen.tag}</span>
+                  </div>
+                  {screen.text && <p className="pv-text">{screen.text}</p>}
+                  {screen.media && (
+                    /\.(mp4|mov|webm)$/i.test(screen.media) ? (
+                      <video
+                        src={screen.media}
+                        className="pv-wireframe-frame pv-wireframe-img"
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                      />
+                    ) : (
+                      <img
+                        src={screen.media}
+                        alt={screen.title}
+                        className="pv-wireframe-frame pv-wireframe-img"
+                      />
+                    )
+                  )}
+                </div>
+              ))}
             </div>
-          </div>
+          ) : (
+            <div className="pv-problem-grid">
+              <div className="pv-problem-card">
+                <span className="pv-problem-type">Consultation</span>
+                <p className="pv-text">{product.consultationCaption}</p>
+              </div>
+              <div className="pv-problem-card">
+                <span className="pv-problem-type">Réservation</span>
+                <span className="pv-problem-title">{product.bookingAnnotation}</span>
+                <p className="pv-text">{product.bookingCaption}</p>
+              </div>
+            </div>
+          )}
         </div>
       </div>
       <div className="pv-divider" />
@@ -467,12 +531,14 @@ function ProcessView({ p }) {
 export default function ProjectPage() {
   const { slug } = useParams();
   const project = projects.find((p) => p.slug === slug);
-  const [tab, setTab] = useState("prototype");
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    setTab("prototype");
   }, [slug]);
+
+  if (slug === "onboarding-app") {
+    return <Navigate to="/projet/hanging" replace />;
+  }
 
   if (!project) return <Navigate to="/" replace />;
 
@@ -481,13 +547,21 @@ export default function ProjectPage() {
   const next = projects[currentIndex + 1] ?? null;
 
   const hero = project.caseStudy?.hero;
+  const tldr = project.caseStudy?.tldr;
+  const studyContent = project.caseStudy ? (
+    <CaseStudyView content={project.caseStudy} />
+  ) : (
+    <ProcessView p={project} />
+  );
+
   return (
     <main className="project-page">
       <div className="project-page-hero">
         <Link to="/" className="back-link">← Retour</Link>
         <div className="project-page-meta">
-          <span className="project-page-num">{String(project.id).padStart(2, "0")}</span>
-          <span className="project-page-type">{hero ? "2025–2026" : `${project.type} · ${project.year}`}</span>
+          <span className="project-page-type">
+            {hero ? project.year : `${project.type} · ${project.year}`}
+          </span>
         </div>
         <h1 className="project-page-title">{hero ? hero.title : project.title}</h1>
         <div className="project-page-tags">
@@ -500,38 +574,26 @@ export default function ProjectPage() {
             {hero ? hero.subtitle : project.description}
           </p>
         )}
-        {hero?.stats && <p className="pv-text">{hero.stats}</p>}
-        <div className="tab-switcher">
-          <button
-            className={`tab-btn${tab === "prototype" ? " tab-btn--active" : ""}`}
-            onClick={() => setTab("prototype")}
-          >
-            Prototype
-          </button>
-          <button
-            className={`tab-btn${tab === "process" ? " tab-btn--active" : ""}`}
-            onClick={() => setTab("process")}
-          >
-            Process
-          </button>
-        </div>
+        {hero?.stats && <p className="project-page-stats">{hero.stats}</p>}
       </div>
 
-      {tab === "prototype" && (
+      {project.video && (
         <div className="project-page-visual">
-          {project.video && (
-            <video
-              className="project-prototype-video"
-              src={project.video}
-              autoPlay
-              loop
-              muted
-              playsInline
-            />
-          )}
+          <video
+            className="project-prototype-video"
+            src={project.video}
+            autoPlay
+            loop
+            muted
+            playsInline
+          />
         </div>
       )}
-      {tab === "process" && (project.caseStudy ? <CaseStudyView content={project.caseStudy} /> : <ProcessView p={project} />)}
+
+      <div className="project-page-study">
+        <TldrBox tldr={tldr} />
+        {studyContent}
+      </div>
 
       <nav className="project-nav">
         {prev ? (

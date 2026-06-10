@@ -1,7 +1,9 @@
 export const projects = [
   {
     id: 1,
-    slug: "onboarding-app",
+    slug: "hanging",
+    featured: true,
+    cover: "/Sans titre.mov",
     title: "Hanging",
     type: "Application mobile",
     year: "2024",
@@ -65,6 +67,14 @@ export const projects = [
         "J'aurais dû tester les wireframes plus tôt, dès la basse fidélité. J'ai perdu du temps sur des détails UI avant d'avoir validé la structure. La prochaine fois : tester le flow en noir et blanc avant de toucher aux couleurs.",
     },
     caseStudy: {
+      tldr: {
+        headline: "Premier service d'accrochage en ligne pour collectionneurs — booking et paiement sur hanging.fr, sans Calendly.",
+        bullets: [
+          "Rupture Calendly au moment du paiement → flow custom Stripe intégré",
+          "Tarifs affichés, créneau visible, zéro appel requis",
+          "Produit live — validation conversion à venir",
+        ],
+      },
       hero: {
         title: "Hanging — L'art à sa place.",
         subtitle:
@@ -79,6 +89,10 @@ export const projects = [
           "Un service qui existe depuis toujours — mais uniquement pour ceux qui ont le bon réseau.",
         sousCitation:
           "Secteur sans présence digitale. Zéro prix affiché. Tout par bouche-à-oreille.",
+        visual: {
+          type: "video",
+          src: "/Naviguation claude google.mov",
+        },
         cards: [
           {
             domain: "Problème marché",
@@ -232,59 +246,212 @@ export const projects = [
   },
   {
     id: 2,
-    slug: "navigation-b2b",
-    title: "Projet 02",
-    type: "Web app B2B",
-    year: "2024",
-    desc: "Refonte de la navigation d'une plateforme SaaS — architecture d'information et validation utilisateur.",
-    tags: ["Architecture IA", "Tests utilisateurs", "Prototype"],
+    slug: "vitreen",
+    featured: true,
+    title: "Vitreen — Gallery OS",
+    type: "Plateforme B2B · Galeries d'art",
+    year: "2025–2026",
+    desc: "Vitreen (promesse) + Gallery OS (produit) — faire circuler les œuvres depuis l'archive jusqu'au collectionneur.",
+    tags: ["Product Design", "UX B2B", "Gallery OS", "Prototypage"],
+    description:
+      "Vitreen pose la promesse (vitreen.art) — Gallery OS est l'atelier opérationnel (dashboard, inventaire, inquiries, Vitreen Studio). Deux couches, une marque : « Powered by Vitreen ».",
+    video: "/vitreen/demo-vitreen.mp4",
     process: {
-      role: "Product Designer (en collaboration avec 1 PM)",
-      duration: "4 semaines",
-      tools: ["Figma", "Optimal Workshop", "Miro"],
+      role: "Product Designer & Founder (solo)",
+      duration: "Projet en cours — 2025–2026",
+      tools: ["Cursor", "Claude Code", "Next.js", "Tailwind", "Figma"],
       brief:
-        "Repenser la navigation principale d'une plateforme B2B dont les utilisateurs experts perdaient du temps à trouver les fonctionnalités clés.",
+        "Deux couches, un écosystème. Vitreen (vitreen.art) porte la promesse : Digital Sales Partner, vocabulaire galerie, 4 piliers produit. Gallery OS est le dashboard opérationnel — inventaire, inquiries, private selection, Vitreen Studio, intégration Gmail — avec « Powered by Vitreen » dans la sidebar.",
       problem: {
-        statement: "La navigation mélait catégories métier et catégories techniques. Les raccourcis fréquents étaient enfouis à 3 niveaux de profondeur.",
-        user: "Les utilisateurs experts passaient plusieurs minutes par jour à naviguer vers des actions répétitives. La frustration impactait l'adoption des nouvelles fonctionnalités.",
-        business: "Le taux d'adoption des nouvelles features stagnait à 22 %. Le support recevait 40+ tickets/mois liés à la navigation.",
+        statement:
+          "Les galeries ont les œuvres — mais pas le pipeline pour les faire circuler. Chaque envoi collectionneur repart de zéro : export Excel, mise en page PDF, lien WhatsApp, viewing room recréée à la main.",
+        visual: {
+          src: "/vitreen/gallery-os-overview.png",
+          alt: "Dashboard Gallery OS — Overview avec inquiries, sélections privées et œuvres récentes.",
+          caption: "Gallery OS — l'atelier où la promesse Vitreen devient opérationnelle.",
+        },
+        user: "Le directeur de galerie passe des heures à reformater les mêmes fiches œuvres pour un PDF, une viewing room ou un email. Les outils existants stockent — ils ne distribuent pas.",
+        business: "Artlogic facture ~200€/mois pour archiver. Vitreen vise un modèle récurrent (300–800€/mois) centré sur la circulation et la conversion — « stocker vs vendre ».",
+        cards: [
+          { domain: "Problème marché", num: "01", title: "Fragmentation des outils", question: "Comment connecter archive, CRM et diffusion sans imposer une migration vers une nouvelle plateforme ?" },
+          { domain: "Problème business", num: "02", title: "Temps perdu en ops", question: "Comment réduire le délai entre sélection d'œuvres et envoi au collectionneur ?" },
+          { domain: "Problème design", num: "03", title: "Confiance B2B premium", question: "Comment concevoir une interface qui parle aux marchands d'art — pas aux techniciens ?" },
+        ],
       },
       research: {
-        methods: ["Card sorting ouvert avec 8 utilisateurs", "Tree testing de l'architecture actuelle", "Analyse des logs de navigation (données analytics)", "3 entretiens avec le support client"],
+        intro: "Pas de tests utilisateurs formels à ce stade. La recherche s'appuie sur une immersion dans le secteur galerie, l'analyse des workflows existants (Artlogic, Excel, WhatsApp) et l'itération directe sur le produit live.",
+        methods: ["Analyse concurrentielle (Artlogic, legacy CMS)", "Immersion secteur galerie", "Prototypage code-first", "Itérations copy FR/EN"],
         insights: [
-          { label: "Deux types d'utilisateurs", detail: "Experts (usage quotidien, veulent la vitesse) vs occasionnels (ont besoin de guidage). La nav actuelle ne satisfaisait aucun des deux." },
-          { label: "7 raccourcis récurrents", detail: "80 % des actions quotidiennes se concentraient sur 7 fonctionnalités — aucune n'était accessible en 1 clic." },
-          { label: "Labels ambigus", detail: "Le card sorting révélait que 3 items sur 8 étaient catégorisés différemment par chaque utilisateur." },
+          { label: "Stockage ≠ circulation", detail: "Les galeries paient déjà pour archiver. Le pain point n'est pas la base de données — c'est le passage de l'archive au matériel collector." },
+          { label: "Vocabulaire métier", detail: "« CMS » et « responsive » créent de la distance. « Sales Journey », « Viewing Room », « Distribute » parlent le langage du marchand d'art." },
+          { label: "Intégration > migration", detail: "Les galeries ne veulent pas changer leurs habitudes. Une couche qui se branche sur Gmail, PDF et Excel a plus de chances d'être adoptée qu'un outil tout-en-un." },
         ],
       },
-      ideation:
-        "Atelier Miro avec le PM et 2 développeurs : redesign de l'arborescence, proposition d'une nav à 2 vitesses (raccourcis personnalisables + nav guidée). 3 structures testées en tree testing avant de passer au design.",
-      wireframes: null,
+      wireframes: [
+        { title: "Gallery OS — Overview", src: "/vitreen/gallery-os-overview.png", type: "image" },
+        { title: "Gallery OS — Inventaire œuvres", src: "/vitreen/gallery-os-artworks.png", type: "image" },
+        { title: "Vitreen Studio — éditeur", src: "/vitreen/gallery-os-viewing-room-studio.png", type: "image" },
+        { title: "Sortie collectionneur", src: "/vitreen/viewing-room-share.png", type: "image" },
+      ],
+      execution: "Projet code-first : le design et le développement avancent en parallèle dans Next.js. Pas de maquettes Figma haute fidélité — les composants React sont la source de vérité visuelle, itérés directement dans le navigateur.",
+      stack: [
+        { tool: "Next.js + React", description: "Landing marketing, pages outils, Viewing Room Studio et éditeur canvas-first." },
+        { tool: "Tailwind + framer-motion", description: "Design system inline — tokens couleur, typo Emilio, mega-menus animés." },
+        { tool: "Cursor + Claude Code", description: "Génération composants, copy bilingue FR/EN, itérations UI rapides." },
+        { tool: "Clerk + Sanity + Stripe", description: "Auth, contenu CMS, paiement — stack prête pour le passage en production." },
+      ],
       testing: {
-        method: "Tests de tâches non modérés via Maze (12 participants, utilisateurs réels de la plateforme).",
-        results: [
-          { metric: "Taux de succès des tâches", before: "58 %", after: "91 %" },
-          { metric: "Temps moyen / tâche", before: "47 s", after: "18 s" },
-          { metric: "Score de satisfaction", before: "2,8/5", after: "4,2/5" },
-        ],
-        quote: "« Enfin je trouve tout sans chercher. » — Utilisateur expert, 3 ans d'ancienneté",
+        method: "Produit en early stage — démos founder-led auprès de galeries cibles. Pas encore de métriques de conversion documentées. Prochaine étape : tests modérés sur le flow Viewing Room Studio.",
+        results: [],
+        quote: "",
       },
       iterations: [
-        "Le premier prototype avait une barre de raccourcis fixe — les utilisateurs voulaient la personnaliser. Ajout d'un mode édition drag & drop.",
-        "Les breadcrumbs étaient trop discrets : augmentation de la taille et ajout du niveau racine systématiquement.",
+        "Pivot positionnement : de « studio de création de sites » vers « Digital Sales Partner » — le vocabulaire a guidé toute l'architecture produit.",
+        "Mega-menus Product/Solutions : hover + clic pour équilibrer découvrabilité et accessibilité mobile.",
       ],
-      impact: [
-        { value: "+33 pts", label: "Taux de succès tâches" },
-        { value: "−62 %", label: "Temps moyen / tâche" },
-        { value: "−85 %", label: "Tickets support navigation" },
-      ],
+      impact: "vitreen.art (promesse) + Gallery OS dashboard (produit) en développement actif. Viewing Room Studio, Private Selection et intégration Gmail opérationnels en local.",
       retrospective:
-        "Le tree testing en amont a sauvé beaucoup de temps. Je recommanderais de toujours passer par cette étape avant de commencer à designer. J'aurais aussi impliqué les développeurs plus tôt pour valider les contraintes techniques.",
+        "J'aurais validé le positionnement « Partner vs CMS » avec 2–3 galeries avant de coder la landing. Le design code-first accélère le ship mais complique la collaboration si un autre designer rejoint le projet.",
+    },
+    caseStudy: {
+      tldr: {
+        headline: "Couche opérationnelle B2B pour galeries — de l'archive au matériel collectionneur sans ressaisie.",
+        bullets: [
+          "Positionnement « Digital Sales Partner », pas CMS",
+          "Viewing rooms, PDF et liens privés depuis les outils existants",
+          "Produit live sur vitreen.art — early stage",
+        ],
+      },
+      hero: {
+        title: "Vitreen — Gallery OS",
+        subtitle:
+          "Vitreen pose la promesse (vitreen.art) — Gallery OS est l'atelier opérationnel : inventaire, inquiries, private selection, Vitreen Studio, Gmail. Artlogic stocke. Vitreen vend. Gallery OS est l'atelier où ça se passe.",
+        tags: ["2025–2026", "Vitreen + Gallery OS", "Next.js", "Cursor", "Early stage"],
+        stats: "vitreen.art · Gallery OS dashboard · Powered by Vitreen",
+      },
+      problem: {
+        intro:
+          "Chaque galerie développe sa propre façon de travailler — œuvres, publishing, relations collectionneurs, coordination interne. Ces activités restent fragmentées entre Excel, Artlogic, PDF et WhatsApp.",
+        citation:
+          "Les galeries ont les œuvres — mais pas le pipeline pour les faire circuler.",
+        sousCitation:
+          "Archive Excel · Artlogic · PDF manuel · WhatsApp — quatre outils, zéro continuité.",
+        visual: {
+          type: "image",
+          src: "/vitreen/gallery-os-overview.png",
+          alt: "Dashboard Gallery OS — Overview.",
+          caption: "Gallery OS — dashboard opérationnel « Powered by Vitreen ».",
+        },
+        cards: [
+          { domain: "Problème marché", num: "01", title: "Fragmentation des outils", question: "Comment connecter archive, CRM et diffusion sans imposer une migration vers une nouvelle plateforme ?" },
+          { domain: "Problème business", num: "02", title: "Temps perdu en ops", question: "Comment réduire le délai entre sélection d'œuvres et envoi au collectionneur ?" },
+          { domain: "Problème design", num: "03", title: "Confiance B2B premium", question: "Comment concevoir une interface qui parle aux marchands d'art — pas aux techniciens ?" },
+        ],
+      },
+      objectifs: {
+        intro: "Vitreen = pourquoi et comment on parle au marché. Gallery OS = où la galerie travaille au quotidien.",
+        items: [
+          { title: "Vitreen — la promesse", text: "Positionnement Digital Sales Partner sur vitreen.art — vocabulaire galerie, 4 piliers, copy FR/EN." },
+          { title: "Gallery OS — l'atelier", text: "Dashboard : œuvres, inquiries, collectors, private selection, tools — une seule continuité opérationnelle." },
+          { title: "Vitreen Studio", text: "Éditeur canvas-first pour composer viewing rooms depuis l'inventaire live — pas de ressaisie." },
+          { title: "Intégrations natives", text: "Gmail sidebar, Artlogic, CSV — Vitreen dans le workflow existant, pas à côté." },
+        ],
+      },
+      gtm: {
+        citation: "Artlogic stocke. Vitreen vend. Gallery OS est l'atelier où ça se passe.",
+        sousCitation: "GTM : approche founder-led, démos personnalisées, early adopters galeries mid-size.",
+        cards: [
+          { tag: "Cible", title: "Galeries mid-size", text: "5–20 artistes, déjà digitalisées mais frustrées par la lenteur entre archive et envoi collectionneur." },
+          { tag: "Positionnement", title: "Partner, pas CMS", text: "« Digital Sales Partner » — une couche qui s'adapte aux habitudes, pas une plateforme imposée." },
+          { tag: "Canal", title: "Direct + réseau", text: "Démos personnalisées, approche consultative. Pas de self-serve mass market en V1." },
+          { tag: "Pricing", title: "SaaS + setup", text: "~2 000€ setup + 300–800€/mois — pivot récurrent vs one-shot, en cours de validation." },
+        ],
+      },
+      business: {
+        citation: "Artlogic = 200€/mois pour stocker. Vitreen = 500€/mois pour vendre.",
+        b2c: {
+          title: "Modèle récurrent",
+          text: "Setup initial (~2 000€) + abonnement mensuel (300–800€). Argument : la valeur est dans la circulation des œuvres, pas dans le stockage.",
+        },
+        b2b: {
+          title: "Gallery OS — 4 piliers en UI",
+          text: "Overview · Artworks · Private Selection · Inquiries — chaque pilier Vitreen a son écran dans le dashboard. Sidebar : « Gallery OS » + « Powered by Vitreen ».",
+        },
+      },
+      product: {
+        processAnnotation: "Archive → Gallery OS → Vitreen Studio → Private Selection → Collectionneur",
+        processCaption: "Le pipeline unifié — de l'inventaire à la viewing room partagée, sans quitter l'écosystème.",
+        screens: [
+          {
+            tag: "Gallery OS",
+            title: "Overview",
+            text: "Tableau de bord galerie — inquiries, sélections privées actives, œuvres récentes. Point d'entrée quotidien.",
+            media: "/vitreen/gallery-os-overview.png",
+          },
+          {
+            tag: "Gallery OS",
+            title: "Inventaire œuvres",
+            text: "Catalogue live — recherche, filtres par statut, vue galerie. Source unique pour Vitreen Studio.",
+            media: "/vitreen/gallery-os-artworks.png",
+          },
+          {
+            tag: "Vitreen Studio",
+            title: "Viewing Room Studio",
+            text: "Éditeur canvas-first — librairie d'œuvres, composition visuelle, envoi collectionneur.",
+            media: "/vitreen/gallery-os-viewing-room-studio.png",
+          },
+          {
+            tag: "Gallery OS",
+            title: "Private Selection",
+            text: "Gestion des sélections privées — statut, expiration, vues, lien vers Vitreen Studio.",
+            media: "/vitreen/gallery-os-private-selection.png",
+          },
+          {
+            tag: "Intégration",
+            title: "Gmail Sidebar",
+            text: "Add-on Google Workspace — insérer une œuvre Vitreen depuis Gmail, configuration API depuis Gallery OS.",
+            media: "/vitreen/gallery-os-gmail.png",
+          },
+          {
+            tag: "Collectionneur",
+            title: "Viewing room partagée",
+            text: "Ce que voit le collectionneur — interface mobile confidentielle, œuvres et contexte d'exposition.",
+            media: "/vitreen/viewing-room-share.png",
+          },
+        ],
+      },
+      decisions: [
+        { num: "01", title: "Code-first vs Figma", text: "Itération rapide et démo live — le navigateur remplace la maquette statique. Trade-off : collaboration designer/dev plus difficile." },
+        { num: "02", title: "Partner, pas CMS", text: "Le positionnement guide chaque mot de l'interface. « CMS » et « site web » écartés — « Sales Journey » et « Distribute » préférés." },
+        { num: "03", title: "Deux repos, une marque", text: "Vitreen (marketing) et Gallery OS (dashboard) partagent le design language — « Powered by Vitreen » ancre la relation." },
+        { num: "04", title: "Canvas-first Vitreen Studio", text: "L'éditeur vit dans Gallery OS — librairie live, pas import manuel. Moodboard, pas back-office." },
+      ],
+      ai: {
+        citation: "L'IA accélère le ship — elle ne remplace pas les décisions de positionnement ni la séparation Vitreen / Gallery OS.",
+        steps: [
+          { num: "01", label: "Vitreen : Positionnement, 4 piliers, copy FR/EN (vitreen.art)" },
+          { num: "02", label: "Gallery OS : Dashboard, sidebar, inquiries, private selection" },
+          { num: "03", label: "Vitreen Studio : Éditeur canvas-first dans gallery-OS/dashboard" },
+          { num: "04", label: "Itération : Validation en navigateur — deux apps, une promesse" },
+        ],
+        tools: [
+          { name: "Cursor", usage: "Gallery OS dashboard, Vitreen Studio, landing Vitreen, Gmail add-on", example: "Sidebar Gallery OS + éditeur Viewing Room Studio — sessions itératives" },
+          { name: "Claude Code", usage: "Architecture produit, i18n, guidelines marque Vitreen", example: "Séparation claire Vitreen (GTM) vs Gallery OS (ops)" },
+          { name: "Next.js + Tailwind", usage: "Design system zinc/minimal partagé entre les deux apps", example: "Même langage visuel — dashboard et landing" },
+          { name: "Sanity + Gmail API", usage: "CMS galerie + intégration sidebar Gmail depuis Tools", example: "Page /dashboard/tools/gmail — config add-on" },
+        ],
+      },
+      learnings: {
+        worked: "Séparer Vitreen (promesse) et Gallery OS (produit) a clarifié le récit — en entretien, on montre d'abord le dashboard réel, puis la landing.",
+        wouldRedo: "Ne pas utiliser de visuels Krea ou mocks landing dans le case study portfolio — uniquement des captures Gallery OS et viewing rooms réelles.",
+        next: "Distribute — transformer une sélection en viewing room / PDF / lien en un clic depuis Gallery OS.",
+      },
     },
   },
   {
     id: 3,
     slug: "design-system",
+    featured: false,
     title: "Projet 03",
     type: "Design System",
     year: "2023",
@@ -337,6 +504,7 @@ export const projects = [
   {
     id: 4,
     slug: "app-sante",
+    featured: false,
     title: "Projet 04",
     type: "Application mobile",
     year: "2023",
