@@ -222,6 +222,40 @@ function VitreenInteractiveCard({ project }) {
                 </div>
               </div>
             </div>
+
+            <section className="vitreen-page-section vitreen-page-section--intro">
+              <span className="vitreen-page-kicker">Gallery operations</span>
+              <h4>One system for the work your gallery already does.</h4>
+              <p>
+                Keep artworks, exhibitions, collectors and daily communication
+                connected without changing the tools your team relies on.
+              </p>
+              <div className="vitreen-page-features">
+                {[
+                  ["Artworks", "A clear inventory shared across every workflow."],
+                  ["Collectors", "Context that stays attached to each conversation."],
+                  ["Exhibitions", "Selections and availability always up to date."],
+                ].map(([title, text]) => (
+                  <article key={title}>
+                    <span>↗</span>
+                    <strong>{title}</strong>
+                    <p>{text}</p>
+                  </article>
+                ))}
+              </div>
+            </section>
+
+            <section className="vitreen-page-section vitreen-page-section--tools">
+              <div>
+                <span className="vitreen-page-kicker">Connected tools</span>
+                <h4>Vitreen works where your team works.</h4>
+              </div>
+              <div className="vitreen-page-tool-grid">
+                {["Gmail", "Google Drive", "Notion", "Calendar"].map((tool) => (
+                  <span key={tool}>{tool}</span>
+                ))}
+              </div>
+            </section>
           </div>
         </div>
       </div>
@@ -608,6 +642,7 @@ function StackDock({ stacks, activeId, onChange }) {
   const handleWheel = (e) => {
     const el = trackRef.current;
     if (!el) return;
+    e.preventDefault();
     // L'input utilisateur reprend toujours la main sur un recentrage en cours.
     programmaticRef.current = false;
     clearTimeout(programmaticTimer.current);
@@ -668,18 +703,43 @@ function BentoEmpty() {
   return <div className="bento-card bento-card--sm bento-card--empty" aria-hidden="true" />;
 }
 
+function SalesAgentCard() {
+  return (
+    <article className="sales-agent-preview">
+      <div className="sales-agent-inner">
+        <div className="sales-agent-heading">
+          <svg viewBox="0 0 32 32" aria-hidden="true">
+            <path d="M11 8V5.5A2.5 2.5 0 0 1 13.5 3h5A2.5 2.5 0 0 1 21 5.5V8" />
+            <rect x="5" y="8" width="22" height="17" rx="3" />
+            <path d="M10 15v4M16 15v4M22 15v4" />
+          </svg>
+          <h2>Sales Agent</h2>
+        </div>
+        <p>Brouillon IA pour chaque réponse client entrante</p>
+        <span className="sales-agent-arrow" aria-hidden="true">↗</span>
+      </div>
+    </article>
+  );
+}
+
 function Home() {
   const [activeStack, setActiveStack] = useState(STACKS[0].id);
   const idx = Math.max(0, STACKS.findIndex((s) => s.id === activeStack));
-  const prev = STACKS[(idx - 1 + STACKS.length) % STACKS.length];
-  const next = STACKS[(idx + 1) % STACKS.length];
   const projectOf = (s) => bentoProjects.find((p) => p.slug === s.projects[0]);
 
   const slots = [
-    { stack: prev, pos: "side" },
-    { stack: STACKS[idx], pos: "center" },
-    { stack: next, pos: "side" },
-  ];
+    { offset: -2, pos: "left-tall", projectSlug: "vitreen" },
+    { offset: -1, pos: "left-small", customContent: "sales-agent" },
+    { offset: 1, pos: "center-top" },
+    { offset: 0, pos: "center-main" },
+    { offset: 2, pos: "right-tall" },
+    { offset: 3, pos: "right-small" },
+  ].map(({ offset, pos, projectSlug, customContent }) => ({
+    stack: STACKS[(idx + offset + STACKS.length) % STACKS.length],
+    pos,
+    projectSlug,
+    customContent,
+  }));
 
   return (
     <main className="main main--stack">
@@ -689,14 +749,33 @@ function Home() {
       </header>
 
       <section className="stack-cards" aria-label="Projets" key={activeStack}>
-        {slots.map(({ stack, pos }) => {
-          const project = projectOf(stack);
+        {slots.map(({ stack, pos, projectSlug, customContent }) => {
+          if (customContent === "sales-agent") {
+            return (
+              <div
+                key={pos}
+                className={`stack-card-slot stack-card-slot--${pos} stack-card-slot--sales-agent`}
+              >
+                <SalesAgentCard />
+              </div>
+            );
+          }
+
+          const project = projectSlug
+            ? bentoProjects.find((item) => item.slug === projectSlug)
+            : projectOf(stack);
           if (!project) return null;
           return (
             <div
               key={stack.id}
-              className={`stack-card-slot stack-card-slot--${pos}`}
-              onClick={pos === "side" ? () => setActiveStack(stack.id) : undefined}
+              className={`stack-card-slot stack-card-slot--${pos}${
+                projectSlug ? " stack-card-slot--desktop-preview" : ""
+              }${stack.id === activeStack ? " is-active" : ""}`}
+              onClick={
+                stack.id === activeStack
+                  ? undefined
+                  : () => setActiveStack(stack.id)
+              }
             >
               <BentoCard project={project} />
             </div>
