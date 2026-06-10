@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import { projects } from "./projects.js";
 import { SITE } from "./site.js";
@@ -474,6 +474,183 @@ function BentoCard({ project }) {
   );
 }
 
+/* ─── Portfolio V2 — projets rattachés aux stacks ─── */
+
+const STACKS = [
+  { id: "claude-code", name: "Claude Code", projects: ["vitreen"] },
+  { id: "codex", name: "Codex", projects: ["hanging"] },
+  { id: "jitter", name: "Jitter", projects: ["design-system"] },
+  { id: "sanity", name: "Sanity", projects: ["app-sante"] },
+  { id: "supabase", name: "Supabase", projects: ["vitreen"] },
+  { id: "figma", name: "Figma", projects: ["hanging"] },
+  { id: "vercel", name: "Vercel", projects: ["app-sante"] },
+];
+
+function StackIcon({ id }) {
+  switch (id) {
+    case "claude-code":
+      return (
+        <span className="stack-tile" style={{ background: "#D97757" }}>
+          <svg viewBox="0 0 54 54">
+            <g stroke="#fff" strokeWidth="4.5" strokeLinecap="round">
+              <path d="M27 11v32M11 27h32M15.7 15.7l22.6 22.6M38.3 15.7 15.7 38.3" />
+            </g>
+          </svg>
+        </span>
+      );
+    case "codex":
+      return (
+        <span className="stack-tile" style={{ background: "#0d0d0d" }}>
+          <svg viewBox="0 0 54 54">
+            <path d="m15 19 9 8-9 8" stroke="#fff" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+            <path d="M28 37h12" stroke="#fff" strokeWidth="4" strokeLinecap="round" />
+          </svg>
+        </span>
+      );
+    case "jitter":
+      return (
+        <span className="stack-tile" style={{ background: "#111110" }}>
+          <svg viewBox="0 0 54 54">
+            <g stroke="#fff" strokeLinecap="round" fill="none">
+              <path d="M33 13c0 14-2 24-10 28" strokeWidth="5" />
+              <path d="M22 18h16" strokeWidth="4.5" />
+            </g>
+          </svg>
+        </span>
+      );
+    case "sanity":
+      return (
+        <span className="stack-tile" style={{ background: "#F03E2F" }}>
+          <svg viewBox="0 0 54 54">
+            <text x="27" y="37" textAnchor="middle" fill="#fff" fontSize="28" fontWeight="700" fontFamily="Georgia, serif">
+              S
+            </text>
+          </svg>
+        </span>
+      );
+    case "supabase":
+      return (
+        <span className="stack-tile" style={{ background: "#1c1c1c" }}>
+          <svg viewBox="0 0 54 54">
+            <path d="M30 8 13 30h11l-2 16 17-22H28z" fill="#3ECF8E" />
+          </svg>
+        </span>
+      );
+    case "figma":
+      return (
+        <span className="stack-tile stack-tile--light">
+          <svg viewBox="0 0 54 54">
+            <path d="M21 11h6v10h-6a5 5 0 0 1 0-10z" fill="#F24E1E" />
+            <path d="M27 11h6a5 5 0 0 1 0 10h-6z" fill="#FF7262" />
+            <path d="M21 22h6v10h-6a5 5 0 0 1 0-10z" fill="#A259FF" />
+            <circle cx="32" cy="27" r="5" fill="#1ABCFE" />
+            <path d="M21 33h6v5a5 5 0 1 1-6-5z" fill="#0ACF83" />
+          </svg>
+        </span>
+      );
+    case "vercel":
+      return (
+        <span className="stack-tile stack-tile--light">
+          <svg viewBox="0 0 54 54">
+            <path d="M27 15l14 24H13z" fill="#111110" />
+          </svg>
+        </span>
+      );
+    default:
+      return <span className="stack-tile" />;
+  }
+}
+
+function StackDock({ stacks, activeId, onChange }) {
+  const trackRef = useRef(null);
+  const programmaticRef = useRef(false);
+  const programmaticTimer = useRef(null);
+
+  const centerOn = (node, smooth = true) => {
+    const el = trackRef.current;
+    if (!el || !node) return;
+    const target = node.offsetLeft + node.offsetWidth / 2 - el.clientWidth / 2;
+    // Verrouille la détection au scroll le temps du défilement programmé,
+    // sinon les icônes intermédiaires reprennent la sélection en cours de route.
+    programmaticRef.current = true;
+    clearTimeout(programmaticTimer.current);
+    programmaticTimer.current = setTimeout(() => {
+      programmaticRef.current = false;
+    }, smooth ? 700 : 50);
+    el.scrollTo({ left: target, behavior: smooth ? "smooth" : "auto" });
+  };
+
+  const settleTimer = useRef(null);
+
+  const handleScroll = () => {
+    const el = trackRef.current;
+    if (!el || programmaticRef.current) return;
+    const center = el.scrollLeft + el.clientWidth / 2;
+    let best = null;
+    let bestNode = null;
+    let bestDist = Infinity;
+    el.querySelectorAll("[data-stack]").forEach((node) => {
+      const d = Math.abs(node.offsetLeft + node.offsetWidth / 2 - center);
+      if (d < bestDist) {
+        bestDist = d;
+        best = node.dataset.stack;
+        bestNode = node;
+      }
+    });
+    if (best && best !== activeId) onChange(best);
+    // Auto-centrage doux une fois le scroll utilisateur terminé.
+    clearTimeout(settleTimer.current);
+    settleTimer.current = setTimeout(() => {
+      if (!programmaticRef.current && bestNode && bestDist > 2) centerOn(bestNode);
+    }, 220);
+  };
+
+  const handleWheel = (e) => {
+    const el = trackRef.current;
+    if (!el) return;
+    // L'input utilisateur reprend toujours la main sur un recentrage en cours.
+    programmaticRef.current = false;
+    clearTimeout(programmaticTimer.current);
+    const delta = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+    el.scrollLeft += delta;
+    // Certains environnements n'émettent pas d'événement scroll sur mutation
+    // programmée de scrollLeft : on synchronise directement.
+    handleScroll();
+  };
+
+  useEffect(() => {
+    const el = trackRef.current;
+    const node = el?.querySelector(`[data-stack="${activeId}"]`);
+    if (!el || !node) return;
+    // Si la sélection vient d'ailleurs (clic sur une card latérale), on recentre l'icône.
+    const offset = Math.abs(node.offsetLeft + node.offsetWidth / 2 - (el.scrollLeft + el.clientWidth / 2));
+    if (offset > 40) centerOn(node);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeId]);
+
+  return (
+    <nav className="stack-dock" aria-label="Stacks">
+      <div className="stack-dock-track" ref={trackRef} onScroll={handleScroll} onWheel={handleWheel}>
+        {stacks.map((stack) => (
+          <button
+            key={stack.id}
+            type="button"
+            data-stack={stack.id}
+            className={`stack-dock-item${stack.id === activeId ? " is-active" : ""}`}
+            onClick={(e) => {
+              onChange(stack.id);
+              centerOn(e.currentTarget);
+            }}
+          >
+            <StackIcon id={stack.id} />
+            <small>{stack.name}</small>
+          </button>
+        ))}
+      </div>
+    </nav>
+  );
+}
+
 function BentoContact() {
   return (
     <a href={`mailto:${SITE.email}`} className="bento-card bento-card--contact">
@@ -492,29 +669,42 @@ function BentoEmpty() {
 }
 
 function Home() {
+  const [activeStack, setActiveStack] = useState(STACKS[0].id);
+  const idx = Math.max(0, STACKS.findIndex((s) => s.id === activeStack));
+  const prev = STACKS[(idx - 1 + STACKS.length) % STACKS.length];
+  const next = STACKS[(idx + 1) % STACKS.length];
+  const projectOf = (s) => bentoProjects.find((p) => p.slug === s.projects[0]);
+
+  const slots = [
+    { stack: prev, pos: "side" },
+    { stack: STACKS[idx], pos: "center" },
+    { stack: next, pos: "side" },
+  ];
+
   return (
-    <main className="main main--home">
+    <main className="main main--stack">
       <header id="about" className="home-hero">
         <h1 className="home-hero-title">Raphaël Rossi</h1>
         <p className="home-hero-subtitle">Designer produit</p>
-        <div className="home-hero-bio">
-          <p>Mon travail consiste à transformer des opérations complexes en expériences simples.</p>
-          <p>
-            Issu du monde de l'art contemporain, j'utilise le design et la technologie pour
-            concevoir des outils adaptés aux usages réels des artistes, des galeries et des
-            institutions. Cette démarche guide aujourd'hui le développement de projets comme
-            Vitreen et Hanging.
-          </p>
-        </div>
       </header>
 
-      <section id="projects" className="bento" aria-label="Projets">
-        {bentoProjects.map((p) => (
-          <BentoCard key={p.id} project={p} />
-        ))}
-        <BentoEmpty />
-        <BentoContact />
+      <section className="stack-cards" aria-label="Projets" key={activeStack}>
+        {slots.map(({ stack, pos }) => {
+          const project = projectOf(stack);
+          if (!project) return null;
+          return (
+            <div
+              key={stack.id}
+              className={`stack-card-slot stack-card-slot--${pos}`}
+              onClick={pos === "side" ? () => setActiveStack(stack.id) : undefined}
+            >
+              <BentoCard project={project} />
+            </div>
+          );
+        })}
       </section>
+
+      <StackDock stacks={STACKS} activeId={activeStack} onChange={setActiveStack} />
     </main>
   );
 }
