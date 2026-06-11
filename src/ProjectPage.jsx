@@ -612,36 +612,38 @@ function VitreenProjectPage({ project }) {
       onMouseLeave={() => setCursor((c) => ({ ...c, visible: false }))}
       onClick={handleBackgroundClick}
     >
-      <div className={`vitreen-showcase${useCaseOpen ? " is-split" : ""}`}>
-        <div className="vitreen-window">
-          <iframe
-            src="https://vitreen.art"
-            title="Vitreen — site live"
-            loading="lazy"
-          />
+      <div className="vitreen-content">
+        <div className={`vitreen-showcase${useCaseOpen ? " is-split" : ""}`}>
+          <div className="vitreen-window">
+            <iframe
+              src="https://vitreen.art"
+              title="Vitreen — site live"
+              loading="lazy"
+            />
+          </div>
+          {useCaseOpen && <VitreenUseCaseCarousel project={project} />}
         </div>
-        {useCaseOpen && <VitreenUseCaseCarousel project={project} />}
-      </div>
-      <div className="vitreen-window-actions">
-        <button
-          type="button"
-          className={`vitreen-pill-btn${useCaseOpen ? " is-active" : ""}`}
-          onClick={() => setUseCaseOpen((open) => !open)}
-          aria-expanded={useCaseOpen}
-        >
-          Use case
-        </button>
-        <a
-          href="https://vitreen.art"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="vitreen-round-btn"
-          aria-label="Voir vitreen.art"
-        >
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M7 17 17 7M9 7h8v8" />
-          </svg>
-        </a>
+        <div className="vitreen-window-actions">
+          <button
+            type="button"
+            className={`vitreen-pill-btn${useCaseOpen ? " is-active" : ""}`}
+            onClick={() => setUseCaseOpen((open) => !open)}
+            aria-expanded={useCaseOpen}
+          >
+            Use case
+          </button>
+          <a
+            href="https://vitreen.art"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="vitreen-round-btn"
+            aria-label="Voir vitreen.art"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M7 17 17 7M9 7h8v8" />
+            </svg>
+          </a>
+        </div>
       </div>
       <div
         className={`vitreen-cursor-close${cursor.visible ? " is-visible" : ""}`}

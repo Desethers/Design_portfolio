@@ -1807,8 +1807,16 @@ a {
   flex-direction: column;
   justify-content: center;
   min-height: 100vh;
+  max-width: none;
+  width: 100%;
   padding-top: 6rem;
   cursor: none;
+}
+
+.vitreen-content {
+  width: 100%;
+  max-width: var(--measure-wide);
+  margin: 0 auto;
 }
 
 .project-page--vitreen .vitreen-window,
@@ -1827,8 +1835,9 @@ a {
   width: 46px;
   height: 46px;
   border-radius: 50%;
-  background: #111110;
-  color: #fff;
+  background: #fff;
+  color: #111110;
+  box-shadow: 0 2px 12px rgba(17, 17, 16, 0.08);
   pointer-events: none;
   opacity: 0;
   transform: translate(-50%, -50%) scale(0.8);
