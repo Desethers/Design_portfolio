@@ -421,8 +421,8 @@ function Home() {
     },
     { stack: STACKS[2] },
     { stack: STACKS[1], landscape: true },
-    { stack: STACKS[3] },
     { stack: STACKS[4], customContent: "hanging-booking" },
+    { stack: STACKS[3] },
   ];
 
   return (
