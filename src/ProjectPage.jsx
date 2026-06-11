@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useParams, Link, Navigate, useNavigate } from "react-router-dom";
 import { projects } from "./projects.js";
+import HangingTechnicalDrawing from "./HangingTechnicalDrawing.jsx";
 
 function TldrBox({ tldr }) {
   if (!tldr) return null;
@@ -585,11 +586,81 @@ function VitreenUseCaseCarousel({ project }) {
   );
 }
 
-/* ─── Vitreen — fenêtre V2.1 + panneau étude de cas ───────────────────── */
-function VitreenProjectPage({ project }) {
+const PROJECT_LIVE_URLS = {
+  vitreen: "https://vitreen.art",
+  hanging: "https://hanging.fr",
+};
+
+function ProjectWindowContent({ project, siteReady, onSiteLoad }) {
+  const liveUrl = PROJECT_LIVE_URLS[project.slug];
+
+  if (project.slug === "hanging") {
+    return <HangingTechnicalDrawing />;
+  }
+
+  if (liveUrl) {
+    return (
+      <>
+        <iframe
+          src={liveUrl}
+          title={`${project.title} — site live`}
+          loading="eager"
+          onLoad={onSiteLoad}
+        />
+        <div
+          className={`vitreen-site-loader${siteReady ? " is-hidden" : ""}`}
+          aria-hidden={siteReady}
+        >
+          <span>{project.slug === "vitreen" ? "Vitreen" : "Hanging"}</span>
+          <i />
+        </div>
+      </>
+    );
+  }
+
+  const media = project.cover ?? project.video;
+  if (media) {
+    return /\.(mp4|mov|webm)$/i.test(media) ? (
+      <video
+        className="project-showcase-media"
+        src={media}
+        autoPlay
+        loop
+        muted
+        playsInline
+      />
+    ) : (
+      <img className="project-showcase-media" src={media} alt={project.title} />
+    );
+  }
+
+  return (
+    <div className="project-showcase-placeholder">
+      <span>{project.type}</span>
+      <h1>{project.title}</h1>
+      <p>{project.desc}</p>
+      <div>
+        {project.tags.map((tag) => (
+          <em key={tag}>{tag}</em>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ─── Fenêtre projet + panneau use case optionnel ─────────────────────── */
+function ShowcaseProjectPage({ project, showUseCase = false }) {
   const [useCaseOpen, setUseCaseOpen] = useState(false);
   const [cursor, setCursor] = useState({ x: 0, y: 0, visible: false });
+  const [siteReady, setSiteReady] = useState(false);
+  const siteReadyTimer = useRef(null);
   const navigate = useNavigate();
+  const liveUrl = PROJECT_LIVE_URLS[project.slug];
+  const isPortraitProject = project.slug === "design-system";
+
+  useEffect(() => {
+    return () => clearTimeout(siteReadyTimer.current);
+  }, []);
 
   const handleMouseMove = (e) => {
     const overInteractive = e.target.closest(
@@ -613,37 +684,48 @@ function VitreenProjectPage({ project }) {
       onClick={handleBackgroundClick}
     >
       <div className="vitreen-content">
-        <div className={`vitreen-showcase${useCaseOpen ? " is-split" : ""}`}>
+        <div
+          className={`vitreen-showcase${useCaseOpen ? " is-split" : ""}${
+            isPortraitProject ? " vitreen-showcase--portrait" : ""
+          }`}
+        >
           <div className="vitreen-window">
-            <iframe
-              src="https://vitreen.art"
-              title="Vitreen — site live"
-              loading="lazy"
+            <ProjectWindowContent
+              project={project}
+              siteReady={siteReady}
+              onSiteLoad={() => {
+                clearTimeout(siteReadyTimer.current);
+                siteReadyTimer.current = setTimeout(() => setSiteReady(true), 5000);
+              }}
             />
           </div>
-          {useCaseOpen && <VitreenUseCaseCarousel project={project} />}
+          {showUseCase && useCaseOpen && <VitreenUseCaseCarousel project={project} />}
         </div>
-        <div className="vitreen-window-actions">
-          <button
-            type="button"
-            className={`vitreen-pill-btn${useCaseOpen ? " is-active" : ""}`}
-            onClick={() => setUseCaseOpen((open) => !open)}
-            aria-expanded={useCaseOpen}
-          >
-            Use case
-          </button>
-          <a
-            href="https://vitreen.art"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="vitreen-round-btn"
-            aria-label="Voir vitreen.art"
-          >
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M7 17 17 7M9 7h8v8" />
-            </svg>
-          </a>
-        </div>
+        {(showUseCase || liveUrl) && (
+          <div className="vitreen-window-actions">
+            {showUseCase && (
+              <button
+                type="button"
+                className={`vitreen-pill-btn${useCaseOpen ? " is-active" : ""}`}
+                onClick={() => setUseCaseOpen((open) => !open)}
+                aria-expanded={useCaseOpen}
+              >
+                Use case
+              </button>
+            )}
+            {liveUrl && (
+              <a
+                href={liveUrl}
+                className="vitreen-round-btn"
+                aria-label={`Voir ${liveUrl}`}
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M7 17 17 7M9 7h8v8" />
+                </svg>
+              </a>
+            )}
+          </div>
+        )}
       </div>
       <div
         className={`vitreen-cursor-close${cursor.visible ? " is-visible" : ""}`}
@@ -673,78 +755,13 @@ export default function ProjectPage() {
 
   if (!project) return <Navigate to="/" replace />;
 
-  const currentIndex = projects.findIndex((p) => p.slug === slug);
-  const prev = projects[currentIndex - 1] ?? null;
-  const next = projects[currentIndex + 1] ?? null;
-
-  const hero = project.caseStudy?.hero;
-  const tldr = project.caseStudy?.tldr;
-
   if (slug === "vitreen") {
-    return <VitreenProjectPage project={project} />;
+    return <ShowcaseProjectPage project={project} showUseCase />;
   }
 
-  const studyContent = project.caseStudy ? (
-    <CaseStudyView content={project.caseStudy} />
-  ) : (
-    <ProcessView p={project} />
-  );
+  if (slug === "hanging") {
+    return <ShowcaseProjectPage project={project} showUseCase />;
+  }
 
-  return (
-    <main className="project-page">
-      <div className="project-page-hero">
-        <Link to="/" className="back-link">← Retour</Link>
-        <div className="project-page-meta">
-          <span className="project-page-type">
-            {hero ? project.year : `${project.type} · ${project.year}`}
-          </span>
-        </div>
-        <h1 className="project-page-title">{hero ? hero.title : project.title}</h1>
-        <div className="project-page-tags">
-          {(hero ? hero.tags : project.tags).map((t) => (
-            <span key={t} className="card-tag">{t}</span>
-          ))}
-        </div>
-        {(hero ? hero.subtitle : project.description) && (
-          <p className="project-page-description">
-            {hero ? hero.subtitle : project.description}
-          </p>
-        )}
-        {hero?.stats && <p className="project-page-stats">{hero.stats}</p>}
-      </div>
-
-      {project.video && (
-        <div className="project-page-visual">
-          <video
-            className="project-prototype-video"
-            src={project.video}
-            autoPlay
-            loop
-            muted
-            playsInline
-          />
-        </div>
-      )}
-
-      <div className="project-page-study">
-        <TldrBox tldr={tldr} />
-        {studyContent}
-      </div>
-
-      <nav className="project-nav">
-        {prev ? (
-          <Link to={`/projet/${prev.slug}`} className="project-nav-link project-nav-prev">
-            <span className="project-nav-dir">← Précédent</span>
-            <span className="project-nav-name">{prev.title}</span>
-          </Link>
-        ) : <div />}
-        {next ? (
-          <Link to={`/projet/${next.slug}`} className="project-nav-link project-nav-next">
-            <span className="project-nav-dir">Suivant →</span>
-            <span className="project-nav-name">{next.title}</span>
-          </Link>
-        ) : <div />}
-      </nav>
-    </main>
-  );
+  return <ShowcaseProjectPage project={project} />;
 }

@@ -490,14 +490,26 @@ function Home() {
         </p>
         <div className="home-hero-bio">
           <p>
-            J&apos;explore les outils de design et d&apos;intelligence artificielle pour
-            simplifier des workflows complexes et concevoir des expériences utiles et
-            intuitives. J&apos;applique cette démarche à différents projets, notamment
-            dans le secteur culturel et le monde de l&apos;art, à travers des initiatives
-            comme Vitreen et Hanging.
+            Je conçois des outils et des interfaces qui simplifient des opérations
+            complexes et les transforment en expériences claires et efficaces.
+          </p>
+          <p>
+            Mon travail s&apos;appuie sur le design, la technologie et l&apos;intelligence
+            artificielle, avec une attention particulière portée aux usages réels. Cette
+            approche guide aujourd&apos;hui des projets comme{" "}
+            <a href="https://vitreen.art" target="_blank" rel="noopener noreferrer">
+              Vitreen
+            </a>{" "}
+            et{" "}
+            <a href="https://hanging.fr" target="_blank" rel="noopener noreferrer">
+              Hanging
+            </a>
+            .
           </p>
         </div>
       </header>
+
+      <h2 className="stack-section-title">Projets récents</h2>
 
       <section
         className="stack-cards"
@@ -559,7 +571,7 @@ function Footer() {
 
 export default function App() {
   const { pathname } = useLocation();
-  const hideFooter = pathname === "/projet/vitreen";
+  const hideFooter = pathname.startsWith("/projet/");
 
   return (
     <div className="page">
