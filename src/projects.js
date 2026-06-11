@@ -452,7 +452,7 @@ export const projects = [
     id: 3,
     slug: "design-system",
     featured: false,
-    cover: "/vitreen/Scene-4.mp4",
+    cover: "/vitreen/Scene-5.mp4",
     title: "Projet 03",
     type: "Design System",
     year: "2023",
