@@ -527,6 +527,37 @@ function ProcessView({ p }) {
   );
 }
 
+/* ─── Vitreen — fenêtre V2.1 + panneau étude de cas ───────────────────── */
+function VitreenProjectPage() {
+  return (
+    <main className="project-page project-page--vitreen">
+      <div className="vitreen-showcase">
+        <div className="vitreen-window">
+          <iframe
+            src="https://vitreen.art"
+            title="Vitreen — site live"
+            loading="lazy"
+          />
+        </div>
+      </div>
+      <div className="vitreen-window-actions">
+        <span className="vitreen-pill-btn">Use case</span>
+        <a
+          href="https://vitreen.art"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="vitreen-round-btn"
+          aria-label="Voir vitreen.art"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7 17 17 7M9 7h8v8" />
+          </svg>
+        </a>
+      </div>
+    </main>
+  );
+}
+
 /* ─── Page ───────────────────────────────────────────────────────────── */
 export default function ProjectPage() {
   const { slug } = useParams();
@@ -548,6 +579,11 @@ export default function ProjectPage() {
 
   const hero = project.caseStudy?.hero;
   const tldr = project.caseStudy?.tldr;
+
+  if (slug === "vitreen") {
+    return <VitreenProjectPage />;
+  }
+
   const studyContent = project.caseStudy ? (
     <CaseStudyView content={project.caseStudy} />
   ) : (
