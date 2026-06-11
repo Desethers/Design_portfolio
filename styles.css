@@ -2942,7 +2942,7 @@ a {
   position: relative;
   border-radius: 50%;
   color: #111110;
-  animation: gmck-rail-active 13s infinite;
+  animation: gmck-rail-active 10s infinite;
 }
 
 .gmck-rail-vitreen .gmck-glyph {
@@ -3096,7 +3096,7 @@ a {
   height: 22px;
   border-radius: 50%;
   color: #111110;
-  animation: gmck-tool-active 13s infinite;
+  animation: gmck-tool-active 10s infinite;
 }
 
 .gmck-tool-vitreen .gmck-glyph {
@@ -3128,7 +3128,7 @@ a {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  animation: gmck-panel 13s infinite;
+  animation: gmck-panel 10s infinite;
 }
 
 .gmck-panel-app {
@@ -3249,13 +3249,13 @@ a {
 .gmck-dialog {
   position: absolute;
   left: 22px;
-  top: 140px;
+  top: 170px;
   width: 282px;
   background: #fff;
   border-radius: 10px;
   box-shadow: 0 8px 30px rgba(32, 33, 36, 0.28);
   overflow: hidden;
-  animation: gmck-dialog 13s infinite;
+  animation: gmck-dialog 10s infinite;
 }
 
 .gmck-dialog-body {
@@ -3287,14 +3287,6 @@ a {
   color: #202124;
 }
 
-.gmck-typed {
-  display: inline-block;
-  overflow: hidden;
-  white-space: nowrap;
-  max-width: 7ch;
-  animation: gmck-typed 13s infinite;
-}
-
 .gmck-caret {
   width: 1.5px;
   height: 15px;
@@ -3316,68 +3308,13 @@ a {
   font-size: 11px;
 }
 
-.gmck-result {
-  margin-top: 11px;
-  animation: gmck-result 13s infinite;
-}
-
-.gmck-result > small {
-  font-size: 10.5px;
-  color: #5f6368;
-}
-
-.gmck-result-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 7px;
-}
-
-.gmck-result-item img {
-  width: 34px;
-  height: 34px;
-  object-fit: cover;
-  border-radius: 3px;
-  flex-shrink: 0;
-}
-
-.gmck-result-item > span {
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-  min-width: 0;
-}
-
-.gmck-result-item small {
-  font-size: 9px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  color: #5f6368;
-}
-
-.gmck-result-item em {
-  font-size: 11.5px;
-  color: #202124;
-}
-
-.gmck-result-price {
-  font-size: 10.5px;
-  color: #202124;
-}
-
-.gmck-result-price b {
-  color: #188038;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-}
-
 /* Curseur + impulsions de clic */
 .gmck-cursor {
   position: absolute;
   z-index: 6;
   width: 20px;
   height: 20px;
-  animation: gmck-cursor 13s infinite ease-in-out;
+  animation: gmck-cursor 10s infinite ease-in-out;
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
 }
 
@@ -3391,56 +3328,35 @@ a {
   opacity: 0;
 }
 
-.gmck-pulse-1 {
-  left: 585px;
+.gmck-pulse-vitreen {
+  left: 294px;
   top: 208px;
-  animation: gmck-pulse-1 13s infinite;
+  animation: gmck-pulse-vitreen 10s infinite;
 }
 
-.gmck-pulse-2 {
-  left: 190px;
-  top: 355px;
-  animation: gmck-pulse-2 13s infinite;
-}
-
-/* Timeline 13 s : clic rail → panneau → clic brouillon → fenêtre → frappe → recherche → résultat */
+/* Timeline : un clic sur l'icône Vitreen du rail, puis la fenêtre reste ouverte. */
 @keyframes gmck-cursor {
-  0%, 6% { left: 300px; top: 140px; }
-  13%, 30% { left: 596px; top: 218px; }
-  37%, 56% { left: 201px; top: 368px; }
-  60%, 92% { left: 82px; top: 307px; }
-  98%, 100% { left: 300px; top: 140px; }
+  0%, 8% { left: 350px; top: 250px; }
+  28%, 100% { left: 305px; top: 220px; }
 }
 
 @keyframes gmck-rail-active {
-  0%, 12% { background: transparent; }
-  14%, 93% { background: #e1e5ea; }
-  97%, 100% { background: transparent; }
+  0%, 100% { background: #e1e5ea; }
 }
 
 @keyframes gmck-panel {
-  0%, 13% { transform: translateX(120%); opacity: 0; }
-  15% { opacity: 1; }
-  21%, 41% { transform: translateX(0); opacity: 1; }
-  43%, 93% { transform: translateX(28%); opacity: 1; }
-  95%, 100% { transform: translateX(120%); opacity: 0; }
+  0%, 25% { transform: translateX(0); opacity: 1; }
+  32%, 100% { transform: translateX(28%); opacity: 1; }
 }
 
 @keyframes gmck-tool-active {
-  0%, 36% { background: transparent; }
-  38%, 93% { background: #e8f0fe; }
-  97%, 100% { background: transparent; }
+  0%, 24% { background: transparent; }
+  29%, 100% { background: #e8f0fe; }
 }
 
 @keyframes gmck-dialog {
-  0%, 38% { opacity: 0; transform: scale(0.94) translateY(6px); }
-  43%, 93% { opacity: 1; transform: scale(1) translateY(0); }
-  97%, 100% { opacity: 0; }
-}
-
-@keyframes gmck-typed {
-  0%, 45% { width: 0; animation-timing-function: steps(7, end); }
-  57%, 100% { width: 7ch; }
+  0%, 27% { opacity: 0; transform: scale(0.94) translateY(6px); }
+  34%, 100% { opacity: 1; transform: scale(1) translateY(0); }
 }
 
 @keyframes gmck-caret {
@@ -3448,21 +3364,10 @@ a {
   50%, 100% { opacity: 0; }
 }
 
-@keyframes gmck-result {
-  0%, 67% { opacity: 0; transform: translateY(5px); }
-  73%, 100% { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes gmck-pulse-1 {
-  0%, 12.5% { opacity: 0; transform: scale(0.3); }
-  13.5% { opacity: 0.55; }
-  19%, 100% { opacity: 0; transform: scale(1.5); }
-}
-
-@keyframes gmck-pulse-2 {
-  0%, 36.5% { opacity: 0; transform: scale(0.3); }
-  37.5% { opacity: 0.55; }
-  43%, 100% { opacity: 0; transform: scale(1.5); }
+@keyframes gmck-pulse-vitreen {
+  0%, 25% { opacity: 0; transform: scale(0.3); }
+  28% { opacity: 0.55; }
+  35%, 100% { opacity: 0; transform: scale(1.5); }
 }
 
 
@@ -4051,6 +3956,12 @@ a {
     width: 100%;
     height: auto;
     aspect-ratio: 16 / 9;
+  }
+
+  /* Sur mobile la scrollbar est en overlay : pas besoin du +20px qui
+     rognait le bord droit du site embarqué. */
+  .vitreen-window iframe {
+    width: 100%;
   }
 
   .vitreen-usecase-card {
