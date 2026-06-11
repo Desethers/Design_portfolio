@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useParams, Link, Navigate } from "react-router-dom";
+import { useParams, Link, Navigate, useNavigate } from "react-router-dom";
 import { projects } from "./projects.js";
 
 function TldrBox({ tldr }) {
@@ -588,9 +588,30 @@ function VitreenUseCaseCarousel({ project }) {
 /* ─── Vitreen — fenêtre V2.1 + panneau étude de cas ───────────────────── */
 function VitreenProjectPage({ project }) {
   const [useCaseOpen, setUseCaseOpen] = useState(false);
+  const [cursor, setCursor] = useState({ x: 0, y: 0, visible: false });
+  const navigate = useNavigate();
+
+  const handleMouseMove = (e) => {
+    const overInteractive = e.target.closest(
+      ".vitreen-window, .vitreen-usecase-card, .vitreen-window-actions"
+    );
+    setCursor({ x: e.clientX, y: e.clientY, visible: !overInteractive });
+  };
+
+  const handleBackgroundClick = (e) => {
+    if (e.target.closest(".vitreen-window, .vitreen-usecase-card, .vitreen-window-actions")) {
+      return;
+    }
+    navigate("/");
+  };
 
   return (
-    <main className="project-page project-page--vitreen">
+    <main
+      className="project-page project-page--vitreen"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={() => setCursor((c) => ({ ...c, visible: false }))}
+      onClick={handleBackgroundClick}
+    >
       <div className={`vitreen-showcase${useCaseOpen ? " is-split" : ""}`}>
         <div className="vitreen-window">
           <iframe
@@ -621,6 +642,15 @@ function VitreenProjectPage({ project }) {
             <path d="M7 17 17 7M9 7h8v8" />
           </svg>
         </a>
+      </div>
+      <div
+        className={`vitreen-cursor-close${cursor.visible ? " is-visible" : ""}`}
+        style={{ left: cursor.x, top: cursor.y }}
+        aria-hidden="true"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 6 18 18M18 6 6 18" />
+        </svg>
       </div>
     </main>
   );

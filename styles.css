@@ -1808,6 +1808,57 @@ a {
   justify-content: center;
   min-height: 100vh;
   padding-top: 6rem;
+  cursor: none;
+}
+
+.project-page--vitreen .vitreen-window,
+.project-page--vitreen .vitreen-usecase-card,
+.project-page--vitreen .vitreen-window-actions {
+  cursor: auto;
+}
+
+.vitreen-cursor-close {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #111110;
+  color: #fff;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.8);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 1000;
+}
+
+.vitreen-cursor-close.is-visible {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.vitreen-cursor-close svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (max-width: 620px), (hover: none) {
+  .project-page--vitreen {
+    cursor: auto;
+  }
+
+  .vitreen-cursor-close {
+    display: none;
+  }
 }
 
 .back-link {
