@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { projects } from "./projects.js";
 
@@ -20,13 +20,11 @@ function TldrBox({ tldr }) {
 }
 
 /* ─── Case study view (Hanging / Vitreen) ─────────────────────────────── */
-function CaseStudyView({ content }) {
+function buildCaseStudySections(content) {
   const { problem, objectifs, gtm, business, product, decisions, ai, learnings } = content;
-  return (
-    <div className="process-view">
-
-      {/* 01 — Le problème */}
-      <div id="problem" className="pv-section">
+  return [
+      // 01 — Le problème
+      <div key="problem" id="problem" className="pv-section">
         <div className="pv-section-meta">
           <span className="pv-num">01</span>
           <span className="pv-label">Le problème</span>
@@ -71,10 +69,10 @@ function CaseStudyView({ content }) {
           </div>
         </div>
       </div>
-      <div className="pv-divider" />
+      ,
 
-      {/* 02 — Objectifs */}
-      <div id="objectifs" className="pv-section">
+      // 02 — Objectifs
+      <div key="objectifs" id="objectifs" className="pv-section">
         <div className="pv-section-meta">
           <span className="pv-num">02</span>
           <span className="pv-label">Objectifs</span>
@@ -91,10 +89,10 @@ function CaseStudyView({ content }) {
           </div>
         </div>
       </div>
-      <div className="pv-divider" />
+      ,
 
-      {/* 03 — Stratégie de lancement */}
-      <div id="gtm" className="pv-section">
+      // 03 — Stratégie de lancement
+      <div key="gtm" id="gtm" className="pv-section">
         <div className="pv-section-meta">
           <span className="pv-num">03</span>
           <span className="pv-label">Stratégie de lancement</span>
@@ -114,10 +112,10 @@ function CaseStudyView({ content }) {
           </div>
         </div>
       </div>
-      <div className="pv-divider" />
+      ,
 
-      {/* 04 — Modèle business */}
-      <div id="business" className="pv-section">
+      // 04 — Modèle business
+      <div key="business" id="business" className="pv-section">
         <div className="pv-section-meta">
           <span className="pv-num">04</span>
           <span className="pv-label">Modèle business</span>
@@ -138,10 +136,10 @@ function CaseStudyView({ content }) {
           <blockquote className="pv-quote">{business.citation}</blockquote>
         </div>
       </div>
-      <div className="pv-divider" />
+      ,
 
-      {/* 05 — Le produit */}
-      <div id="product" className="pv-section">
+      // 05 — Le produit
+      <div key="product" id="product" className="pv-section">
         <div className="pv-section-meta">
           <span className="pv-num">05</span>
           <span className="pv-label">Le produit</span>
@@ -198,10 +196,10 @@ function CaseStudyView({ content }) {
           )}
         </div>
       </div>
-      <div className="pv-divider" />
+      ,
 
-      {/* 06 — Décisions de design */}
-      <div id="decisions" className="pv-section">
+      // 06 — Décisions de design
+      <div key="decisions" id="decisions" className="pv-section">
         <div className="pv-section-meta">
           <span className="pv-num">06</span>
           <span className="pv-label">Décisions de design</span>
@@ -218,10 +216,10 @@ function CaseStudyView({ content }) {
           </div>
         </div>
       </div>
-      <div className="pv-divider" />
+      ,
 
-      {/* 07 — L'IA comme outil */}
-      <div id="ai" className="pv-section">
+      // 07 — L'IA comme outil
+      <div key="ai" id="ai" className="pv-section">
         <div className="pv-section-meta">
           <span className="pv-num">07</span>
           <span className="pv-label">L'IA comme outil</span>
@@ -245,10 +243,10 @@ function CaseStudyView({ content }) {
           </div>
         </div>
       </div>
-      <div className="pv-divider" />
+      ,
 
-      {/* 08 — Bilan */}
-      <div id="learnings" className="pv-section">
+      // 08 — Bilan
+      <div key="learnings" id="learnings" className="pv-section">
         <div className="pv-section-meta">
           <span className="pv-num">08</span>
           <span className="pv-label">Bilan</span>
@@ -270,7 +268,19 @@ function CaseStudyView({ content }) {
           </div>
         </div>
       </div>
+  ];
+}
 
+function CaseStudyView({ content }) {
+  const sections = buildCaseStudySections(content);
+  return (
+    <div className="process-view">
+      {sections.map((section, i) => (
+        <React.Fragment key={i}>
+          {section}
+          {i < sections.length - 1 && <div className="pv-divider" />}
+        </React.Fragment>
+      ))}
     </div>
   );
 }
@@ -527,11 +537,61 @@ function ProcessView({ p }) {
   );
 }
 
+/* ─── Vitreen — carrousel use case (4 parties + points) ───────────────── */
+function VitreenUseCaseCarousel({ project }) {
+  const sections = buildCaseStudySections(project.caseStudy);
+  const slides = [
+    [<TldrBox key="tldr" tldr={project.caseStudy?.tldr} />, sections[0]],
+    [sections[1], sections[2]],
+    [sections[3], sections[4]],
+    [sections[5], sections[6], sections[7]],
+  ];
+  const trackRef = useRef(null);
+  const [active, setActive] = useState(0);
+
+  const onScroll = () => {
+    const el = trackRef.current;
+    if (!el) return;
+    setActive(Math.min(slides.length - 1, Math.round(el.scrollLeft / el.clientWidth)));
+  };
+
+  const goTo = (i) => {
+    setActive(i);
+    const el = trackRef.current;
+    el?.scrollTo({ left: i * el.clientWidth, behavior: "smooth" });
+  };
+
+  return (
+    <div className="vitreen-usecase-card">
+      <div className="vitreen-usecase-track" ref={trackRef} onScroll={onScroll}>
+        {slides.map((slide, i) => (
+          <div key={i} className="vitreen-usecase-slide process-view">
+            {slide}
+          </div>
+        ))}
+      </div>
+      <div className="vitreen-usecase-dots">
+        {slides.map((_, i) => (
+          <button
+            key={i}
+            type="button"
+            className={i === active ? "is-active" : ""}
+            onClick={() => goTo(i)}
+            aria-label={`Partie ${i + 1} sur ${slides.length}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 /* ─── Vitreen — fenêtre V2.1 + panneau étude de cas ───────────────────── */
-function VitreenProjectPage() {
+function VitreenProjectPage({ project }) {
+  const [useCaseOpen, setUseCaseOpen] = useState(false);
+
   return (
     <main className="project-page project-page--vitreen">
-      <div className="vitreen-showcase">
+      <div className={`vitreen-showcase${useCaseOpen ? " is-split" : ""}`}>
         <div className="vitreen-window">
           <iframe
             src="https://vitreen.art"
@@ -539,9 +599,17 @@ function VitreenProjectPage() {
             loading="lazy"
           />
         </div>
+        {useCaseOpen && <VitreenUseCaseCarousel project={project} />}
       </div>
       <div className="vitreen-window-actions">
-        <span className="vitreen-pill-btn">Use case</span>
+        <button
+          type="button"
+          className={`vitreen-pill-btn${useCaseOpen ? " is-active" : ""}`}
+          onClick={() => setUseCaseOpen((open) => !open)}
+          aria-expanded={useCaseOpen}
+        >
+          Use case
+        </button>
         <a
           href="https://vitreen.art"
           target="_blank"
@@ -581,7 +649,7 @@ export default function ProjectPage() {
   const tldr = project.caseStudy?.tldr;
 
   if (slug === "vitreen") {
-    return <VitreenProjectPage />;
+    return <VitreenProjectPage project={project} />;
   }
 
   const studyContent = project.caseStudy ? (
