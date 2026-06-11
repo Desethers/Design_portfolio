@@ -132,30 +132,15 @@ function GalleryOsGmailCard({ project }) {
               <strong>Insérer une œuvre</strong>
               <small>Recherche dans Vitreen</small>
               <div className="gmck-input">
-                <span className="gmck-typed">Evening</span>
                 <i className="gmck-caret" />
               </div>
               <small className="gmck-hint">Titre ou nom d'artiste · appuie sur Chercher</small>
               <span className="gmck-btn-blue gmck-search-btn">Chercher</span>
-              <div className="gmck-result">
-                <small>1 résultat</small>
-                <div className="gmck-result-item">
-                  <img src="/vitreen/painting-05.jpg" alt="" />
-                  <span>
-                    <small>SUN DOG</small>
-                    <em>Evening field, 2023</em>
-                    <span className="gmck-result-price">
-                      8 000 € · <b>AVAILABLE</b>
-                    </span>
-                  </span>
-                </div>
-              </div>
             </div>
           </div>
 
-          {/* Curseur animé + impulsions de clic */}
-          <span className="gmck-pulse gmck-pulse-1" />
-          <span className="gmck-pulse gmck-pulse-2" />
+          {/* Un seul clic sur l'icône Vitreen du rail latéral */}
+          <span className="gmck-pulse gmck-pulse-vitreen" />
           <svg className="gmck-cursor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <path
               d="M5 2.5v16.2l4.4-3.6 2.6 6 2.7-1.2-2.6-5.9 6.4-.6z"
