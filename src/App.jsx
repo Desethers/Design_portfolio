@@ -4,6 +4,7 @@ import { projects } from "./projects.js";
 import { SITE } from "./site.js";
 import ProjectPage from "./ProjectPage.jsx";
 import HangingTechnicalDrawing from "./HangingTechnicalDrawing.jsx";
+import HangingBookingPreview from "./HangingBookingPreview.jsx";
 import { VitreenSiteV21 } from "./VitreenSite.jsx";
 
 const BENTO_SIZE = {
@@ -67,22 +68,6 @@ function GalleryOsGmailCard({ project }) {
     <Link to={`/projet/${project.slug}`} className="bento-card bento-card--sm gmck-demo">
       <div className="gmck-embed">
         <div className="gmck-scale">
-          {/* Fond inbox Gmail */}
-          <div className="gmck-inbox">
-            <div className="gmck-inbox-top">
-              <span className="gmck-tab">Promotions <em className="is-green">2 new</em></span>
-              <span className="gmck-tab">Social <em className="is-blue">1 new</em></span>
-              <span className="gmck-tab">Updates <em className="is-orange">3 new</em></span>
-              <span className="gmck-count">1–50 of 2,148 &nbsp;‹&nbsp;›</span>
-            </div>
-            {[92, 70, 84, 60, 78, 66].map((w, i) => (
-              <div key={i} className="gmck-inbox-row">
-                <i />
-                <b style={{ width: `${w}%` }} />
-              </div>
-            ))}
-          </div>
-
           {/* Rail d'icônes Google */}
           <div className="gmck-rail">
             <span className="gmck-rail-cal">31</span>
@@ -94,49 +79,6 @@ function GalleryOsGmailCard({ project }) {
               <VitreenGlyph className="gmck-glyph" />
             </span>
             <span className="gmck-rail-plus">+</span>
-          </div>
-
-          {/* Brouillon New Message */}
-          <div className="gmck-compose">
-            <div className="gmck-compose-bar">
-              <strong>New Message</strong>
-              <span>–&ensp;↗&ensp;×</span>
-            </div>
-            <div className="gmck-compose-to">
-              <span className="is-muted">À</span>
-              <span className="gmck-chip">
-                <b>E</b>
-                Eve Bertrand
-              </span>
-            </div>
-            <div className="gmck-compose-subject">Disponibilité — Sacha Elron</div>
-            <div className="gmck-compose-body" />
-            <div className="gmck-compose-footer">
-              <span className="gmck-send">Send</span>
-              <span className="gmck-tools">
-                <i className="gmck-tool-aa">Aa</i>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                  <path d="M21 12.5 12.4 21a5.3 5.3 0 0 1-7.5-7.5l8.6-8.5a3.5 3.5 0 0 1 5 5l-8.7 8.5a1.8 1.8 0 0 1-2.5-2.5l8-7.9" />
-                </svg>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                  <circle cx="12" cy="12" r="9" />
-                  <path d="M8.5 14.5a4.5 4.5 0 0 0 7 0" />
-                  <circle cx="9" cy="9.5" r="0.6" fill="currentColor" />
-                  <circle cx="15" cy="9.5" r="0.6" fill="currentColor" />
-                </svg>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round">
-                  <rect x="3" y="4" width="18" height="16" rx="2" />
-                  <path d="M3 16.5 9 11l4 3.5 3-2.5 5 4.5" />
-                </svg>
-                <span className="gmck-tool-vitreen">
-                  <VitreenGlyph className="gmck-glyph" />
-                </span>
-                <i className="gmck-tool-dots">⋮</i>
-              </span>
-              <svg className="gmck-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                <path d="M4 7h16M10 4h4M7 7l1 13h8l1-13M10 11v6M14 11v6" />
-              </svg>
-            </div>
           </div>
 
           {/* Panneau latéral Vitreen */}
@@ -214,7 +156,6 @@ function GalleryOsGmailCard({ project }) {
           {/* Curseur animé + impulsions de clic */}
           <span className="gmck-pulse gmck-pulse-1" />
           <span className="gmck-pulse gmck-pulse-2" />
-          <span className="gmck-pulse gmck-pulse-3" />
           <svg className="gmck-cursor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <path
               d="M5 2.5v16.2l4.4-3.6 2.6 6 2.7-1.2-2.6-5.9 6.4-.6z"
@@ -252,21 +193,24 @@ function HangingInteractiveCard({ project }) {
   );
 }
 
-function BentoCard({ project }) {
-  if (project.slug === "vitreen") {
+function BentoCard({ project, mediaOverride }) {
+  if (!mediaOverride && project.slug === "vitreen") {
     return <VitreenInteractiveCard project={project} />;
   }
 
-  if (project.slug === "hanging") {
+  if (!mediaOverride && project.slug === "hanging") {
     return <HangingInteractiveCard project={project} />;
   }
 
-  if (project.slug === "app-sante") {
+  if (!mediaOverride && project.slug === "app-sante") {
     return <GalleryOsGmailCard project={project} />;
   }
 
   const size = BENTO_SIZE[project.slug] ?? "sm";
-  const hasMedia = !!(project.cover ?? project.video);
+  const displayProject = mediaOverride
+    ? { ...project, cover: mediaOverride, video: undefined }
+    : project;
+  const hasMedia = !!(displayProject.cover ?? displayProject.video);
 
   return (
     <Link
@@ -274,8 +218,8 @@ function BentoCard({ project }) {
       className={`bento-card bento-card--${size}${hasMedia ? " bento-card--media" : " bento-card--text"}`}
     >
       {hasMedia && (
-        <div className="bento-card-media">
-          <BentoCover project={project} />
+        <div className={`bento-card-media${mediaOverride ? " bento-card-media--reduced" : ""}`}>
+          <BentoCover project={displayProject} />
         </div>
       )}
       <div className="bento-card-content">
@@ -478,7 +422,7 @@ function Home() {
     { stack: STACKS[2] },
     { stack: STACKS[1], landscape: true },
     { stack: STACKS[3] },
-    { stack: STACKS[4] },
+    { stack: STACKS[4], customContent: "hanging-booking" },
   ];
 
   return (
@@ -516,7 +460,7 @@ function Home() {
         aria-label="Projets"
         ref={cardsTrackRef}
       >
-        {slots.map(({ stack, projectSlug, customContent, landscape }) => {
+        {slots.map(({ stack, projectSlug, customContent, landscape, mediaOverride }) => {
           if (customContent === "sales-agent") {
             return (
               <div
@@ -525,6 +469,15 @@ function Home() {
               >
                 <StackCardBadge stack={stack} />
                 <SalesAgentCard />
+              </div>
+            );
+          }
+
+          if (customContent === "hanging-booking") {
+            return (
+              <div key={stack.id} className="stack-card-slot stack-card-slot--booking">
+                <StackCardBadge stack={stack} />
+                <HangingBookingPreview />
               </div>
             );
           }
@@ -541,7 +494,7 @@ function Home() {
               }${projectSlug ? " stack-card-slot--desktop-preview" : ""}`}
             >
               <StackCardBadge stack={stack} />
-              <BentoCard project={project} />
+              <BentoCard project={project} mediaOverride={mediaOverride} />
             </div>
           );
         })}
@@ -554,16 +507,7 @@ function Footer() {
   return (
     <footer className="footer">
       <div className="footer-inner">
-        <span>© {new Date().getFullYear()} Raphaël Rossi</span>
-        <nav className="footer-nav" aria-label="Liens">
-          <a href={SITE.linkedin} target="_blank" rel="noopener noreferrer">
-            LinkedIn
-          </a>
-          <a href={SITE.cv} target="_blank" rel="noopener noreferrer">
-            CV
-          </a>
-          <a href={`mailto:${SITE.email}`}>Email</a>
-        </nav>
+        <span>Raphaël Rossi {new Date().getFullYear()}</span>
       </div>
     </footer>
   );
