@@ -653,14 +653,9 @@ function ShowcaseProjectPage({ project, showUseCase = false }) {
   const [useCaseOpen, setUseCaseOpen] = useState(false);
   const [cursor, setCursor] = useState({ x: 0, y: 0, visible: false });
   const [siteReady, setSiteReady] = useState(false);
-  const siteReadyTimer = useRef(null);
   const navigate = useNavigate();
   const liveUrl = PROJECT_LIVE_URLS[project.slug];
   const isPortraitProject = project.slug === "design-system";
-
-  useEffect(() => {
-    return () => clearTimeout(siteReadyTimer.current);
-  }, []);
 
   const handleMouseMove = (e) => {
     const overInteractive = e.target.closest(
@@ -693,10 +688,7 @@ function ShowcaseProjectPage({ project, showUseCase = false }) {
             <ProjectWindowContent
               project={project}
               siteReady={siteReady}
-              onSiteLoad={() => {
-                clearTimeout(siteReadyTimer.current);
-                siteReadyTimer.current = setTimeout(() => setSiteReady(true), 5000);
-              }}
+              onSiteLoad={() => setSiteReady(true)}
             />
           </div>
           {showUseCase && useCaseOpen && <VitreenUseCaseCarousel project={project} />}
