@@ -596,10 +596,27 @@ const PROJECT_LIVE_URLS = {
    petit, on rend à 393 px puis on réduit en échelle pour tenir dedans. */
 const EMBED_MIN_WIDTH = 393;
 
+/* Largeur de la scrollbar système : 0 en overlay (iOS/macOS), ~15 px en
+   classique (Windows). L'iframe utilise le même moteur, donc on élargit
+   l'iframe d'exactement cette valeur et on clippe le surplus : la scrollbar
+   du site embarqué disparaît sans jamais rogner son contenu. */
+let cachedScrollbarWidth = null;
+function getScrollbarWidth() {
+  if (cachedScrollbarWidth !== null) return cachedScrollbarWidth;
+  const probe = document.createElement("div");
+  probe.style.cssText =
+    "position:absolute;top:-9999px;width:100px;height:100px;overflow:scroll";
+  document.body.appendChild(probe);
+  cachedScrollbarWidth = probe.offsetWidth - probe.clientWidth;
+  probe.remove();
+  return cachedScrollbarWidth;
+}
+
 function ProjectWindowContent({ project, siteReady, onSiteLoad }) {
   const liveUrl = PROJECT_LIVE_URLS[project.slug];
   const frameBoxRef = useRef(null);
   const [embedScale, setEmbedScale] = useState(1);
+  const scrollbarWidth = liveUrl ? getScrollbarWidth() : 0;
 
   useEffect(() => {
     const el = frameBoxRef.current;
@@ -630,12 +647,14 @@ function ProjectWindowContent({ project, siteReady, onSiteLoad }) {
             style={
               embedScale < 1
                 ? {
-                    width: `${EMBED_MIN_WIDTH}px`,
+                    width: `${EMBED_MIN_WIDTH + scrollbarWidth}px`,
                     height: `${100 / embedScale}%`,
                     transform: `scale(${embedScale})`,
                     transformOrigin: "top left",
                   }
-                : undefined
+                : scrollbarWidth > 0
+                  ? { width: `calc(100% + ${scrollbarWidth}px)` }
+                  : undefined
             }
           />
         </div>
