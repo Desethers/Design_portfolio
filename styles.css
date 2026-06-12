@@ -3302,6 +3302,14 @@ a {
   color: #202124;
 }
 
+.gmck-typed {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 7ch;
+  animation: gmck-typed 10s infinite;
+}
+
 .gmck-caret {
   width: 1.5px;
   height: 15px;
@@ -3321,6 +3329,61 @@ a {
   margin-top: 9px;
   padding: 6px 18px;
   font-size: 11px;
+}
+
+.gmck-result {
+  margin-top: 11px;
+  animation: gmck-result 10s infinite;
+}
+
+.gmck-result > small {
+  font-size: 10.5px;
+  color: #5f6368;
+}
+
+.gmck-result-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 7px;
+}
+
+.gmck-result-item img {
+  width: 34px;
+  height: 34px;
+  object-fit: cover;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.gmck-result-item > span {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.gmck-result-item small {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: #5f6368;
+}
+
+.gmck-result-item em {
+  font-size: 11.5px;
+  color: #202124;
+}
+
+.gmck-result-price {
+  font-size: 10.5px;
+  color: #202124;
+}
+
+.gmck-result-price b {
+  color: #188038;
+  font-weight: 700;
+  letter-spacing: 0.04em;
 }
 
 /* Curseur + impulsions de clic */
@@ -3349,7 +3412,19 @@ a {
   animation: gmck-pulse-vitreen 10s infinite;
 }
 
-/* Timeline : un clic sur l'icône Vitreen du rail, puis la fenêtre reste ouverte. */
+/* Timeline : clic sur l'icône Vitreen du rail → la fenêtre « Insérer une
+   œuvre » s'ouvre → « Evening » se tape dans le champ → le résultat
+   (œuvre) apparaît et reste affiché. */
+@keyframes gmck-typed {
+  0%, 40% { width: 0; animation-timing-function: steps(7, end); }
+  55%, 100% { width: 7ch; }
+}
+
+@keyframes gmck-result {
+  0%, 62% { opacity: 0; transform: translateY(5px); }
+  68%, 100% { opacity: 1; transform: translateY(0); }
+}
+
 @keyframes gmck-cursor {
   0%, 8% { left: 350px; top: 250px; }
   28%, 100% { left: 305px; top: 220px; }
