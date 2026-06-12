@@ -591,8 +591,28 @@ const PROJECT_LIVE_URLS = {
   hanging: "https://hanging.fr",
 };
 
+/* Largeur de viewport d'un iPhone réel (iPhone 14/15/16 : 393 px logiques).
+   Le site embarqué n'est jamais rendu plus étroit : si le cadre est plus
+   petit, on rend à 393 px puis on réduit en échelle pour tenir dedans. */
+const EMBED_MIN_WIDTH = 393;
+
 function ProjectWindowContent({ project, siteReady, onSiteLoad }) {
   const liveUrl = PROJECT_LIVE_URLS[project.slug];
+  const frameBoxRef = useRef(null);
+  const [embedScale, setEmbedScale] = useState(1);
+
+  useEffect(() => {
+    const el = frameBoxRef.current;
+    if (!liveUrl || !el) return undefined;
+    const update = () => {
+      const w = el.clientWidth;
+      setEmbedScale(w > 0 && w < EMBED_MIN_WIDTH ? w / EMBED_MIN_WIDTH : 1);
+    };
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [liveUrl]);
 
   if (project.slug === "hanging") {
     return <HangingTechnicalDrawing />;
@@ -601,12 +621,24 @@ function ProjectWindowContent({ project, siteReady, onSiteLoad }) {
   if (liveUrl) {
     return (
       <>
-        <iframe
-          src={liveUrl}
-          title={`${project.title} — site live`}
-          loading="eager"
-          onLoad={onSiteLoad}
-        />
+        <div ref={frameBoxRef} className="vitreen-window-frame">
+          <iframe
+            src={liveUrl}
+            title={`${project.title} — site live`}
+            loading="eager"
+            onLoad={onSiteLoad}
+            style={
+              embedScale < 1
+                ? {
+                    width: `${EMBED_MIN_WIDTH}px`,
+                    height: `${100 / embedScale}%`,
+                    transform: `scale(${embedScale})`,
+                    transformOrigin: "top left",
+                  }
+                : undefined
+            }
+          />
+        </div>
         <div
           className={`vitreen-site-loader${siteReady ? " is-hidden" : ""}`}
           aria-hidden={siteReady}
