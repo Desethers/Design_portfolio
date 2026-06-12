@@ -1265,40 +1265,79 @@ a {
   aspect-ratio: 9 / 19;
 }
 
-/* Use case : cards-images à défilement horizontal (snap) */
-.vitreen-usecase-strip {
+.vitreen-usecase-card {
   flex: 1;
   min-width: 0;
   height: 100%;
   display: flex;
-  gap: 1.5rem;
+  flex-direction: column;
+  padding: 1.5rem 0 0.9rem;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  background: var(--color-bg-elevated);
+  overflow: hidden;
+}
+
+.vitreen-usecase-track {
+  flex: 1;
+  min-height: 0;
+  display: flex;
   overflow-x: auto;
+  overflow-y: hidden;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
 
-.vitreen-usecase-strip::-webkit-scrollbar {
+.vitreen-usecase-track::-webkit-scrollbar {
   display: none;
 }
 
-.vitreen-usecase-imgcard {
-  flex: 0 0 min(86%, 720px);
-  height: 100%;
-  margin: 0;
+.vitreen-usecase-slide {
+  flex: 0 0 100%;
+  width: 100%;
   scroll-snap-align: start;
-  border: 1px solid var(--color-border);
-  border-radius: 16px;
-  overflow: hidden;
-  background: var(--color-bg-elevated);
+  overflow-y: auto;
+  padding: 0 1.5rem;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
-.vitreen-usecase-imgcard img {
-  display: block;
+.vitreen-usecase-slide::-webkit-scrollbar {
+  display: none;
+}
+
+.vitreen-usecase-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding-top: 0.9rem;
+}
+
+.vitreen-usecase-dots button {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(26, 24, 20, 0.2);
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.vitreen-usecase-dots button.is-active {
+  background: #111110;
+  transform: scale(1.25);
+}
+
+/* Pas d'astuce +20px pour masquer la scrollbar : sur macOS/iOS elle est en
+   overlay (largeur 0) et l'élargissement rognait le bord droit du site
+   embarqué. Sous EMBED_MIN_WIDTH, le site est rendu à une largeur de
+   téléphone standard puis réduit via transform (style inline). */
+.vitreen-window-frame {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: top left;
+  overflow: hidden;
 }
 
 .vitreen-window iframe {
@@ -1931,7 +1970,7 @@ a {
 }
 
 .project-page--vitreen .vitreen-window,
-.project-page--vitreen .vitreen-usecase-strip,
+.project-page--vitreen .vitreen-usecase-card,
 .project-page--vitreen .vitreen-window-actions {
   cursor: auto;
 }
@@ -4019,13 +4058,8 @@ a {
     padding-right: 0.75rem;
   }
 
-  .vitreen-usecase-strip {
+  .vitreen-usecase-card {
     height: auto;
-  }
-
-  .vitreen-usecase-imgcard {
-    flex-basis: 86%;
-    height: auto;
-    aspect-ratio: 4 / 3;
+    max-height: 70vh;
   }
 }

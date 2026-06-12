@@ -538,21 +538,50 @@ function ProcessView({ p }) {
   );
 }
 
-/* ─── Vitreen — use case : cards-images à défilement horizontal ───────── */
-const USECASE_CARDS = [
-  { src: "/vitreen/gallery-os-overview.png", title: "Gallery OS — Overview" },
-  { src: "/vitreen/gallery-os-viewing-room-studio.png", title: "Vitreen Studio — éditeur" },
-  { src: "/vitreen/viewing-room-share.png", title: "Viewing room partagée" },
-];
+/* ─── Vitreen — carrousel use case (4 parties + points) ───────────────── */
+function VitreenUseCaseCarousel({ project }) {
+  const sections = buildCaseStudySections(project.caseStudy);
+  const slides = [
+    [<TldrBox key="tldr" tldr={project.caseStudy?.tldr} />, sections[0]],
+    [sections[1], sections[2]],
+    [sections[3], sections[4]],
+    [sections[5], sections[6], sections[7]],
+  ];
+  const trackRef = useRef(null);
+  const [active, setActive] = useState(0);
 
-function VitreenUseCaseCarousel() {
+  const onScroll = () => {
+    const el = trackRef.current;
+    if (!el) return;
+    setActive(Math.min(slides.length - 1, Math.round(el.scrollLeft / el.clientWidth)));
+  };
+
+  const goTo = (i) => {
+    setActive(i);
+    const el = trackRef.current;
+    el?.scrollTo({ left: i * el.clientWidth, behavior: "smooth" });
+  };
+
   return (
-    <div className="vitreen-usecase-strip">
-      {USECASE_CARDS.map((card) => (
-        <figure key={card.src} className="vitreen-usecase-imgcard">
-          <img src={card.src} alt={card.title} loading="lazy" />
-        </figure>
-      ))}
+    <div className="vitreen-usecase-card">
+      <div className="vitreen-usecase-track" ref={trackRef} onScroll={onScroll}>
+        {slides.map((slide, i) => (
+          <div key={i} className="vitreen-usecase-slide process-view">
+            {slide}
+          </div>
+        ))}
+      </div>
+      <div className="vitreen-usecase-dots">
+        {slides.map((_, i) => (
+          <button
+            key={i}
+            type="button"
+            className={i === active ? "is-active" : ""}
+            onClick={() => goTo(i)}
+            aria-label={`Partie ${i + 1} sur ${slides.length}`}
+          />
+        ))}
+      </div>
     </div>
   );
 }
@@ -681,13 +710,13 @@ function ShowcaseProjectPage({ project, showUseCase = false }) {
 
   const handleMouseMove = (e) => {
     const overInteractive = e.target.closest(
-      ".vitreen-window, .vitreen-usecase-strip, .vitreen-window-actions"
+      ".vitreen-window, .vitreen-usecase-card, .vitreen-window-actions"
     );
     setCursor({ x: e.clientX, y: e.clientY, visible: !overInteractive });
   };
 
   const handleBackgroundClick = (e) => {
-    if (e.target.closest(".vitreen-window, .vitreen-usecase-strip, .vitreen-window-actions")) {
+    if (e.target.closest(".vitreen-window, .vitreen-usecase-card, .vitreen-window-actions")) {
       return;
     }
     navigate("/");
