@@ -1301,6 +1301,14 @@ a {
   object-position: top left;
 }
 
+/* Conteneur de l'iframe : remplit la fenêtre et clippe le surplus
+   (scrollbar poussée hors cadre, site mis à l'échelle sous 393px). */
+.vitreen-window-frame {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
 .vitreen-window iframe {
   display: block;
   width: 100%;
