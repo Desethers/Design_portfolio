@@ -165,16 +165,16 @@ function GalleryOsGmailCard({ project }) {
 
 function HangingInteractiveCard({ project }) {
   return (
-    <article className="bento-card bento-card--lg hanging-demo">
+    <Link to={`/projet/${project.slug}`} className="bento-card bento-card--lg hanging-demo">
       <HangingTechnicalDrawing />
-      <Link to={`/projet/${project.slug}`} className="hanging-card-caption">
+      <span className="hanging-card-caption">
         <span>
           <strong>Hanging</strong>
           <small>Product design · Service · {project.year}</small>
         </span>
         <span className="hanging-card-cta">Voir le projet ↗</span>
-      </Link>
-    </article>
+      </span>
+    </Link>
   );
 }
 

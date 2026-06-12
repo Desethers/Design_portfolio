@@ -1516,6 +1516,11 @@ a {
   user-select: none;
 }
 
+/* Dans la card de la home, toute l'image est un lien vers la page projet */
+.hanging-demo .hanging-drawing {
+  cursor: pointer;
+}
+
 .hanging-drawing svg {
   display: block;
   width: 100%;
