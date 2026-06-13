@@ -541,6 +541,7 @@ function ProcessView({ p }) {
 /* ─── Vitreen — use case : cards-images à défilement horizontal ───────── */
 const USECASE_CARDS = [
   { src: "/vitreen/gallery-os-overview.png", title: "Gallery OS — Overview" },
+  { src: "/vitreen/gallery-os-artworks.png", title: "Gallery OS — Inventaire œuvres" },
   { src: "/vitreen/gallery-os-viewing-room-studio.png", title: "Vitreen Studio — éditeur" },
   { src: "/vitreen/viewing-room-share.png", title: "Viewing room partagée" },
 ];
@@ -554,6 +555,59 @@ function VitreenUseCaseCarousel() {
         </figure>
       ))}
     </div>
+  );
+}
+
+/* ─── Vitreen — infos projet + full use case dépliable ────────────────── */
+const VITREEN_INFO = {
+  meta: [
+    { label: "Programme", value: "Product Design, Gallery OS, Vitreen Studio" },
+    { label: "Industrie", value: "Marché de l'art · Galeries" },
+    { label: "Stade", value: "Early stage — 2025–2026" },
+  ],
+  intro:
+    "Les galeries ont les œuvres — mais pas le pipeline pour les faire circuler. Vitreen pose la promesse, Gallery OS est l'atelier : de l'archive au collectionneur, sans ressaisie.",
+};
+
+function VitreenInfoSection({ project }) {
+  const [fullOpen, setFullOpen] = useState(false);
+  if (!project.caseStudy) return null;
+  return (
+    <section className="vitreen-info" aria-label="Infos projet">
+      <div className="vitreen-info-header">
+        <dl className="vitreen-info-meta">
+          {VITREEN_INFO.meta.map((item) => (
+            <div key={item.label}>
+              <dt>{item.label}</dt>
+              <dd>{item.value}</dd>
+            </div>
+          ))}
+        </dl>
+        <div className="vitreen-info-main">
+          <p className="vitreen-info-intro">{VITREEN_INFO.intro}</p>
+          <button
+            type="button"
+            className={`vitreen-pill-btn${fullOpen ? " is-active" : ""}`}
+            onClick={() => setFullOpen((open) => !open)}
+            aria-expanded={fullOpen}
+          >
+            Full use case
+            <svg viewBox="0 0 24 24" aria-hidden="true" className="vitreen-pill-icon">
+              {fullOpen ? (
+                <path d="M6 6 18 18M18 6 6 18" />
+              ) : (
+                <path d="M7 17 17 7M9 7h8v8" />
+              )}
+            </svg>
+          </button>
+        </div>
+      </div>
+      {fullOpen && (
+        <div className="vitreen-info-fullcase">
+          <CaseStudyView content={project.caseStudy} />
+        </div>
+      )}
+    </section>
   );
 }
 
@@ -604,6 +658,20 @@ function ProjectWindowContent({ project, siteReady, onSiteLoad }) {
 
   if (project.slug === "hanging") {
     return <HangingTechnicalDrawing />;
+  }
+
+  if (project.slug === "vitreen") {
+    return (
+      <div ref={frameBoxRef} className="vitreen-window-frame">
+        <img
+          src="/vitreen/vitreen-landing.png"
+          alt={`${project.title} — aperçu`}
+          className="vitreen-window-screenshot"
+          loading="eager"
+          onLoad={onSiteLoad}
+        />
+      </div>
+    );
   }
 
   if (liveUrl) {
@@ -678,16 +746,18 @@ function ShowcaseProjectPage({ project, showUseCase = false }) {
   const navigate = useNavigate();
   const liveUrl = PROJECT_LIVE_URLS[project.slug];
   const isPortraitProject = project.slug === "design-system";
+  const isVitreen = project.slug === "vitreen";
+
+  const INTERACTIVE_SELECTOR =
+    ".vitreen-window, .vitreen-usecase-strip, .vitreen-window-actions, .vitreen-showcase--scroll, .vitreen-info";
 
   const handleMouseMove = (e) => {
-    const overInteractive = e.target.closest(
-      ".vitreen-window, .vitreen-usecase-strip, .vitreen-window-actions"
-    );
+    const overInteractive = e.target.closest(INTERACTIVE_SELECTOR);
     setCursor({ x: e.clientX, y: e.clientY, visible: !overInteractive });
   };
 
   const handleBackgroundClick = (e) => {
-    if (e.target.closest(".vitreen-window, .vitreen-usecase-strip, .vitreen-window-actions")) {
+    if (e.target.closest(INTERACTIVE_SELECTOR)) {
       return;
     }
     navigate("/");
@@ -704,7 +774,7 @@ function ShowcaseProjectPage({ project, showUseCase = false }) {
         <div
           className={`vitreen-showcase${useCaseOpen ? " is-split" : ""}${
             isPortraitProject ? " vitreen-showcase--portrait" : ""
-          }`}
+          }${isVitreen ? " vitreen-showcase--scroll" : ""}`}
         >
           <div className="vitreen-window">
             <ProjectWindowContent
@@ -713,11 +783,19 @@ function ShowcaseProjectPage({ project, showUseCase = false }) {
               onSiteLoad={() => setSiteReady(true)}
             />
           </div>
-          {showUseCase && useCaseOpen && <VitreenUseCaseCarousel project={project} />}
+          {isVitreen &&
+            USECASE_CARDS.map((card) => (
+              <figure key={card.src} className="vitreen-usecase-imgcard">
+                <img src={card.src} alt={card.title} loading="lazy" />
+              </figure>
+            ))}
+          {!isVitreen && showUseCase && useCaseOpen && (
+            <VitreenUseCaseCarousel project={project} />
+          )}
         </div>
-        {(showUseCase || liveUrl) && (
+        {((showUseCase && !isVitreen) || liveUrl) && (
           <div className="vitreen-window-actions">
-            {showUseCase && (
+            {showUseCase && !isVitreen && (
               <button
                 type="button"
                 className={`vitreen-pill-btn${useCaseOpen ? " is-active" : ""}`}
@@ -740,6 +818,7 @@ function ShowcaseProjectPage({ project, showUseCase = false }) {
             )}
           </div>
         )}
+        {isVitreen && <VitreenInfoSection project={project} />}
       </div>
       <div
         className={`vitreen-cursor-close${cursor.visible ? " is-visible" : ""}`}
