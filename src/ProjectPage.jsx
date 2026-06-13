@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useParams, Link, Navigate, useNavigate } from "react-router-dom";
 import { projects } from "./projects.js";
 import HangingTechnicalDrawing from "./HangingTechnicalDrawing.jsx";
+import { VitreenSiteV21 } from "./VitreenSite.jsx";
 
 function TldrBox({ tldr }) {
   if (!tldr) return null;
@@ -538,49 +539,222 @@ function ProcessView({ p }) {
   );
 }
 
-/* ─── Vitreen — carrousel use case (4 parties + points) ───────────────── */
-function VitreenUseCaseCarousel({ project }) {
-  const sections = buildCaseStudySections(project.caseStudy);
-  const slides = [
-    [<TldrBox key="tldr" tldr={project.caseStudy?.tldr} />, sections[0]],
-    [sections[1], sections[2]],
-    [sections[3], sections[4]],
-    [sections[5], sections[6], sections[7]],
-  ];
-  const trackRef = useRef(null);
-  const [active, setActive] = useState(0);
-
-  const onScroll = () => {
-    const el = trackRef.current;
-    if (!el) return;
-    setActive(Math.min(slides.length - 1, Math.round(el.scrollLeft / el.clientWidth)));
-  };
-
-  const goTo = (i) => {
-    setActive(i);
-    const el = trackRef.current;
-    el?.scrollTo({ left: i * el.clientWidth, behavior: "smooth" });
-  };
+/* ─── Vitreen — modules produit inspirés de la modale Augments ───────── */
+function VitreenProductModules({ project }) {
+  const { product } = project.caseStudy;
 
   return (
-    <div className="vitreen-usecase-card">
-      <div className="vitreen-usecase-track" ref={trackRef} onScroll={onScroll}>
-        {slides.map((slide, i) => (
-          <div key={i} className="vitreen-usecase-slide process-view">
-            {slide}
+    <article className="vitreen-modules">
+      {product.screens.map((screen) => (
+        <section className="vitreen-module" key={screen.title}>
+          <div className="vitreen-module-copy">
+            <div>
+              <span>{screen.tag}</span>
+              <h3>{screen.title}</h3>
+            </div>
+            <p>{screen.text}</p>
+          </div>
+          <figure
+            className={`vitreen-module-media${
+              screen.type === "vitreen-products" ? " vitreen-module-media--products" : ""
+            }${
+              screen.type === "vitreen-interviews" ? " vitreen-module-media--interviews" : ""
+            }${
+              screen.type === "vitreen-stack" ? " vitreen-module-media--stack" : ""
+            }`}
+          >
+            {screen.type === "vitreen-products" ? (
+              <VitreenProductsMenu />
+            ) : screen.type === "vitreen-interviews" ? (
+              <VitreenInterviewInsights items={screen.items} />
+            ) : screen.type === "vitreen-stack" ? (
+              <VitreenStackFlow items={screen.items} />
+            ) : (
+              <img src={screen.media} alt={screen.title} />
+            )}
+          </figure>
+        </section>
+      ))}
+    </article>
+  );
+}
+
+function VitreenInterviewInsights({ items }) {
+  return (
+    <div className="vitreen-interviews">
+      {items.map((item, index) => (
+        <article className="vitreen-interview-card" key={item.label}>
+          <span>0{index + 1}</span>
+          <blockquote>« {item.quote} »</blockquote>
+          <p>{item.label}</p>
+        </article>
+      ))}
+    </div>
+  );
+}
+
+function VitreenStackFlow({ items }) {
+  return (
+    <div className="vitreen-stack-flow">
+      {items.map((item, index) => (
+        <React.Fragment key={item.name}>
+          <article className="vitreen-stack-step">
+            <div className="vitreen-stack-icon">
+              {item.icon ? <img src={item.icon} alt="" /> : <span>{item.name.slice(0, 2)}</span>}
+            </div>
+            <strong>{item.name}</strong>
+            <small>{item.role}</small>
+          </article>
+          {index < items.length - 1 && <span className="vitreen-stack-arrow">→</span>}
+        </React.Fragment>
+      ))}
+    </div>
+  );
+}
+
+const VITREEN_PRODUCT_LINKS = [
+  {
+    title: "Artworks Management",
+    description:
+      "Organise artworks, artists, exhibitions and documents in one structured archive.",
+  },
+  {
+    title: "Public & Private Publishing",
+    description:
+      "Create website pages, viewing rooms, collector PDFs and private selections.",
+  },
+  {
+    title: "Collector Relationships",
+    description:
+      "Keep inquiries, conversations and follow-ups connected to each artwork.",
+  },
+  {
+    title: "Gallery Assistants",
+    description:
+      "Support publishing, sales preparation and day-to-day gallery operations.",
+  },
+];
+
+function VitreenProductsMenu() {
+  return (
+    <div className="vitreen-products-menu">
+      <span className="vitreen-products-label">Products</span>
+      <div className="vitreen-products-list">
+        {VITREEN_PRODUCT_LINKS.map((item) => (
+          <div className="vitreen-products-item" key={item.title}>
+            <strong>{item.title}</strong>
+            <p>{item.description}</p>
           </div>
         ))}
       </div>
-      <div className="vitreen-usecase-dots">
-        {slides.map((_, i) => (
-          <button
-            key={i}
-            type="button"
-            className={i === active ? "is-active" : ""}
-            onClick={() => goTo(i)}
-            aria-label={`Partie ${i + 1} sur ${slides.length}`}
-          />
-        ))}
+    </div>
+  );
+}
+
+/* ─── Vitreen — modale plein écran (texte + cartes use case) ──────────── */
+function VitreenUseCaseModal({ project, liveUrl, onClose }) {
+  const showcaseScreens = project.process?.wireframes?.length
+    ? project.process.wireframes
+    : [{ title: project.title, src: project.screenshot }];
+
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      className="vitreen-modal"
+      role="dialog"
+      aria-modal="true"
+      onClick={(e) => {
+        e.stopPropagation();
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
+      <div className="vitreen-modal-panel" onClick={(e) => e.stopPropagation()}>
+        <div className="vitreen-modal-scroll">
+          <header className="vitreen-header">
+            <div className="vitreen-header-id">
+              <h1 className="vitreen-header-title">Vitreen</h1>
+              <p className="vitreen-header-subtitle">Infrastructure pour galerie d'art</p>
+            </div>
+            <div className="vitreen-header-actions">
+              {liveUrl && (
+                <a
+                  href={liveUrl}
+                  className="vitreen-round-btn"
+                  aria-label={`Voir ${liveUrl}`}
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M7 17 17 7M9 7h8v8" />
+                  </svg>
+                </a>
+              )}
+              <button
+                type="button"
+                className="vitreen-round-btn vitreen-modal-close"
+                onClick={onClose}
+                aria-label="Fermer"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M6 6 18 18M18 6 6 18" />
+                </svg>
+              </button>
+            </div>
+          </header>
+          <div className="vitreen-modal-screens" aria-label="Aperçus du produit">
+            {showcaseScreens.map((screen) => (
+              <figure
+                className={`vitreen-modal-screen${screen.preserveRatio ? " vitreen-modal-screen--natural" : ""}${screen.type === "vitreen-v21" ? " vitreen-modal-screen--mockup" : ""}${screen.type === "vitreen-products" ? " vitreen-modal-screen--products" : ""}`}
+                key={screen.src ?? screen.title}
+              >
+                {screen.type === "vitreen-v21" ? (
+                  <div className="vitreen-hero-html">
+                    <div className="vitreen-hero-scale">
+                      <VitreenSiteV21 />
+                    </div>
+                  </div>
+                ) : screen.type === "vitreen-products" ? (
+                  <VitreenProductsMenu />
+                ) : (
+                  <img src={screen.src} alt={screen.title ?? `${project.title} — aperçu`} />
+                )}
+              </figure>
+            ))}
+          </div>
+          <section className="vitreen-editorial" aria-label="Présentation du projet">
+            <dl className="vitreen-editorial-meta">
+              <div>
+                <dt>Livrable</dt>
+                <dd>Écosystème produit</dd>
+              </div>
+              <div>
+                <dt>Contexte</dt>
+                <dd>Projet personnel · Galeries d’art contemporain</dd>
+              </div>
+              <div>
+                <dt>Disciplines</dt>
+                <dd>Product Design · UX Research · Front-end</dd>
+              </div>
+            </dl>
+            <div className="vitreen-editorial-main">
+              <p className="vitreen-editorial-intro">
+                Comment faire circuler les œuvres entre les outils d'une galerie sans lui
+                imposer une nouvelle manière de travailler ?
+              </p>
+            </div>
+          </section>
+          <VitreenProductModules project={project} />
+        </div>
       </div>
     </div>
   );
@@ -710,13 +884,14 @@ function ShowcaseProjectPage({ project, showUseCase = false }) {
 
   const handleMouseMove = (e) => {
     const overInteractive = e.target.closest(
-      ".vitreen-window, .vitreen-usecase-card, .vitreen-window-actions"
+      ".vitreen-window, .vitreen-usecase-card, .vitreen-window-actions, .vitreen-modal, .vitreen-header"
     );
     setCursor({ x: e.clientX, y: e.clientY, visible: !overInteractive });
   };
 
   const handleBackgroundClick = (e) => {
-    if (e.target.closest(".vitreen-window, .vitreen-usecase-card, .vitreen-window-actions")) {
+    if (useCaseOpen) return;
+    if (e.target.closest(".vitreen-window, .vitreen-usecase-card, .vitreen-window-actions, .vitreen-modal, .vitreen-header")) {
       return;
     }
     navigate("/");
@@ -731,7 +906,7 @@ function ShowcaseProjectPage({ project, showUseCase = false }) {
     >
       <div className="vitreen-content">
         <div
-          className={`vitreen-showcase${useCaseOpen ? " is-split" : ""}${
+          className={`vitreen-showcase${
             isPortraitProject ? " vitreen-showcase--portrait" : ""
           }`}
         >
@@ -742,18 +917,23 @@ function ShowcaseProjectPage({ project, showUseCase = false }) {
               onSiteLoad={() => setSiteReady(true)}
             />
           </div>
-          {showUseCase && useCaseOpen && <VitreenUseCaseCarousel project={project} />}
         </div>
         {(showUseCase || liveUrl) && (
           <div className="vitreen-window-actions">
             {showUseCase && (
               <button
                 type="button"
-                className={`vitreen-pill-btn${useCaseOpen ? " is-active" : ""}`}
-                onClick={() => setUseCaseOpen((open) => !open)}
-                aria-expanded={useCaseOpen}
+                className="vitreen-pill-btn"
+                onClick={() => setUseCaseOpen(true)}
               >
                 Use case
+                <svg
+                  className="vitreen-pill-expand"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path d="M10 14 4 20M4 20h4M4 20v-4M14 10l6-6M20 4h-4M20 4v4" />
+                </svg>
               </button>
             )}
             {liveUrl && (
@@ -770,6 +950,13 @@ function ShowcaseProjectPage({ project, showUseCase = false }) {
           </div>
         )}
       </div>
+      {showUseCase && useCaseOpen && (
+        <VitreenUseCaseModal
+          project={project}
+          liveUrl={liveUrl}
+          onClose={() => setUseCaseOpen(false)}
+        />
+      )}
       <div
         className={`vitreen-cursor-close${cursor.visible ? " is-visible" : ""}`}
         style={{ left: cursor.x, top: cursor.y }}
