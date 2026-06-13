@@ -251,7 +251,7 @@ function StackIcon({ id }) {
       className: "stack-tile--asset stack-tile--claude",
     },
     codex: {
-      src: "/icones/codex.webp",
+      src: "/icones/codex-color.svg",
       className: "stack-tile--asset stack-tile--codex",
     },
     cursor: {

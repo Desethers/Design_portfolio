@@ -586,6 +586,101 @@ function VitreenUseCaseCarousel({ project }) {
   );
 }
 
+/* ─── Vitreen — modale plein écran (texte + cartes use case) ──────────── */
+function VitreenUseCaseModal({ project, liveUrl, onClose }) {
+  const [siteReady, setSiteReady] = useState(false);
+
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      className="vitreen-modal"
+      role="dialog"
+      aria-modal="true"
+      onClick={(e) => {
+        e.stopPropagation();
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
+      <div className="vitreen-modal-panel" onClick={(e) => e.stopPropagation()}>
+        <div className="vitreen-modal-scroll">
+          <header className="vitreen-header">
+            <div className="vitreen-header-id">
+              <h1 className="vitreen-header-title">{project.title}</h1>
+              <p className="vitreen-header-subtitle">{project.type}</p>
+            </div>
+            <div className="vitreen-header-actions">
+              {liveUrl && (
+                <a
+                  href={liveUrl}
+                  className="vitreen-round-btn"
+                  aria-label={`Voir ${liveUrl}`}
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M7 17 17 7M9 7h8v8" />
+                  </svg>
+                </a>
+              )}
+              <button
+                type="button"
+                className="vitreen-round-btn vitreen-modal-close"
+                onClick={onClose}
+                aria-label="Fermer"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M6 6 18 18M18 6 6 18" />
+                </svg>
+              </button>
+            </div>
+          </header>
+          <div className="vitreen-showcase vitreen-showcase--framed">
+            <div className="vitreen-window">
+              <ProjectWindowContent
+                project={project}
+                siteReady={siteReady}
+                onSiteLoad={() => setSiteReady(true)}
+              />
+            </div>
+          </div>
+          <section className="vitreen-editorial" aria-label="Présentation du projet">
+            <dl className="vitreen-editorial-meta">
+              <div>
+                <dt>Program</dt>
+                <dd>{project.tags.slice(0, 2).join(", ")}</dd>
+              </div>
+              <div>
+                <dt>Industry</dt>
+                <dd>{project.type}</dd>
+              </div>
+              <div>
+                <dt>Stage</dt>
+                <dd>{project.year ?? project.process?.duration}</dd>
+              </div>
+            </dl>
+            <div className="vitreen-editorial-main">
+              <p className="vitreen-editorial-intro">
+                {project.caseStudy?.hero?.subtitle ?? project.description}
+              </p>
+            </div>
+          </section>
+          <VitreenUseCaseCarousel project={project} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 const PROJECT_LIVE_URLS = {
   vitreen: "https://vitreen.art",
   hanging: "https://hanging.fr",
@@ -664,13 +759,14 @@ function ShowcaseProjectPage({ project, showUseCase = false }) {
 
   const handleMouseMove = (e) => {
     const overInteractive = e.target.closest(
-      ".vitreen-window, .vitreen-usecase-card, .vitreen-window-actions"
+      ".vitreen-window, .vitreen-usecase-card, .vitreen-window-actions, .vitreen-modal, .vitreen-header"
     );
     setCursor({ x: e.clientX, y: e.clientY, visible: !overInteractive });
   };
 
   const handleBackgroundClick = (e) => {
-    if (e.target.closest(".vitreen-window, .vitreen-usecase-card, .vitreen-window-actions")) {
+    if (useCaseOpen) return;
+    if (e.target.closest(".vitreen-window, .vitreen-usecase-card, .vitreen-window-actions, .vitreen-modal, .vitreen-header")) {
       return;
     }
     navigate("/");
@@ -685,7 +781,7 @@ function ShowcaseProjectPage({ project, showUseCase = false }) {
     >
       <div className="vitreen-content">
         <div
-          className={`vitreen-showcase${useCaseOpen ? " is-split" : ""}${
+          className={`vitreen-showcase${
             isPortraitProject ? " vitreen-showcase--portrait" : ""
           }`}
         >
@@ -699,18 +795,23 @@ function ShowcaseProjectPage({ project, showUseCase = false }) {
               }}
             />
           </div>
-          {showUseCase && useCaseOpen && <VitreenUseCaseCarousel project={project} />}
         </div>
         {(showUseCase || liveUrl) && (
           <div className="vitreen-window-actions">
             {showUseCase && (
               <button
                 type="button"
-                className={`vitreen-pill-btn${useCaseOpen ? " is-active" : ""}`}
-                onClick={() => setUseCaseOpen((open) => !open)}
-                aria-expanded={useCaseOpen}
+                className="vitreen-pill-btn"
+                onClick={() => setUseCaseOpen(true)}
               >
                 Use case
+                <svg
+                  className="vitreen-pill-expand"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path d="M10 14 4 20M4 20h4M4 20v-4M14 10l6-6M20 4h-4M20 4v4" />
+                </svg>
               </button>
             )}
             {liveUrl && (
@@ -727,6 +828,13 @@ function ShowcaseProjectPage({ project, showUseCase = false }) {
           </div>
         )}
       </div>
+      {showUseCase && useCaseOpen && (
+        <VitreenUseCaseModal
+          project={project}
+          liveUrl={liveUrl}
+          onClose={() => setUseCaseOpen(false)}
+        />
+      )}
       <div
         className={`vitreen-cursor-close${cursor.visible ? " is-visible" : ""}`}
         style={{ left: cursor.x, top: cursor.y }}
