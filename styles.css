@@ -4480,6 +4480,10 @@ a {
     --stack-rail: 20px;
   }
 
+  .vitreen-modal-scroll {
+    padding-top: 2.5rem;
+  }
+
   .main--stack {
     padding-bottom: 6rem;
   }
@@ -4519,14 +4523,14 @@ a {
     height: auto;
   }
 
-  /* Format iPhone réel (393 × 852, iPhone 14/15/16) : le site embarqué est
-     rendu à cette largeur de viewport, comme sur un vrai téléphone. */
+  /* Sur mobile, la landing Vitreen reste rendue comme un écran desktop,
+     puis réduite proportionnellement dans le cadre. */
   .vitreen-showcase .vitreen-window,
   .vitreen-showcase.is-split .vitreen-window {
     flex: 0 0 auto;
-    width: min(100%, 393px);
+    width: 100%;
     height: auto;
-    aspect-ratio: 393 / 852;
+    aspect-ratio: 16 / 9;
     margin-inline: auto;
   }
 
@@ -4580,5 +4584,93 @@ a {
 
   .vitreen-stack-arrow {
     display: none;
+  }
+
+  .vitreen-modal-screens {
+    height: min(58vh, 30rem);
+  }
+
+  .vitreen-modal-screen--mockup {
+    flex-basis: 90%;
+  }
+
+  .vitreen-modal-screen--mockup .vitreen-glass-sidebar,
+  .vitreen-modal-screen--mockup .vitreen-gmail,
+  .vitreen-modal-screen--mockup .vitreen-inserter {
+    display: none;
+  }
+
+  .vitreen-modal-screen--mockup .vitreen-glass {
+    width: 96%;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  .vitreen-modal-screen--mockup .vitreen-glass-search {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .vitreen-modal-screen--mockup .vitreen-glass-search-hint {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .vitreen-modal-screen--mockup .vitreen-glass-thead,
+  .vitreen-modal-screen--mockup .vitreen-glass-row {
+    grid-template-columns: minmax(0, 1fr) 70px 70px;
+  }
+
+  .vitreen-modal-screen--mockup .vitreen-glass-thead > span:nth-child(2),
+  .vitreen-modal-screen--mockup .vitreen-glass-thead > span:nth-child(3),
+  .vitreen-modal-screen--mockup .vitreen-glass-row > span:nth-child(2),
+  .vitreen-modal-screen--mockup .vitreen-glass-row > span:nth-child(3) {
+    display: none;
+  }
+
+  .vitreen-modal-screen--products {
+    flex-basis: 90%;
+    align-items: stretch;
+    overflow-y: hidden;
+    padding: 0.85rem;
+  }
+
+  .vitreen-products-menu {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 14px 12px;
+    border-radius: 12px;
+  }
+
+  .vitreen-products-label {
+    margin: 0 8px 12px;
+    font-size: 10px;
+  }
+
+  .vitreen-products-list {
+    display: grid;
+    flex: 1;
+    grid-template-rows: repeat(4, minmax(0, 1fr));
+    gap: 2px;
+  }
+
+  .vitreen-products-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 7px 8px;
+  }
+
+  .vitreen-products-item strong {
+    font-size: 11px;
+    line-height: 1.15;
+  }
+
+  .vitreen-products-item p {
+    margin-top: 3px;
+    font-size: 9px;
+    line-height: 1.25;
   }
 }

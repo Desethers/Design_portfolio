@@ -769,6 +769,7 @@ const PROJECT_LIVE_URLS = {
    Le site embarqué n'est jamais rendu plus étroit : si le cadre est plus
    petit, on rend à 393 px puis on réduit en échelle pour tenir dedans. */
 const EMBED_MIN_WIDTH = 393;
+const EMBED_DESKTOP_WIDTH = 1280;
 
 /* Largeur de la scrollbar système : 0 en overlay (iOS/macOS), ~15 px en
    classique (Windows). L'iframe utilise le même moteur, donc on élargit
@@ -790,20 +791,31 @@ function ProjectWindowContent({ project, siteReady, onSiteLoad }) {
   const liveUrl = PROJECT_LIVE_URLS[project.slug];
   const frameBoxRef = useRef(null);
   const [embedScale, setEmbedScale] = useState(1);
+  const [embedWidth, setEmbedWidth] = useState(EMBED_MIN_WIDTH);
   const scrollbarWidth = liveUrl ? getScrollbarWidth() : 0;
 
   useEffect(() => {
     const el = frameBoxRef.current;
     if (!liveUrl || !el) return undefined;
+    const mobileQuery = window.matchMedia("(max-width: 620px)");
     const update = () => {
       const w = el.clientWidth;
-      setEmbedScale(w > 0 && w < EMBED_MIN_WIDTH ? w / EMBED_MIN_WIDTH : 1);
+      const targetWidth =
+        project.slug === "vitreen" && mobileQuery.matches
+          ? EMBED_DESKTOP_WIDTH
+          : EMBED_MIN_WIDTH;
+      setEmbedWidth(targetWidth);
+      setEmbedScale(w > 0 && w < targetWidth ? w / targetWidth : 1);
     };
     update();
     const ro = new ResizeObserver(update);
     ro.observe(el);
-    return () => ro.disconnect();
-  }, [liveUrl]);
+    mobileQuery.addEventListener("change", update);
+    return () => {
+      ro.disconnect();
+      mobileQuery.removeEventListener("change", update);
+    };
+  }, [liveUrl, project.slug]);
 
   if (project.slug === "hanging") {
     return <HangingTechnicalDrawing />;
@@ -821,7 +833,7 @@ function ProjectWindowContent({ project, siteReady, onSiteLoad }) {
             style={
               embedScale < 1
                 ? {
-                    width: `${EMBED_MIN_WIDTH + scrollbarWidth}px`,
+                    width: `${embedWidth + scrollbarWidth}px`,
                     height: `${100 / embedScale}%`,
                     transform: `scale(${embedScale})`,
                     transformOrigin: "top left",
