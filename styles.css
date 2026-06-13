@@ -1347,6 +1347,11 @@ a {
   width: 50%;
 }
 
+.vitreen-modal-screen--mockup .vitreen-glass-thead,
+.vitreen-modal-screen--mockup .vitreen-glass-row {
+  grid-template-columns: minmax(210px, 0.7fr) 90px 50px 70px 70px;
+}
+
 .vitreen-modal-screen--products {
   display: flex;
   flex-basis: 72%;
