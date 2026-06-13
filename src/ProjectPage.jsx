@@ -588,8 +588,6 @@ function VitreenUseCaseCarousel({ project }) {
 
 /* ─── Vitreen — modale plein écran (texte + cartes use case) ──────────── */
 function VitreenUseCaseModal({ project, liveUrl, onClose }) {
-  const [siteReady, setSiteReady] = useState(false);
-
   useEffect(() => {
     const onKey = (e) => {
       if (e.key === "Escape") onClose();
@@ -644,14 +642,8 @@ function VitreenUseCaseModal({ project, liveUrl, onClose }) {
               </button>
             </div>
           </header>
-          <div className="vitreen-showcase vitreen-showcase--framed">
-            <div className="vitreen-window">
-              <ProjectWindowContent
-                project={project}
-                siteReady={siteReady}
-                onSiteLoad={() => setSiteReady(true)}
-              />
-            </div>
+          <div className="vitreen-modal-screenshot">
+            <img src={project.screenshot} alt={`${project.title} — aperçu`} />
           </div>
           <section className="vitreen-editorial" aria-label="Présentation du projet">
             <dl className="vitreen-editorial-meta">
