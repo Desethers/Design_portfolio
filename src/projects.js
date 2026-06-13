@@ -290,10 +290,15 @@ export const projects = [
         ],
       },
       wireframes: [
-        { title: "Gallery OS — Overview", src: "/vitreen/gallery-os-overview.png", type: "image" },
-        { title: "Gallery OS — Inventaire œuvres", src: "/vitreen/gallery-os-artworks.png", type: "image" },
+        { title: "Vitreen — Hero V2.1", type: "vitreen-v21" },
+        { title: "Vitreen — Products menu", type: "vitreen-products" },
+        {
+          title: "Sortie collectionneur",
+          src: "/vitreen/screenshot-viewingroom.png",
+          type: "image",
+          preserveRatio: true,
+        },
         { title: "Vitreen Studio — éditeur", src: "/vitreen/gallery-os-viewing-room-studio.png", type: "image" },
-        { title: "Sortie collectionneur", src: "/vitreen/viewing-room-share.png", type: "image" },
       ],
       execution: "Projet code-first : le design et le développement avancent en parallèle dans Next.js. Pas de maquettes Figma haute fidélité — les composants React sont la source de vérité visuelle, itérés directement dans le navigateur.",
       stack: [

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useParams, Link, Navigate, useNavigate } from "react-router-dom";
 import { projects } from "./projects.js";
 import HangingTechnicalDrawing from "./HangingTechnicalDrawing.jsx";
+import { VitreenSiteV21 } from "./VitreenSite.jsx";
 
 function TldrBox({ tldr }) {
   if (!tldr) return null;
@@ -538,48 +539,68 @@ function ProcessView({ p }) {
   );
 }
 
-/* ─── Vitreen — carrousel use case (4 parties + points) ───────────────── */
-function VitreenUseCaseCarousel({ project }) {
-  const sections = buildCaseStudySections(project.caseStudy);
-  const slides = [
-    [<TldrBox key="tldr" tldr={project.caseStudy?.tldr} />, sections[0]],
-    [sections[1], sections[2]],
-    [sections[3], sections[4]],
-    [sections[5], sections[6], sections[7]],
-  ];
-  const trackRef = useRef(null);
-  const [active, setActive] = useState(0);
-
-  const onScroll = () => {
-    const el = trackRef.current;
-    if (!el) return;
-    setActive(Math.min(slides.length - 1, Math.round(el.scrollLeft / el.clientWidth)));
-  };
-
-  const goTo = (i) => {
-    setActive(i);
-    const el = trackRef.current;
-    el?.scrollTo({ left: i * el.clientWidth, behavior: "smooth" });
-  };
+/* ─── Vitreen — modules produit inspirés de la modale Augments ───────── */
+function VitreenProductModules({ project }) {
+  const { product } = project.caseStudy;
 
   return (
-    <div className="vitreen-usecase-card">
-      <div className="vitreen-usecase-track" ref={trackRef} onScroll={onScroll}>
-        {slides.map((slide, i) => (
-          <div key={i} className="vitreen-usecase-slide process-view">
-            {slide}
+    <article className="vitreen-modules">
+      <header className="vitreen-modules-header">
+        <h2>Le système</h2>
+        <p>{product.processCaption}</p>
+      </header>
+
+      {product.screens.map((screen) => (
+        <section className="vitreen-module" key={screen.media}>
+          <div className="vitreen-module-copy">
+            <div>
+              <span>{screen.tag}</span>
+              <h3>{screen.title}</h3>
+            </div>
+            <p>{screen.text}</p>
           </div>
-        ))}
-      </div>
-      <div className="vitreen-usecase-dots">
-        {slides.map((_, i) => (
-          <button
-            key={i}
-            type="button"
-            className={i === active ? "is-active" : ""}
-            onClick={() => goTo(i)}
-            aria-label={`Partie ${i + 1} sur ${slides.length}`}
-          />
+          <figure className="vitreen-module-media">
+            <img src={screen.media} alt={screen.title} />
+          </figure>
+        </section>
+      ))}
+    </article>
+  );
+}
+
+const VITREEN_PRODUCT_LINKS = [
+  {
+    title: "Artworks Management",
+    description:
+      "Organise artworks, artists, exhibitions and documents in one structured archive.",
+  },
+  {
+    title: "Public & Private Publishing",
+    description:
+      "Create website pages, viewing rooms, collector PDFs and private selections.",
+  },
+  {
+    title: "Collector Relationships",
+    description:
+      "Keep inquiries, conversations and follow-ups connected to each artwork.",
+  },
+  {
+    title: "Gallery Assistants",
+    description:
+      "Support publishing, sales preparation and day-to-day gallery operations.",
+  },
+];
+
+function VitreenProductsMenu() {
+  return (
+    <div className="vitreen-products-menu">
+      <span className="vitreen-products-label">Products</span>
+      <div className="vitreen-products-list">
+        {VITREEN_PRODUCT_LINKS.map((item) => (
+          <div className="vitreen-products-item" key={item.title}>
+            <strong>{item.title}</strong>
+            <p>{item.description}</p>
+          </div>
         ))}
       </div>
     </div>
@@ -588,6 +609,10 @@ function VitreenUseCaseCarousel({ project }) {
 
 /* ─── Vitreen — modale plein écran (texte + cartes use case) ──────────── */
 function VitreenUseCaseModal({ project, liveUrl, onClose }) {
+  const showcaseScreens = project.process?.wireframes?.length
+    ? project.process.wireframes
+    : [{ title: project.title, src: project.screenshot }];
+
   useEffect(() => {
     const onKey = (e) => {
       if (e.key === "Escape") onClose();
@@ -615,8 +640,8 @@ function VitreenUseCaseModal({ project, liveUrl, onClose }) {
         <div className="vitreen-modal-scroll">
           <header className="vitreen-header">
             <div className="vitreen-header-id">
-              <h1 className="vitreen-header-title">{project.title}</h1>
-              <p className="vitreen-header-subtitle">{project.type}</p>
+              <h1 className="vitreen-header-title">Vitreen</h1>
+              <p className="vitreen-header-subtitle">Infrastructure pour galerie d'art</p>
             </div>
             <div className="vitreen-header-actions">
               {liveUrl && (
@@ -642,31 +667,50 @@ function VitreenUseCaseModal({ project, liveUrl, onClose }) {
               </button>
             </div>
           </header>
-          <div className="vitreen-modal-screenshot">
-            <img src={project.screenshot} alt={`${project.title} — aperçu`} />
+          <div className="vitreen-modal-screens" aria-label="Aperçus du produit">
+            {showcaseScreens.map((screen) => (
+              <figure
+                className={`vitreen-modal-screen${screen.preserveRatio ? " vitreen-modal-screen--natural" : ""}${screen.type === "vitreen-v21" ? " vitreen-modal-screen--mockup" : ""}${screen.type === "vitreen-products" ? " vitreen-modal-screen--products" : ""}`}
+                key={screen.src ?? screen.title}
+              >
+                {screen.type === "vitreen-v21" ? (
+                  <div className="vitreen-hero-html">
+                    <div className="vitreen-hero-scale">
+                      <VitreenSiteV21 />
+                    </div>
+                  </div>
+                ) : screen.type === "vitreen-products" ? (
+                  <VitreenProductsMenu />
+                ) : (
+                  <img src={screen.src} alt={screen.title ?? `${project.title} — aperçu`} />
+                )}
+              </figure>
+            ))}
           </div>
           <section className="vitreen-editorial" aria-label="Présentation du projet">
             <dl className="vitreen-editorial-meta">
               <div>
-                <dt>Program</dt>
-                <dd>{project.tags.slice(0, 2).join(", ")}</dd>
+                <dt>Livrable</dt>
+                <dd>Landing page produit</dd>
               </div>
               <div>
-                <dt>Industry</dt>
-                <dd>{project.type}</dd>
+                <dt>Contexte</dt>
+                <dd>Projet personnel · Galeries d’art contemporain</dd>
               </div>
               <div>
-                <dt>Stage</dt>
-                <dd>{project.year ?? project.process?.duration}</dd>
+                <dt>Disciplines</dt>
+                <dd>Product Design · UX Research · Front-end</dd>
               </div>
             </dl>
             <div className="vitreen-editorial-main">
               <p className="vitreen-editorial-intro">
-                {project.caseStudy?.hero?.subtitle ?? project.description}
+                Vitreen couvre plusieurs sujets : archives, œuvres, publications, ventes et
+                relations collectionneurs. Comment organiser cette complexité dans une
+                expérience de lecture simple et cohérente ?
               </p>
             </div>
           </section>
-          <VitreenUseCaseCarousel project={project} />
+          <VitreenProductModules project={project} />
         </div>
       </div>
     </div>

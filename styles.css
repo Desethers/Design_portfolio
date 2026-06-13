@@ -1253,12 +1253,18 @@ a {
   align-items: flex-start;
   justify-content: space-between;
   gap: 1.5rem;
+  width: min(100%, 72rem);
+  margin-inline: auto;
   margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.vitreen-header-id {
+  padding-left: clamp(5rem, 9vw, 9rem);
 }
 
 .vitreen-header-title {
   margin: 0;
-  font-size: 1.3rem;
+  font-size: 1.15rem;
   font-weight: 500;
   letter-spacing: -0.01em;
   color: #111110;
@@ -1266,25 +1272,148 @@ a {
 
 .vitreen-header-subtitle {
   margin: 0.1rem 0 0;
-  font-size: 1.05rem;
+  font-size: 0.92rem;
   color: var(--color-text-muted);
 }
 
-/* ─── Vitreen — screenshot plein cadre dans la modale ─────────────────── */
-.vitreen-modal-screenshot {
+/* ─── Vitreen — rail horizontal des écrans dans la modale ─────────────── */
+.vitreen-modal-screens {
+  display: flex;
+  gap: 1.25rem;
   height: min(70vh, 42rem);
+  padding: 0 max(1px, calc((100% - 90%) / 2));
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: max(1px, calc((100% - 90%) / 2));
+  scrollbar-width: none;
+  overscroll-behavior-inline: contain;
+}
+
+.vitreen-modal-screens::-webkit-scrollbar {
+  display: none;
+}
+
+.vitreen-modal-screen {
+  position: relative;
+  flex: 0 0 90%;
+  height: 100%;
+  margin: 0;
+  border: 1px solid var(--color-border);
   border-radius: 16px;
   overflow: hidden;
   background: var(--color-bg-elevated);
-  border: 1px solid var(--color-border);
+  scroll-snap-align: center;
 }
 
-.vitreen-modal-screenshot img {
+.vitreen-modal-screen--natural {
+  flex-basis: auto;
+  aspect-ratio: 896 / 1200;
+}
+
+.vitreen-modal-screen--mockup {
+  flex-basis: 78%;
+  background: #fff;
+}
+
+.vitreen-modal-screen--mockup .vitreen-hero-scale {
+  width: 125%;
+  height: 125%;
+  min-height: 0;
+  padding: 0;
+  transform: scale(0.8);
+}
+
+.vitreen-modal-screen--mockup .vitreen-nav,
+.vitreen-modal-screen--mockup .vitreen-hero-copy,
+.vitreen-modal-screen--mockup .vitreen-page-section {
+  display: none;
+}
+
+.vitreen-modal-screen--mockup .vitreen-stage {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+}
+
+.vitreen-modal-screen--mockup .vitreen-glass {
+  width: 75%;
+  transform: translate(-50%, -50%) scale(1.25);
+}
+
+.vitreen-modal-screen--mockup .vitreen-glass-search {
+  width: 50%;
+}
+
+.vitreen-modal-screen--products {
+  display: flex;
+  flex-basis: 72%;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1.5rem, 4vw, 3.5rem);
+  background: #dfe8df;
+}
+
+.vitreen-products-menu {
+  width: min(100%, 560px);
+  padding: 30px 24px 26px;
+  border: 1px solid rgba(17, 17, 16, 0.08);
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 20px 55px rgba(42, 58, 43, 0.08);
+}
+
+.vitreen-products-label {
+  display: block;
+  margin: 0 10px 22px;
+  font-size: 12px;
+  color: #aaa9a6;
+}
+
+.vitreen-products-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.vitreen-products-item {
+  padding: 10px;
+  border-radius: 6px;
+  transition: background-color 0.18s ease, color 0.18s ease;
+}
+
+.vitreen-products-item:hover {
+  background: #f1f1ef;
+}
+
+.vitreen-products-item strong {
+  display: block;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: #171716;
+}
+
+.vitreen-products-item p {
+  margin: 4px 0 0;
+  font-size: 12px;
+  line-height: 1.35;
+  color: #6d6c69;
+}
+
+.vitreen-modal-screen img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: top center;
+}
+
+.vitreen-modal-screen--natural img {
+  object-fit: contain;
 }
 
 .vitreen-window {
@@ -1613,18 +1742,21 @@ a {
 /* ─── Vitreen — section éditoriale (en tête de modale) ────────────────── */
 .vitreen-editorial {
   display: grid;
-  grid-template-columns: minmax(160px, 240px) minmax(0, 38rem);
-  gap: clamp(2rem, 6vw, 6rem);
+  grid-template-columns: minmax(300px, 380px) minmax(0, 38rem);
+  gap: clamp(3rem, 7vw, 7rem);
   align-items: start;
-  padding: clamp(1rem, 3vw, 2.5rem) 0 clamp(2rem, 4vw, 3.5rem);
-  margin-bottom: 1rem;
+  width: min(100%, 72rem);
+  padding: clamp(4rem, 8vw, 7rem) 0 clamp(5rem, 9vw, 8rem);
+  margin: 0 auto;
 }
 
 .vitreen-editorial-meta {
   display: flex;
   flex-direction: column;
-  gap: 1.6rem;
+  gap: 1rem;
   margin: 0;
+  padding-left: clamp(5rem, 9vw, 9rem);
+  box-sizing: border-box;
 }
 
 .vitreen-editorial-meta dt {
@@ -1634,9 +1766,9 @@ a {
 }
 
 .vitreen-editorial-meta dd {
-  margin: 0.25rem 0 0;
+  margin: 0.08rem 0 0;
   font-size: 0.95rem;
-  line-height: 1.5;
+  line-height: 1.35;
   color: var(--color-text-muted);
 }
 
@@ -1662,6 +1794,84 @@ a {
   align-items: center;
   gap: 12px;
   margin-top: 2.4rem;
+}
+
+/* ─── Vitreen — modules produit inspirés de la modale Augments ───────── */
+.vitreen-modules {
+  width: min(100%, 72rem);
+  margin: 0 auto;
+  padding: clamp(2rem, 4vw, 4rem) 0 clamp(6rem, 10vw, 10rem);
+  color: #111110;
+}
+
+.vitreen-modules-header {
+  width: min(100%, 38rem);
+  margin: 0 auto clamp(5rem, 9vw, 8rem);
+}
+
+.vitreen-modules-header h2 {
+  margin: 0 0 1rem;
+  font-size: clamp(2.2rem, 4vw, 4rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+
+.vitreen-modules-header p {
+  margin: 0;
+  max-width: 35rem;
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+
+.vitreen-module + .vitreen-module {
+  margin-top: clamp(6rem, 11vw, 10rem);
+}
+
+.vitreen-module-copy {
+  display: grid;
+  grid-template-columns: minmax(10rem, 14rem) minmax(0, 31rem);
+  gap: clamp(2rem, 6vw, 6rem);
+  width: min(100%, 55rem);
+  margin: 0 auto clamp(2.5rem, 5vw, 4rem);
+}
+
+.vitreen-module-copy span {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.vitreen-module-copy h3 {
+  margin: 0;
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.vitreen-module-copy p {
+  margin: 0;
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+
+.vitreen-module-media {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  background: #f5f5f3;
+}
+
+.vitreen-module-media img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .hanging-demo {
@@ -4234,5 +4444,28 @@ a {
   .vitreen-editorial {
     grid-template-columns: 1fr;
     gap: 1.8rem;
+    padding: 3rem 0 4rem;
+  }
+
+  .vitreen-editorial-meta {
+    padding-left: 0;
+  }
+
+  .vitreen-header-id {
+    padding-left: 0;
+  }
+
+  .vitreen-modules-header {
+    margin-bottom: 4rem;
+  }
+
+  .vitreen-module-copy {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .vitreen-module + .vitreen-module {
+    margin-top: 5rem;
   }
 }
