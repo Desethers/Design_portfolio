@@ -545,11 +545,6 @@ function VitreenProductModules({ project }) {
 
   return (
     <article className="vitreen-modules">
-      <header className="vitreen-modules-header">
-        <h2>Positionnement &amp; copy</h2>
-        <p>{product.processCaption}</p>
-      </header>
-
       {product.screens.map((screen) => (
         <section className="vitreen-module" key={screen.title}>
           <div className="vitreen-module-copy">
@@ -562,10 +557,18 @@ function VitreenProductModules({ project }) {
           <figure
             className={`vitreen-module-media${
               screen.type === "vitreen-products" ? " vitreen-module-media--products" : ""
+            }${
+              screen.type === "vitreen-interviews" ? " vitreen-module-media--interviews" : ""
+            }${
+              screen.type === "vitreen-stack" ? " vitreen-module-media--stack" : ""
             }`}
           >
             {screen.type === "vitreen-products" ? (
               <VitreenProductsMenu />
+            ) : screen.type === "vitreen-interviews" ? (
+              <VitreenInterviewInsights items={screen.items} />
+            ) : screen.type === "vitreen-stack" ? (
+              <VitreenStackFlow items={screen.items} />
             ) : (
               <img src={screen.media} alt={screen.title} />
             )}
@@ -573,6 +576,39 @@ function VitreenProductModules({ project }) {
         </section>
       ))}
     </article>
+  );
+}
+
+function VitreenInterviewInsights({ items }) {
+  return (
+    <div className="vitreen-interviews">
+      {items.map((item, index) => (
+        <article className="vitreen-interview-card" key={item.label}>
+          <span>0{index + 1}</span>
+          <blockquote>« {item.quote} »</blockquote>
+          <p>{item.label}</p>
+        </article>
+      ))}
+    </div>
+  );
+}
+
+function VitreenStackFlow({ items }) {
+  return (
+    <div className="vitreen-stack-flow">
+      {items.map((item, index) => (
+        <React.Fragment key={item.name}>
+          <article className="vitreen-stack-step">
+            <div className="vitreen-stack-icon">
+              {item.icon ? <img src={item.icon} alt="" /> : <span>{item.name.slice(0, 2)}</span>}
+            </div>
+            <strong>{item.name}</strong>
+            <small>{item.role}</small>
+          </article>
+          {index < items.length - 1 && <span className="vitreen-stack-arrow">→</span>}
+        </React.Fragment>
+      ))}
+    </div>
   );
 }
 
@@ -699,7 +735,7 @@ function VitreenUseCaseModal({ project, liveUrl, onClose }) {
             <dl className="vitreen-editorial-meta">
               <div>
                 <dt>Livrable</dt>
-                <dd>Landing page produit</dd>
+                <dd>Écosystème produit</dd>
               </div>
               <div>
                 <dt>Contexte</dt>
@@ -712,9 +748,8 @@ function VitreenUseCaseModal({ project, liveUrl, onClose }) {
             </dl>
             <div className="vitreen-editorial-main">
               <p className="vitreen-editorial-intro">
-                Vitreen couvre plusieurs sujets : archives, œuvres, publications, ventes et
-                relations collectionneurs. Comment organiser cette complexité dans une
-                expérience de lecture simple et cohérente ?
+                Comment faire circuler les œuvres entre les outils d'une galerie sans lui
+                imposer une nouvelle manière de travailler ?
               </p>
             </div>
           </section>
