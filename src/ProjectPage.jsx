@@ -546,12 +546,12 @@ function VitreenProductModules({ project }) {
   return (
     <article className="vitreen-modules">
       <header className="vitreen-modules-header">
-        <h2>Le système</h2>
+        <h2>Positionnement &amp; copy</h2>
         <p>{product.processCaption}</p>
       </header>
 
       {product.screens.map((screen) => (
-        <section className="vitreen-module" key={screen.media}>
+        <section className="vitreen-module" key={screen.title}>
           <div className="vitreen-module-copy">
             <div>
               <span>{screen.tag}</span>
@@ -559,8 +559,16 @@ function VitreenProductModules({ project }) {
             </div>
             <p>{screen.text}</p>
           </div>
-          <figure className="vitreen-module-media">
-            <img src={screen.media} alt={screen.title} />
+          <figure
+            className={`vitreen-module-media${
+              screen.type === "vitreen-products" ? " vitreen-module-media--products" : ""
+            }`}
+          >
+            {screen.type === "vitreen-products" ? (
+              <VitreenProductsMenu />
+            ) : (
+              <img src={screen.media} alt={screen.title} />
+            )}
           </figure>
         </section>
       ))}

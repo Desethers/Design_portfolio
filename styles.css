@@ -1873,6 +1873,18 @@ a {
   background: #f5f5f3;
 }
 
+.vitreen-module-media--products {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  background: #dfe8df;
+}
+
+.vitreen-module-media--products .vitreen-products-menu {
+  width: 100%;
+}
+
 .vitreen-module-media img {
   display: block;
   width: 100%;
