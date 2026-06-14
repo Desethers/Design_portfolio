@@ -582,9 +582,8 @@ function VitreenProductModules({ project }) {
 function VitreenInterviewInsights({ items }) {
   return (
     <div className="vitreen-interviews">
-      {items.map((item, index) => (
+      {items.map((item) => (
         <article className="vitreen-interview-card" key={item.label}>
-          <span>0{index + 1}</span>
           <blockquote>« {item.quote} »</blockquote>
           <p>{item.label}</p>
         </article>

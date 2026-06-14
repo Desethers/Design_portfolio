@@ -429,7 +429,13 @@ function Home() {
       <header id="about" className="home-hero">
         <h1 className="home-hero-title">Raphaël Rossi</h1>
         <p className="home-hero-subtitle">
-          Product Designer · Cultural Technology · Digital Products
+          <a
+            href="https://cal.com/rr-designer/15min?overlayCalendar=true"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Product Designer &amp; Founder
+          </a>
         </p>
         <div className="home-hero-bio">
           <p>
