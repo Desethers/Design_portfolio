@@ -230,6 +230,29 @@ export function VitreenSiteV21() {
 }
 
 export function VitreenSiteAdoption() {
+  const workflowSteps = [
+    {
+      title: "Audit",
+      body: "We review how artworks and information already move across the gallery.",
+    },
+    {
+      title: "Connect & build",
+      body: "Vitreen connects artwork files, selections and collector communication into one flow.",
+    },
+    {
+      title: "Deploy",
+      body: "Operational infrastructure installed around your existing gallery environment.",
+    },
+  ];
+  const workflowTools = [
+    ["Excel", "/vitreen/stepper-excel.svg"],
+    ["WhatsApp", "/icones/whatsapp.svg"],
+    ["Outlook", "/vitreen/Microsoft_Office_Outlook_Logo.svg"],
+    ["PDF", "/vitreen/stepper-pdf.svg"],
+    ["Word", "/vitreen/stepper-word.svg"],
+    ["Notion", "/vitreen/stepper-notion.svg"],
+  ];
+
   return (
     <>
       <div className="vitreen-nav">
@@ -247,40 +270,81 @@ export function VitreenSiteAdoption() {
           <h4>Starting from your existing gallery</h4>
           <p>We adapt Vitreen to the way your team works.</p>
         </div>
-        <div className="vitreen-adoption-steps">
-          <div className="vitreen-adoption-step">
-            <span className="vitreen-adoption-step-num">1</span>
-            <h5>Audit</h5>
-            <div className="vitreen-adoption-pills">
-              <span className="is-active">Inventory</span>
-              <span>CSV</span>
-              <span>Folders</span>
-              <span>Artwork library</span>
-            </div>
-            <div className="vitreen-adoption-notes">
-              <span>No migration required</span>
-              <span>Your data stays confidential</span>
-            </div>
-          </div>
-          <div className="vitreen-adoption-step">
-            <span className="vitreen-adoption-step-num">2</span>
-            <h5>Connect &amp; build</h5>
-            <div className="vitreen-adoption-tools">
-              {["Excel", "WhatsApp", "Outlook", "PDF", "Word", "Notion"].map((tool) => (
-                <span key={tool}>{tool}</span>
-              ))}
-            </div>
-          </div>
-          <div className="vitreen-adoption-step">
-            <span className="vitreen-adoption-step-num">3</span>
-            <h5>Deploy</h5>
-            <div className="vitreen-adoption-notifications">
-              <span>New inquiry · James Collector</span>
-              <span>PDF viewed · Untitled (2023)</span>
-              <span>Follow-up scheduled · Mon</span>
-            </div>
-          </div>
-        </div>
+        <ol className="vitreen-adoption-steps">
+          {workflowSteps.map((step, index) => (
+            <li className={`vitreen-adoption-step vitreen-adoption-step--${index + 1}`} key={step.title}>
+              <div className="vitreen-adoption-track" aria-hidden="true">
+                <span className="vitreen-adoption-step-num">{index + 1}</span>
+                <span className="vitreen-adoption-line" />
+              </div>
+              <h5>{step.title}</h5>
+              {index === 0 && (
+                <>
+                  <div className="vitreen-adoption-pills">
+                    <span className="is-active">
+                      <i className="vitreen-pill-icon vitreen-pill-icon--file" />
+                      Inventory
+                    </span>
+                    <span>
+                      <i className="vitreen-pill-icon vitreen-pill-icon--document" />
+                      CSV
+                    </span>
+                    <span>
+                      <i className="vitreen-pill-icon vitreen-pill-icon--folder" />
+                      Folders
+                    </span>
+                    <span>
+                      <i className="vitreen-pill-icon vitreen-pill-icon--library" />
+                      Artwork library
+                    </span>
+                  </div>
+                  <div className="vitreen-adoption-notes">
+                    <span>
+                      <i className="vitreen-note-icon vitreen-note-icon--check">✓</i>
+                      No migration required
+                    </span>
+                    <span>
+                      <i className="vitreen-note-icon vitreen-note-icon--shield">◇</i>
+                      Your data stays confidential
+                    </span>
+                  </div>
+                </>
+              )}
+              {index === 1 && (
+                <div className="vitreen-adoption-tools">
+                  {workflowTools.map(([tool, icon]) => (
+                    <span key={tool}>
+                      <img src={icon} alt="" />
+                      <small>{tool}</small>
+                    </span>
+                  ))}
+                </div>
+              )}
+              {index === 2 && (
+                <div className="vitreen-adoption-notifications">
+                  <span>
+                    <i className="is-green" />
+                    New inquiry · James Collector
+                    <small>2h</small>
+                    <img src="/vitreen/google-gmail-svgrepo-com.svg" alt="" />
+                  </span>
+                  <span>
+                    <i className="is-blue" />
+                    PDF viewed · Untitled (2023)
+                    <small>1h</small>
+                    <img src="/vitreen/Microsoft_Office_Outlook_Logo.svg" alt="" />
+                  </span>
+                  <span>
+                    <i className="is-yellow" />
+                    Follow-up scheduled · Mon
+                    <small>—</small>
+                    <img src="/icones/whatsapp.svg" alt="" />
+                  </span>
+                </div>
+              )}
+            </li>
+          ))}
+        </ol>
       </section>
 
       <section className="vitreen-page-section vitreen-adoption-tools-section">
@@ -290,14 +354,66 @@ export function VitreenSiteAdoption() {
           <article>
             <strong>Artwork Management</strong>
             <p>Manage artwork information and supporting documents from one place.</p>
+            <div className="vitreen-adoption-card-preview vitreen-adoption-preview--artwork">
+              <div className="vitreen-adoption-artwork-head">
+                <span>Title</span>
+                <span>Year</span>
+                <span>Price</span>
+              </div>
+              {VITREEN_ARTWORKS.slice(0, 3).map((row) => (
+                <div key={row.title} className="vitreen-adoption-artwork-row">
+                  <span className="vitreen-adoption-artwork-swatch" style={{ background: row.color }} />
+                  <span className="vitreen-adoption-artwork-title">{row.title}</span>
+                  <span className="vitreen-adoption-artwork-year">{row.year}</span>
+                  <span className="vitreen-adoption-artwork-price">{row.price}</span>
+                </div>
+              ))}
+            </div>
           </article>
           <article>
             <strong>Private Sharing</strong>
             <p>Send a viewing room as a polished email, with an Inquire button on every work.</p>
+            <div className="vitreen-adoption-card-preview vitreen-adoption-preview--mail">
+              <div className="vitreen-adoption-mail-head">
+                <img src="/vitreen/google-gmail-svgrepo-com.svg" alt="" />
+                <div>
+                  <strong>Galerie</strong>
+                  <span>to Jean Dupond</span>
+                </div>
+                <time>10:24</time>
+              </div>
+              <div className="vitreen-adoption-mail-subject">
+                <strong>Exhibition Selection</strong>
+                <a>View online</a>
+              </div>
+              <p className="vitreen-adoption-mail-line">Work from the show</p>
+              <div className="vitreen-adoption-mail-image" />
+              <p className="vitreen-adoption-mail-text">
+                For Jean Dupond — following the exhibition, here is a selection of remaining
+                works.
+              </p>
+            </div>
           </article>
           <article>
             <strong>Collector Selections</strong>
             <p>Add works to a selection right from the conversation and share it as a ready-made PDF.</p>
+            <div className="vitreen-adoption-card-preview vitreen-adoption-preview--chat">
+              <div className="vitreen-adoption-chat-head">
+                <span className="vitreen-adoption-chat-avatar">V</span>
+                <div>
+                  <strong>Vitreen · Sélection</strong>
+                  <span>WhatsApp</span>
+                </div>
+              </div>
+              <div className="vitreen-adoption-chat-thumb">
+                <img src="/vitreen/painting-05.jpg" alt="" />
+                <div>
+                  <strong>Evening Field</strong>
+                  <span>8 000 €</span>
+                </div>
+              </div>
+              <span className="vitreen-adoption-chat-button">Inquire</span>
+            </div>
           </article>
         </div>
       </section>
