@@ -561,6 +561,12 @@ function VitreenProductModules({ project }) {
               screen.type === "vitreen-interviews" ? " vitreen-module-media--interviews" : ""
             }${
               screen.type === "vitreen-stack" ? " vitreen-module-media--stack" : ""
+            }${
+              screen.type === "vitreen-positioning"
+                ? " vitreen-module-media--positioning"
+                : ""
+            }${
+              screen.type === "vitreen-reels" ? " vitreen-module-media--reels" : ""
             }`}
           >
             {screen.type === "vitreen-products" ? (
@@ -569,6 +575,10 @@ function VitreenProductModules({ project }) {
               <VitreenInterviewInsights items={screen.items} />
             ) : screen.type === "vitreen-stack" ? (
               <VitreenStackFlow items={screen.items} />
+            ) : screen.type === "vitreen-positioning" ? (
+              <VitreenPositioningComparison />
+            ) : screen.type === "vitreen-reels" ? (
+              <VitreenReels items={screen.items} />
             ) : (
               <img src={screen.media} alt={screen.title} />
             )}
@@ -576,6 +586,103 @@ function VitreenProductModules({ project }) {
         </section>
       ))}
     </article>
+  );
+}
+
+function VitreenReels({ items }) {
+  return (
+    <div className="vitreen-reels" aria-label="Reels Instagram Vitreen">
+      {items.map((item, index) => (
+        <article className="vitreen-reel-card" key={item.id}>
+          <video
+            src={`/vitreen/reels/${item.id}.mp4`}
+            aria-label={`Reel Instagram Vitreen ${index + 1}`}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+          />
+        </article>
+      ))}
+    </div>
+  );
+}
+
+function VitreenBrowserBar({ label }) {
+  return (
+    <div className="vitreen-browser-bar">
+      <div className="vitreen-browser-controls" aria-hidden="true">
+        <span>×</span>
+        <span>−</span>
+        <span>+</span>
+      </div>
+      <span>{label}</span>
+    </div>
+  );
+}
+
+function VitreenPositioningWindow({ className, label, children }) {
+  const [cursor, setCursor] = useState({ x: 0, y: 0 });
+
+  return (
+    <article
+      className={`vitreen-browser-window ${className}`}
+      onMouseMove={(event) => {
+        const bounds = event.currentTarget.getBoundingClientRect();
+        setCursor({
+          x: event.clientX - bounds.left,
+          y: event.clientY - bounds.top,
+        });
+      }}
+    >
+      {children}
+      <span
+        className="vitreen-version-label"
+        style={{ left: cursor.x, top: cursor.y }}
+      >
+        {label}
+      </span>
+    </article>
+  );
+}
+
+function VitreenPositioningComparison() {
+  return (
+    <div className="vitreen-positioning-comparison">
+      <VitreenPositioningWindow
+        className="vitreen-browser-window--legacy"
+        label="Version main"
+      >
+        <VitreenBrowserBar label="Vitreen — main" />
+        <div className="vitreen-legacy-site">
+          <nav>
+            <strong>Vitreen</strong>
+            <span>Offers</span>
+            <span>Blog</span>
+            <span>About</span>
+            <b>Book a demo</b>
+          </nav>
+          <img
+            className="vitreen-legacy-screenshot"
+            src="/vitreen/Frame 11.png"
+            alt="Version main de la landing Vitreen avec les pages galerie superposées"
+          />
+        </div>
+      </VitreenPositioningWindow>
+
+      <VitreenPositioningWindow
+        className="vitreen-browser-window--v21"
+        label="Version V2.1"
+      >
+        <VitreenBrowserBar label="Vitreen — V2.1" />
+        <div className="vitreen-positioning-v21">
+          <div className="vitreen-positioning-v21-scale">
+            <VitreenSiteV21 />
+          </div>
+        </div>
+      </VitreenPositioningWindow>
+    </div>
   );
 }
 
@@ -634,12 +741,60 @@ const VITREEN_PRODUCT_LINKS = [
   },
 ];
 
+const VITREEN_SOLUTION_LINKS = [
+  {
+    title: "Galleries",
+    description: "Artworks, exhibitions and inquiries.",
+  },
+  {
+    title: "Advisors & Dealers",
+    description: "Private selections and client follow-up.",
+  },
+  {
+    title: "Artists",
+    description: "Archive, series and presentation.",
+  },
+  {
+    title: "Collectors",
+    description: "Acquisitions and documents.",
+  },
+  {
+    title: "Artist Estates",
+    description: "Corpus, provenance and stewardship.",
+  },
+];
+
 function VitreenProductsMenu() {
+  const [activeMenu, setActiveMenu] = useState("products");
+  const items =
+    activeMenu === "products" ? VITREEN_PRODUCT_LINKS : VITREEN_SOLUTION_LINKS;
+
   return (
     <div className="vitreen-products-menu">
-      <span className="vitreen-products-label">Products</span>
-      <div className="vitreen-products-list">
-        {VITREEN_PRODUCT_LINKS.map((item) => (
+      <div className="vitreen-products-tabs" role="tablist" aria-label="Vitreen navigation">
+        {["products", "solutions"].map((menu) => (
+          <button
+            type="button"
+            role="tab"
+            aria-selected={activeMenu === menu}
+            className={activeMenu === menu ? "is-active" : ""}
+            onClick={() => setActiveMenu(menu)}
+            key={menu}
+          >
+            {menu === "products" ? "Products" : "Solutions"}
+          </button>
+        ))}
+      </div>
+      <div
+        className={`vitreen-products-list${
+          activeMenu === "solutions" ? " is-solutions" : ""
+        }`}
+        role="tabpanel"
+      >
+        {activeMenu === "solutions" && (
+          <span className="vitreen-products-section-label">By role</span>
+        )}
+        {items.map((item) => (
           <div className="vitreen-products-item" key={item.title}>
             <strong>{item.title}</strong>
             <p>{item.description}</p>

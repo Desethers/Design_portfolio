@@ -418,7 +418,43 @@ export const projects = [
             tag: "Positionnement",
             title: "Une infrastructure, pas un CMS",
             text: "Vitreen ne cherche pas à remplacer les habitudes d'une galerie. Le projet se positionne comme une couche opérationnelle qui relie l'inventaire, la publication et la relation collectionneur. Cette idée a remplacé le discours initial de création de sites.",
-            media: "/vitreen/Frame 11.png",
+            type: "vitreen-positioning",
+          },
+          {
+            tag: "Marketing & lancement",
+            title: "Tester le récit dans des formats courts",
+            text: "Les Reels prolongent le positionnement produit sur Instagram : ils rendent les usages visibles, testent différents angles de communication et construisent une audience autour de Vitreen.",
+            type: "vitreen-reels",
+            items: [
+              {
+                id: "DYR0tVrmrxT",
+                url: "https://www.instagram.com/vitreen.art/reel/DYR0tVrmrxT/",
+              },
+              {
+                id: "DZO8kHvkxt7",
+                url: "https://www.instagram.com/vitreen.art/reel/DZO8kHvkxt7/",
+              },
+              {
+                id: "DX6A9E6txtp",
+                url: "https://www.instagram.com/vitreen.art/reel/DX6A9E6txtp/",
+              },
+              {
+                id: "DYOlEZDD_WX",
+                url: "https://www.instagram.com/vitreen.art/reel/DYOlEZDD_WX/",
+              },
+              {
+                id: "DYlwavGCuLg",
+                url: "https://www.instagram.com/vitreen.art/reel/DYlwavGCuLg/",
+              },
+              {
+                id: "DYEWo3elU9-",
+                url: "https://www.instagram.com/vitreen.art/reel/DYEWo3elU9-/",
+              },
+              {
+                id: "DX1pScFMc9E",
+                url: "https://www.instagram.com/vitreen.art/reel/DX1pScFMc9E/",
+              },
+            ],
           },
           {
             tag: "Traduction produit",
@@ -432,11 +468,10 @@ export const projects = [
             text: "La stack accompagne une boucle courte : cadrer l'expérience, prototyper dans le navigateur, connecter les contenus et intégrations, puis déployer une version testable. Chaque outil intervient à une étape précise plutôt que comme une couche technique isolée.",
             type: "vitreen-stack",
             items: [
-              { name: "Figma", role: "Cadrage" },
+              { name: "Figma", role: "Cadrage", icon: "/icones/figma-color.png" },
               { name: "Claude", role: "Architecture", icon: "/icones/claudecode-text.svg" },
-              { name: "Cursor", role: "Prototype", icon: "/icones/cursor.svg" },
-              { name: "Next.js", role: "Produit" },
-              { name: "Sanity", role: "Contenu" },
+              { name: "Sanity", role: "Contenu", icon: "/icones/sanity.png" },
+              { name: "WhatsApp", role: "Communication", icon: "/icones/whatsapp.svg" },
               { name: "Gmail API", role: "Intégration", icon: "/vitreen/google-gmail-svgrepo-com.svg" },
               { name: "Vercel", role: "Déploiement", icon: "/icones/vercel.svg" },
             ],
