@@ -539,6 +539,28 @@ function ProcessView({ p }) {
   );
 }
 
+const VITREEN_METRICS = [
+  { value: "46", label: "Itérations de design & code" },
+  { value: "8 600", label: "Lignes de code écrites" },
+  { value: "8", label: "Sessions de travail sur 3,5 mois" },
+  { value: "16", label: "Écrans & modules conçus" },
+  { value: "~4M", label: "Tokens IA consommés (estimation)" },
+];
+
+/* ─── Vitreen — ligne de métriques entre intro et premier module ──────── */
+function VitreenMetricsRow() {
+  return (
+    <section className="vitreen-metrics" aria-label="Chiffres clés du projet">
+      {VITREEN_METRICS.map((metric) => (
+        <div className="vitreen-metric" key={metric.label}>
+          <span className="vitreen-metric-value">{metric.value}</span>
+          <span className="vitreen-metric-label">{metric.label}</span>
+        </div>
+      ))}
+    </section>
+  );
+}
+
 /* ─── Vitreen — modules produit inspirés de la modale Augments ───────── */
 function VitreenProductModules({ project }) {
   const { product } = project.caseStudy;
@@ -689,7 +711,7 @@ function VitreenPositioningComparison() {
 function VitreenInterviewInsights({ items }) {
   return (
     <div className="vitreen-interviews">
-      {items.map((item) => (
+      {items.slice(0, 2).map((item) => (
         <article className="vitreen-interview-card" key={item.label}>
           <blockquote>« {item.quote} »</blockquote>
           <p>{item.label}</p>
@@ -907,6 +929,7 @@ function VitreenUseCaseModal({ project, liveUrl, onClose }) {
               </p>
             </div>
           </section>
+          <VitreenMetricsRow />
           <VitreenProductModules project={project} />
         </div>
       </div>

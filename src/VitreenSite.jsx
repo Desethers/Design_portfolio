@@ -19,7 +19,7 @@ export const VITREEN_ARTWORKS = [
   { title: "Sun Dog", year: "2024", price: "12 000 €", color: "#7A1F18" },
   { title: "Studio Notebook", year: "2022", price: "4 500 €", color: "#3E4A60" },
   { title: "Solstice", year: "2024", price: "14 000 €", color: "#D4A574" },
-  { title: "Rivière", year: "2023", price: "9 200 €", color: "#2D5043" },
+  { title: "River", year: "2023", price: "9 200 €", color: "#2D5043" },
   { title: "Northern Light", year: "2022", price: "11 500 €", color: "#4A6B7A" },
 ];
 
@@ -29,11 +29,11 @@ export function VitreenSiteV21() {
       <div className="vitreen-nav">
         <span className="vitreen-nav-logo">Vitreen</span>
         <span className="vitreen-nav-links">
-          {["Produits", "Solutions", "Déploiement", "Blog", "À propos"].map((label) => (
+          {["Products", "Solutions", "Deployment", "Blog", "About"].map((label) => (
             <span key={label}>{label}</span>
           ))}
         </span>
-        <span className="vitreen-nav-cta">Discuter de votre setup</span>
+        <span className="vitreen-nav-cta">Discuss your setup</span>
       </div>
       <div className="vitreen-hero-copy">
         <h3>Your gallery, wherever you already work.</h3>
@@ -42,8 +42,8 @@ export function VitreenSiteV21() {
           exhibitions, private selections and collector communication.
         </p>
         <div className="vitreen-hero-actions">
-          <span className="vitreen-btn vitreen-btn--dark">Discuter de votre setup</span>
-          <span className="vitreen-btn">Voir les outils</span>
+          <span className="vitreen-btn vitreen-btn--dark">Discuss your setup</span>
+          <span className="vitreen-btn">View tools</span>
         </div>
       </div>
 
@@ -77,30 +77,30 @@ export function VitreenSiteV21() {
           <div className="vitreen-glass-main">
             <div className="vitreen-glass-head">
               <div>
-                <strong>Œuvres</strong>
-                <small>12 au total · 12 disponibles · 0 vendue</small>
+                <strong>Artworks</strong>
+                <small>12 total · 12 available · 0 sold</small>
               </div>
-              <span className="vitreen-glass-add">+ Ajouter</span>
+              <span className="vitreen-glass-add">+ Add</span>
             </div>
             <div className="vitreen-glass-search">
               <span>⌕</span>
               <span className="vitreen-glass-search-hint">
-                Rechercher titre, artiste, année, médium…
+                Search title, artist, year, medium…
               </span>
               <kbd>⌘K</kbd>
             </div>
             <div className="vitreen-glass-pills">
-              {["Disponibles", "Réservées", "Vendues", "Consignées", "En prêt"].map((p) => (
+              {["Available", "Reserved", "Sold", "Consigned", "On loan"].map((p) => (
                 <span key={p}>{p}</span>
               ))}
               <span className="is-dark">Sacha Elron</span>
             </div>
             <div className="vitreen-glass-thead">
-              <span>Titre</span>
-              <span>Artiste</span>
-              <span>Année</span>
-              <span className="is-right">Prix</span>
-              <span>Statut</span>
+              <span>Title</span>
+              <span>Artist</span>
+              <span>Year</span>
+              <span className="is-right">Price</span>
+              <span>Status</span>
             </div>
             {VITREEN_ARTWORKS.map((row) => (
               <div key={row.title} className="vitreen-glass-row">
@@ -128,14 +128,14 @@ export function VitreenSiteV21() {
             <span>_ ↗ ×</span>
           </div>
           <div className="vitreen-gmail-to">
-            <span className="is-muted">À</span>
+            <span className="is-muted">To</span>
             <span className="vitreen-gmail-chip">
               <b>E</b>
               Eve Bertrand
             </span>
           </div>
           <div className="vitreen-gmail-subject">
-            Disponibilité — Sacha Elron, « Evening Field »
+            Availability — Sacha Elron, “Evening Field”
           </div>
           <div className="vitreen-gmail-body">
             <img src="/vitreen/painting-05.jpg" alt="Evening field, 2023" />
@@ -164,7 +164,7 @@ export function VitreenSiteV21() {
           </div>
           <div className="vitreen-inserter-search">evening</div>
           <div className="vitreen-inserter-pills">
-            {["Tout", "Disponibles", "Réservées", "Vendues", "NFS"].map((tag, i) => (
+            {["All", "Available", "Reserved", "Sold", "NFS"].map((tag, i) => (
               <span key={tag} className={i === 0 ? "is-dark" : ""}>
                 {tag}
               </span>
@@ -183,10 +183,10 @@ export function VitreenSiteV21() {
             <em>Available</em>
           </div>
           <div className="vitreen-inserter-footer">
-            <span>1 œuvre sélectionnée</span>
+            <span>1 artwork selected</span>
             <span className="vitreen-inserter-actions">
               <i>↺</i>
-              <b>Insérer</b>
+              <b>Insert</b>
             </span>
           </div>
         </div>

@@ -473,6 +473,7 @@ export const projects = [
               { name: "Sanity", role: "Contenu", icon: "/icones/sanity.png" },
               { name: "WhatsApp", role: "Communication", icon: "/icones/whatsapp.svg" },
               { name: "Gmail API", role: "Intégration", icon: "/vitreen/google-gmail-svgrepo-com.svg" },
+              { name: "Stripe", role: "Paiements", icon: "/icones/stripe.svg" },
               { name: "Vercel", role: "Déploiement", icon: "/icones/vercel.svg" },
             ],
           },

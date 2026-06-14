@@ -401,7 +401,7 @@ a {
 .vitreen-nav-cta {
   flex-shrink: 0;
   padding: 7px 12px;
-  border-radius: 3px;
+  border-radius: 999px;
   background: #111110;
   color: #fff;
   font-size: 12px;
@@ -1876,6 +1876,42 @@ a {
   margin-top: 2.4rem;
 }
 
+/* ─── Vitreen — ligne de métriques entre l'intro et le premier module ─── */
+.vitreen-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  width: min(100%, 55rem);
+  margin: 0 auto;
+  padding-bottom: clamp(3rem, 5vw, 4.5rem);
+}
+
+.vitreen-metric {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 9rem;
+  padding: clamp(1.5rem, 2.5vw, 2rem) clamp(1rem, 2vw, 1.5rem) 0 0;
+}
+
+.vitreen-metric + .vitreen-metric {
+  border-left: 1px solid var(--color-border);
+  padding-left: clamp(1rem, 2vw, 1.5rem);
+}
+
+.vitreen-metric-value {
+  font-size: clamp(1.25rem, 2.6vw, 1.9rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: #111110;
+}
+
+.vitreen-metric-label {
+  font-size: 0.8rem;
+  line-height: 1.35;
+  color: var(--color-text-muted);
+}
+
 /* ─── Vitreen — modules produit inspirés de la modale Augments ───────── */
 .vitreen-modules {
   width: min(100%, 72rem);
@@ -1901,20 +1937,20 @@ a {
   margin-bottom: 0.4rem;
   font-size: 0.7rem;
   letter-spacing: 0.08em;
-  text-transform: uppercase;
+  text-transform: lowercase;
   color: var(--color-text-muted);
 }
 
 .vitreen-module-copy h3 {
   margin: 0;
-  font-size: clamp(1rem, 1.4vw, 1.2rem);
-  font-weight: 500;
+  font-size: clamp(0.9rem, 1.25vw, 1.05rem);
+  font-weight: 400;
   line-height: 1.25;
 }
 
 .vitreen-module-copy p {
   margin: 0;
-  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  font-size: clamp(0.9rem, 1.25vw, 1.05rem);
   line-height: 1.5;
   color: var(--color-text-muted);
 }
@@ -1941,7 +1977,7 @@ a {
 }
 
 .vitreen-module-media--positioning {
-  width: min(100%, 64rem);
+  width: min(100%, 55rem);
   border: 0;
   border-radius: 0;
   background: transparent;
@@ -1949,7 +1985,7 @@ a {
 }
 
 .vitreen-module-media--reels {
-  width: min(100%, 64rem);
+  width: min(100%, 55rem);
   border: 0;
   border-radius: 0;
   background: transparent;
@@ -1958,6 +1994,7 @@ a {
 
 .vitreen-reels {
   display: flex;
+  width: calc(100% + max(0px, 50vw - 27.5rem));
   gap: clamp(1rem, 2vw, 1.5rem);
   padding-bottom: 0.75rem;
   overflow-x: auto;
@@ -1990,7 +2027,8 @@ a {
 
 .vitreen-positioning-comparison {
   position: relative;
-  height: clamp(430px, 57vw, 600px);
+  aspect-ratio: 128 / 75;
+  height: auto;
   overflow: hidden;
 }
 
@@ -2155,33 +2193,26 @@ a {
 }
 
 .vitreen-interviews {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(1rem, 2vw, 1.5rem);
-  overflow-x: auto;
-  scroll-snap-type: x proximity;
-  padding-bottom: 0.5rem;
-  scrollbar-width: none;
-}
-
-.vitreen-interviews::-webkit-scrollbar {
-  display: none;
+  width: min(100%, 55rem);
+  margin: 0 auto;
 }
 
 .vitreen-interview-card {
   display: flex;
-  flex: 0 0 min(360px, 80%);
-  min-height: 480px;
+  min-height: 360px;
   flex-direction: column;
   margin: 0;
   padding: clamp(1.5rem, 2.5vw, 2.25rem);
   border-radius: 16px;
   background: #fafafa;
-  scroll-snap-align: start;
 }
 
 .vitreen-interview-card blockquote {
   margin: 0;
-  font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+  font-size: clamp(1rem, 1.6vw, 1.3rem);
   font-weight: 400;
   line-height: 1.4;
   letter-spacing: -0.02em;
@@ -2198,42 +2229,41 @@ a {
 }
 
 .vitreen-module-media--stack {
-  padding: clamp(2rem, 5vw, 4rem);
-  background: #f5f5f3;
+  padding: clamp(2rem, 5vw, 4rem) 0;
+  border: 0;
+  background: #fff;
 }
 
 .vitreen-stack-flow {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  gap: clamp(0.45rem, 1.2vw, 1rem);
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: clamp(0.6rem, 1.4vw, 1rem);
 }
 
 .vitreen-stack-step {
   display: flex;
-  min-width: 72px;
+  min-width: 0;
   flex-direction: column;
   align-items: center;
+  gap: 0.7rem;
   color: #171716;
   text-align: center;
 }
 
 .vitreen-stack-icon {
   display: grid;
-  width: 60px;
-  height: 60px;
+  width: 100%;
+  aspect-ratio: 1 / 0.85;
   place-items: center;
-  margin-bottom: 0.8rem;
   border: 1px solid var(--color-border);
-  border-radius: 15px;
-  background: #fff;
-  box-shadow: 0 2px 10px rgba(17, 17, 16, 0.05);
+  border-radius: 14px;
+  background: #f5f5f3;
 }
 
 .vitreen-module-media--stack .vitreen-stack-icon img {
   width: auto;
-  max-width: 30px;
-  max-height: 28px;
+  max-width: 36%;
+  max-height: 34%;
   object-fit: contain;
 }
 
@@ -2255,8 +2285,7 @@ a {
 }
 
 .vitreen-stack-arrow {
-  margin-top: 22px;
-  color: rgba(17, 17, 16, 0.28);
+  display: none;
 }
 
 .vitreen-module-media img {
@@ -4450,7 +4479,7 @@ a {
   font-size: 10px;
   font-weight: 600;
   text-align: left;
-  cursor: pointer;
+  cursor: default;
 }
 
 .hanging-booking-section.is-open .hanging-booking-trigger {
@@ -4533,23 +4562,25 @@ a {
   overflow-y: auto;
 }
 
-.hanging-booking-times > div button,
+.hanging-booking-times > div span,
 .hanging-booking-technical > div button {
+  display: block;
   padding: 8px;
   border: 1px solid #e2e2df;
   border-radius: 9px;
   background: #fff;
   font-family: inherit;
   font-size: 9px;
-  cursor: pointer;
+  text-align: center;
 }
 
-.hanging-booking-times > div button.is-selected,
+.hanging-booking-times > div span.is-selected,
 .hanging-booking-technical > div button.is-selected {
   border-color: #111;
 }
 
 .hanging-booking-next {
+  display: block;
   margin-top: 10px;
   padding: 9px;
   border: 0;
@@ -4558,7 +4589,7 @@ a {
   color: #fff;
   font-family: inherit;
   font-size: 9px;
-  cursor: pointer;
+  text-align: center;
 }
 
 .hanging-booking-form {
@@ -4955,11 +4986,7 @@ a {
   }
 
   .vitreen-stack-flow {
-    flex-wrap: wrap;
-  }
-
-  .vitreen-stack-arrow {
-    display: none;
+    grid-template-columns: repeat(3, 1fr);
   }
 
   .vitreen-modal-screens {
