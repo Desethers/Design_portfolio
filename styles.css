@@ -565,24 +565,24 @@ a {
 /* ─── Section adoption Vitreen (Audit / Connect & build / Deploy) ─── */
 
 .vitreen-adoption {
-  padding: 88px 0;
-  border-bottom: 1px solid #e8e8e6;
+  padding: 88px 0 32px;
 }
 
 .vitreen-adoption-head h4 {
   margin: 0;
-  font-size: 32px;
+  font-size: 24px;
   font-weight: 400;
   letter-spacing: -0.04em;
-  line-height: 1.2;
+  line-height: 1.05;
   color: #111110;
 }
 
 .vitreen-adoption-head p {
-  margin: 10px 0 0;
-  font-size: 22px;
+  margin: 4px 0 0;
+  font-size: 24px;
   font-weight: 400;
   letter-spacing: -0.02em;
+  line-height: 1.05;
   color: #9c9b98;
 }
 
@@ -667,6 +667,18 @@ a {
 
 .vitreen-adoption-step--3 .vitreen-adoption-step-num {
   animation-name: vitreen-stepper-circle-3;
+}
+
+.vitreen-adoption-step-body {
+  animation: vitreen-stepper-content-1 6.6s ease infinite;
+}
+
+.vitreen-adoption-step--2 .vitreen-adoption-step-body {
+  animation-name: vitreen-stepper-content-2;
+}
+
+.vitreen-adoption-step--3 .vitreen-adoption-step-body {
+  animation-name: vitreen-stepper-content-3;
 }
 
 .vitreen-adoption-step h5 {
@@ -1014,8 +1026,40 @@ a {
   }
 }
 
+@keyframes vitreen-stepper-content-1 {
+  0%, 5% { opacity: 0.35; }
+  9%, 78% { opacity: 1; }
+  82%, 100% { opacity: 0.35; }
+}
+
+@keyframes vitreen-stepper-content-2 {
+  0%, 23% { opacity: 0.35; }
+  27%, 78% { opacity: 1; }
+  82%, 100% { opacity: 0.35; }
+}
+
+@keyframes vitreen-stepper-content-3 {
+  0%, 44% { opacity: 0.35; }
+  48%, 78% { opacity: 1; }
+  82%, 100% { opacity: 0.35; }
+}
+
+.vitreen-adoption-tools-section {
+  padding-top: 32px;
+}
+
 .vitreen-adoption-tools-section h4 {
   max-width: 780px;
+  font-size: 24px;
+  line-height: 1.05;
+}
+
+.vitreen-adoption-tools-section > p {
+  margin: 4px 0 0;
+  font-size: 24px;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: #9c9b98;
 }
 
 .vitreen-adoption-cards {
@@ -1029,7 +1073,7 @@ a {
   display: flex;
   flex-direction: column;
   padding: 24px;
-  border-radius: 16px;
+  border-radius: 5px;
   background: #1c1c1b;
   color: #fff;
 }
@@ -1041,7 +1085,7 @@ a {
 }
 
 .vitreen-adoption-cards p {
-  margin: 10px 0 0;
+  margin: 4px 0 0;
   font-size: 13px;
   line-height: 1.5;
   color: #b3b2af;
@@ -1061,27 +1105,59 @@ a {
   padding: 16px;
 }
 
-.vitreen-adoption-artwork-head {
-  display: grid;
-  grid-template-columns: 24px 1fr auto auto;
+.vitreen-adoption-artwork-card {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
   gap: 10px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #e8e8e6;
-  font-size: 10px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: #c4c3c0;
+  padding: 12px 14px;
+  margin-bottom: 14px;
+  border: 1px solid #ececea;
+  border-radius: 10px;
 }
 
-.vitreen-adoption-artwork-head span:first-child {
-  grid-column: span 2;
+.vitreen-adoption-artwork-card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.vitreen-adoption-artwork-card-info strong {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.vitreen-adoption-artwork-card-info span {
+  font-size: 11px;
+  color: #9c9b98;
+}
+
+.vitreen-adoption-artwork-badge {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 6px;
+  padding: 5px 10px;
+  border: 1px solid #ececea;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #6b6a67;
+}
+
+.vitreen-adoption-artwork-badge i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #f0a93b;
 }
 
 .vitreen-adoption-artwork-row {
-  display: grid;
-  grid-template-columns: 24px 1fr auto auto;
+  display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   padding: 10px 0;
   border-bottom: 1px solid #f0f0ee;
   font-size: 12px;
@@ -1091,19 +1167,45 @@ a {
   border-bottom: 0;
 }
 
-.vitreen-adoption-artwork-swatch {
-  width: 22px;
-  height: 22px;
-  border-radius: 6px;
+.vitreen-adoption-artwork-icon {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  color: rgba(0, 0, 0, 0.28);
 }
 
-.vitreen-adoption-artwork-title {
+.vitreen-adoption-artwork-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.vitreen-adoption-artwork-info {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+  line-height: 1.3;
+}
+
+.vitreen-adoption-artwork-info strong {
+  font-size: 12px;
   font-weight: 500;
 }
 
-.vitreen-adoption-artwork-year,
-.vitreen-adoption-artwork-price {
+.vitreen-adoption-artwork-info span {
+  font-size: 11px;
   color: #9c9b98;
+}
+
+.vitreen-adoption-artwork-radio {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid #dcdbd8;
+  border-radius: 50%;
 }
 
 /* Private Sharing preview */

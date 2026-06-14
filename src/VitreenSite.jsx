@@ -23,6 +23,12 @@ export const VITREEN_ARTWORKS = [
   { title: "Northern Light", year: "2022", price: "11 500 €", color: "#4A6B7A" },
 ];
 
+const VITREEN_ADOPTION_ARTWORKS = [
+  { title: "Untitled (Horizon)", year: "2024", color: "#E7E1D2" },
+  { title: "Night Garden IV", year: "2024", color: "#D6DCEA" },
+  { title: "Soft Power I", year: "2025", color: "#ECE7B8" },
+];
+
 export function VitreenSiteV21() {
   return (
     <>
@@ -277,71 +283,73 @@ export function VitreenSiteAdoption() {
                 <span className="vitreen-adoption-step-num">{index + 1}</span>
                 <span className="vitreen-adoption-line" />
               </div>
-              <h5>{step.title}</h5>
-              {index === 0 && (
-                <>
-                  <div className="vitreen-adoption-pills">
-                    <span className="is-active">
-                      <i className="vitreen-pill-icon vitreen-pill-icon--file" />
-                      Inventory
+              <div className="vitreen-adoption-step-body">
+                <h5>{step.title}</h5>
+                {index === 0 && (
+                  <>
+                    <div className="vitreen-adoption-pills">
+                      <span className="is-active">
+                        <i className="vitreen-pill-icon vitreen-pill-icon--file" />
+                        Inventory
+                      </span>
+                      <span>
+                        <i className="vitreen-pill-icon vitreen-pill-icon--document" />
+                        CSV
+                      </span>
+                      <span>
+                        <i className="vitreen-pill-icon vitreen-pill-icon--folder" />
+                        Folders
+                      </span>
+                      <span>
+                        <i className="vitreen-pill-icon vitreen-pill-icon--library" />
+                        Artwork library
+                      </span>
+                    </div>
+                    <div className="vitreen-adoption-notes">
+                      <span>
+                        <i className="vitreen-note-icon vitreen-note-icon--check">✓</i>
+                        No migration required
+                      </span>
+                      <span>
+                        <i className="vitreen-note-icon vitreen-note-icon--shield">◇</i>
+                        Your data stays confidential
+                      </span>
+                    </div>
+                  </>
+                )}
+                {index === 1 && (
+                  <div className="vitreen-adoption-tools">
+                    {workflowTools.map(([tool, icon]) => (
+                      <span key={tool}>
+                        <img src={icon} alt="" />
+                        <small>{tool}</small>
+                      </span>
+                    ))}
+                  </div>
+                )}
+                {index === 2 && (
+                  <div className="vitreen-adoption-notifications">
+                    <span>
+                      <i className="is-green" />
+                      New inquiry · James Collector
+                      <small>2h</small>
+                      <img src="/vitreen/google-gmail-svgrepo-com.svg" alt="" />
                     </span>
                     <span>
-                      <i className="vitreen-pill-icon vitreen-pill-icon--document" />
-                      CSV
+                      <i className="is-blue" />
+                      PDF viewed · Untitled (2023)
+                      <small>1h</small>
+                      <img src="/vitreen/Microsoft_Office_Outlook_Logo.svg" alt="" />
                     </span>
                     <span>
-                      <i className="vitreen-pill-icon vitreen-pill-icon--folder" />
-                      Folders
-                    </span>
-                    <span>
-                      <i className="vitreen-pill-icon vitreen-pill-icon--library" />
-                      Artwork library
+                      <i className="is-yellow" />
+                      Follow-up scheduled · Mon
+                      <small>—</small>
+                      <img src="/icones/whatsapp.svg" alt="" />
                     </span>
                   </div>
-                  <div className="vitreen-adoption-notes">
-                    <span>
-                      <i className="vitreen-note-icon vitreen-note-icon--check">✓</i>
-                      No migration required
-                    </span>
-                    <span>
-                      <i className="vitreen-note-icon vitreen-note-icon--shield">◇</i>
-                      Your data stays confidential
-                    </span>
-                  </div>
-                </>
-              )}
-              {index === 1 && (
-                <div className="vitreen-adoption-tools">
-                  {workflowTools.map(([tool, icon]) => (
-                    <span key={tool}>
-                      <img src={icon} alt="" />
-                      <small>{tool}</small>
-                    </span>
-                  ))}
-                </div>
-              )}
-              {index === 2 && (
-                <div className="vitreen-adoption-notifications">
-                  <span>
-                    <i className="is-green" />
-                    New inquiry · James Collector
-                    <small>2h</small>
-                    <img src="/vitreen/google-gmail-svgrepo-com.svg" alt="" />
-                  </span>
-                  <span>
-                    <i className="is-blue" />
-                    PDF viewed · Untitled (2023)
-                    <small>1h</small>
-                    <img src="/vitreen/Microsoft_Office_Outlook_Logo.svg" alt="" />
-                  </span>
-                  <span>
-                    <i className="is-yellow" />
-                    Follow-up scheduled · Mon
-                    <small>—</small>
-                    <img src="/icones/whatsapp.svg" alt="" />
-                  </span>
-                </div>
-              )}
+                )}
+              </div>
             </li>
           ))}
         </ol>
@@ -355,17 +363,30 @@ export function VitreenSiteAdoption() {
             <strong>Artwork Management</strong>
             <p>Manage artwork information and supporting documents from one place.</p>
             <div className="vitreen-adoption-card-preview vitreen-adoption-preview--artwork">
-              <div className="vitreen-adoption-artwork-head">
-                <span>Title</span>
-                <span>Year</span>
-                <span>Price</span>
+              <div className="vitreen-adoption-artwork-card">
+                <div className="vitreen-adoption-artwork-card-info">
+                  <strong>Artwork Management</strong>
+                  <span>inventaire-2025.csv</span>
+                </div>
+                <span className="vitreen-adoption-artwork-badge">
+                  <i />
+                  Import 0/3
+                </span>
               </div>
-              {VITREEN_ARTWORKS.slice(0, 3).map((row) => (
+              {VITREEN_ADOPTION_ARTWORKS.map((row) => (
                 <div key={row.title} className="vitreen-adoption-artwork-row">
-                  <span className="vitreen-adoption-artwork-swatch" style={{ background: row.color }} />
-                  <span className="vitreen-adoption-artwork-title">{row.title}</span>
-                  <span className="vitreen-adoption-artwork-year">{row.year}</span>
-                  <span className="vitreen-adoption-artwork-price">{row.price}</span>
+                  <span className="vitreen-adoption-artwork-icon" style={{ background: row.color }}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="3" y="3" width="18" height="18" rx="2" />
+                      <circle cx="8.5" cy="8.5" r="1.5" />
+                      <polyline points="21 15 16 10 5 21" />
+                    </svg>
+                  </span>
+                  <span className="vitreen-adoption-artwork-info">
+                    <strong>{row.title}</strong>
+                    <span>Sacha Elron · {row.year}</span>
+                  </span>
+                  <span className="vitreen-adoption-artwork-radio" />
                 </div>
               ))}
             </div>
