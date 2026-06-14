@@ -1878,8 +1878,9 @@ a {
 
 /* ─── Vitreen — ligne de métriques entre l'intro et le premier module ─── */
 .vitreen-metrics {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(0.6rem, 1.4vw, 1rem);
   width: min(100%, 55rem);
   margin: 0 auto;
   padding-bottom: clamp(3rem, 5vw, 4.5rem);
@@ -1887,20 +1888,16 @@ a {
 
 .vitreen-metric {
   display: flex;
-  flex: 1 1 0;
   flex-direction: column;
   gap: 0.4rem;
-  min-width: 9rem;
-  padding: clamp(1.5rem, 2.5vw, 2rem) clamp(1rem, 2vw, 1.5rem) 0 0;
-}
-
-.vitreen-metric + .vitreen-metric {
-  border-left: 1px solid var(--color-border);
-  padding-left: clamp(1rem, 2vw, 1.5rem);
+  min-width: 0;
+  padding: clamp(1.25rem, 2vw, 1.5rem) clamp(1rem, 1.6vw, 1.25rem);
+  border-radius: 16px;
+  background: #fafafa;
 }
 
 .vitreen-metric-value {
-  font-size: clamp(1.25rem, 2.6vw, 1.9rem);
+  font-size: clamp(1.1rem, 2.2vw, 1.6rem);
   font-weight: 400;
   letter-spacing: -0.02em;
   color: #111110;
@@ -1939,6 +1936,10 @@ a {
   letter-spacing: 0.08em;
   text-transform: lowercase;
   color: var(--color-text-muted);
+}
+
+.vitreen-module-copy span::first-letter {
+  text-transform: uppercase;
 }
 
 .vitreen-module-copy h3 {

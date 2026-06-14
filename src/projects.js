@@ -421,9 +421,9 @@ export const projects = [
             type: "vitreen-positioning",
           },
           {
-            tag: "Marketing & lancement",
-            title: "Tester le récit dans des formats courts",
-            text: "Les Reels prolongent le positionnement produit sur Instagram : ils rendent les usages visibles, testent différents angles de communication et construisent une audience autour de Vitreen.",
+            tag: "Content & Positioning",
+            title: "Construire une audience autour du produit",
+            text: "J'ai utilisé Instagram comme un média dédié aux galeries et au marché de l'art pour développer une communauté, tester des angles de communication et renforcer le positionnement de Vitreen.",
             type: "vitreen-reels",
             items: [
               {
