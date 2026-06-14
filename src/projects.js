@@ -389,9 +389,9 @@ export const projects = [
         processCaption: "Une infrastructure pensée pour faire circuler les œuvres, sans remplacer les outils déjà installés dans les galeries.",
         screens: [
           {
-            tag: "Contexte",
-            title: "Le problème n'était pas de stocker",
-            text: "Les galeries disposent déjà d'archives, de CRM et de fichiers œuvres. La rupture apparaît au moment de transformer ces données en sélections, emails ou viewing rooms : chaque diffusion demande encore de recomposer le même contenu.",
+            tag: "Point de départ",
+            title: "Au-delà du site web",
+            text: "L'objectif initial était d'aider les galeries à mieux présenter, partager et vendre les œuvres en ligne. Cette réflexion a ensuite conduit à repenser l'ensemble du parcours de diffusion des œuvres.",
             media: "/vitreen/gallery-os-overview.png",
           },
           {
@@ -457,9 +457,9 @@ export const projects = [
             ],
           },
           {
-            tag: "Traduction produit",
-            title: "Le métier organise l'interface",
-            text: "Le positionnement devient une architecture lisible : gestion des œuvres, publication publique ou privée, relations collectionneurs et assistants de galerie. La navigation décrit des usages concrets plutôt qu'une liste de fonctionnalités techniques.",
+            tag: "Architecture produit",
+            title: "Construire autour de l'existant",
+            text: "Plutôt que de centraliser l'ensemble des opérations dans une nouvelle plateforme, Vitreen a été conçu comme une couche reliant les principaux points de contact d'une œuvre : inventaire, publication, sélections privées et relation collectionneur.",
             type: "vitreen-products",
           },
           {
