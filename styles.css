@@ -562,6 +562,176 @@ a {
   font-size: 14px;
 }
 
+/* ─── Section adoption Vitreen (Audit / Connect & build / Deploy) ─── */
+
+.vitreen-adoption {
+  padding: 88px 0;
+  border-bottom: 1px solid #e8e8e6;
+}
+
+.vitreen-adoption-head h4 {
+  margin: 0;
+  font-size: 36px;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 1.2;
+  color: #111110;
+}
+
+.vitreen-adoption-head p {
+  margin: 10px 0 0;
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: #9c9b98;
+}
+
+.vitreen-adoption-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  margin-top: 64px;
+}
+
+.vitreen-adoption-step {
+  position: relative;
+  padding-top: 44px;
+}
+
+.vitreen-adoption-step::before {
+  content: "";
+  position: absolute;
+  top: 16px;
+  left: 36px;
+  right: -40px;
+  height: 1px;
+  background: #e2e2df;
+}
+
+.vitreen-adoption-step:last-child::before {
+  display: none;
+}
+
+.vitreen-adoption-step-num {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border-radius: 50%;
+  background: #111110;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.vitreen-adoption-step h5 {
+  margin: 22px 0 20px;
+  font-size: 19px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: #111110;
+}
+
+.vitreen-adoption-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.vitreen-adoption-pills span {
+  padding: 6px 12px;
+  border: 1px solid #e8e8e6;
+  border-radius: 999px;
+  font-size: 12px;
+  color: #6b6a67;
+}
+
+.vitreen-adoption-pills span.is-active {
+  border-color: #b8e6c9;
+  background: #eafbf1;
+  color: #1a8a4a;
+}
+
+.vitreen-adoption-notes {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 18px;
+  font-size: 12px;
+  color: #6b6a67;
+}
+
+.vitreen-adoption-notes span::before {
+  content: "✓ ";
+  color: #1a8a4a;
+}
+
+.vitreen-adoption-tools {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.vitreen-adoption-tools span {
+  display: grid;
+  height: 56px;
+  place-items: center;
+  border: 1px solid #e8e8e6;
+  border-radius: 10px;
+  background: #fafaf8;
+  font-size: 12px;
+  color: #6b6a67;
+}
+
+.vitreen-adoption-notifications {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  border-radius: 12px;
+  background: #1c1c1b;
+}
+
+.vitreen-adoption-notifications span {
+  font-size: 12px;
+  color: #fff;
+}
+
+.vitreen-adoption-tools-section h4 {
+  max-width: 780px;
+}
+
+.vitreen-adoption-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 48px;
+}
+
+.vitreen-adoption-cards article {
+  padding: 24px;
+  border-radius: 16px;
+  background: #1c1c1b;
+  color: #fff;
+}
+
+.vitreen-adoption-cards strong {
+  display: block;
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.vitreen-adoption-cards p {
+  margin: 10px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #b3b2af;
+}
+
 .vitreen-stage-bg {
   position: absolute;
   inset: 0;
@@ -1824,7 +1994,7 @@ a {
 .vitreen-editorial {
   display: grid;
   grid-template-columns: minmax(10rem, 14rem) minmax(0, 31rem);
-  gap: clamp(2rem, 6vw, 6rem);
+  gap: clamp(2rem, 12.5vw, 10rem);
   align-items: start;
   width: min(100%, 55rem);
   padding: clamp(4rem, 7vw, 6rem) 0 clamp(3rem, 5vw, 4.5rem);
@@ -1925,7 +2095,7 @@ a {
 .vitreen-module-copy {
   display: grid;
   grid-template-columns: minmax(10rem, 14rem) minmax(0, 31rem);
-  gap: clamp(2rem, 6vw, 6rem);
+  gap: clamp(2rem, 12.5vw, 10rem);
   width: min(100%, 55rem);
   margin: 0 auto clamp(2.5rem, 5vw, 4rem);
 }
@@ -2175,16 +2345,8 @@ a {
   transform-origin: top left;
 }
 
-.vitreen-positioning-v21-scale .vitreen-hero-copy {
+.vitreen-positioning-v21-scale .vitreen-adoption {
   padding-top: 42px;
-}
-
-.vitreen-positioning-v21-scale .vitreen-stage {
-  margin-top: 28px;
-}
-
-.vitreen-positioning-v21-scale .vitreen-page-section {
-  display: none;
 }
 
 .vitreen-module-media--interviews {
@@ -2669,14 +2831,16 @@ a {
 
 /* Footer */
 .footer {
-  padding: 1.25rem 1.5rem;
+  padding: 1.25rem 0;
   font-size: 0.8rem;
   color: var(--color-text-muted);
 }
 
 .footer-inner {
-  max-width: var(--measure-wide);
-  margin: 0 auto;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding-inline: calc(var(--stack-rail) - (100vw - 100%) / 2) 1.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;

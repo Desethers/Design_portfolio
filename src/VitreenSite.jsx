@@ -228,3 +228,79 @@ export function VitreenSiteV21() {
     </>
   );
 }
+
+export function VitreenSiteAdoption() {
+  return (
+    <>
+      <div className="vitreen-nav">
+        <span className="vitreen-nav-logo">Vitreen</span>
+        <span className="vitreen-nav-links">
+          {["Products", "Solutions", "Deployment", "Blog", "About"].map((label) => (
+            <span key={label}>{label}</span>
+          ))}
+        </span>
+        <span className="vitreen-nav-cta">Discuss your setup</span>
+      </div>
+
+      <section className="vitreen-adoption">
+        <div className="vitreen-adoption-head">
+          <h4>Starting from your existing gallery</h4>
+          <p>We adapt Vitreen to the way your team works.</p>
+        </div>
+        <div className="vitreen-adoption-steps">
+          <div className="vitreen-adoption-step">
+            <span className="vitreen-adoption-step-num">1</span>
+            <h5>Audit</h5>
+            <div className="vitreen-adoption-pills">
+              <span className="is-active">Inventory</span>
+              <span>CSV</span>
+              <span>Folders</span>
+              <span>Artwork library</span>
+            </div>
+            <div className="vitreen-adoption-notes">
+              <span>No migration required</span>
+              <span>Your data stays confidential</span>
+            </div>
+          </div>
+          <div className="vitreen-adoption-step">
+            <span className="vitreen-adoption-step-num">2</span>
+            <h5>Connect &amp; build</h5>
+            <div className="vitreen-adoption-tools">
+              {["Excel", "WhatsApp", "Outlook", "PDF", "Word", "Notion"].map((tool) => (
+                <span key={tool}>{tool}</span>
+              ))}
+            </div>
+          </div>
+          <div className="vitreen-adoption-step">
+            <span className="vitreen-adoption-step-num">3</span>
+            <h5>Deploy</h5>
+            <div className="vitreen-adoption-notifications">
+              <span>New inquiry · James Collector</span>
+              <span>PDF viewed · Untitled (2023)</span>
+              <span>Follow-up scheduled · Mon</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="vitreen-page-section vitreen-adoption-tools-section">
+        <h4>Turn artwork data into collector-facing tools.</h4>
+        <p>One artwork source feeds pages, private selections and inquiries.</p>
+        <div className="vitreen-adoption-cards">
+          <article>
+            <strong>Artwork Management</strong>
+            <p>Manage artwork information and supporting documents from one place.</p>
+          </article>
+          <article>
+            <strong>Private Sharing</strong>
+            <p>Send a viewing room as a polished email, with an Inquire button on every work.</p>
+          </article>
+          <article>
+            <strong>Collector Selections</strong>
+            <p>Add works to a selection right from the conversation and share it as a ready-made PDF.</p>
+          </article>
+        </div>
+      </section>
+    </>
+  );
+}

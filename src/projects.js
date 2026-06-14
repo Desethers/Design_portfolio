@@ -458,8 +458,8 @@ export const projects = [
           },
           {
             tag: "Architecture produit",
-            title: "Construire autour de l'existant",
-            text: "Plutôt que de centraliser l'ensemble des opérations dans une nouvelle plateforme, Vitreen a été conçu comme une couche reliant les principaux points de contact d'une œuvre : inventaire, publication, sélections privées et relation collectionneur.",
+            title: "Quatre activités pour décrire le produit",
+            text: "Plutôt que de présenter Vitreen comme une accumulation d'outils, le produit a été organisé autour de quatre activités : gérer les œuvres, publier, accompagner les collectionneurs et soutenir les opérations de la galerie.",
             type: "vitreen-products",
           },
           {

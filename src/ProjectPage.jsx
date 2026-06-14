@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useParams, Link, Navigate, useNavigate } from "react-router-dom";
 import { projects } from "./projects.js";
 import HangingTechnicalDrawing from "./HangingTechnicalDrawing.jsx";
-import { VitreenSiteV21 } from "./VitreenSite.jsx";
+import { VitreenSiteV21, VitreenSiteAdoption } from "./VitreenSite.jsx";
 
 function TldrBox({ tldr }) {
   if (!tldr) return null;
@@ -700,7 +700,7 @@ function VitreenPositioningComparison() {
         <VitreenBrowserBar label="Vitreen — V2.1" />
         <div className="vitreen-positioning-v21">
           <div className="vitreen-positioning-v21-scale">
-            <VitreenSiteV21 />
+            <VitreenSiteAdoption />
           </div>
         </div>
       </VitreenPositioningWindow>
@@ -911,15 +911,15 @@ function VitreenUseCaseModal({ project, liveUrl, onClose }) {
             <dl className="vitreen-editorial-meta">
               <div>
                 <dt>Livrable</dt>
-                <dd>Écosystème produit</dd>
+                <dd>Gallery OS</dd>
               </div>
               <div>
-                <dt>Contexte</dt>
-                <dd>Projet personnel · Galeries d’art contemporain</dd>
+                <dt>Secteur</dt>
+                <dd>Art contemporain</dd>
               </div>
               <div>
                 <dt>Disciplines</dt>
-                <dd>Product Design · UX Research · Front-end</dd>
+                <dd>Product Design · Front-end</dd>
               </div>
             </dl>
             <div className="vitreen-editorial-main">
