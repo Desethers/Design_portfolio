@@ -295,6 +295,10 @@ function StackIcon({ id }) {
       src: "/icones/vercel.svg",
       className: "stack-tile--asset stack-tile--vercel",
     },
+    stripe: {
+      src: "/icones/stripe.svg",
+      className: "stack-tile--asset",
+    },
     buffer: {
       src: "/icones/buffer-icon-size_64.png",
       className: "stack-tile--asset stack-tile--buffer",
@@ -546,6 +550,14 @@ function Home() {
             return (
               <div key={stack.id} className="stack-card-slot stack-card-slot--booking">
                 <StackCardBadge stack={stack} />
+                <StackCardBadge
+                  stack={{ id: "figma", name: "Figma" }}
+                  className="stack-card-badge--secondary"
+                />
+                <StackCardBadge
+                  stack={{ id: "stripe", name: "Stripe" }}
+                  className="stack-card-badge--tertiary"
+                />
                 <Link to="/booking" className="hanging-booking-link">
                   <HangingBookingPreview />
                 </Link>

@@ -5788,6 +5788,10 @@ a {
   left: 48px;
 }
 
+.stack-card-badge--tertiary {
+  left: 86px;
+}
+
 .stack-card-badge .stack-tile {
   width: 30px;
   height: 30px;
