@@ -1465,6 +1465,22 @@ const PROJECT_LIVE_URLS = {
   hanging: "https://hanging.fr",
 };
 
+const PROJECT_USE_CASE_INTROS = {
+  vitreen: {
+    meta: [
+      { term: "Livrable", value: "Vitreen — Gallery OS" },
+      { term: "Secteur", value: "Art contemporain · Galeries" },
+      { term: "Période", value: "Avril 2026 — Aujourd'hui" },
+      { term: "Rôle", value: "Product Design & Founder (solo)" },
+      { term: "Statut", value: "Prototype en validation" },
+    ],
+    question:
+      "Comment faire circuler les œuvres entre les outils d'une galerie sans lui imposer une nouvelle manière de travailler ?",
+    text:
+      "Vitreen est un Digital Sales Partner pour galeries d'art. Deux couches, une marque : vitreen.art porte la promesse, Gallery OS est l'atelier opérationnel — inventaire, inquiries, sélections privées et Viewing Room Studio.",
+  },
+};
+
 /* Largeur de viewport d'un iPhone réel (iPhone 14/15/16 : 393 px logiques).
    Le site embarqué n'est jamais rendu plus étroit : si le cadre est plus
    petit, on rend à 393 px puis on réduit en échelle pour tenir dedans. */
@@ -1593,17 +1609,25 @@ function ShowcaseProjectPage({ project, showUseCase = false }) {
   const navigate = useNavigate();
   const liveUrl = PROJECT_LIVE_URLS[project.slug];
   const isPortraitProject = project.slug === "design-system";
+  const useCaseIntro =
+    project.slug === "hanging"
+      ? {
+          meta: project.caseStudy?.useCase?.meta,
+          question: project.caseStudy?.useCase?.intro,
+          text: project.caseStudy?.useCase?.body?.[0],
+        }
+      : PROJECT_USE_CASE_INTROS[project.slug];
 
   const handleMouseMove = (e) => {
     const overInteractive = e.target.closest(
-      ".vitreen-window, .vitreen-usecase-card, .vitreen-window-actions, .vitreen-modal, .vitreen-header"
+      ".vitreen-window, .vitreen-usecase-card, .vitreen-window-actions, .vitreen-window-link, .vitreen-intro-preview, .vitreen-modal, .vitreen-header"
     );
     setCursor({ x: e.clientX, y: e.clientY, visible: !overInteractive });
   };
 
   const handleBackgroundClick = (e) => {
     if (useCaseOpen) return;
-    if (e.target.closest(".vitreen-window, .vitreen-usecase-card, .vitreen-window-actions, .vitreen-modal, .vitreen-header")) {
+    if (e.target.closest(".vitreen-window, .vitreen-usecase-card, .vitreen-window-actions, .vitreen-window-link, .vitreen-intro-preview, .vitreen-modal, .vitreen-header")) {
       return;
     }
     navigate("/");
@@ -1629,16 +1653,48 @@ function ShowcaseProjectPage({ project, showUseCase = false }) {
               onSiteLoad={() => setSiteReady(true)}
             />
           </div>
+          {liveUrl && (
+            <a
+              href={liveUrl}
+              className="vitreen-round-btn vitreen-window-link"
+              aria-label={`Voir ${liveUrl}`}
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7 17 17 7M9 7h8v8" />
+              </svg>
+            </a>
+          )}
         </div>
-        {(showUseCase || liveUrl) && (
-          <div className="vitreen-window-actions">
-            {showUseCase && (
+        {showUseCase && useCaseIntro && (
+          <section
+            className="vitreen-intro-preview vitreen-editorial"
+            aria-label="Aperçu du projet"
+          >
+            {useCaseIntro.meta?.length > 0 && (
+              <dl className="vitreen-editorial-meta">
+                {useCaseIntro.meta.map((row) => (
+                  <div key={row.term}>
+                    <dt>{row.term}</dt>
+                    <dd>{row.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            )}
+            <div className="vitreen-editorial-main">
+              <p className="vitreen-editorial-intro">{useCaseIntro.question}</p>
+              {useCaseIntro.text && (
+                <div className="vitreen-editorial-body">
+                  <p className="vitreen-intro-preview-text">
+                    {useCaseIntro.text.replace(/\s*\.?$/, "")}…
+                  </p>
+                </div>
+              )}
               <button
                 type="button"
-                className="vitreen-pill-btn"
+                className="vitreen-pill-btn vitreen-intro-preview-btn"
                 onClick={() => setUseCaseOpen(true)}
               >
-                Use case
+                Full use case
                 <svg
                   className="vitreen-pill-expand"
                   viewBox="0 0 24 24"
@@ -1647,19 +1703,8 @@ function ShowcaseProjectPage({ project, showUseCase = false }) {
                   <path d="M10 14 4 20M4 20h4M4 20v-4M14 10l6-6M20 4h-4M20 4v4" />
                 </svg>
               </button>
-            )}
-            {liveUrl && (
-              <a
-                href={liveUrl}
-                className="vitreen-round-btn"
-                aria-label={`Voir ${liveUrl}`}
-              >
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M7 17 17 7M9 7h8v8" />
-                </svg>
-              </a>
-            )}
-          </div>
+            </div>
+          </section>
         )}
       </div>
       {showUseCase && useCaseOpen && (

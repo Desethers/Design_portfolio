@@ -2039,12 +2039,21 @@ a {
 /* ─── Vitreen V2.1 — fenêtre pleine taille (page projet) ─── */
 
 .vitreen-showcase {
+  position: relative;
   display: flex;
   align-items: stretch;
   gap: 1.5rem;
   /* hauteur 16:9 figée (le contenu du panneau ne doit pas l'étirer) */
   height: min(calc((100vw - 3rem) * 9 / 16), 36.5rem);
-  margin-bottom: 1rem;
+  margin-bottom: clamp(1rem, 2vw, 1.5rem);
+}
+
+.vitreen-window-link {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  z-index: 4;
+  box-shadow: 0 6px 20px rgba(26, 24, 20, 0.16);
 }
 
 .vitreen-showcase--portrait {
@@ -2098,6 +2107,7 @@ a {
   gap: 1.25rem;
   height: min(70vh, 42rem);
   padding-left: max(1px, calc((100% - 90%) / 2));
+  padding-right: 1.25rem;
   margin-right: calc(-1 * clamp(2rem, 7vw, 6rem));
   overflow-x: auto;
   overflow-y: hidden;
@@ -2575,6 +2585,19 @@ a {
   stroke-linejoin: round;
 }
 
+/* ─── Vitreen — aperçu du use case sous la card ───────────────────────── */
+.vitreen-intro-preview.vitreen-editorial {
+  padding: 115px 0 clamp(4rem, 7vw, 6rem);
+}
+
+.vitreen-intro-preview-text {
+  overflow: hidden;
+}
+
+.vitreen-intro-preview-btn {
+  margin-top: 2rem;
+}
+
 /* ─── Vitreen — modale plein écran use case ───────────────────────────── */
 .vitreen-modal {
   position: fixed;
@@ -2582,7 +2605,7 @@ a {
   z-index: 1000;
   display: flex;
   background: rgba(17, 17, 16, 0.28);
-  animation: vitreen-modal-fade 0.2s ease;
+  animation: vitreen-modal-fade 0.3s ease;
 }
 
 @keyframes vitreen-modal-fade {
@@ -2593,19 +2616,19 @@ a {
 
 .vitreen-modal-panel {
   position: absolute;
-  inset: 10px 0 0;
+  inset: 20px 0 0;
   display: flex;
   flex-direction: column;
   background: var(--color-bg);
   border-radius: 20px 20px 0 0;
   overflow: hidden;
   box-shadow: 0 -8px 40px rgba(17, 17, 16, 0.16);
-  animation: vitreen-modal-up 0.34s cubic-bezier(0.22, 1, 0.36, 1);
+  animation: vitreen-modal-up 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes vitreen-modal-up {
   from {
-    transform: translateY(28px);
+    transform: translateY(40px);
     opacity: 0;
   }
 }
@@ -2672,8 +2695,8 @@ a {
   margin: 0;
   max-width: 31rem;
   font-family: inherit;
-  font-size: clamp(1.15rem, 1.7vw, 1.45rem);
-  font-weight: 500;
+  font-size: clamp(1rem, 1.5vw, 1.3rem);
+  font-weight: 400;
   line-height: 1.35;
   letter-spacing: -0.015em;
   color: #111110;
@@ -4084,6 +4107,8 @@ a {
 .project-page--vitreen .vitreen-window,
 .project-page--vitreen .vitreen-usecase-card,
 .project-page--vitreen .vitreen-window-actions,
+.project-page--vitreen .vitreen-window-link,
+.project-page--vitreen .vitreen-intro-preview,
 .project-page--vitreen .vitreen-modal,
 .project-page--vitreen .vitreen-header {
   cursor: auto;
