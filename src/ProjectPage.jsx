@@ -1227,7 +1227,7 @@ function VitreenUseCaseModal({ project, liveUrl, onClose }) {
           <div className="vitreen-modal-screens" aria-label="Aperçus du produit">
             {showcaseScreens.map((screen) => (
               <figure
-                className={`vitreen-modal-screen${screen.preserveRatio ? " vitreen-modal-screen--natural" : ""}${screen.type === "vitreen-v21" ? " vitreen-modal-screen--mockup" : ""}${screen.type === "vitreen-products" ? " vitreen-modal-screen--products" : ""}`}
+                className={`vitreen-modal-screen${screen.preserveRatio ? " vitreen-modal-screen--natural" : ""}${screen.type === "vitreen-v21" ? " vitreen-modal-screen--mockup" : ""}${screen.type === "vitreen-products" ? " vitreen-modal-screen--products" : ""}${screen.zoom ? " vitreen-modal-screen--zoom" : ""}`}
                 key={screen.src ?? screen.title}
               >
                 {screen.type === "vitreen-v21" ? (

@@ -293,10 +293,11 @@ export const projects = [
         { title: "Vitreen — Hero V2.1", type: "vitreen-v21" },
         { title: "Vitreen — Products menu", type: "vitreen-products" },
         {
-          title: "Sortie collectionneur",
-          src: "/vitreen/screenshot-viewingroom.png",
+          title: "Galerie du jour — Sélection d'expositions",
+          src: "/Frame 14.png",
           type: "image",
           preserveRatio: true,
+          zoom: true,
         },
       ],
       execution: "Projet code-first : le design et le développement avancent en parallèle dans Next.js. Pas de maquettes Figma haute fidélité — les composants React sont la source de vérité visuelle, itérés directement dans le navigateur.",
