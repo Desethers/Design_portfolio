@@ -2875,14 +2875,28 @@ a {
   background: #fafafa;
 }
 
-.vitreen-analytics-range span {
+.vitreen-analytics-range button {
   padding: 0.25rem 0.7rem;
+  border: 0;
   border-radius: 999px;
+  background: transparent;
+  font-family: inherit;
   font-size: 0.72rem;
   color: #a1a1aa;
+  cursor: pointer;
+  transition: background-color 0.16s ease, color 0.16s ease;
 }
 
-.vitreen-analytics-range span.is-active {
+.vitreen-analytics-range button:hover {
+  color: #52525b;
+}
+
+.vitreen-analytics-range button:focus-visible {
+  outline: 2px solid #18181b;
+  outline-offset: 2px;
+}
+
+.vitreen-analytics-range button.is-active {
   background: #18181b;
   color: #fff;
 }

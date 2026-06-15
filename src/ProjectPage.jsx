@@ -953,6 +953,7 @@ const VITREEN_ANALYTICS_KPIS = [
 ];
 
 function VitreenAnalyticsPending() {
+  const [range, setRange] = useState("30 j");
   // Bars volontairement plates / placeholder — le dashboard est prêt,
   // il attend les premières données réelles.
   const bars = [38, 22, 30, 18, 26, 14, 20, 12, 24, 16, 28, 19];
@@ -964,10 +965,18 @@ function VitreenAnalyticsPending() {
           <h4>Insights</h4>
           <span>Déploiement &amp; revenus</span>
         </div>
-        <div className="vitreen-analytics-range" aria-hidden="true">
-          <span className="is-active">30 j</span>
-          <span>90 j</span>
-          <span>Tout</span>
+        <div className="vitreen-analytics-range" role="group" aria-label="Période des données">
+          {["30 j", "90 j", "Tout"].map((option) => (
+            <button
+              type="button"
+              className={range === option ? "is-active" : ""}
+              aria-pressed={range === option}
+              onClick={() => setRange(option)}
+              key={option}
+            >
+              {option}
+            </button>
+          ))}
         </div>
       </div>
 
