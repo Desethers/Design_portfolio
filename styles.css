@@ -5671,6 +5671,10 @@ a {
   transform: translateY(0);
 }
 
+.stack-card-badge--secondary {
+  left: 48px;
+}
+
 .stack-card-badge .stack-tile {
   width: 30px;
   height: 30px;
@@ -5736,10 +5740,30 @@ a {
   background: #111;
 }
 
+.stack-tile--buffer,
+.stack-tile--capcut {
+  padding: 6px;
+}
+
+.stack-tile--buffer img,
+.stack-tile--capcut img {
+  object-fit: contain;
+}
+
 .stack-card-slot--landscape {
   flex: 0 0 auto;
   width: auto;
   aspect-ratio: 4 / 3;
+}
+
+.stack-card-slot--reel {
+  flex: 0 0 auto;
+  width: auto;
+  aspect-ratio: 9 / 16;
+}
+
+.stack-card-slot--reel .bento-card-media video {
+  transform: none;
 }
 
 .stack-card-slot--desktop-preview {

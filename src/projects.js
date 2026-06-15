@@ -489,7 +489,7 @@ export const projects = [
               { name: "Figma", role: "Cadrage", icon: "/icones/figma-color.png" },
               { name: "Claude", role: "Architecture", icon: "/icones/claudecode-text.svg" },
               { name: "Sanity", role: "Contenu", icon: "/icones/sanity.png" },
-              { name: "WhatsApp", role: "Communication", icon: "/icones/whatsapp.svg" },
+              { name: "WhatsApp", role: "Intégration", icon: "/icones/whatsapp.svg" },
               { name: "Gmail API", role: "Intégration", icon: "/vitreen/google-gmail-svgrepo-com.svg" },
               { name: "Stripe", role: "Paiements", icon: "/icones/stripe.svg" },
               { name: "Vercel", role: "Déploiement", icon: "/icones/vercel.svg" },

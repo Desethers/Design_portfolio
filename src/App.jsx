@@ -273,6 +273,14 @@ function StackIcon({ id }) {
       src: "/icones/vercel.svg",
       className: "stack-tile--asset stack-tile--vercel",
     },
+    buffer: {
+      src: "/icones/buffer-icon-size_64.png",
+      className: "stack-tile--asset stack-tile--buffer",
+    },
+    capcut: {
+      src: "/icones/capcut.png",
+      className: "stack-tile--asset stack-tile--capcut",
+    },
   };
   const asset = iconAssets[id];
 
@@ -375,6 +383,30 @@ function BentoEmpty() {
   return <div className="bento-card bento-card--sm bento-card--empty" aria-hidden="true" />;
 }
 
+function VitreenReelCard({ project, reelId }) {
+  return (
+    <Link to={`/projet/${project.slug}`} className="bento-card bento-card--media vitreen-reel-demo">
+      <div className="bento-card-media">
+        <video
+          src={`/vitreen/reels/${reelId}.mp4`}
+          muted
+          playsInline
+          autoPlay
+          loop
+          preload="metadata"
+        />
+      </div>
+      <span className="vitreen-card-caption">
+        <span>
+          <strong>Vitreen</strong>
+          <small>Content & Positioning · Instagram</small>
+        </span>
+        <span className="vitreen-card-cta">Voir le projet ↗</span>
+      </span>
+    </Link>
+  );
+}
+
 function SalesAgentCard() {
   return (
     <article className="sales-agent-preview">
@@ -400,9 +432,9 @@ function SalesAgentCard() {
   );
 }
 
-function StackCardBadge({ stack }) {
+function StackCardBadge({ stack, className = "" }) {
   return (
-    <span className="stack-card-badge" aria-label={stack.name}>
+    <span className={`stack-card-badge${className ? ` ${className}` : ""}`} aria-label={stack.name}>
       <StackIcon id={stack.id} />
     </span>
   );
@@ -418,6 +450,7 @@ function Home() {
       stack: { ...STACKS[1], id: "cursor", name: "Cursor" },
       customContent: "sales-agent",
     },
+    { stack: STACKS[0], customContent: "vitreen-reel" },
     { stack: STACKS[2] },
     { stack: STACKS[1], landscape: true },
     { stack: STACKS[4], customContent: "hanging-booking" },
@@ -483,6 +516,21 @@ function Home() {
               <div key={stack.id} className="stack-card-slot stack-card-slot--booking">
                 <StackCardBadge stack={stack} />
                 <HangingBookingPreview />
+              </div>
+            );
+          }
+
+          if (customContent === "vitreen-reel") {
+            const reelProject = projectOf(stack);
+            if (!reelProject) return null;
+            return (
+              <div key="vitreen-reel" className="stack-card-slot stack-card-slot--reel">
+                <StackCardBadge stack={{ id: "buffer", name: "Buffer" }} />
+                <StackCardBadge
+                  stack={{ id: "capcut", name: "CapCut" }}
+                  className="stack-card-badge--secondary"
+                />
+                <VitreenReelCard project={reelProject} reelId="DYEWo3elU9-" />
               </div>
             );
           }
