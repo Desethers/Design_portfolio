@@ -2,7 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import { useParams, Link, Navigate, useNavigate } from "react-router-dom";
 import { projects } from "./projects.js";
 import HangingTechnicalDrawing from "./HangingTechnicalDrawing.jsx";
-import { VitreenSiteV21, VitreenSiteAdoption } from "./VitreenSite.jsx";
+import {
+  VitreenSiteV21,
+  VitreenSiteAdoption,
+  GalleryOsDashboard,
+} from "./VitreenSite.jsx";
 
 function TldrBox({ tldr }) {
   if (!tldr) return null;
@@ -1375,7 +1379,7 @@ function HangingUseCaseModal({ project, liveUrl, onClose }) {
           <div className="vitreen-modal-screens" aria-label="Aperçus du produit">
             {showcaseScreens.map((screen) => (
               <figure
-                className={`vitreen-modal-screen${screen.preserveRatio ? " vitreen-modal-screen--natural" : ""}`}
+                className={`vitreen-modal-screen${screen.preserveRatio ? " vitreen-modal-screen--natural" : ""}${screen.landscape ? " vitreen-modal-screen--wide" : ""}`}
                 key={screen.src ?? screen.title}
               >
                 <img src={screen.src} alt={screen.title ?? `${project.title} — aperçu`} />
@@ -1463,6 +1467,7 @@ function HangingUseCaseModal({ project, liveUrl, onClose }) {
 const PROJECT_LIVE_URLS = {
   vitreen: "https://vitreen.art",
   hanging: "https://hanging.fr",
+  "gallery-os": "https://gallery-os-ten.vercel.app",
 };
 
 const PROJECT_USE_CASE_INTROS = {
@@ -1535,6 +1540,14 @@ function ProjectWindowContent({ project, siteReady, onSiteLoad }) {
 
   if (project.slug === "hanging") {
     return <HangingTechnicalDrawing />;
+  }
+
+  if (project.slug === "gallery-os") {
+    return (
+      <div className="gos-window">
+        <GalleryOsDashboard className="gos-glass" />
+      </div>
+    );
   }
 
   if (liveUrl) {
@@ -1610,7 +1623,7 @@ function ShowcaseProjectPage({ project, showUseCase = false }) {
   const liveUrl = PROJECT_LIVE_URLS[project.slug];
   const isPortraitProject = project.slug === "design-system";
   const useCaseIntro =
-    project.slug === "hanging"
+    project.slug === "hanging" || project.slug === "gallery-os"
       ? {
           meta: project.caseStudy?.useCase?.meta,
           question: project.caseStudy?.useCase?.intro,
@@ -1708,7 +1721,7 @@ function ShowcaseProjectPage({ project, showUseCase = false }) {
         )}
       </div>
       {showUseCase && useCaseOpen && (
-        project.slug === "hanging" ? (
+        project.slug === "hanging" || project.slug === "gallery-os" ? (
           <HangingUseCaseModal
             project={project}
             liveUrl={liveUrl}
@@ -1735,6 +1748,113 @@ function ShowcaseProjectPage({ project, showUseCase = false }) {
   );
 }
 
+/* ─── Page reels — derrière la card vidéo de la home ──────────────────── */
+export function VitreenReelsPage() {
+  const navigate = useNavigate();
+  const project = projects.find((p) => p.slug === "vitreen");
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  if (!project) return <Navigate to="/" replace />;
+
+  const reelsScreen = project.caseStudy?.product?.screens?.find(
+    (screen) => screen.type === "vitreen-reels"
+  );
+  const reels = reelsScreen?.items ?? [];
+  const leadId = "DYEWo3elU9-";
+  const orderedReels = [
+    ...reels.filter((reel) => reel.id === leadId),
+    ...reels.filter((reel) => reel.id !== leadId),
+  ];
+  const intro = {
+    meta: [
+      { term: "Canal", value: "Instagram · @vitreen.art" },
+      { term: "Format", value: "Reels — talking-heads & interviews" },
+      { term: "Objectif", value: "Communauté & positionnement" },
+      { term: "Outils", value: "Buffer · CapCut" },
+      { term: "Statut", value: "Diffusion en cours" },
+    ],
+    question: reelsScreen?.title,
+    text: reelsScreen?.text,
+  };
+
+  return (
+    <main className="reels-page">
+      <div className="reels-page-inner">
+        <header className="reels-page-header">
+          <button
+            type="button"
+            className="vitreen-round-btn reels-page-close"
+            onClick={() => navigate("/")}
+            aria-label="Fermer"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6 6 18 18M18 6 6 18" />
+            </svg>
+          </button>
+        </header>
+
+        <div className="reels-page-carousel" aria-label="Reels Instagram Vitreen">
+          {orderedReels.map((item, index) => (
+            <article className="vitreen-reel-card" key={item.id}>
+              <video
+                src={`/vitreen/reels/${item.id}.mp4`}
+                aria-label={`Reel Instagram Vitreen ${index + 1}`}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+              />
+            </article>
+          ))}
+        </div>
+
+        {intro && (
+          <section
+            className="vitreen-intro-preview vitreen-editorial reels-page-intro"
+            aria-label="Aperçu du projet"
+          >
+            {intro.meta?.length > 0 && (
+              <dl className="vitreen-editorial-meta">
+                {intro.meta.map((row) => (
+                  <div key={row.term}>
+                    <dt>{row.term}</dt>
+                    <dd>{row.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            )}
+            <div className="vitreen-editorial-main">
+              <p className="vitreen-editorial-intro">{intro.question}</p>
+              {intro.text && (
+                <div className="vitreen-editorial-body">
+                  <p className="vitreen-intro-preview-text">{intro.text}</p>
+                </div>
+              )}
+              <Link
+                to="/projet/vitreen"
+                className="vitreen-pill-btn vitreen-intro-preview-btn"
+              >
+                Full use case
+                <svg
+                  className="vitreen-pill-expand"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path d="M10 14 4 20M4 20h4M4 20v-4M14 10l6-6M20 4h-4M20 4v4" />
+                </svg>
+              </Link>
+            </div>
+          </section>
+        )}
+      </div>
+    </main>
+  );
+}
+
 /* ─── Page ───────────────────────────────────────────────────────────── */
 export default function ProjectPage() {
   const { slug } = useParams();
@@ -1755,6 +1875,10 @@ export default function ProjectPage() {
   }
 
   if (slug === "hanging") {
+    return <ShowcaseProjectPage project={project} showUseCase />;
+  }
+
+  if (slug === "gallery-os") {
     return <ShowcaseProjectPage project={project} showUseCase />;
   }
 

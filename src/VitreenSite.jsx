@@ -235,6 +235,75 @@ export function VitreenSiteV21() {
   );
 }
 
+export function GalleryOsDashboard({ className = "" }) {
+  return (
+    <div className={`vitreen-glass${className ? ` ${className}` : ""}`}>
+      <aside className="vitreen-glass-sidebar">
+        <div className="vitreen-glass-brand">
+          <span className="vitreen-glass-logo">▤</span>
+          Gallery OS
+        </div>
+        {VITREEN_SIDEBAR_ITEMS.map((item) => (
+          <span
+            key={item.label}
+            className={`vitreen-glass-nav${item.active ? " is-active" : ""}`}
+          >
+            <i>{item.icon}</i>
+            <span>{item.label}</span>
+            {item.badge && <em>{item.badge}</em>}
+          </span>
+        ))}
+        <div className="vitreen-glass-powered">Powered by Vitreen</div>
+      </aside>
+      <div className="vitreen-glass-main">
+        <div className="vitreen-glass-head">
+          <div>
+            <strong>Artworks</strong>
+            <small>12 total · 12 available · 0 sold</small>
+          </div>
+          <span className="vitreen-glass-add">+ Add</span>
+        </div>
+        <div className="vitreen-glass-search">
+          <span>⌕</span>
+          <span className="vitreen-glass-search-hint">
+            Search title, artist, year, medium…
+          </span>
+          <kbd>⌘K</kbd>
+        </div>
+        <div className="vitreen-glass-pills">
+          {["Available", "Reserved", "Sold", "Consigned", "On loan"].map((p) => (
+            <span key={p}>{p}</span>
+          ))}
+          <span className="is-dark">Sacha Elron</span>
+        </div>
+        <div className="vitreen-glass-thead">
+          <span>Title</span>
+          <span>Artist</span>
+          <span>Year</span>
+          <span className="is-right">Price</span>
+          <span>Status</span>
+        </div>
+        {VITREEN_ARTWORKS.map((row) => (
+          <div key={row.title} className="vitreen-glass-row">
+            <span className="vitreen-glass-row-title">
+              <i>
+                <b style={{ background: row.color }} />
+              </i>
+              {row.title}
+            </span>
+            <span className="is-muted">Sacha Elron</span>
+            <span className="is-muted">{row.year}</span>
+            <span className="is-right">{row.price}</span>
+            <span>
+              <em>Available</em>
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function VitreenSiteAdoption() {
   const workflowSteps = [
     {

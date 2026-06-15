@@ -2598,6 +2598,50 @@ a {
   margin-top: 2rem;
 }
 
+/* ─── Page reels — derrière la card vidéo de la home ──────────────────── */
+.reels-page {
+  min-height: 100vh;
+  padding: clamp(1.5rem, 4vw, 3rem) clamp(1.25rem, 5vw, 4rem)
+    clamp(3rem, 6vw, 5rem);
+  background: #eeeeee;
+}
+
+.reels-page-inner {
+  width: 100%;
+  max-width: var(--measure-wide);
+  margin: 0 auto;
+}
+
+.reels-page-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.reels-page-carousel {
+  display: flex;
+  gap: clamp(1rem, 2vw, 1.5rem);
+  padding-bottom: 0.75rem;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+}
+
+.reels-page-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.reels-page-carousel .vitreen-reel-card {
+  flex: 0 0 clamp(240px, 26vw, 300px);
+  scroll-snap-align: start;
+}
+
+.reels-page-intro.vitreen-editorial {
+  width: min(100%, 55rem);
+  padding: clamp(2.5rem, 5vw, 4rem) 0 0;
+  margin: 0;
+}
+
 /* ─── Vitreen — modale plein écran use case ───────────────────────────── */
 .vitreen-modal {
   position: fixed;
@@ -5789,6 +5833,73 @@ a {
 
 .stack-card-slot--reel .bento-card-media video {
   transform: none;
+}
+
+/* ─── Card Gallery OS — dashboard produit sur la home ─────────────────── */
+.gos-demo {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.gos-embed {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  background: #fff;
+}
+
+.gos-scale {
+  position: absolute;
+  inset: 0;
+  display: flex;
+}
+
+.gos-glass {
+  position: static;
+  transform: none;
+  width: 100%;
+  height: 100%;
+  font-size: 11px;
+  background: #fff;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.gos-glass .vitreen-glass-sidebar,
+.gos-glass .vitreen-glass-main {
+  background: #fff;
+}
+
+.gos-glass .vitreen-glass-sidebar {
+  border-right: 1px solid var(--color-border);
+}
+
+/* Gallery OS — fenêtre showcase de la page projet */
+.gos-window {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  overflow: hidden;
+  background: #fff;
+}
+
+.gos-window .gos-glass {
+  width: 100%;
+  height: 100%;
+  font-size: clamp(12px, 1.15vw, 16px);
+}
+
+/* Capture paysage dans le carousel de la modale */
+.vitreen-modal-screen--wide {
+  flex-basis: auto;
+  aspect-ratio: 2128 / 1704;
+  background: #fff;
 }
 
 .stack-card-slot--desktop-preview {

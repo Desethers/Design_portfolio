@@ -2,10 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import { Routes, Route, Link, useLocation } from "react-router-dom";
 import { projects } from "./projects.js";
 import { SITE } from "./site.js";
-import ProjectPage from "./ProjectPage.jsx";
+import ProjectPage, { VitreenReelsPage } from "./ProjectPage.jsx";
 import HangingTechnicalDrawing from "./HangingTechnicalDrawing.jsx";
 import HangingBookingPreview from "./HangingBookingPreview.jsx";
-import { VitreenSiteV21 } from "./VitreenSite.jsx";
+import { VitreenSiteV21, GalleryOsDashboard } from "./VitreenSite.jsx";
 
 const BENTO_SIZE = {
   vitreen: "xl",
@@ -60,6 +60,28 @@ function VitreenGlyph({ className }) {
       <rect x="16" y="3.2" width="9" height="2.6" rx="1.3" fill="currentColor" />
       <rect x="16" y="8.6" width="9" height="2.6" rx="1.3" fill="currentColor" />
     </svg>
+  );
+}
+
+function GalleryOsCard({ project }) {
+  return (
+    <Link
+      to={`/projet/${project.slug}`}
+      className="bento-card bento-card--media gos-demo"
+    >
+      <div className="gos-embed">
+        <div className="gos-scale">
+          <GalleryOsDashboard className="gos-glass" />
+        </div>
+      </div>
+      <span className="vitreen-card-caption">
+        <span>
+          <strong>Gallery OS</strong>
+          <small>Inventaire &amp; inquiries · Vitreen</small>
+        </span>
+        <span className="vitreen-card-cta">Voir le projet ↗</span>
+      </span>
+    </Link>
   );
 }
 
@@ -383,9 +405,9 @@ function BentoEmpty() {
   return <div className="bento-card bento-card--sm bento-card--empty" aria-hidden="true" />;
 }
 
-function VitreenReelCard({ project, reelId }) {
+function VitreenReelCard({ reelId }) {
   return (
-    <Link to={`/projet/${project.slug}`} className="bento-card bento-card--media vitreen-reel-demo">
+    <Link to="/reels" className="bento-card bento-card--media vitreen-reel-demo">
       <div className="bento-card-media">
         <video
           src={`/vitreen/reels/${reelId}.mp4`}
@@ -401,7 +423,7 @@ function VitreenReelCard({ project, reelId }) {
           <strong>Vitreen</strong>
           <small>Content & Positioning · Instagram</small>
         </span>
-        <span className="vitreen-card-cta">Voir le projet ↗</span>
+        <span className="vitreen-card-cta">Voir les reels ↗</span>
       </span>
     </Link>
   );
@@ -450,6 +472,7 @@ function Home() {
       stack: { ...STACKS[1], id: "cursor", name: "Cursor" },
       customContent: "sales-agent",
     },
+    { stack: STACKS[4], customContent: "gallery-os" },
     { stack: STACKS[0], customContent: "vitreen-reel" },
     { stack: STACKS[2] },
     { stack: STACKS[1], landscape: true },
@@ -520,9 +543,21 @@ function Home() {
             );
           }
 
+          if (customContent === "gallery-os") {
+            const galleryProject = projects.find((p) => p.slug === "gallery-os");
+            if (!galleryProject) return null;
+            return (
+              <div
+                key="gallery-os"
+                className="stack-card-slot stack-card-slot--landscape stack-card-slot--gallery-os"
+              >
+                <StackCardBadge stack={stack} />
+                <GalleryOsCard project={galleryProject} />
+              </div>
+            );
+          }
+
           if (customContent === "vitreen-reel") {
-            const reelProject = projectOf(stack);
-            if (!reelProject) return null;
             return (
               <div key="vitreen-reel" className="stack-card-slot stack-card-slot--reel">
                 <StackCardBadge stack={{ id: "buffer", name: "Buffer" }} />
@@ -530,7 +565,7 @@ function Home() {
                   stack={{ id: "capcut", name: "CapCut" }}
                   className="stack-card-badge--secondary"
                 />
-                <VitreenReelCard project={reelProject} reelId="DYEWo3elU9-" />
+                <VitreenReelCard reelId="DYEWo3elU9-" />
               </div>
             );
           }
@@ -568,12 +603,13 @@ function Footer() {
 
 export default function App() {
   const { pathname } = useLocation();
-  const hideFooter = pathname.startsWith("/projet/");
+  const hideFooter = pathname.startsWith("/projet/") || pathname === "/reels";
 
   return (
     <div className="page">
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/reels" element={<VitreenReelsPage />} />
         <Route path="/projet/:slug" element={<ProjectPage />} />
       </Routes>
       {!hideFooter && <Footer />}

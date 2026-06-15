@@ -702,4 +702,102 @@ export const projects = [
         "Ce projet m'a appris que le design émotionnel n'est pas un vernis — c'est une contrainte structurelle qui change tout, du wording aux mécaniques d'engagement. J'aurais aimé tester avec des personnes en situation réelle de détresse légère, pas seulement des profils 'bien-portants'.",
     },
   },
+  {
+    id: 5,
+    slug: "gallery-os",
+    featured: false,
+    title: "Gallery OS",
+    type: "Dashboard produit",
+    year: "2026",
+    desc: "L'atelier opérationnel d'une galerie — inventaire, inquiries, sélections privées et Viewing Room Studio dans un seul espace.",
+    tags: ["Product Design", "Dashboard", "B2B SaaS"],
+    screenshot: "/vitreen/gallery-os-overview.png",
+    process: {
+      wireframes: [
+        { title: "Overview — le tableau de bord quotidien", src: "/vitreen/gallery-os-overview.png", type: "image", landscape: true },
+        { title: "Artworks — l'inventaire partagé", src: "/vitreen/gallery-os-artworks.png", type: "image", landscape: true },
+        { title: "Private Selection — composer pour un collectionneur", src: "/vitreen/gallery-os-private-selection.png", type: "image", landscape: true },
+        { title: "Viewing Room Studio — l'éditeur canvas-first", src: "/vitreen/gallery-os-viewing-room-studio.png", type: "image", landscape: true },
+        { title: "Gmail — insérer une œuvre depuis la boîte mail", src: "/vitreen/gallery-os-gmail.png", type: "image", landscape: true },
+      ],
+    },
+    caseStudy: {
+      useCase: {
+        header: {
+          title: "Gallery OS",
+          subtitle: "L'atelier opérationnel d'une galerie",
+        },
+        meta: [
+          { term: "Livrable", value: "Gallery OS — dashboard galerie" },
+          { term: "Secteur", value: "Art contemporain · Galeries" },
+          { term: "Période", value: "Avril 2026 — Aujourd'hui" },
+          { term: "Rôle", value: "Product Design & Founder (solo)" },
+          { term: "Statut", value: "Prototype en validation" },
+        ],
+        intro:
+          "Comment réunir inventaire, demandes et sorties collectionneur dans un seul espace, sans alourdir le quotidien de la galerie ?",
+        body: [
+          "Gallery OS est la couche opérationnelle de Vitreen — là où la galerie travaille au quotidien. Inventaire, inquiries, sélections privées, Viewing Room Studio et intégration Gmail vivent dans un même atelier, signé « Powered by Vitreen ».",
+          "Le problème n'est pas de stocker les œuvres — Artlogic, Excel ou Artsy le font déjà. C'est de les faire circuler : chaque réponse collectionneur repart d'un export manuel, d'un PDF InDesign, d'un lien recollé. Gallery OS transforme l'inventaire en point de départ d'une vente, plus en simple archive.",
+          "Le dashboard est conçu pour s'insérer dans les habitudes existantes : on garde sa boîte mail, ses fichiers, son rythme — Gallery OS se branche dessus plutôt que d'imposer une migration. Conçu en solo et entièrement vibe-codé avec Claude Code et Cursor.",
+        ],
+        metrics: [
+          { value: "9", label: "Modules dans le dashboard" },
+          { value: "1", label: "Inventaire partagé par tous les workflows" },
+          { value: "0", label: "Migration requise pour démarrer" },
+          { value: "3", label: "Formats de sortie collectionneur" },
+          { value: "100%", label: "Vibe-codé — Claude Code · Cursor" },
+        ],
+        modules: [
+          {
+            tag: "Inventaire",
+            title: "Un inventaire, tous les workflows",
+            text: "Artworks centralise œuvres, artistes, statuts et prix. La même donnée alimente la publication, les inquiries et les sélections privées — saisie une fois, réutilisée partout.",
+            media: "/vitreen/gallery-os-artworks.png",
+          },
+          {
+            tag: "Architecture produit",
+            title: "Quatre activités plutôt qu'une pile d'outils",
+            text: "Le dashboard est organisé autour de ce que fait une galerie, pas autour de la technique : gérer les œuvres, accompagner les collectionneurs, publier, soutenir les opérations.",
+            cards: [
+              { title: "Gérer les œuvres", text: "Inventaire, artistes, expositions et statuts dans une source unique partagée." },
+              { title: "Demandes entrantes", text: "Les inquiries arrivent dans Gallery OS ; un brouillon IA prépare la réponse, œuvres disponibles déjà insérées." },
+              { title: "Sélections privées", text: "Composer un sous-ensemble pour un collectionneur précis — visible par lui seul, partageable en un lien." },
+              { title: "Sorties collectionneur", text: "Viewing room, PDF ou lien : la même sélection se distribue dans le format attendu." },
+            ],
+          },
+          {
+            tag: "Viewing Room Studio",
+            title: "Une salle de visionnage en quelques minutes",
+            text: "Le Studio canvas-first transforme une sélection en viewing room ou en PDF prêts à envoyer — la librairie est live, pas un import manuel. Moodboard, pas back-office.",
+            media: "/vitreen/gallery-os-viewing-room-studio.png",
+          },
+          {
+            tag: "Adoption",
+            title: "L'intégration avant la migration",
+            text: "Un nouvel outil doit entrer dans le workflow existant avant de demander à l'équipe de changer ses habitudes. Gallery OS se branche sur les canaux déjà utilisés.",
+            cards: [
+              { title: "Add-on Gmail", text: "Chercher une œuvre et l'insérer dans un brouillon sans quitter sa boîte mail." },
+              { title: "Powered by Vitreen", text: "Gallery OS porte les opérations, Vitreen porte la promesse — une marque, deux couches." },
+              { title: "Zéro migration", text: "On garde ses fichiers et son rythme ; le dashboard se connecte plutôt que de remplacer." },
+            ],
+          },
+          {
+            tag: "État du projet",
+            title: "Prototype fonctionnel, métriques à venir",
+            text: "Le dashboard, les sélections privées et les sorties collectionneur forment un prototype testable. Les premières inquiries traitées et sélections envoyées seront mesurées pour itérer le flow.",
+          },
+        ],
+        next: {
+          title: "Distribuer en un clic",
+          text: "Transformer une sélection en viewing room, PDF ou lien depuis Gallery OS, sans étape manuelle — et brancher les métriques d'usage pour valider l'adoption.",
+          cards: [
+            { title: "Distribute", text: "Un clic pour passer d'une sélection à une sortie collectionneur, dans le format attendu." },
+            { title: "Métriques d'usage", text: "Mesurer inquiries traitées et sélections envoyées pour prioriser les itérations." },
+            { title: "Onboarding galerie", text: "Connecter une galerie pilote à ses outils existants et valider l'adoption sans migration." },
+          ],
+        },
+      },
+    },
+  },
 ];
