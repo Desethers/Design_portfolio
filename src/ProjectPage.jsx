@@ -948,7 +948,7 @@ function VitreenToolsMock() {
 const VITREEN_ANALYTICS_KPIS = [
   { label: "Galeries déployées", value: "—", hint: "Mesure à venir" },
   { label: "Délai moyen d'installation", value: "—", hint: "Mesure à venir" },
-  { label: "Workflows intégrés", value: "—", hint: "Mesure à venir" },
+  { label: "Galeries actives à 30 jours", value: "—", hint: "Mesure à venir" },
   { label: "MRR", value: "—", hint: "Mesure à venir" },
 ];
 
@@ -1048,7 +1048,10 @@ function VitreenInterviewInsights({ items }) {
       {items.slice(0, 2).map((item) => (
         <article className="vitreen-interview-card" key={item.label}>
           <blockquote>« {item.quote} »</blockquote>
-          <p>{item.label}</p>
+          <p>
+            {item.label}
+            {item.date && <span className="vitreen-interview-date">{item.date}</span>}
+          </p>
         </article>
       ))}
     </div>
@@ -1253,7 +1256,7 @@ function VitreenUseCaseModal({ project, liveUrl, onClose }) {
               </div>
               <div>
                 <dt>Période</dt>
-                <dd>2025 — en cours</dd>
+                <dd>Avril 2026 — Aujourd'hui</dd>
               </div>
               <div>
                 <dt>Rôle</dt>

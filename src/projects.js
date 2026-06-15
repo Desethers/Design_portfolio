@@ -416,12 +416,14 @@ export const projects = [
             type: "vitreen-interviews",
             items: [
               {
-                label: "Directeur de galerie, Lovenbruck, Paris",
+                label: "Directeur de galerie, Paris",
+                date: "Entretien réalisé le 9 mai 2026",
                 quote: "Nous sommes trois à gérer les ventes dans la galerie. Chacun travaille depuis sa propre boîte mail. Nous utilisons Artsy pour les œuvres disponibles, et le site web est maintenu de manière informelle par une connaissance qui intervient ponctuellement lorsqu'il y a un bug.",
               },
               {
-                label: "Vocabulaire métier",
-                quote: "Une galerie parle d'œuvres, de sélections et de collectionneurs — pas de CMS ou de fonctionnalités.",
+                label: "Chargée de communication galerie, Paris",
+                date: "Entretien réalisé le 9 mai 2026",
+                quote: "Entre la mise à jour des fiches d'œuvres sur plusieurs supports et la création manuelle de PDF dans InDesign pour répondre aux demandes par email, une grande partie du travail reste opérationnelle et répétitive.",
               },
               {
                 label: "Intégration > migration",
