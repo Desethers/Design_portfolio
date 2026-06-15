@@ -2989,7 +2989,7 @@ a {
 
 /* ── Section de clôture — What's next (alignée sur les modules) ──────── */
 .vitreen-next {
-  padding-top: clamp(3rem, 6vw, 5rem);
+  padding-top: 0;
 }
 
 .vitreen-next-cards {
@@ -2998,6 +2998,10 @@ a {
   gap: clamp(1rem, 2vw, 1.5rem);
   width: min(100%, 55rem);
   margin: 0 auto;
+}
+
+.hanging-module-cards {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
 }
 
 .vitreen-next-card {

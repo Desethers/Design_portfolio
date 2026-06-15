@@ -243,6 +243,91 @@ export const projects = [
           "Une page dédiée B2B galeries avec un parcours séparé. B2C et B2B cohabitent sur la même landing — ça fonctionne en V1 mais crée une ambiguïté sur la cible principale.",
         next: "Espace galerie partenaire avec dashboard de suivi. Abonnement galerie plutôt que one-shot — revenu récurrent, acquisition sans effort.",
       },
+      useCase: {
+        header: {
+          title: "Hanging",
+          subtitle: "Service d'accrochage d'œuvres d'art",
+        },
+        meta: [
+          { term: "Livrable", value: "Hanging — hanging.fr" },
+          { term: "Secteur", value: "Art · Collectionneurs privés" },
+          { term: "Période", value: "2024 — Aujourd'hui" },
+          { term: "Rôle", value: "Product Design & Développement (solo)" },
+          { term: "Statut", value: "En production" },
+        ],
+        intro:
+          "Comment rendre accessible et rassurant un service d'accrochage d'œuvres jusque-là réservé à ceux qui ont le bon réseau ?",
+        body: [
+          "Hanging est le premier service d'accrochage d'œuvres en ligne pour collectionneurs privés et galeries partenaires — réservation et paiement directement sur hanging.fr.",
+          "Le marché des accrocheurs professionnels existe mais reste opaque : pas d'annuaire, pas de tarif affiché, tout passe par le réseau. Pour un collectionneur sans le bon contact, le service est tout simplement invisible.",
+          "Le booking passait par Calendly — une rupture de marque au moment le plus critique, juste avant le paiement. L'enjeu : rapatrier tout le flow (créneau, formulaire, paiement Stripe) directement sur hanging.fr.",
+        ],
+        metrics: [
+          { value: "3", label: "Forfaits — 180€ à 650€" },
+          { value: "B2C + B2B", label: "Collectionneurs & galeries" },
+          { value: "Paris", label: "& Île-de-France" },
+          { value: "0", label: "Appel requis" },
+          { value: "100%", label: "Booking + paiement en ligne" },
+        ],
+        modules: [
+          {
+            tag: "Problème",
+            title: "La rupture Calendly",
+            text: "Le flow de réservation quittait hanging.fr pour une page Calendly générique — changement d'interface, perte de branding — au moment le plus critique : juste avant de payer.",
+            media: "/Screenshot calendly.png",
+          },
+          {
+            tag: "Objectifs",
+            title: "Quatre principes de conception",
+            text: "Structurer ce service pour la première fois en ligne — une expérience pensée pour les collectionneurs privés, pas pour un musée.",
+            cards: [
+              { title: "Tarifs visibles", text: "Afficher les prix là où tout le monde les cache. La transparence comme premier argument de confiance." },
+              { title: "Réservation directe", text: "Choisir un forfait, un créneau, payer en ligne. Aucun intermédiaire, aucun devis à attendre." },
+              { title: "Zéro appel requis", text: "Tout en self-service : consultation, booking, paiement. Le particulier avance sans téléphoner." },
+              { title: "Expérience collectionneur", text: "Une interface rassurante dès la première seconde pour le particulier qui vient d'acheter une œuvre." },
+            ],
+          },
+          {
+            tag: "Booking flow",
+            title: "Du créneau au paiement, sans quitter Hanging",
+            text: "Le flow custom rapatrie le choix du forfait, le calendrier, le formulaire et le paiement Stripe sur hanging.fr — avec un récapitulatif live en sidebar selon le forfait choisi.",
+            media: "/wireframes/wireframe-v2.png",
+          },
+          {
+            tag: "Go-to-market",
+            title: "La visibilité comme premier levier",
+            text: "Pas de budget acquisition : être le premier résultat Google quand un collectionneur cherche ce service à Paris.",
+            cards: [
+              { title: "B2C d'abord", text: "Valider le produit avec les collectionneurs privés avant d'approcher les galeries avec des preuves de traction." },
+              { title: "Paris & IDF", text: "Densité maximale de collectionneurs, aucun concurrent digital identifié sur la zone." },
+              { title: "SEO + transparence", text: "Afficher les prix est à la fois une décision de design et une stratégie SEO — l'intention d'achat est captée à la source." },
+            ],
+          },
+          {
+            tag: "Modèle économique",
+            title: "Deux sources de revenu",
+            text: "Une commission directe par réservation côté collectionneur, et un partenariat qui transforme chaque vente de galerie en lead qualifié.",
+            cards: [
+              { title: "B2C — commission", text: "180€ → 650€ selon le forfait. Le collectionneur paie en ligne, l'expert intervient à domicile." },
+              { title: "B2B — partenariat galerie", text: "Une galerie qui recommande Hanging à chaque vente, c'est un flux de leads sans effort d'acquisition." },
+            ],
+          },
+          {
+            tag: "État du projet",
+            title: "Live, validation à venir",
+            text: "Le produit est en production sur hanging.fr. Les métriques de conversion seront mesurées et documentées lors des premières réservations.",
+          },
+        ],
+        next: {
+          title: "Espace galerie partenaire",
+          text: "Brancher un dashboard de suivi pour les galeries, en abonnement plutôt qu'au one-shot — revenu récurrent et acquisition sans effort.",
+          cards: [
+            { title: "Dashboard galerie", text: "Suivi des réservations issues des recommandations de la galerie partenaire." },
+            { title: "Abonnement récurrent", text: "Passer du one-shot à un revenu récurrent côté B2B." },
+            { title: "Validation conversion", text: "Mesurer les premières réservations réelles et itérer le flow en conséquence." },
+          ],
+        },
+      },
     },
   },
   {

@@ -1301,6 +1301,156 @@ function VitreenUseCaseModal({ project, liveUrl, onClose }) {
   );
 }
 
+function HangingUseCaseModal({ project, liveUrl, onClose }) {
+  const useCase = project.caseStudy?.useCase;
+  const showcaseScreens = project.process?.wireframes?.length
+    ? project.process.wireframes
+    : [{ title: project.title, src: project.screenshot }];
+
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [onClose]);
+
+  if (!useCase) return null;
+
+  return (
+    <div
+      className="vitreen-modal"
+      role="dialog"
+      aria-modal="true"
+      onClick={(e) => {
+        e.stopPropagation();
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
+      <div className="vitreen-modal-panel" onClick={(e) => e.stopPropagation()}>
+        <div className="vitreen-modal-scroll">
+          <header className="vitreen-header">
+            <div className="vitreen-header-id">
+              <h1 className="vitreen-header-title">{useCase.header.title}</h1>
+              <p className="vitreen-header-subtitle">{useCase.header.subtitle}</p>
+            </div>
+            <div className="vitreen-header-actions">
+              {liveUrl && (
+                <a
+                  href={liveUrl}
+                  className="vitreen-round-btn"
+                  aria-label={`Voir ${liveUrl}`}
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M7 17 17 7M9 7h8v8" />
+                  </svg>
+                </a>
+              )}
+              <button
+                type="button"
+                className="vitreen-round-btn vitreen-modal-close"
+                onClick={onClose}
+                aria-label="Fermer"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M6 6 18 18M18 6 6 18" />
+                </svg>
+              </button>
+            </div>
+          </header>
+          <div className="vitreen-modal-screens" aria-label="Aperçus du produit">
+            {showcaseScreens.map((screen) => (
+              <figure
+                className={`vitreen-modal-screen${screen.preserveRatio ? " vitreen-modal-screen--natural" : ""}`}
+                key={screen.src ?? screen.title}
+              >
+                <img src={screen.src} alt={screen.title ?? `${project.title} — aperçu`} />
+              </figure>
+            ))}
+          </div>
+          <section className="vitreen-editorial" aria-label="Présentation du projet">
+            <dl className="vitreen-editorial-meta">
+              {useCase.meta.map((row) => (
+                <div key={row.term}>
+                  <dt>{row.term}</dt>
+                  <dd>{row.value}</dd>
+                </div>
+              ))}
+            </dl>
+            <div className="vitreen-editorial-main">
+              <p className="vitreen-editorial-intro">{useCase.intro}</p>
+              <div className="vitreen-editorial-body">
+                {useCase.body.map((paragraph, index) => (
+                  <p key={index}>{paragraph}</p>
+                ))}
+              </div>
+            </div>
+          </section>
+          <section className="vitreen-metrics" aria-label="Chiffres clés du projet">
+            {useCase.metrics.map((metric) => (
+              <div className="vitreen-metric" key={metric.label}>
+                <span className="vitreen-metric-value">{metric.value}</span>
+                <span className="vitreen-metric-label">{metric.label}</span>
+              </div>
+            ))}
+          </section>
+          <article className="vitreen-modules">
+            {useCase.modules.map((module) => (
+              <section className="vitreen-module" key={module.title}>
+                <div className="vitreen-module-copy">
+                  <div>
+                    <span>{module.tag}</span>
+                    <h3>{module.title}</h3>
+                  </div>
+                  <p>{module.text}</p>
+                </div>
+                {module.media ? (
+                  <figure className="vitreen-module-media">
+                    <img src={module.media} alt={module.title} />
+                  </figure>
+                ) : module.cards ? (
+                  <div className="vitreen-next-cards hanging-module-cards">
+                    {module.cards.map((card) => (
+                      <article className="vitreen-next-card" key={card.title}>
+                        <p className="vitreen-next-card-text">{card.text}</p>
+                        <span className="vitreen-next-card-label">{card.title}</span>
+                      </article>
+                    ))}
+                  </div>
+                ) : null}
+              </section>
+            ))}
+          </article>
+          {useCase.next && (
+            <section className="vitreen-next" aria-label="What's next — prochaines étapes">
+              <div className="vitreen-module-copy">
+                <div>
+                  <span>What's next</span>
+                  <h3>{useCase.next.title}</h3>
+                </div>
+                <p>{useCase.next.text}</p>
+              </div>
+              <div className="vitreen-next-cards">
+                {useCase.next.cards.map((card) => (
+                  <article className="vitreen-next-card" key={card.title}>
+                    <p className="vitreen-next-card-text">{card.text}</p>
+                    <span className="vitreen-next-card-label">{card.title}</span>
+                  </article>
+                ))}
+              </div>
+            </section>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 const PROJECT_LIVE_URLS = {
   vitreen: "https://vitreen.art",
   hanging: "https://hanging.fr",
@@ -1504,11 +1654,19 @@ function ShowcaseProjectPage({ project, showUseCase = false }) {
         )}
       </div>
       {showUseCase && useCaseOpen && (
-        <VitreenUseCaseModal
-          project={project}
-          liveUrl={liveUrl}
-          onClose={() => setUseCaseOpen(false)}
-        />
+        project.slug === "hanging" ? (
+          <HangingUseCaseModal
+            project={project}
+            liveUrl={liveUrl}
+            onClose={() => setUseCaseOpen(false)}
+          />
+        ) : (
+          <VitreenUseCaseModal
+            project={project}
+            liveUrl={liveUrl}
+            onClose={() => setUseCaseOpen(false)}
+          />
+        )
       )}
       <div
         className={`vitreen-cursor-close${cursor.visible ? " is-visible" : ""}`}
