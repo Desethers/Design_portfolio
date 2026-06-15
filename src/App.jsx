@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Routes, Route, Link, useLocation } from "react-router-dom";
+import { Routes, Route, Link, useLocation, useNavigate } from "react-router-dom";
 import { projects } from "./projects.js";
 import { SITE } from "./site.js";
 import ProjectPage, { VitreenReelsPage } from "./ProjectPage.jsx";
@@ -429,7 +429,7 @@ function VitreenReelCard({ reelId }) {
   );
 }
 
-function SalesAgentCard() {
+function SalesAgentMock() {
   return (
     <article className="sales-agent-preview">
       <div className="sales-agent-inner">
@@ -451,6 +451,14 @@ function SalesAgentCard() {
         </span>
       </div>
     </article>
+  );
+}
+
+function SalesAgentCard() {
+  return (
+    <Link to="/sales-agent" className="sales-agent-link">
+      <SalesAgentMock />
+    </Link>
   );
 }
 
@@ -538,7 +546,9 @@ function Home() {
             return (
               <div key={stack.id} className="stack-card-slot stack-card-slot--booking">
                 <StackCardBadge stack={stack} />
-                <HangingBookingPreview />
+                <Link to="/booking" className="hanging-booking-link">
+                  <HangingBookingPreview />
+                </Link>
               </div>
             );
           }
@@ -582,12 +592,129 @@ function Home() {
               }${projectSlug ? " stack-card-slot--desktop-preview" : ""}`}
             >
               <StackCardBadge stack={stack} />
+              {projectSlug === "vitreen" && stack.id === "claude-code" && (
+                <StackCardBadge
+                  stack={{ id: "figma", name: "Figma" }}
+                  className="stack-card-badge--secondary"
+                />
+              )}
               <BentoCard project={project} mediaOverride={mediaOverride} />
             </div>
           );
         })}
       </section>
     </main>
+  );
+}
+
+/* ─── Pages feature — derrière les cards sans page projet dédiée ───────── */
+function FeaturePage({ hero, heroClassName = "", intro }) {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  return (
+    <main className="reels-page feature-page">
+      <div className="reels-page-inner">
+        <header className="reels-page-header">
+          <button
+            type="button"
+            className="vitreen-round-btn reels-page-close"
+            onClick={() => navigate("/")}
+            aria-label="Fermer"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6 6 18 18M18 6 6 18" />
+            </svg>
+          </button>
+        </header>
+
+        <div className={`feature-hero${heroClassName ? ` ${heroClassName}` : ""}`}>
+          {hero}
+        </div>
+
+        <section
+          className="vitreen-intro-preview vitreen-editorial reels-page-intro"
+          aria-label="Aperçu de la feature"
+        >
+          <dl className="vitreen-editorial-meta">
+            {intro.meta.map((row) => (
+              <div key={row.term}>
+                <dt>{row.term}</dt>
+                <dd>{row.value}</dd>
+              </div>
+            ))}
+          </dl>
+          <div className="vitreen-editorial-main">
+            <p className="vitreen-editorial-intro">{intro.question}</p>
+            <div className="vitreen-editorial-body">
+              <p className="vitreen-intro-preview-text">{intro.text}</p>
+            </div>
+            <Link
+              to={intro.buttonHref}
+              className="vitreen-pill-btn vitreen-intro-preview-btn"
+            >
+              {intro.buttonLabel}
+              <svg
+                className="vitreen-pill-expand"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path d="M10 14 4 20M4 20h4M4 20v-4M14 10l6-6M20 4h-4M20 4v4" />
+              </svg>
+            </Link>
+          </div>
+        </section>
+      </div>
+    </main>
+  );
+}
+
+function SalesAgentPage() {
+  return (
+    <FeaturePage
+      heroClassName="feature-hero--sales"
+      hero={<SalesAgentMock />}
+      intro={{
+        meta: [
+          { term: "Produit", value: "Gallery OS · Vitreen" },
+          { term: "Type", value: "Assistant de vente IA" },
+          { term: "Entrée", value: "Inquiry collectionneur" },
+          { term: "Sortie", value: "Brouillon de réponse" },
+          { term: "Statut", value: "Prototype en validation" },
+        ],
+        question:
+          "Comment répondre à chaque demande collectionneur sans repartir d'une page blanche ?",
+        text: "Le Sales Agent prépare un brouillon de réponse pour chaque inquiry entrante — œuvres disponibles déjà insérées, contexte collectionneur rappelé. La galerie relit, ajuste, envoie : l'IA accélère sans décider à sa place.",
+        buttonHref: "/projet/gallery-os",
+        buttonLabel: "Voir Gallery OS",
+      }}
+    />
+  );
+}
+
+function HangingBookingPage() {
+  return (
+    <FeaturePage
+      heroClassName="feature-hero--booking"
+      hero={<HangingBookingPreview />}
+      intro={{
+        meta: [
+          { term: "Produit", value: "Hanging — hanging.fr" },
+          { term: "Type", value: "Booking flow" },
+          { term: "Forfaits", value: "180 € → 650 €" },
+          { term: "Paiement", value: "Stripe · en ligne" },
+          { term: "Statut", value: "En production" },
+        ],
+        question:
+          "Comment réserver un accrochage — créneau, infos, paiement — sans jamais quitter Hanging ?",
+        text: "Le flow custom rapatrie le choix du forfait, le calendrier, le formulaire et le paiement Stripe sur hanging.fr — avec un récapitulatif live en sidebar. Fini la rupture Calendly juste avant de payer.",
+        buttonHref: "/projet/hanging",
+        buttonLabel: "Voir Hanging",
+      }}
+    />
   );
 }
 
@@ -603,13 +730,17 @@ function Footer() {
 
 export default function App() {
   const { pathname } = useLocation();
-  const hideFooter = pathname.startsWith("/projet/") || pathname === "/reels";
+  const hideFooter =
+    pathname.startsWith("/projet/") ||
+    ["/reels", "/sales-agent", "/booking"].includes(pathname);
 
   return (
     <div className="page">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/reels" element={<VitreenReelsPage />} />
+        <Route path="/sales-agent" element={<SalesAgentPage />} />
+        <Route path="/booking" element={<HangingBookingPage />} />
         <Route path="/projet/:slug" element={<ProjectPage />} />
       </Routes>
       {!hideFooter && <Footer />}

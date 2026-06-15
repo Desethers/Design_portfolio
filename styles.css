@@ -2642,6 +2642,50 @@ a {
   margin: 0;
 }
 
+/* ─── Pages feature (Sales Agent, Booking) — hero + intro ─────────────── */
+.feature-hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: clamp(2.5rem, 6vw, 5rem) clamp(1.5rem, 4vw, 3rem);
+  border-radius: 24px;
+}
+
+.feature-hero--sales {
+  min-height: 340px;
+  background: #e3ece0;
+}
+
+.feature-hero--sales .sales-agent-preview {
+  width: min(100%, 540px);
+}
+
+.feature-hero--booking {
+  min-height: 520px;
+  border: 1px solid var(--color-border);
+  background: #f7f7f5;
+}
+
+.feature-hero--booking .hanging-booking-preview {
+  width: min(100%, 380px);
+  height: auto;
+  max-height: 560px;
+  padding: 0;
+}
+
+.sales-agent-link,
+.hanging-booking-link {
+  display: block;
+  width: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+
+.hanging-booking-link {
+  height: 100%;
+}
+
 /* ─── Vitreen — modale plein écran use case ───────────────────────────── */
 .vitreen-modal {
   position: fixed;
@@ -5912,13 +5956,13 @@ a {
   padding: 18px;
   border: 1px solid var(--color-border);
   background: #e3ece0;
-  cursor: default;
+  cursor: pointer;
 }
 
 .stack-card-slot--booking {
   border: 1px solid var(--color-border);
   background: #f7f7f5;
-  cursor: default;
+  cursor: pointer;
 }
 
 .hanging-booking-preview {
