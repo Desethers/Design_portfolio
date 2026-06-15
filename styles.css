@@ -2676,6 +2676,32 @@ a {
   color: #111110;
 }
 
+.vitreen-editorial-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 31rem;
+  margin-top: 1.6rem;
+}
+
+.vitreen-editorial-body p {
+  margin: 0;
+  font-size: clamp(0.95rem, 1.05vw, 1.02rem);
+  line-height: 1.6;
+  letter-spacing: -0.005em;
+  color: var(--color-text-muted);
+}
+
+.vitreen-editorial-body strong {
+  font-weight: 500;
+  color: #111110;
+}
+
+.vitreen-editorial-body em {
+  font-style: normal;
+  color: #111110;
+}
+
 .vitreen-editorial-actions {
   display: flex;
   align-items: center;
@@ -2801,6 +2827,210 @@ a {
   overflow: visible;
 }
 
+.vitreen-module-media--analytics {
+  border: 1px solid #e4e4e7;
+  background: #fff;
+}
+
+/* ── Dernière section — dashboard analytics « en attente » ───────────── */
+.vitreen-analytics {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.1rem, 2.4vw, 1.6rem);
+  padding: clamp(1.4rem, 3vw, 2.2rem);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #18181b;
+}
+
+.vitreen-analytics-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.vitreen-analytics-head h4 {
+  margin: 0;
+  font-size: clamp(0.95rem, 1.4vw, 1.1rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.vitreen-analytics-head > div > span {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.78rem;
+  color: #a1a1aa;
+}
+
+.vitreen-analytics-range {
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.2rem;
+  border: 1px solid #ececea;
+  border-radius: 999px;
+  background: #fafafa;
+}
+
+.vitreen-analytics-range span {
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  color: #a1a1aa;
+}
+
+.vitreen-analytics-range span.is-active {
+  background: #18181b;
+  color: #fff;
+}
+
+.vitreen-analytics-kpis {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(0.5rem, 1.2vw, 0.9rem);
+}
+
+.vitreen-analytics-kpi {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: clamp(0.7rem, 1.6vw, 1rem);
+  border: 1px solid #ececea;
+  border-radius: 12px;
+  background: #fcfcfb;
+}
+
+.vitreen-analytics-kpi-label {
+  font-size: 0.72rem;
+  color: #71717a;
+}
+
+.vitreen-analytics-kpi-value {
+  font-size: clamp(1.3rem, 2.6vw, 1.7rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: #18181b;
+}
+
+.vitreen-analytics-kpi-hint {
+  font-size: 0.68rem;
+  color: #c4c4c8;
+}
+
+.vitreen-analytics-chart {
+  position: relative;
+  border: 1px solid #ececea;
+  border-radius: 12px;
+  background: #fcfcfb;
+  overflow: hidden;
+}
+
+.vitreen-analytics-bars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: clamp(0.4rem, 1.5vw, 0.9rem);
+  height: clamp(7rem, 16vw, 9.5rem);
+  padding: clamp(1rem, 2.4vw, 1.6rem);
+}
+
+.vitreen-analytics-bars span {
+  flex: 1;
+  border-radius: 4px 4px 0 0;
+  background: repeating-linear-gradient(
+    135deg,
+    #efeff1,
+    #efeff1 5px,
+    #f6f6f7 5px,
+    #f6f6f7 10px
+  );
+}
+
+.vitreen-analytics-empty {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  text-align: center;
+  background: linear-gradient(
+    to bottom,
+    rgba(252, 252, 251, 0.55),
+    rgba(252, 252, 251, 0.92)
+  );
+}
+
+.vitreen-analytics-empty-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #d4d4d8;
+  box-shadow: 0 0 0 4px rgba(212, 212, 216, 0.25);
+  margin-bottom: 0.2rem;
+}
+
+.vitreen-analytics-empty p {
+  margin: 0;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: #52525b;
+}
+
+.vitreen-analytics-empty small {
+  font-size: 0.74rem;
+  color: #a1a1aa;
+}
+
+/* ── Section de clôture — What's next (alignée sur les modules) ──────── */
+.vitreen-next {
+  padding-top: clamp(3rem, 6vw, 5rem);
+}
+
+.vitreen-next-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 2vw, 1.5rem);
+  width: min(100%, 55rem);
+  margin: 0 auto;
+}
+
+.vitreen-next-card {
+  display: flex;
+  min-height: 300px;
+  flex-direction: column;
+  margin: 0;
+  padding: clamp(1.5rem, 2.5vw, 2.25rem);
+  border-radius: 16px;
+  background: #fafafa;
+}
+
+.vitreen-next-card-text {
+  margin: 0;
+  font-size: clamp(0.95rem, 1.4vw, 1.15rem);
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  color: #171716;
+}
+
+.vitreen-next-card-label {
+  margin-top: auto;
+  padding-top: 1.5rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--color-text-muted);
+}
+
+@media (max-width: 40rem) {
+  .vitreen-next-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
 .vitreen-reels {
   display: flex;
   width: calc(100% + max(0px, 50vw - 27.5rem));
@@ -2858,6 +3088,7 @@ a {
   z-index: 0;
   width: 86%;
   height: 92%;
+  box-shadow: none;
 }
 
 .vitreen-browser-window--v21 {
@@ -2985,6 +3216,264 @@ a {
   padding-top: 42px;
 }
 
+/* ── Positioning · "Version main" → Gallery OS Tools mock ───────────── */
+.vitreen-positioning-tools {
+  position: relative;
+  height: calc(100% - 30px);
+  overflow: hidden;
+  background: #fff;
+}
+
+.vitreen-positioning-tools-scale {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  transform: scale(0.5);
+  transform-origin: top left;
+}
+
+.vitreen-tools-app {
+  display: flex;
+  height: 100%;
+  background: #fff;
+  color: #18181b;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.vitreen-tools-sidebar {
+  display: flex;
+  width: 232px;
+  flex-shrink: 0;
+  flex-direction: column;
+  border-right: 1px solid #ececea;
+  padding: 22px 16px 18px;
+}
+
+.vitreen-tools-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 8px;
+  margin-bottom: 26px;
+}
+
+.vitreen-tools-brand-mark {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  border-radius: 8px;
+  background: #18181b;
+}
+
+.vitreen-tools-brand-mark svg {
+  width: 17px;
+  height: 17px;
+}
+
+.vitreen-tools-brand strong {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.vitreen-tools-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.vitreen-tools-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 9px 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #3f3f46;
+}
+
+.vitreen-tools-nav-item svg {
+  flex-shrink: 0;
+  color: #71717a;
+}
+
+.vitreen-tools-nav-item.is-active {
+  background: #f4f4f5;
+  color: #18181b;
+  font-weight: 600;
+}
+
+.vitreen-tools-nav-item.is-active svg {
+  color: #18181b;
+}
+
+.vitreen-tools-nav-badge {
+  margin-left: auto;
+  display: grid;
+  min-width: 18px;
+  height: 18px;
+  place-items: center;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: #16a34a;
+  color: #fff;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 600;
+}
+
+.vitreen-tools-sidebar-foot {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 8px;
+  margin-top: 18px;
+  font-size: 12px;
+  color: #a1a1aa;
+}
+
+.vitreen-tools-main {
+  flex: 1;
+  min-width: 0;
+  padding: 30px 36px;
+  overflow: hidden;
+}
+
+.vitreen-tools-head h1 {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.vitreen-tools-head p {
+  margin-top: 6px;
+  font-size: 14px;
+  color: #3f3f46;
+}
+
+.vitreen-tools-section {
+  margin-top: 30px;
+}
+
+.vitreen-tools-section h2 {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: #3f3f46;
+}
+
+.vitreen-tools-section > p {
+  margin-top: 3px;
+  font-size: 12px;
+  color: #a1a1aa;
+}
+
+.vitreen-tools-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.vitreen-tools-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 30px 28px;
+  border: 1px solid #e4e4e7;
+  border-radius: 18px;
+  background: #fff;
+  transition: border-color 0.2s ease;
+}
+
+.vitreen-tools-card:hover {
+  border-color: #18181b;
+}
+
+.vitreen-tools-card-body {
+  min-width: 0;
+  flex: 1;
+}
+
+.vitreen-tools-card-name {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  font-size: 23px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #18181b;
+}
+
+.vitreen-tools-card .vitreen-tools-icon {
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.vitreen-tools-glyph-icon {
+  display: inline-flex;
+  color: #18181b;
+}
+
+.vitreen-tools-glyph-icon svg {
+  width: 23px;
+  height: 23px;
+}
+
+.vitreen-tools-card .vitreen-tools-wordmark {
+  height: 25px;
+  width: auto;
+}
+
+.vitreen-tools-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  font-size: 14px;
+  color: #3f3f46;
+}
+
+.vitreen-tools-card-meta span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.vitreen-tools-pill {
+  flex-shrink: 0;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #18181b;
+  color: #fff;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.vitreen-tools-arrow {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  place-items: center;
+  border-radius: 50%;
+  background: #18181b;
+  color: #fff;
+}
+
+.vitreen-tools-arrow svg {
+  width: 20px;
+  height: 20px;
+}
+
 .vitreen-module-media--interviews {
   padding: 0;
   border: 0;
@@ -3013,7 +3502,7 @@ a {
 
 .vitreen-interview-card blockquote {
   margin: 0;
-  font-size: clamp(1rem, 1.6vw, 1.3rem);
+  font-size: clamp(0.9rem, 1.3vw, 1.05rem);
   font-weight: 400;
   line-height: 1.4;
   letter-spacing: -0.02em;

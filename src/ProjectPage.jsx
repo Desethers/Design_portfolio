@@ -589,6 +589,8 @@ function VitreenProductModules({ project }) {
                 : ""
             }${
               screen.type === "vitreen-reels" ? " vitreen-module-media--reels" : ""
+            }${
+              screen.type === "vitreen-analytics" ? " vitreen-module-media--analytics" : ""
             }`}
           >
             {screen.type === "vitreen-products" ? (
@@ -601,6 +603,8 @@ function VitreenProductModules({ project }) {
               <VitreenPositioningComparison />
             ) : screen.type === "vitreen-reels" ? (
               <VitreenReels items={screen.items} />
+            ) : screen.type === "vitreen-analytics" ? (
+              <VitreenAnalyticsPending />
             ) : (
               <img src={screen.media} alt={screen.title} />
             )}
@@ -676,20 +680,11 @@ function VitreenPositioningComparison() {
         className="vitreen-browser-window--legacy"
         label="Version main"
       >
-        <VitreenBrowserBar label="Vitreen — main" />
-        <div className="vitreen-legacy-site">
-          <nav>
-            <strong>Vitreen</strong>
-            <span>Offers</span>
-            <span>Blog</span>
-            <span>About</span>
-            <b>Book a demo</b>
-          </nav>
-          <img
-            className="vitreen-legacy-screenshot"
-            src="/vitreen/Frame 11.png"
-            alt="Version main de la landing Vitreen avec les pages galerie superposées"
-          />
+        <VitreenBrowserBar label="Gallery OS — Tools" />
+        <div className="vitreen-positioning-tools">
+          <div className="vitreen-positioning-tools-scale">
+            <VitreenToolsMock />
+          </div>
         </div>
       </VitreenPositioningWindow>
 
@@ -705,6 +700,345 @@ function VitreenPositioningComparison() {
         </div>
       </VitreenPositioningWindow>
     </div>
+  );
+}
+
+const VITREEN_TOOLS_SECTIONS = [
+  {
+    title: "Add-ins",
+    subtitle: "The Gallery OS sidebar, right inside your inbox",
+    cards: [
+      {
+        id: "whatsapp",
+        wordmark: "/vitreen/tools/Digital_Inline_Black_RGB_2026.svg",
+        wordmarkAlt: "WhatsApp",
+        meta: "Selection · Cloud API · 857143",
+      },
+      {
+        id: "gmail",
+        icon: "/vitreen/tools/Gmail_Icon_Official.svg",
+        name: "Gmail",
+        nameStyle: { letterSpacing: "-0.02em" },
+        meta: "Sidebar · Workspace add-on · 2-minute install",
+      },
+      {
+        id: "outlook",
+        icon: "/vitreen/tools/Outlook_Icon_Official.svg",
+        name: "Outlook",
+        nameStyle: { letterSpacing: "-0.01em" },
+        meta: "Sidebar · Coming soon",
+        pill: "Coming soon",
+      },
+      {
+        id: "excel",
+        icon: "/vitreen/tools/Excel-logo-png-large-size.png",
+        name: "Excel",
+        meta: "Export · .xlsx",
+      },
+    ],
+  },
+  {
+    title: "AI agents",
+    subtitle: "Assistants that draft for you and let you approve",
+    cards: [
+      {
+        id: "sales-agent",
+        glyph: "bot",
+        name: "Sales Agent",
+        meta: "Drafts a reply for every incoming inquiry",
+      },
+    ],
+  },
+];
+
+const VITREEN_TOOLS_NAV = [
+  { label: "Overview", glyph: "grid" },
+  { label: "Artworks", glyph: "image" },
+  { label: "Artists", glyph: "users" },
+  { label: "Exhibitions", glyph: "calendar" },
+  { label: "Inquiries", glyph: "chat" },
+  { label: "Sales drafts", glyph: "mail", badge: "2" },
+  { label: "Private Selection", glyph: "folder" },
+  { label: "Collectors", glyph: "id" },
+  { label: "Tools", glyph: "wrench", active: true },
+];
+
+function VitreenToolsGlyph({ name }) {
+  const common = {
+    width: 13,
+    height: 13,
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 1.8,
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    "aria-hidden": true,
+  };
+  switch (name) {
+    case "grid":
+      return (
+        <svg {...common}>
+          <rect x="3" y="3" width="7" height="7" rx="1" />
+          <rect x="14" y="3" width="7" height="7" rx="1" />
+          <rect x="3" y="14" width="7" height="7" rx="1" />
+          <rect x="14" y="14" width="7" height="7" rx="1" />
+        </svg>
+      );
+    case "image":
+      return (
+        <svg {...common}>
+          <rect x="3" y="3" width="18" height="18" rx="2" />
+          <circle cx="9" cy="9" r="2" />
+          <path d="M21 15l-5-5L5 21" />
+        </svg>
+      );
+    case "users":
+      return (
+        <svg {...common}>
+          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+          <circle cx="9" cy="7" r="4" />
+          <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+        </svg>
+      );
+    case "calendar":
+      return (
+        <svg {...common}>
+          <rect x="3" y="4" width="18" height="18" rx="2" />
+          <path d="M16 2v4M8 2v4M3 10h18" />
+        </svg>
+      );
+    case "chat":
+      return (
+        <svg {...common}>
+          <path d="M21 11.5a8.38 8.38 0 0 1-9 8.4 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-4.1A8.38 8.38 0 0 1 12 3a8.5 8.5 0 0 1 9 8.5z" />
+        </svg>
+      );
+    case "mail":
+      return (
+        <svg {...common}>
+          <rect x="2" y="4" width="20" height="16" rx="2" />
+          <path d="m22 7-10 6L2 7" />
+        </svg>
+      );
+    case "folder":
+      return (
+        <svg {...common}>
+          <path d="M4 20a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5l2 3h7a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2z" />
+        </svg>
+      );
+    case "id":
+      return (
+        <svg {...common}>
+          <rect x="3" y="4" width="18" height="16" rx="2" />
+          <circle cx="9" cy="10" r="2" />
+          <path d="M15 9h3M15 13h3M6 16c.5-1.5 1.7-2 3-2s2.5.5 3 2" />
+        </svg>
+      );
+    case "wrench":
+      return (
+        <svg {...common}>
+          <path d="M14.7 6.3a4 4 0 0 0-5.4 5.3L3 18v3h3l6.4-6.4a4 4 0 0 0 5.3-5.4l-2.7 2.7-2.6-.6-.6-2.6z" />
+        </svg>
+      );
+    case "bot":
+      return (
+        <svg {...common}>
+          <rect x="4" y="8" width="16" height="11" rx="2.5" />
+          <path d="M12 4v4M9 13h.01M15 13h.01" />
+          <path d="M8 19v1M16 19v1" />
+        </svg>
+      );
+    default:
+      return null;
+  }
+}
+
+function VitreenToolsCard({ card }) {
+  return (
+    <article className="vitreen-tools-card">
+      <div className="vitreen-tools-card-body">
+        <h3 className="vitreen-tools-card-name">
+          {card.wordmark ? (
+            <img
+              className="vitreen-tools-wordmark"
+              src={card.wordmark}
+              alt={card.wordmarkAlt}
+            />
+          ) : (
+            <>
+              {card.icon ? (
+                <img className="vitreen-tools-icon" src={card.icon} alt="" aria-hidden="true" />
+              ) : (
+                <span className="vitreen-tools-glyph-icon">
+                  <VitreenToolsGlyph name={card.glyph} />
+                </span>
+              )}
+              <span style={card.nameStyle}>{card.name}</span>
+            </>
+          )}
+        </h3>
+        <div className="vitreen-tools-card-meta">
+          <span>{card.meta}</span>
+          {card.pill && <em className="vitreen-tools-pill">{card.pill}</em>}
+        </div>
+      </div>
+      <span className="vitreen-tools-arrow" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M7 17 17 7M7 7h10v10" />
+        </svg>
+      </span>
+    </article>
+  );
+}
+
+function VitreenToolsMock() {
+  return (
+    <div className="vitreen-tools-app">
+      <aside className="vitreen-tools-sidebar">
+        <div className="vitreen-tools-brand">
+          <span className="vitreen-tools-brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="1.8" strokeLinejoin="round">
+              <path d="M12 3 3 8l9 5 9-5-9-5z" />
+              <path d="M3 12l9 5 9-5M3 16l9 5 9-5" />
+            </svg>
+          </span>
+          <strong>Gallery OS</strong>
+        </div>
+        <nav className="vitreen-tools-nav">
+          {VITREEN_TOOLS_NAV.map((item) => (
+            <span
+              key={item.label}
+              className={`vitreen-tools-nav-item${item.active ? " is-active" : ""}`}
+            >
+              <VitreenToolsGlyph name={item.glyph} />
+              <span>{item.label}</span>
+              {item.badge && <em className="vitreen-tools-nav-badge">{item.badge}</em>}
+            </span>
+          ))}
+        </nav>
+        <div className="vitreen-tools-sidebar-foot">
+          <span>Powered by V…</span>
+          <span>Déconnexion</span>
+        </div>
+      </aside>
+
+      <main className="vitreen-tools-main">
+        <header className="vitreen-tools-head">
+          <h1>Tools</h1>
+          <p>Your extensions and integrations — the infrastructure that lives outside the dashboard.</p>
+        </header>
+
+        {VITREEN_TOOLS_SECTIONS.map((section) => (
+          <section className="vitreen-tools-section" key={section.title}>
+            <h2>{section.title}</h2>
+            <p>{section.subtitle}</p>
+            <div className="vitreen-tools-grid">
+              {section.cards.map((card) => (
+                <VitreenToolsCard card={card} key={card.id} />
+              ))}
+            </div>
+          </section>
+        ))}
+      </main>
+    </div>
+  );
+}
+
+const VITREEN_ANALYTICS_KPIS = [
+  { label: "Galeries déployées", value: "—", hint: "Mesure à venir" },
+  { label: "Délai moyen d'installation", value: "—", hint: "Mesure à venir" },
+  { label: "Workflows intégrés", value: "—", hint: "Mesure à venir" },
+  { label: "MRR", value: "—", hint: "Mesure à venir" },
+];
+
+function VitreenAnalyticsPending() {
+  // Bars volontairement plates / placeholder — le dashboard est prêt,
+  // il attend les premières données réelles.
+  const bars = [38, 22, 30, 18, 26, 14, 20, 12, 24, 16, 28, 19];
+
+  return (
+    <div className="vitreen-analytics" role="img" aria-label="Tableau de bord analytics en attente de données">
+      <div className="vitreen-analytics-head">
+        <div>
+          <h4>Insights</h4>
+          <span>Déploiement &amp; revenus</span>
+        </div>
+        <div className="vitreen-analytics-range" aria-hidden="true">
+          <span className="is-active">30 j</span>
+          <span>90 j</span>
+          <span>Tout</span>
+        </div>
+      </div>
+
+      <div className="vitreen-analytics-kpis">
+        {VITREEN_ANALYTICS_KPIS.map((kpi) => (
+          <div className="vitreen-analytics-kpi" key={kpi.label}>
+            <span className="vitreen-analytics-kpi-label">{kpi.label}</span>
+            <strong className="vitreen-analytics-kpi-value">{kpi.value}</strong>
+            <span className="vitreen-analytics-kpi-hint">{kpi.hint}</span>
+          </div>
+        ))}
+      </div>
+
+      <div className="vitreen-analytics-chart">
+        <div className="vitreen-analytics-bars" aria-hidden="true">
+          {bars.map((h, i) => (
+            <span key={i} style={{ height: `${h}%` }} />
+          ))}
+        </div>
+        <div className="vitreen-analytics-empty" aria-hidden="true">
+          <span className="vitreen-analytics-empty-dot" />
+          <p>En attente de données</p>
+          <small>Le suivi des déploiements est la prochaine étape</small>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const VITREEN_NEXT_STEPS = [
+  {
+    num: "01",
+    title: "Développer les add-ins",
+    text: "Étendre l'add-in Gmail (puis Outlook) : insérer œuvres, sélections et viewing rooms sans jamais quitter la messagerie.",
+  },
+  {
+    num: "02",
+    title: "Connecter plus d'outils",
+    text: "WhatsApp Business, Stripe, calendriers, stockage — chaque canal déjà utilisé devient un point d'entrée vers Gallery OS.",
+  },
+  {
+    num: "03",
+    title: "Piloter depuis le mobile",
+    text: "Un companion mobile : valider une vente, envoyer une sélection, répondre à une inquiry — directement depuis le téléphone.",
+  },
+];
+
+function VitreenWhatsNext() {
+  return (
+    <section className="vitreen-next" aria-label="What's next — prochaines étapes">
+      <div className="vitreen-module-copy">
+        <div>
+          <span>What's next</span>
+          <h3>Étendre la couche de distribution</h3>
+        </div>
+        <p>
+          Brancher progressivement chaque outil de la galerie, jusqu'à ce que le galeriste
+          pilote tout son opérationnel — inventaire, viewing rooms, inquiries, ventes —
+          uniquement depuis son téléphone.
+        </p>
+      </div>
+
+      <div className="vitreen-next-cards">
+        {VITREEN_NEXT_STEPS.map((step) => (
+          <article className="vitreen-next-card" key={step.num}>
+            <p className="vitreen-next-card-text">{step.text}</p>
+            <span className="vitreen-next-card-label">{step.title}</span>
+          </article>
+        ))}
+      </div>
+    </section>
   );
 }
 
@@ -911,15 +1245,23 @@ function VitreenUseCaseModal({ project, liveUrl, onClose }) {
             <dl className="vitreen-editorial-meta">
               <div>
                 <dt>Livrable</dt>
-                <dd>Gallery OS</dd>
+                <dd>Vitreen — Gallery OS</dd>
               </div>
               <div>
                 <dt>Secteur</dt>
-                <dd>Art contemporain</dd>
+                <dd>Art contemporain · Galeries</dd>
               </div>
               <div>
-                <dt>Disciplines</dt>
-                <dd>Product Design · Front-end</dd>
+                <dt>Période</dt>
+                <dd>2025 — en cours</dd>
+              </div>
+              <div>
+                <dt>Rôle</dt>
+                <dd>Product Design &amp; Founder (solo)</dd>
+              </div>
+              <div>
+                <dt>Statut</dt>
+                <dd>Prototype en validation</dd>
               </div>
             </dl>
             <div className="vitreen-editorial-main">
@@ -927,10 +1269,29 @@ function VitreenUseCaseModal({ project, liveUrl, onClose }) {
                 Comment faire circuler les œuvres entre les outils d'une galerie sans lui
                 imposer une nouvelle manière de travailler ?
               </p>
+              <div className="vitreen-editorial-body">
+                <p>
+                  <strong>Vitreen est un Digital Sales Partner pour galeries d'art.</strong>{" "}
+                  Deux couches, une marque : <em>vitreen.art</em> porte la promesse,{" "}
+                  <em>Gallery OS</em> est l'atelier opérationnel — inventaire, inquiries,
+                  sélections privées et Viewing Room Studio.
+                </p>
+                <p>
+                  Les galeries ont les œuvres, mais pas le pipeline pour les faire circuler.
+                  Chaque envoi collectionneur repart de zéro — export Excel, PDF, lien
+                  WhatsApp : les outils existants stockent l'archive, ils ne la distribuent pas.
+                </p>
+                <p>
+                  D'un studio de création de sites, le projet a pivoté vers une infrastructure
+                  de vente — une couche qui se branche sur les habitudes existantes. Conçu en
+                  solo et entièrement vibe-codé avec Claude Code.
+                </p>
+              </div>
             </div>
           </section>
           <VitreenMetricsRow />
           <VitreenProductModules project={project} />
+          <VitreenWhatsNext />
         </div>
       </div>
     </div>
