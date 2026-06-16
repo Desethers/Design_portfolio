@@ -476,22 +476,106 @@ function StackCardBadge({ stack, className = "" }) {
 }
 
 function Home() {
-  const cardsTrackRef = useRef(null);
   const projectOf = (s) => bentoProjects.find((p) => p.slug === s.projects[0]);
 
-  const slots = [
+  const primarySlots = [
     { stack: STACKS[0], projectSlug: "vitreen", landscape: true },
+    { stack: STACKS[4], customContent: "gallery-os" },
+    { stack: STACKS[1], landscape: true },
+  ];
+
+  const secondarySlots = [
     {
       stack: { ...STACKS[1], id: "cursor", name: "Cursor" },
       customContent: "sales-agent",
     },
-    { stack: STACKS[4], customContent: "gallery-os" },
     { stack: STACKS[0], customContent: "vitreen-reel" },
     { stack: STACKS[2] },
-    { stack: STACKS[1], landscape: true },
     { stack: STACKS[4], customContent: "hanging-booking" },
     { stack: STACKS[3] },
   ];
+
+  const renderSlot = ({ stack, projectSlug, customContent, landscape, mediaOverride }) => {
+    if (customContent === "sales-agent") {
+      return (
+        <div
+          key={stack.id}
+          className="stack-card-slot stack-card-slot--sales-agent"
+        >
+          <StackCardBadge stack={stack} />
+          <SalesAgentCard />
+        </div>
+      );
+    }
+
+    if (customContent === "hanging-booking") {
+      return (
+        <div key={stack.id} className="stack-card-slot stack-card-slot--booking">
+          <StackCardBadge stack={stack} />
+          <StackCardBadge
+            stack={{ id: "figma", name: "Figma" }}
+            className="stack-card-badge--secondary"
+          />
+          <StackCardBadge
+            stack={{ id: "stripe", name: "Stripe" }}
+            className="stack-card-badge--tertiary"
+          />
+          <Link to="/booking" className="hanging-booking-link">
+            <HangingBookingPreview />
+          </Link>
+        </div>
+      );
+    }
+
+    if (customContent === "gallery-os") {
+      const galleryProject = projects.find((p) => p.slug === "gallery-os");
+      if (!galleryProject) return null;
+      return (
+        <div
+          key="gallery-os"
+          className="stack-card-slot stack-card-slot--landscape stack-card-slot--gallery-os"
+        >
+          <StackCardBadge stack={stack} />
+          <GalleryOsCard project={galleryProject} />
+        </div>
+      );
+    }
+
+    if (customContent === "vitreen-reel") {
+      return (
+        <div key="vitreen-reel" className="stack-card-slot stack-card-slot--reel">
+          <StackCardBadge stack={{ id: "buffer", name: "Buffer" }} />
+          <StackCardBadge
+            stack={{ id: "capcut", name: "CapCut" }}
+            className="stack-card-badge--secondary"
+          />
+          <VitreenReelCard reelId="DYEWo3elU9-" />
+        </div>
+      );
+    }
+
+    const project = projectSlug
+      ? bentoProjects.find((item) => item.slug === projectSlug)
+      : projectOf(stack);
+    if (!project) return null;
+    return (
+      <div
+        key={stack.id}
+        className={`stack-card-slot${
+          landscape ? " stack-card-slot--landscape" : ""
+        }${projectSlug ? " stack-card-slot--desktop-preview" : ""}`}
+      >
+        <StackCardBadge stack={stack} />
+        {projectSlug === "vitreen" && stack.id === "claude-code" && (
+          <StackCardBadge
+            stack={{ id: "figma", name: "Figma" }}
+            className="stack-card-badge--secondary"
+          />
+        )}
+        <BentoCard project={project} mediaOverride={mediaOverride} />
+      </div>
+    );
+  };
 
   return (
     <main className="main main--stack">
@@ -508,13 +592,14 @@ function Home() {
         </p>
         <div className="home-hero-bio">
           <p>
-            Je conçois des outils et des interfaces qui simplifient des opérations
-            complexes et les transforment en expériences claires et efficaces.
+            Issu du monde de l&apos;art contemporain, je conçois des outils et des
+            systèmes à partir de problèmes opérationnels réels.
           </p>
           <p>
-            Mon travail s&apos;appuie sur le design, la technologie et l&apos;intelligence
-            artificielle, avec une attention particulière portée aux usages réels. Cette
-            approche guide aujourd&apos;hui des projets comme{" "}
+            Mon travail explore la manière dont le design, la technologie et
+            l&apos;intelligence artificielle peuvent améliorer les workflows et la
+            circulation de l&apos;information. Cette démarche guide aujourd&apos;hui des
+            projets comme{" "}
             <a href="https://vitreen.art" target="_blank" rel="noopener noreferrer">
               Vitreen
             </a>{" "}
@@ -529,92 +614,14 @@ function Home() {
 
       <h2 className="stack-section-title">Projets récents</h2>
 
-      <section
-        className="stack-cards"
-        aria-label="Projets"
-        ref={cardsTrackRef}
-      >
-        {slots.map(({ stack, projectSlug, customContent, landscape, mediaOverride }) => {
-          if (customContent === "sales-agent") {
-            return (
-              <div
-                key={stack.id}
-                className="stack-card-slot stack-card-slot--sales-agent"
-              >
-                <StackCardBadge stack={stack} />
-                <SalesAgentCard />
-              </div>
-            );
-          }
+      <section className="stack-cards" aria-label="Projets récents">
+        {primarySlots.map(renderSlot)}
+      </section>
 
-          if (customContent === "hanging-booking") {
-            return (
-              <div key={stack.id} className="stack-card-slot stack-card-slot--booking">
-                <StackCardBadge stack={stack} />
-                <StackCardBadge
-                  stack={{ id: "figma", name: "Figma" }}
-                  className="stack-card-badge--secondary"
-                />
-                <StackCardBadge
-                  stack={{ id: "stripe", name: "Stripe" }}
-                  className="stack-card-badge--tertiary"
-                />
-                <Link to="/booking" className="hanging-booking-link">
-                  <HangingBookingPreview />
-                </Link>
-              </div>
-            );
-          }
+      <h2 className="stack-section-title">Explorations &amp; features</h2>
 
-          if (customContent === "gallery-os") {
-            const galleryProject = projects.find((p) => p.slug === "gallery-os");
-            if (!galleryProject) return null;
-            return (
-              <div
-                key="gallery-os"
-                className="stack-card-slot stack-card-slot--landscape stack-card-slot--gallery-os"
-              >
-                <StackCardBadge stack={stack} />
-                <GalleryOsCard project={galleryProject} />
-              </div>
-            );
-          }
-
-          if (customContent === "vitreen-reel") {
-            return (
-              <div key="vitreen-reel" className="stack-card-slot stack-card-slot--reel">
-                <StackCardBadge stack={{ id: "buffer", name: "Buffer" }} />
-                <StackCardBadge
-                  stack={{ id: "capcut", name: "CapCut" }}
-                  className="stack-card-badge--secondary"
-                />
-                <VitreenReelCard reelId="DYEWo3elU9-" />
-              </div>
-            );
-          }
-
-          const project = projectSlug
-            ? bentoProjects.find((item) => item.slug === projectSlug)
-            : projectOf(stack);
-          if (!project) return null;
-          return (
-            <div
-              key={stack.id}
-              className={`stack-card-slot${
-                landscape ? " stack-card-slot--landscape" : ""
-              }${projectSlug ? " stack-card-slot--desktop-preview" : ""}`}
-            >
-              <StackCardBadge stack={stack} />
-              {projectSlug === "vitreen" && stack.id === "claude-code" && (
-                <StackCardBadge
-                  stack={{ id: "figma", name: "Figma" }}
-                  className="stack-card-badge--secondary"
-                />
-              )}
-              <BentoCard project={project} mediaOverride={mediaOverride} />
-            </div>
-          );
-        })}
+      <section className="stack-cards" aria-label="Explorations et features">
+        {secondarySlots.map(renderSlot)}
       </section>
     </main>
   );
