@@ -698,11 +698,11 @@ export const projects = [
           { term: "Statut", value: "Prototype en validation" },
         ],
         intro:
-          "Comment réunir inventaire, demandes et sorties collectionneur dans un seul espace, sans alourdir le quotidien de la galerie ?",
+          "Comment améliorer la circulation des œuvres entre équipes, collectionneurs et canaux de diffusion à partir d'une seule source de données ?",
         body: [
-          "Gallery OS est la couche opérationnelle de Vitreen — là où la galerie travaille au quotidien. Inventaire, inquiries, sélections privées, Viewing Room Studio et intégration Gmail vivent dans un même atelier, signé « Powered by Vitreen ».",
-          "Le problème n'est pas de stocker les œuvres — Artlogic, Excel ou Artsy le font déjà. C'est de les faire circuler : chaque réponse collectionneur repart d'un export manuel, d'un PDF InDesign, d'un lien recollé. Gallery OS transforme l'inventaire en point de départ d'une vente, plus en simple archive.",
-          "Le dashboard est conçu pour s'insérer dans les habitudes existantes : on garde sa boîte mail, ses fichiers, son rythme — Gallery OS se branche dessus plutôt que d'imposer une migration. Conçu en solo et entièrement vibe-codé avec Claude Code et Cursor.",
+          "Gallery OS explore comment centraliser les données liées aux œuvres afin d'améliorer leur diffusion et leur efficacité commerciale.",
+          "La recherche a montré que ces informations étaient souvent dispersées entre plusieurs outils — CRM, stockage cloud, emails ou PDF — générant des tâches répétitives et une visibilité limitée sur les interactions commerciales.",
+          "La réponse proposée consiste en une couche opérationnelle connectée aux systèmes existants, capable de transformer une base de données d'œuvres en emails, PDF de sélection, viewing rooms ou espaces privés.",
         ],
         metrics: [
           { value: "9", label: "Modules dans le dashboard" },
@@ -712,6 +712,16 @@ export const projects = [
           { value: "100%", label: "Vibe-codé — Claude Code · Cursor" },
         ],
         modules: [
+          {
+            tag: "Positionnement",
+            title: "Une couche de circulation, pas un silo de plus",
+            text: "Les galeries ne manquent pas d'outils pour stocker leurs œuvres — Artlogic, CRM, cloud ou tableurs le font déjà. Gallery OS ne cherche pas à les remplacer : il se branche dessus pour faire circuler la donnée, de l'inventaire jusqu'au collectionneur.",
+            cards: [
+              { title: "Les outils stockent", text: "Artlogic, CRM, stockage cloud ou PDF archivent l'inventaire — mais chaque diffusion repart d'un export manuel." },
+              { title: "Gallery OS connecte", text: "Une couche opérationnelle branchée sur les sources existantes, qui transforme la donnée en sorties commerciales." },
+              { title: "Powered by Vitreen", text: "Gallery OS porte les opérations, Vitreen porte la promesse marché — une marque, deux couches." },
+            ],
+          },
           {
             tag: "Inventaire",
             title: "Un inventaire, tous les workflows",
