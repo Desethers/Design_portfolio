@@ -491,7 +491,6 @@ export const projects = [
               { name: "Sanity", role: "Contenu", icon: "/icones/sanity.png" },
               { name: "WhatsApp", role: "Intégration", icon: "/icones/whatsapp.svg" },
               { name: "Gmail API", role: "Intégration", icon: "/vitreen/google-gmail-svgrepo-com.svg" },
-              { name: "Stripe", role: "Paiements", icon: "/icones/stripe.svg" },
               { name: "Vercel", role: "Déploiement", icon: "/icones/vercel.svg" },
             ],
           },
@@ -522,42 +521,6 @@ export const projects = [
             title: "Quatre activités pour décrire le produit",
             text: "Plutôt que de présenter Vitreen comme une accumulation d'outils, le produit a été organisé autour de quatre activités : gérer les œuvres, publier, accompagner les collectionneurs et soutenir les opérations de la galerie.",
             type: "vitreen-products",
-          },
-          {
-            tag: "Content & Positioning",
-            title: "Construire une audience autour du produit",
-            text: "J'ai utilisé Instagram comme un média dédié aux galeries et au marché de l'art pour développer une communauté, tester des angles de communication et renforcer le positionnement de Vitreen.",
-            type: "vitreen-reels",
-            items: [
-              {
-                id: "DYR0tVrmrxT",
-                url: "https://www.instagram.com/vitreen.art/reel/DYR0tVrmrxT/",
-              },
-              {
-                id: "DZO8kHvkxt7",
-                url: "https://www.instagram.com/vitreen.art/reel/DZO8kHvkxt7/",
-              },
-              {
-                id: "DX6A9E6txtp",
-                url: "https://www.instagram.com/vitreen.art/reel/DX6A9E6txtp/",
-              },
-              {
-                id: "DYOlEZDD_WX",
-                url: "https://www.instagram.com/vitreen.art/reel/DYOlEZDD_WX/",
-              },
-              {
-                id: "DYlwavGCuLg",
-                url: "https://www.instagram.com/vitreen.art/reel/DYlwavGCuLg/",
-              },
-              {
-                id: "DYEWo3elU9-",
-                url: "https://www.instagram.com/vitreen.art/reel/DYEWo3elU9-/",
-              },
-              {
-                id: "DX1pScFMc9E",
-                url: "https://www.instagram.com/vitreen.art/reel/DX1pScFMc9E/",
-              },
-            ],
           },
           {
             tag: "État du projet",

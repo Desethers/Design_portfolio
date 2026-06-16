@@ -13,14 +13,14 @@ export const VITREEN_SIDEBAR_ITEMS = [
 ];
 
 export const VITREEN_ARTWORKS = [
-  { title: "Evening Field", year: "2023", price: "8 000 €", color: "#1B2A4A" },
-  { title: "Dawn Study No. 7", year: "2024", price: "6 000 €", color: "#C8D2EE" },
-  { title: "Untitled (Horizon)", year: "2024", price: "8 000 €", color: "#E8D34A" },
-  { title: "Sun Dog", year: "2024", price: "12 000 €", color: "#7A1F18" },
-  { title: "Studio Notebook", year: "2022", price: "4 500 €", color: "#3E4A60" },
-  { title: "Solstice", year: "2024", price: "14 000 €", color: "#D4A574" },
-  { title: "River", year: "2023", price: "9 200 €", color: "#2D5043" },
-  { title: "Northern Light", year: "2022", price: "11 500 €", color: "#4A6B7A" },
+  { title: "Evening Field", year: "2023", price: "8 000 €", color: "#1B2A4A", image: "/artworks/evening-field.png" },
+  { title: "Dawn Study No. 7", year: "2024", price: "6 000 €", color: "#C8D2EE", image: "/artworks/dawn-study.png" },
+  { title: "Untitled (Horizon)", year: "2024", price: "8 000 €", color: "#E8D34A", image: "/artworks/untitled-horizon.jpg" },
+  { title: "Sun Dog", year: "2024", price: "12 000 €", color: "#7A1F18", image: "/artworks/sun-dog.jpg" },
+  { title: "Studio Notebook", year: "2022", price: "4 500 €", color: "#3E4A60", image: "/artworks/studio-notebook.jpg" },
+  { title: "Solstice", year: "2024", price: "14 000 €", color: "#D4A574", image: "/artworks/solstice.jpg" },
+  { title: "River", year: "2023", price: "9 200 €", color: "#2D5043", image: "/artworks/river.jpg" },
+  { title: "Northern Light", year: "2022", price: "11 500 €", color: "#4A6B7A", image: "/artworks/northern-light.jpg" },
 ];
 
 const VITREEN_ADOPTION_ARTWORKS = [
@@ -112,7 +112,11 @@ export function VitreenSiteV21() {
               <div key={row.title} className="vitreen-glass-row">
                 <span className="vitreen-glass-row-title">
                   <i>
-                    <b style={{ background: row.color }} />
+                    {row.image ? (
+                      <img src={row.image} alt="" aria-hidden="true" />
+                    ) : (
+                      <b style={{ background: row.color }} />
+                    )}
                   </i>
                   {row.title}
                 </span>
@@ -287,7 +291,11 @@ export function GalleryOsDashboard({ className = "" }) {
           <div key={row.title} className="vitreen-glass-row">
             <span className="vitreen-glass-row-title">
               <i>
-                <b style={{ background: row.color }} />
+                {row.image ? (
+                  <img src={row.image} alt="" aria-hidden="true" />
+                ) : (
+                  <b style={{ background: row.color }} />
+                )}
               </i>
               {row.title}
             </span>

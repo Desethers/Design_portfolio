@@ -5,6 +5,7 @@ import { SITE } from "./site.js";
 import ProjectPage, { VitreenReelsPage } from "./ProjectPage.jsx";
 import HangingTechnicalDrawing from "./HangingTechnicalDrawing.jsx";
 import HangingBookingPreview from "./HangingBookingPreview.jsx";
+import SalesAgentPreview from "./SalesAgentPreview.jsx";
 import { VitreenSiteV21, GalleryOsDashboard } from "./VitreenSite.jsx";
 
 const BENTO_SIZE = {
@@ -688,7 +689,7 @@ function SalesAgentPage() {
   return (
     <FeaturePage
       heroClassName="feature-hero--sales"
-      hero={<SalesAgentMock />}
+      hero={<SalesAgentPreview />}
       intro={{
         meta: [
           { term: "Produit", value: "Gallery OS · Vitreen" },
