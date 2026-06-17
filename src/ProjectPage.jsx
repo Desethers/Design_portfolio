@@ -1314,6 +1314,25 @@ function VitreenUseCaseModal({ project, liveUrl, onClose }) {
   );
 }
 
+function renderUseCaseText(text) {
+  return text.split("\n\n").map((block, index) => {
+    const lines = block.split("\n").filter(Boolean);
+    const isList = lines.every((line) => line.trim().startsWith("- "));
+
+    if (isList) {
+      return (
+        <ul key={index}>
+          {lines.map((line) => (
+            <li key={line}>{line.trim().replace(/^- /, "")}</li>
+          ))}
+        </ul>
+      );
+    }
+
+    return <p key={index}>{block}</p>;
+  });
+}
+
 function HangingUseCaseModal({ project, liveUrl, onClose }) {
   const useCase = project.caseStudy?.useCase;
   const showcaseScreens = project.process?.wireframes?.length
@@ -1404,14 +1423,16 @@ function HangingUseCaseModal({ project, liveUrl, onClose }) {
               </div>
             </div>
           </section>
-          <section className="vitreen-metrics" aria-label="Chiffres clés du projet">
-            {useCase.metrics.map((metric) => (
-              <div className="vitreen-metric" key={metric.label}>
-                <span className="vitreen-metric-value">{metric.value}</span>
-                <span className="vitreen-metric-label">{metric.label}</span>
-              </div>
-            ))}
-          </section>
+          {useCase.metrics?.length > 0 && (
+            <section className="vitreen-metrics" aria-label="Chiffres clés du projet">
+              {useCase.metrics.map((metric) => (
+                <div className="vitreen-metric" key={metric.label}>
+                  <span className="vitreen-metric-value">{metric.value}</span>
+                  <span className="vitreen-metric-label">{metric.label}</span>
+                </div>
+              ))}
+            </section>
+          )}
           <article className="vitreen-modules">
             {useCase.modules.map((module) => (
               <section className="vitreen-module" key={module.title}>
@@ -1420,12 +1441,38 @@ function HangingUseCaseModal({ project, liveUrl, onClose }) {
                     <span>{module.tag}</span>
                     <h3>{module.title}</h3>
                   </div>
-                  <p>{module.text}</p>
+                  <div className="vitreen-module-text">{renderUseCaseText(module.text)}</div>
                 </div>
                 {module.media ? (
                   <figure className="vitreen-module-media">
                     <img src={module.media} alt={module.title} />
                   </figure>
+                ) : module.type === "vitreen-stack" ? (
+                  <div className="vitreen-module-media vitreen-module-media--stack">
+                    <VitreenStackFlow items={module.items} />
+                  </div>
+                ) : module.type === "mockup-grid" ? (
+                  <div className="gos-mockup-grid">
+                    {module.mockups.map((m) => (
+                      <article className="gos-mockup-card" key={m.title}>
+                        <div className="gos-mockup-frame">
+                          <div className="gos-mockup-bar" aria-hidden="true">
+                            <span />
+                            <span />
+                            <span />
+                          </div>
+                          <img src={m.media} alt={m.title} loading="lazy" />
+                        </div>
+                        <div className="gos-mockup-copy">
+                          <div className="gos-mockup-head">
+                            <span className="gos-mockup-step">{m.step}</span>
+                            <h4 className="gos-mockup-title">{m.title}</h4>
+                          </div>
+                          <p className="gos-mockup-caption">{m.caption}</p>
+                        </div>
+                      </article>
+                    ))}
+                  </div>
                 ) : module.cards ? (
                   <div className="vitreen-next-cards hanging-module-cards">
                     {module.cards.map((card) => (

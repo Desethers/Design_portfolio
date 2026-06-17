@@ -2808,9 +2808,8 @@ a {
 
 .vitreen-editorial-body p {
   margin: 0;
-  font-size: clamp(0.95rem, 1.05vw, 1.02rem);
-  line-height: 1.6;
-  letter-spacing: -0.005em;
+  font-size: clamp(0.9rem, 1.25vw, 1.05rem);
+  line-height: 1.5;
   color: var(--color-text-muted);
 }
 
@@ -2909,6 +2908,29 @@ a {
   font-size: clamp(0.9rem, 1.25vw, 1.05rem);
   line-height: 1.5;
   color: var(--color-text-muted);
+}
+
+.vitreen-module-text {
+  display: grid;
+  gap: 1rem;
+}
+
+.vitreen-module-text p {
+  margin: 0;
+}
+
+.vitreen-module-text ul {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: clamp(0.9rem, 1.25vw, 1.05rem);
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+
+.vitreen-module-text li {
+  padding-left: 0.15rem;
 }
 
 .vitreen-module-media {
@@ -3730,6 +3752,92 @@ a {
   display: block;
   width: 100%;
   height: auto;
+}
+
+/* ── Architecture produit — grille 2×2 de mockups ───────────────────── */
+.gos-mockup-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1.1rem, 2.4vw, 1.75rem);
+  width: min(100%, 55rem);
+  margin: 0 auto;
+}
+
+.gos-mockup-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid #e4e4e7;
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 10px 28px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+}
+
+.gos-mockup-copy {
+  padding: 1rem 1.25rem 1.3rem;
+}
+
+.gos-mockup-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+
+.gos-mockup-step {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #a1a1aa;
+}
+
+.gos-mockup-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: #18181b;
+}
+
+.gos-mockup-frame {
+  border-bottom: 1px solid #e4e4e7;
+  overflow: hidden;
+  background: #fff;
+}
+
+.gos-mockup-bar {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 11px;
+  border-bottom: 1px solid #ededf0;
+  background: #f7f7f8;
+}
+
+.gos-mockup-bar span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #d4d4d8;
+}
+
+.gos-mockup-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.gos-mockup-caption {
+  margin: 0;
+  padding-top: 0.8rem;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: #71717a;
+}
+
+@media (max-width: 40rem) {
+  .gos-mockup-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .hanging-demo {
