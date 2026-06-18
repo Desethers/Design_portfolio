@@ -6,6 +6,7 @@ import {
   VitreenSiteV21,
   VitreenSiteAdoption,
   GalleryOsDashboard,
+  GalleryOsArtworkDetail,
 } from "./VitreenSite.jsx";
 
 function TldrBox({ tldr }) {
@@ -1071,6 +1072,120 @@ function VitreenInterviewInsights({ items }) {
   );
 }
 
+const GOSC_FANS = [
+  "M438 300 C486 300 502 96 548 96",
+  "M438 300 C490 300 506 222 548 222",
+  "M438 300 C490 300 506 348 548 348",
+  "M438 300 C486 300 502 474 548 474",
+];
+
+const GOSC_SURFACES = [
+  { top: 70, icon: "◫", title: "Sélections privées", sub: "pour un collectionneur" },
+  { top: 196, icon: "▦", title: "Viewing room", sub: "lien privé partageable" },
+  { top: 322, icon: "◍", title: "Inquiries", sub: "réponse + œuvres liées" },
+  { top: 448, icon: "✉", title: "Gmail", sub: "insérer l'œuvre dans un email" },
+];
+
+function VitreenCirculationCanvas() {
+  const wrapRef = useRef(null);
+  const stageRef = useRef(null);
+
+  useEffect(() => {
+    const wrap = wrapRef.current;
+    const stage = stageRef.current;
+    if (!wrap || !stage) return undefined;
+    const fit = () => {
+      const width = wrap.clientWidth;
+      if (!width) return;
+      stage.style.transform = `scale(${width / 740})`;
+    };
+    fit();
+    const ro = new ResizeObserver(fit);
+    ro.observe(wrap);
+    return () => ro.disconnect();
+  }, []);
+
+  return (
+    <div
+      className="gosc-wrap"
+      ref={wrapRef}
+      role="img"
+      aria-label="Schéma stratégie produit : la fiche œuvre est la source de vérité ; ses données alimentent les sélections privées, les viewing rooms, les inquiries et les emails (Gmail), sans remplacer l'archive existante."
+    >
+      <svg className="gosc-ratio" width="740" height="600" aria-hidden="true" />
+      <div className="gosc-stage" ref={stageRef} aria-hidden="true">
+        <svg width="740" height="600" className="gosc-lines">
+          <path className="gosc-ln gosc-ln--faded" style={{ animationDelay: "0.55s" }} d="M205 296 C226 296 234 300 256 300" />
+          {GOSC_FANS.map((d, i) => (
+            <path key={d} className="gosc-ln gosc-ln--accent" style={{ animationDelay: `${0.9 + i * 0.12}s` }} d={d} />
+          ))}
+        </svg>
+
+        <div className="gosc-card gosc-card--archive" style={{ left: 24, top: 252, width: 181, animationDelay: "0.05s" }}>
+          <div className="gosc-label">Archive existante</div>
+          <div className="gosc-row" style={{ marginBottom: 10 }}>
+            <span className="gosc-th gosc-th--neutral">▦</span>
+            <div>
+              <div className="gosc-name">5 980 œuvres</div>
+              <div className="gosc-sub">Artlogic · Excel</div>
+            </div>
+          </div>
+          <span className="gosc-chip">conservée, pas remplacée</span>
+        </div>
+
+        <div className="gosc-card gosc-fiche" style={{ left: 256, top: 232, width: 182, animationDelay: "0.2s" }}>
+          <div className="gosc-hub-head">
+            <span className="gosc-dot" />
+            <span className="gosc-hub-title">Fiche œuvre</span>
+          </div>
+          <div className="gosc-hub-sub">source de vérité</div>
+          <div className="gosc-row" style={{ marginBottom: 10 }}>
+            <span className="gosc-th gosc-th--accent">▦</span>
+            <div>
+              <div className="gosc-name">Composition bleue</div>
+              <div className="gosc-sub">12 000 € · disponible</div>
+            </div>
+          </div>
+          <div className="gosc-fiche-chips">
+            <span className="gosc-chip-xs">Prix</span>
+            <span className="gosc-chip-xs">Statut</span>
+            <span className="gosc-chip-xs">Docs</span>
+            <span className="gosc-chip-xs">Provenance</span>
+          </div>
+        </div>
+
+        <div className="gosc-annot" style={{ left: 256, top: 188 }}>
+          Une fiche → chaque surface produit
+        </div>
+
+        {GOSC_SURFACES.map((s, i) => (
+          <div
+            key={s.title}
+            className="gosc-card"
+            style={{ left: 548, top: s.top, width: 168, animationDelay: `${0.5 + i * 0.12}s` }}
+          >
+            <div className="gosc-row">
+              <span className="gosc-th gosc-th--accent">{s.icon}</span>
+              <div>
+                <div className="gosc-name">{s.title}</div>
+                <div className="gosc-sub">{s.sub}</div>
+              </div>
+            </div>
+          </div>
+        ))}
+
+        {GOSC_FANS.map((d, i) => (
+          <span
+            key={d}
+            className="gosc-pulse"
+            style={{ offsetPath: `path('${d}')`, animationDelay: `${1.5 + i * 0.4}s` }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function VitreenStackFlow({ items }) {
   return (
     <div className="vitreen-stack-flow">
@@ -1471,6 +1586,34 @@ function HangingUseCaseModal({ project, liveUrl, onClose }) {
                           <p className="gos-mockup-caption">{m.caption}</p>
                         </div>
                       </article>
+                    ))}
+                  </div>
+                ) : module.type === "vitreen-canvas" ? (
+                  <div className="vitreen-module-media vitreen-module-media--canvas">
+                    <VitreenCirculationCanvas />
+                  </div>
+                ) : module.type === "image-pair" ? (
+                  <div className="gos-pair">
+                    {module.images.map((img) => (
+                      <figure
+                        className={`gos-pair-frame${img.noBar ? " gos-pair-frame--no-bar" : ""}`}
+                        key={img.src ?? img.component}
+                      >
+                        {!img.noBar && (
+                          <div className="gos-mockup-bar" aria-hidden="true">
+                            <span />
+                            <span />
+                            <span />
+                          </div>
+                        )}
+                        {img.component === "artwork-detail" ? (
+                          <GalleryOsArtworkDetail />
+                        ) : /\.(mp4|mov|webm)$/i.test(img.src) ? (
+                          <video src={img.src} autoPlay loop muted playsInline loading="lazy" />
+                        ) : (
+                          <img src={img.src} alt={img.alt} loading="lazy" />
+                        )}
+                      </figure>
                     ))}
                   </div>
                 ) : module.cards ? (

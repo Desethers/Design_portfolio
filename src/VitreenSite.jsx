@@ -518,3 +518,133 @@ export function VitreenSiteAdoption() {
     </>
   );
 }
+
+export function GalleryOsArtworkDetail() {
+  const navItems = [
+    { icon: "▦", label: "Overview" },
+    { icon: "▤", label: "Artworks", active: true },
+    { icon: "◔", label: "Artists" },
+    { icon: "⛁", label: "Exhibitions" },
+    { icon: "▭", label: "Inquiries" },
+    { icon: "✉", label: "Sales drafts", badge: "2" },
+    { icon: "▢", label: "Private Selection" },
+    { icon: "◉", label: "Collectors" },
+    { icon: "⚙", label: "Tools" },
+  ];
+
+  return (
+    <div className="gosd">
+      {/* Sidebar */}
+      <aside className="gosd-sidebar">
+        <div className="gosd-brand">
+          <span className="gosd-brand-icon">▤</span>
+          <strong>Gallery OS</strong>
+          <span className="gosd-notif">3</span>
+        </div>
+        <nav className="gosd-nav">
+          {navItems.map((item) => (
+            <span key={item.label} className={`gosd-nav-item${item.active ? " is-active" : ""}`}>
+              <i>{item.icon}</i>
+              <span>{item.label}</span>
+              {item.badge && <em className="gosd-badge">{item.badge}</em>}
+            </span>
+          ))}
+        </nav>
+        <div className="gosd-foot">
+          <span>Déconnexion</span>
+          <span>© Vitreen</span>
+        </div>
+      </aside>
+
+      {/* Main */}
+      <main className="gosd-main">
+        <div className="gosd-breadcrumb">‹ Œuvres</div>
+
+        <div className="gosd-header">
+          <div>
+            <h2 className="gosd-title">Amber Nocturne</h2>
+            <p className="gosd-artist">Sacha Elron, 2025</p>
+          </div>
+          <button className="gosd-cta">✦ Créer un post</button>
+        </div>
+
+        <div className="gosd-body">
+          <div className="gosd-form">
+            <div className="gosd-field">
+              <label>Titre <span className="gosd-req">*</span></label>
+              <div className="gosd-input">Amber Nocturne</div>
+            </div>
+
+            <div className="gosd-field">
+              <label>Artiste</label>
+              <div className="gosd-input gosd-input--artist">
+                <span>Sacha Elron</span>
+                <span className="gosd-linked">✓ Lié</span>
+              </div>
+            </div>
+
+            <div className="gosd-row">
+              <div className="gosd-field">
+                <label>Année</label>
+                <div className="gosd-input gosd-input--sm">2025</div>
+              </div>
+              <div className="gosd-field gosd-field--grow">
+                <label>Medium</label>
+                <div className="gosd-input">Oil on canvas</div>
+              </div>
+            </div>
+
+            <div className="gosd-field">
+              <label>Dimensions</label>
+              <div className="gosd-dims">
+                <div className="gosd-input gosd-input--dim">150</div>
+                <span>×</span>
+                <div className="gosd-input gosd-input--dim">150</div>
+                <span>×</span>
+                <div className="gosd-input gosd-input--dim gosd-input--muted">0</div>
+                <div className="gosd-input gosd-input--dim">cm</div>
+              </div>
+            </div>
+
+            <div className="gosd-field">
+              <label>Statut</label>
+              <div className="gosd-pills">
+                <span className="gosd-pill gosd-pill--on">Disponible</span>
+                <span className="gosd-pill">Réservée</span>
+                <span className="gosd-pill">Vendue</span>
+                <span className="gosd-pill">NFS</span>
+                <span className="gosd-pill">Consignation</span>
+                <span className="gosd-pill">En prêt</span>
+              </div>
+            </div>
+
+            <div className="gosd-field">
+              <label>Prix</label>
+              <span className="gosd-pill gosd-pill--price">Prix sur demande</span>
+              <div className="gosd-price">
+                <span className="gosd-price-cur">EUR</span>
+                <span>14 000</span>
+              </div>
+            </div>
+
+            <div className="gosd-actions">
+              <span className="gosd-del">🗑</span>
+              <span className="gosd-cancel">Annuler</span>
+              <span className="gosd-save">Enregistrer</span>
+            </div>
+          </div>
+
+          {/* Image panel */}
+          <div className="gosd-image-panel">
+            <label>Image principale</label>
+            <div className="gosd-image-frame">
+              <span className="gosd-image-close">×</span>
+              <img src="/artworks/evening-field.png" alt="Amber Nocturne" />
+              <span className="gosd-image-badge">✓ Actuelle</span>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+}

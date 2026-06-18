@@ -3763,6 +3763,435 @@ a {
   margin: 0 auto;
 }
 
+/* ── Intégration Gmail — paire d'images sans légende ─────────────────── */
+.gos-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1.1rem, 2.4vw, 1.75rem);
+  width: min(100%, 55rem);
+  margin: 0 auto;
+  align-items: stretch;
+}
+
+.gos-pair-frame {
+  margin: 0;
+  background: #fff;
+  border: 1px solid #e4e4e7;
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 10px 28px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.gos-pair-frame img,
+.gos-pair-frame video {
+  display: block;
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  object-fit: cover;
+}
+
+.gos-pair-frame--no-bar {
+  background: #f4f4f5;
+}
+
+.gos-pair-frame--no-bar video {
+  object-fit: contain;
+  object-position: center center;
+  transform: scale(1.15) translate(-4%, -4%);
+}
+
+@media (max-width: 640px) {
+  .gos-pair {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ─── Gallery OS Artwork Detail mockup ───────────────────────────────────── */
+.gosd {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+  font-size: 10px;
+  background: #fff;
+  color: #18181b;
+  overflow: hidden;
+}
+
+.gosd-sidebar {
+  width: 130px;
+  flex-shrink: 0;
+  border-right: 1px solid #e4e4e7;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0 8px;
+  background: #fff;
+}
+
+.gosd-brand {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 10px 10px;
+  font-size: 10px;
+  font-weight: 600;
+  border-bottom: 1px solid #f4f4f5;
+  margin-bottom: 4px;
+}
+
+.gosd-brand-icon {
+  width: 18px;
+  height: 18px;
+  background: #18181b;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 9px;
+  flex-shrink: 0;
+}
+
+.gosd-notif {
+  margin-left: auto;
+  background: #22c55e;
+  color: #fff;
+  font-size: 7px;
+  font-weight: 700;
+  border-radius: 99px;
+  padding: 1px 4px;
+  line-height: 1.4;
+}
+
+.gosd-nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 0 6px;
+}
+
+.gosd-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 6px;
+  border-radius: 5px;
+  font-size: 9.5px;
+  color: #71717a;
+  cursor: default;
+}
+
+.gosd-nav-item i {
+  font-style: normal;
+  font-size: 9px;
+  width: 12px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.gosd-nav-item.is-active {
+  background: #f4f4f5;
+  color: #18181b;
+  font-weight: 500;
+}
+
+.gosd-badge {
+  margin-left: auto;
+  background: #18181b;
+  color: #fff;
+  font-size: 7px;
+  font-weight: 700;
+  font-style: normal;
+  border-radius: 99px;
+  padding: 1px 4px;
+}
+
+.gosd-foot {
+  padding: 8px 10px 0;
+  border-top: 1px solid #f4f4f5;
+  display: flex;
+  justify-content: space-between;
+  color: #a1a1aa;
+  font-size: 8px;
+}
+
+/* Main */
+.gosd-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 12px 8px;
+  overflow: hidden;
+}
+
+.gosd-breadcrumb {
+  font-size: 9px;
+  color: #71717a;
+  margin-bottom: 6px;
+}
+
+.gosd-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.gosd-title {
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0 0 1px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.gosd-artist {
+  font-size: 9px;
+  color: #71717a;
+  margin: 0;
+}
+
+.gosd-cta {
+  background: #18181b;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 4px 8px;
+  font-size: 8.5px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: default;
+}
+
+.gosd-body {
+  display: flex;
+  gap: 12px;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.gosd-form {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.gosd-field {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.gosd-field--grow {
+  flex: 1;
+}
+
+.gosd-field > label {
+  font-size: 8.5px;
+  font-weight: 500;
+  color: #3f3f46;
+}
+
+.gosd-req {
+  color: #ef4444;
+}
+
+.gosd-input {
+  border: 1px solid #e4e4e7;
+  border-radius: 5px;
+  padding: 3px 7px;
+  font-size: 9px;
+  color: #18181b;
+  background: #fff;
+  line-height: 1.5;
+}
+
+.gosd-input--sm { width: 44px; }
+.gosd-input--dim { width: 32px; text-align: center; padding: 3px 4px; }
+.gosd-input--muted { color: #a1a1aa; }
+
+.gosd-input--artist {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.gosd-linked {
+  font-size: 8px;
+  color: #16a34a;
+  font-weight: 500;
+}
+
+.gosd-row {
+  display: flex;
+  gap: 6px;
+}
+
+.gosd-dims {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 9px;
+  color: #71717a;
+}
+
+.gosd-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+}
+
+.gosd-pill {
+  border: 1px solid #e4e4e7;
+  border-radius: 99px;
+  padding: 2px 7px;
+  font-size: 8px;
+  color: #3f3f46;
+  cursor: default;
+}
+
+.gosd-pill--on {
+  background: #18181b;
+  border-color: #18181b;
+  color: #fff;
+  font-weight: 500;
+}
+
+.gosd-pill--price {
+  border-style: dashed;
+  margin-bottom: 3px;
+  display: inline-block;
+}
+
+.gosd-price {
+  border: 1px solid #e4e4e7;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  font-size: 9px;
+}
+
+.gosd-price-cur {
+  background: #f4f4f5;
+  padding: 3px 6px;
+  border-right: 1px solid #e4e4e7;
+  color: #71717a;
+  font-size: 8px;
+}
+
+.gosd-price span:last-child {
+  padding: 3px 7px;
+}
+
+.gosd-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 2px;
+  padding-top: 6px;
+  border-top: 1px solid #f4f4f5;
+}
+
+.gosd-del {
+  font-size: 10px;
+  border: 1px solid #e4e4e7;
+  border-radius: 4px;
+  padding: 2px 5px;
+  cursor: default;
+  color: #71717a;
+}
+
+.gosd-cancel {
+  margin-left: auto;
+  font-size: 9px;
+  color: #71717a;
+  cursor: default;
+}
+
+.gosd-save {
+  background: #18181b;
+  color: #fff;
+  border-radius: 5px;
+  padding: 3px 10px;
+  font-size: 9px;
+  font-weight: 500;
+  cursor: default;
+}
+
+/* Image panel */
+.gosd-image-panel {
+  width: 110px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.gosd-image-panel > label {
+  font-size: 8.5px;
+  font-weight: 500;
+  color: #3f3f46;
+}
+
+.gosd-image-frame {
+  position: relative;
+  border: 1px solid #e4e4e7;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #f9f9f9;
+  aspect-ratio: 1 / 1.1;
+}
+
+.gosd-image-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.gosd-image-close {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: #fff;
+  border: 1px solid #e4e4e7;
+  border-radius: 50%;
+  width: 14px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  line-height: 1;
+  cursor: default;
+  z-index: 1;
+  color: #3f3f46;
+}
+
+.gosd-image-badge {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  border: 1px solid #e4e4e7;
+  border-radius: 99px;
+  padding: 2px 7px;
+  font-size: 7.5px;
+  color: #16a34a;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
 .gos-mockup-card {
   display: flex;
   flex-direction: column;
@@ -7098,4 +7527,229 @@ a {
   stroke: currentColor;
   fill: none;
   stroke-width: 1.8;
+}
+
+
+/* ── Stratégie produit — canvas « source de vérité » (Gallery OS) ────── */
+.vitreen-module-media--canvas {
+  width: min(100%, 55rem);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  overflow: visible;
+}
+
+.gosc-wrap {
+  width: 100%;
+  max-width: 55rem;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+}
+
+.gosc-ratio {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.gosc-stage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 740px;
+  height: 600px;
+  transform-origin: top left;
+  background-color: #f5f5f3;
+  background-image: radial-gradient(rgba(23, 23, 22, 0.12) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+.gosc-lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.gosc-ln {
+  fill: none;
+  stroke: #c8c8c2;
+  stroke-width: 1.6;
+  stroke-dasharray: 340;
+  stroke-dashoffset: 340;
+  animation: gosc-draw 0.9s ease forwards;
+}
+
+.gosc-ln--accent {
+  stroke: #3b6fd4;
+  stroke-width: 1.6;
+}
+
+.gosc-ln--faded {
+  stroke: #c8c8c2;
+  stroke-width: 1.4;
+  opacity: 0.7;
+}
+
+.gosc-card {
+  position: absolute;
+  padding: 13px 14px;
+  background: #fff;
+  border: 1px solid #e4e4e7;
+  border-radius: 14px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  opacity: 0;
+  animation: gosc-pop 0.55s cubic-bezier(0.2, 0.7, 0.3, 1) forwards;
+}
+
+.gosc-card--archive {
+  background: #faf9f6;
+  border-style: dashed;
+  box-shadow: none;
+}
+
+.gosc-card--archive .gosc-name,
+.gosc-card--archive .gosc-sub {
+  color: var(--color-text-muted);
+}
+
+.gosc-fiche {
+  border: 1.5px solid #3b6fd4;
+  box-shadow: 0 6px 22px rgba(59, 111, 212, 0.12);
+}
+
+.gosc-label {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  margin-bottom: 10px;
+}
+
+.gosc-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.gosc-th {
+  width: 30px;
+  height: 30px;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.gosc-th--neutral {
+  background: #efece4;
+  color: #7c7a70;
+}
+
+.gosc-th--accent {
+  background: #e7eefb;
+  color: #3b6fd4;
+}
+
+.gosc-name {
+  font-weight: 500;
+  font-size: 13px;
+  color: #171716;
+}
+
+.gosc-sub {
+  font-size: 11.5px;
+  color: var(--color-text-muted);
+}
+
+.gosc-chip {
+  display: inline-flex;
+  align-items: center;
+  font-size: 11px;
+  color: #6c6a62;
+  background: #efece4;
+  border-radius: 7px;
+  padding: 5px 9px;
+}
+
+.gosc-hub-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 3px;
+}
+
+.gosc-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 3px;
+  background: #3b6fd4;
+}
+
+.gosc-hub-title {
+  font-weight: 500;
+  font-size: 14px;
+  color: #171716;
+}
+
+.gosc-hub-sub {
+  font-size: 11px;
+  color: #3b6fd4;
+  margin: 0 0 11px 17px;
+}
+
+.gosc-fiche-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 11px;
+}
+
+.gosc-chip-xs {
+  font-size: 10.5px;
+  color: #6c6a62;
+  background: #f3f1ea;
+  border-radius: 6px;
+  padding: 3px 7px;
+}
+
+.gosc-annot {
+  position: absolute;
+  font-size: 11.5px;
+  color: #3b6fd4;
+  letter-spacing: 0.01em;
+  opacity: 0;
+  animation: gosc-pop 0.55s ease 0.4s forwards;
+}
+
+.gosc-pulse {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #3b6fd4;
+  offset-anchor: center;
+  animation: gosc-pulse-move 2.8s ease-in-out infinite;
+}
+
+@keyframes gosc-pop {
+  from { opacity: 0; transform: translateY(12px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes gosc-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes gosc-pulse-move {
+  0% { offset-distance: 0%; opacity: 0; }
+  12% { opacity: 1; }
+  70% { offset-distance: 100%; opacity: 1; }
+  82% { opacity: 0; }
+  100% { offset-distance: 100%; opacity: 0; }
 }

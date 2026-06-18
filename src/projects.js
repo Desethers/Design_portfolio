@@ -714,12 +714,8 @@ export const projects = [
           {
             tag: "Stratégie produit",
             title: "Une infrastructure adaptée à chaque galerie",
-            text: "Gallery OS a été conçu comme une infrastructure opérationnelle plutôt qu'une plateforme centralisée. Le système est configuré à partir des opérations, des outils et des contraintes propres à chaque galerie.\n\n- Analyser les workflows existants et identifier les points de friction.\n- Connecter les données des œuvres aux usages clés : diffusion, sélections privées, communication et suivi commercial.\n- Adapter chaque déploiement à l'organisation réelle de la galerie, sans imposer de modèle unique.",
-            cards: [
-              { title: "Pas une archive de plus", text: "L'objectif n'est pas de remplacer les bases existantes, mais de transformer les informations stockées en surfaces produit utilisables." },
-              { title: "L'œuvre comme source de vérité", text: "La fiche œuvre porte les données réutilisées dans les sélections, inquiries, viewing rooms et emails." },
-              { title: "Continuité opérationnelle", text: "Le système relie le travail interne de la galerie aux moments où les œuvres sont partagées vers l'extérieur." },
-            ],
+            text: "Gallery OS a été conçu comme une infrastructure opérationnelle plutôt qu'une plateforme centralisée. La fiche œuvre devient la source de vérité : ses données sont réutilisées dans chaque surface produit, sans ressaisie ni archive supplémentaire.\n\n- Pas une archive de plus : on transforme les données stockées en surfaces utilisables, sans remplacer l'existant.\n- L'œuvre comme source de vérité : une fiche alimente sélections, inquiries, viewing rooms et emails.\n- Continuité opérationnelle : le travail interne reste relié aux moments où l'œuvre sort vers l'extérieur.",
+            type: "vitreen-canvas",
           },
           {
             tag: "Stack & workflow",
@@ -766,6 +762,16 @@ export const projects = [
                 caption: "Les sélections peuvent devenir des viewing rooms ou des pages collectionneur sans se détacher de l'inventaire source.",
                 media: "/vitreen/gallery-os-viewing-room-studio.png",
               },
+            ],
+          },
+          {
+            tag: "Intégration Gmail",
+            title: "De l'inventaire à l'email, sans ressaisie",
+            text: "La fiche œuvre ouverte dans Gallery OS (à gauche) est insérée telle quelle dans un email via l'add-on Gmail (à droite) — mêmes données, aucun copier-coller. La source de vérité surgit dans l'outil que la galerie utilise déjà.",
+            type: "image-pair",
+            images: [
+              { component: "artwork-detail" },
+              { src: "/Gallery OS/Gmail Extension chrome.mov", alt: "Add-on Gmail : la fiche œuvre Evening field insérée dans un email.", noBar: true },
             ],
           },
         ],
