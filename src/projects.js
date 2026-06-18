@@ -770,7 +770,7 @@ export const projects = [
             text: "La fiche œuvre ouverte dans Gallery OS (à gauche) est insérée telle quelle dans un email via l'add-on Gmail (à droite) — mêmes données, aucun copier-coller. La source de vérité surgit dans l'outil que la galerie utilise déjà.",
             type: "image-pair",
             images: [
-              { component: "artwork-detail" },
+              { src: "/Gallery OS/fiche oeuvre.png", alt: "Fiche œuvre Gallery OS" },
               { src: "/Gallery OS/Gmail Extension chrome.mov", alt: "Add-on Gmail : la fiche œuvre Evening field insérée dans un email.", noBar: true },
             ],
           },

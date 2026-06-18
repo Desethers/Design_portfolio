@@ -1073,17 +1073,52 @@ function VitreenInterviewInsights({ items }) {
 }
 
 const GOSC_FANS = [
-  "M438 300 C486 300 502 96 548 96",
-  "M438 300 C490 300 506 222 548 222",
-  "M438 300 C490 300 506 348 548 348",
-  "M438 300 C486 300 502 474 548 474",
+  "M444 192 C492 192 508 96 548 96",
+  "M444 192 C494 192 510 176 548 176",
+  "M444 192 C494 192 510 256 548 256",
+  "M444 192 C492 192 508 336 548 336",
 ];
 
+const GoscIconColumns = () => (
+  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <rect x="1" y="1" width="6" height="14" rx="1.5" fill="currentColor" fillOpacity=".18"/>
+    <rect x="9" y="1" width="6" height="14" rx="1.5"/>
+  </svg>
+);
+const GoscIconGrid = () => (
+  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <rect x="1" y="1" width="6" height="6" rx="1.5"/>
+    <rect x="9" y="1" width="6" height="6" rx="1.5"/>
+    <rect x="1" y="9" width="6" height="6" rx="1.5"/>
+    <rect x="9" y="9" width="6" height="6" rx="1.5"/>
+  </svg>
+);
+const GoscIconGlobe = () => (
+  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <circle cx="8" cy="8" r="7"/>
+    <path d="M1 8h14"/>
+    <path d="M8 1c-2.5 2-4 4.5-4 7s1.5 5 4 7M8 1c2.5 2 4 4.5 4 7s-1.5 5-4 7"/>
+  </svg>
+);
+const GoscIconMail = () => (
+  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <rect x="1" y="3" width="14" height="10" rx="2"/>
+    <path d="m1 5.5 7 5 7-5"/>
+  </svg>
+);
+const GoscIconArchive = () => (
+  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <rect x="1" y="1" width="14" height="3.5" rx="1"/>
+    <path d="M2 4.5V13a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V4.5"/>
+    <path d="M6.5 8h3"/>
+  </svg>
+);
+
 const GOSC_SURFACES = [
-  { top: 70, icon: "◫", title: "Sélections privées", sub: "pour un collectionneur" },
-  { top: 196, icon: "▦", title: "Viewing room", sub: "lien privé partageable" },
-  { top: 322, icon: "◍", title: "Inquiries", sub: "réponse + œuvres liées" },
-  { top: 448, icon: "✉", title: "Gmail", sub: "insérer l'œuvre dans un email" },
+  { top: 70, Icon: GoscIconColumns, title: "Sélections privées", sub: "pour un collectionneur" },
+  { top: 150, Icon: GoscIconGrid, title: "Viewing room", sub: "lien privé partageable" },
+  { top: 230, Icon: GoscIconGlobe, title: "Inquiries", sub: "réponse + œuvres liées" },
+  { top: 310, Icon: GoscIconMail, title: "Gmail", sub: "insérer l'œuvre dans un email" },
 ];
 
 function VitreenCirculationCanvas() {
@@ -1097,7 +1132,7 @@ function VitreenCirculationCanvas() {
     const fit = () => {
       const width = wrap.clientWidth;
       if (!width) return;
-      stage.style.transform = `scale(${width / 740})`;
+      stage.style.transform = `scale(${width / 800})`;
     };
     fit();
     const ro = new ResizeObserver(fit);
@@ -1112,19 +1147,19 @@ function VitreenCirculationCanvas() {
       role="img"
       aria-label="Schéma stratégie produit : la fiche œuvre est la source de vérité ; ses données alimentent les sélections privées, les viewing rooms, les inquiries et les emails (Gmail), sans remplacer l'archive existante."
     >
-      <svg className="gosc-ratio" width="740" height="600" aria-hidden="true" />
+      <svg className="gosc-ratio" width="800" height="390" aria-hidden="true" />
       <div className="gosc-stage" ref={stageRef} aria-hidden="true">
-        <svg width="740" height="600" className="gosc-lines">
-          <path className="gosc-ln gosc-ln--faded" style={{ animationDelay: "0.55s" }} d="M205 296 C226 296 234 300 256 300" />
+        <svg width="800" height="390" className="gosc-lines">
+          <path className="gosc-ln gosc-ln--faded" style={{ animationDelay: "0.55s" }} d="M205 152 C226 152 234 192 256 192" />
           {GOSC_FANS.map((d, i) => (
             <path key={d} className="gosc-ln gosc-ln--accent" style={{ animationDelay: `${0.9 + i * 0.12}s` }} d={d} />
           ))}
         </svg>
 
-        <div className="gosc-card gosc-card--archive" style={{ left: 24, top: 252, width: 181, animationDelay: "0.05s" }}>
+        <div className="gosc-card gosc-card--archive" style={{ left: 24, top: 132, width: 181, animationDelay: "0.05s" }}>
           <div className="gosc-label">Archive existante</div>
           <div className="gosc-row" style={{ marginBottom: 10 }}>
-            <span className="gosc-th gosc-th--neutral">▦</span>
+            <span className="gosc-th gosc-th--neutral"><GoscIconArchive /></span>
             <div>
               <div className="gosc-name">5 980 œuvres</div>
               <div className="gosc-sub">Artlogic · Excel</div>
@@ -1133,17 +1168,23 @@ function VitreenCirculationCanvas() {
           <span className="gosc-chip">conservée, pas remplacée</span>
         </div>
 
-        <div className="gosc-card gosc-fiche" style={{ left: 256, top: 232, width: 182, animationDelay: "0.2s" }}>
+        <div className="gosc-card gosc-fiche" style={{ left: 256, top: 60, width: 188, animationDelay: "0.2s" }}>
           <div className="gosc-hub-head">
             <span className="gosc-dot" />
             <span className="gosc-hub-title">Fiche œuvre</span>
           </div>
           <div className="gosc-hub-sub">source de vérité</div>
-          <div className="gosc-row" style={{ marginBottom: 10 }}>
-            <span className="gosc-th gosc-th--accent">▦</span>
-            <div>
-              <div className="gosc-name">Composition bleue</div>
-              <div className="gosc-sub">12 000 € · disponible</div>
+          <div className="gosc-artwork-mini">
+            <div className="gosc-artwork-mini-img">
+              <img src="/vitreen/painting-05.jpg" alt="Evening field" />
+            </div>
+            <div className="gosc-artwork-mini-body">
+              <div className="gosc-artwork-mini-artist">Sacha Elron</div>
+              <div className="gosc-artwork-mini-title"><strong>Evening field</strong>, 2023</div>
+              <div className="gosc-artwork-mini-footer">
+                <span>8 000 €</span>
+                <span className="gosc-artwork-mini-badge">Available</span>
+              </div>
             </div>
           </div>
           <div className="gosc-fiche-chips">
@@ -1154,18 +1195,18 @@ function VitreenCirculationCanvas() {
           </div>
         </div>
 
-        <div className="gosc-annot" style={{ left: 256, top: 188 }}>
+        <div className="gosc-annot" style={{ left: 256, top: 20 }}>
           Une fiche → chaque surface produit
         </div>
 
         {GOSC_SURFACES.map((s, i) => (
           <div
             key={s.title}
-            className="gosc-card"
-            style={{ left: 548, top: s.top, width: 168, animationDelay: `${0.5 + i * 0.12}s` }}
+            className="gosc-card gosc-card--surface"
+            style={{ left: 548, top: s.top, width: 230, animationDelay: `${0.5 + i * 0.12}s` }}
           >
             <div className="gosc-row">
-              <span className="gosc-th gosc-th--accent">{s.icon}</span>
+              <span className="gosc-th gosc-th--accent"><s.Icon /></span>
               <div>
                 <div className="gosc-name">{s.title}</div>
                 <div className="gosc-sub">{s.sub}</div>
