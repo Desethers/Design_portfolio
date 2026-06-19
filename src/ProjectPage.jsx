@@ -1284,6 +1284,69 @@ const VITREEN_SOLUTION_LINKS = [
   },
 ];
 
+const GOS_DECK_STEP_X = 52;
+const GOS_DECK_STEP_Y = 42;
+const GOS_DECK_BAR = 34;
+const GOS_DECK_ASPECT = 1704 / 2128;
+
+function GosMockupDeck({ mockups }) {
+  const n = mockups.length;
+  const [active, setActive] = useState(n - 1);
+  const ref = useRef(null);
+  const [height, setHeight] = useState(0);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return undefined;
+    const measure = () => {
+      const winW = el.clientWidth - GOS_DECK_STEP_X * (n - 1);
+      const winH = GOS_DECK_BAR + winW * GOS_DECK_ASPECT;
+      setHeight(winH + GOS_DECK_STEP_Y * (n - 1));
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [n]);
+
+  return (
+    <div
+      className="gos-deck"
+      ref={ref}
+      style={{ height: height ? `${height}px` : undefined }}
+    >
+      {mockups.map((m, i) => {
+        const isActive = i === active;
+        return (
+          <article
+            key={m.title}
+            className={`gos-deck-win${isActive ? " is-active" : ""}`}
+            style={{
+              left: `${i * GOS_DECK_STEP_X}px`,
+              top: `${i * GOS_DECK_STEP_Y}px`,
+              width: `calc(100% - ${GOS_DECK_STEP_X * (n - 1)}px)`,
+              zIndex: isActive ? n + 1 : i + 1,
+            }}
+            onMouseEnter={() => setActive(i)}
+            onFocus={() => setActive(i)}
+            tabIndex={0}
+          >
+            <div className="gos-win-bar" aria-hidden="true">
+              <span className="gos-win-dot" />
+              <span className="gos-win-dot" />
+              <span className="gos-win-dot" />
+              <span className="gos-win-title">{m.title}</span>
+            </div>
+            <div className="gos-win-body">
+              <img src={m.media} alt={m.title} loading="lazy" />
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  );
+}
+
 function VitreenProductsMenu() {
   const [activeMenu, setActiveMenu] = useState("products");
   const items =
@@ -1600,27 +1663,7 @@ function HangingUseCaseModal({ project, liveUrl, onClose }) {
                     <VitreenStackFlow items={module.items} />
                   </div>
                 ) : module.type === "mockup-grid" ? (
-                  <div className="gos-mockup-grid">
-                    {module.mockups.map((m) => (
-                      <article className="gos-mockup-card" key={m.title}>
-                        <div className="gos-mockup-frame">
-                          <div className="gos-mockup-bar" aria-hidden="true">
-                            <span />
-                            <span />
-                            <span />
-                          </div>
-                          <img src={m.media} alt={m.title} loading="lazy" />
-                        </div>
-                        <div className="gos-mockup-copy">
-                          <div className="gos-mockup-head">
-                            <span className="gos-mockup-step">{m.step}</span>
-                            <h4 className="gos-mockup-title">{m.title}</h4>
-                          </div>
-                          <p className="gos-mockup-caption">{m.caption}</p>
-                        </div>
-                      </article>
-                    ))}
-                  </div>
+                  <GosMockupDeck mockups={module.mockups} />
                 ) : module.type === "vitreen-canvas" ? (
                   <div className="vitreen-module-media vitreen-module-media--canvas">
                     <VitreenCirculationCanvas />

@@ -4270,6 +4270,72 @@ a {
   }
 }
 
+/* ── Mockup deck — fenêtres système empilées en cascade, hover pour basculer ── */
+.gos-deck {
+  position: relative;
+  width: min(100%, 55rem);
+  margin: 0 auto;
+}
+
+.gos-deck-win {
+  position: absolute;
+  background: #fff;
+  border: 1px solid #e4e4e7;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05), 0 18px 40px rgba(0, 0, 0, 0.09);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.4s ease;
+}
+
+.gos-deck-win.is-active {
+  border-color: #d4d4d8;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1), 0 34px 70px rgba(0, 0, 0, 0.16);
+  transform: translateY(-5px);
+}
+
+.gos-win-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 34px;
+  padding: 0 13px;
+  background: #f7f7f8;
+  border-bottom: 1px solid #ededf0;
+}
+
+.gos-win-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #d4d4d8;
+}
+
+.gos-win-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.72rem;
+  color: #9a9aa2;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.gos-win-body {
+  aspect-ratio: 2128 / 1704;
+  overflow: hidden;
+  background: #fff;
+}
+
+.gos-win-body img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 .hanging-demo {
   background: #f5f5f3;
 }
