@@ -1169,11 +1169,6 @@ function VitreenCirculationCanvas() {
         </div>
 
         <div className="gosc-card gosc-fiche" style={{ left: 256, top: 60, width: 188, animationDelay: "0.2s" }}>
-          <div className="gosc-hub-head">
-            <span className="gosc-dot" />
-            <span className="gosc-hub-title">Fiche œuvre</span>
-          </div>
-          <div className="gosc-hub-sub">source de vérité</div>
           <div className="gosc-artwork-mini">
             <div className="gosc-artwork-mini-img">
               <img src="/vitreen/painting-05.jpg" alt="Evening field" />
@@ -1195,9 +1190,6 @@ function VitreenCirculationCanvas() {
           </div>
         </div>
 
-        <div className="gosc-annot" style={{ left: 256, top: 20 }}>
-          Une fiche → chaque surface produit
-        </div>
 
         {GOSC_SURFACES.map((s, i) => (
           <div
