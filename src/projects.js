@@ -702,7 +702,13 @@ export const projects = [
           "Les workflows d'une galerie sont déjà répartis entre CRM, emails, PDF, stockage cloud, site web et échanges collectionneurs. Le problème n'est pas le manque d'outils, mais la nécessité de recomposer les informations d'œuvres à chaque fois qu'elles sortent de l'archive.",
           "Gallery OS prend la fiche œuvre comme point de départ des opérations : inventaire, sélections privées, réponses aux inquiries et sorties destinées aux collectionneurs.",
         ],
-        metrics: [],
+        metrics: [
+          { value: "120", label: "itérations produit" },
+          { value: "56", label: "composants UI" },
+          { value: "4", label: "surfaces produit" },
+          { value: "28", label: "fichiers d'intégration" },
+          { value: "1", label: "modèle de revenu à valider" },
+        ],
         modules: [
           {
             tag: "Insight",
@@ -746,7 +752,25 @@ export const projects = [
                 text: "De l'inventaire à l'email, sans ressaisie — la fiche œuvre est insérée telle quelle dans un message, mêmes données, aucun copier-coller.",
                 images: [
                   { src: "/Gallery OS/fiche oeuvre.png", alt: "Fiche œuvre Gallery OS" },
-                  { src: "/Gallery OS/gmail Extension chrome.mov", alt: "Add-on Gmail : la fiche œuvre Evening field insérée dans un email.", noBar: true },
+                  {
+                    src: "/Gallery OS/gmail Extension chrome.mov",
+                    alt: "Add-on Gmail : la fiche œuvre Evening field insérée dans un email.",
+                    noBar: true,
+                  },
+                  {
+                    src: "/Gallery OS/edit selecction.mov",
+                    alt: "Edit selection — Private Selection dans Gallery OS",
+                    fit: "window",
+                    contain: true,
+                    x: "2%",
+                    zoom: 1.05,
+                  },
+                  {
+                    src: "/Gallery OS/Website.mp4",
+                    alt: "Site web alimenté par l'inventaire Gallery OS",
+                    fit: "window",
+                    zoom: 1.015,
+                  },
                 ],
               },
               {
