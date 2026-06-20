@@ -746,7 +746,7 @@ export const projects = [
                 text: "De l'inventaire à l'email, sans ressaisie — la fiche œuvre est insérée telle quelle dans un message, mêmes données, aucun copier-coller.",
                 images: [
                   { src: "/Gallery OS/fiche oeuvre.png", alt: "Fiche œuvre Gallery OS" },
-                  { src: "/Gallery OS/Gmail Extension chrome.mov", alt: "Add-on Gmail : la fiche œuvre Evening field insérée dans un email.", noBar: true },
+                  { src: "/Gallery OS/gmail Extension chrome.mov", alt: "Add-on Gmail : la fiche œuvre Evening field insérée dans un email.", noBar: true },
                 ],
               },
               {

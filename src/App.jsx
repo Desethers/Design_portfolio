@@ -6,7 +6,7 @@ import ProjectPage, { VitreenReelsPage } from "./ProjectPage.jsx";
 import HangingTechnicalDrawing from "./HangingTechnicalDrawing.jsx";
 import HangingBookingPreview from "./HangingBookingPreview.jsx";
 import SalesAgentPreview from "./SalesAgentPreview.jsx";
-import { VitreenSiteV21, GalleryOsDashboard } from "./VitreenSite.jsx";
+import { VitreenSiteV21 } from "./VitreenSite.jsx";
 
 const BENTO_SIZE = {
   vitreen: "xl",
@@ -71,9 +71,12 @@ function GalleryOsCard({ project }) {
       className="bento-card bento-card--media gos-demo"
     >
       <div className="gos-embed">
-        <div className="gos-scale">
-          <GalleryOsDashboard className="gos-glass" />
-        </div>
+        <img
+          className="gos-shot"
+          src="/vitreen/gallery-os-artworks-home.png"
+          alt="Gallery OS — inventaire Artworks"
+          loading="lazy"
+        />
       </div>
       <span className="vitreen-card-caption">
         <span>

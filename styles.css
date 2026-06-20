@@ -2640,8 +2640,20 @@ a {
 }
 
 .reels-page-carousel .vitreen-reel-card {
-  flex: 0 0 clamp(240px, 26vw, 300px);
+  flex: 0 0 clamp(320px, 30vw, 360px);
   scroll-snap-align: start;
+}
+
+.reels-page-carousel .instagram-media {
+  min-width: 0 !important;
+  width: 100% !important;
+  margin: 0 !important;
+}
+
+/* Léger zoom (+1%) sur le 2e reel pour cadrer comme les autres */
+.reels-page-carousel .vitreen-reel-card:nth-child(2) .instagram-media {
+  transform: scale(1.01);
+  transform-origin: center center;
 }
 
 .reels-page-intro.vitreen-editorial {
@@ -6584,6 +6596,16 @@ a {
   position: absolute;
   inset: 0;
   display: flex;
+}
+
+.gos-shot {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top left;
+  display: block;
 }
 
 .gos-glass {

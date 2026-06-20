@@ -2043,13 +2043,41 @@ export function VitreenReelsPage() {
     window.scrollTo(0, 0);
   }, []);
 
+  useEffect(() => {
+    const process = () => window.instgrm?.embeds?.process();
+    const existing = document.querySelector(
+      'script[src="https://www.instagram.com/embed.js"]'
+    );
+    if (existing) {
+      process();
+      return;
+    }
+    const script = document.createElement("script");
+    script.src = "https://www.instagram.com/embed.js";
+    script.async = true;
+    script.onload = process;
+    document.body.appendChild(script);
+  }, []);
+
   if (!project) return <Navigate to="/" replace />;
 
   const reelsScreen = project.caseStudy?.product?.screens?.find(
     (screen) => screen.type === "vitreen-reels"
   );
-  const reels = reelsScreen?.items ?? [];
   const leadId = "DYEWo3elU9-";
+  // Toutes les vidéos de reels disponibles dans public/vitreen/reels/
+  const availableReelIds = [
+    "DYEWo3elU9-",
+    "DX1pScFMc9E",
+    "DX6A9E6txtp",
+    "DYOlEZDD_WX",
+    "DYR0tVrmrxT",
+    "DYlwavGCuLg",
+    "DZO8kHvkxt7",
+  ];
+  const reels = reelsScreen?.items?.length
+    ? reelsScreen.items
+    : availableReelIds.map((id) => ({ id }));
   const orderedReels = [
     ...reels.filter((reel) => reel.id === leadId),
     ...reels.filter((reel) => reel.id !== leadId),
@@ -2083,16 +2111,12 @@ export function VitreenReelsPage() {
         </header>
 
         <div className="reels-page-carousel" aria-label="Reels Instagram Vitreen">
-          {orderedReels.map((item, index) => (
+          {orderedReels.map((item) => (
             <article className="vitreen-reel-card" key={item.id}>
-              <video
-                src={`/vitreen/reels/${item.id}.mp4`}
-                aria-label={`Reel Instagram Vitreen ${index + 1}`}
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
+              <blockquote
+                className="instagram-media"
+                data-instgrm-permalink={`https://www.instagram.com/reel/${item.id}/`}
+                data-instgrm-version="14"
               />
             </article>
           ))}
