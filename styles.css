@@ -2136,6 +2136,7 @@ a {
   border-radius: 16px;
   overflow: hidden;
   background: var(--color-bg-elevated);
+  border: 1px solid rgba(23, 23, 22, 0.1);
   scroll-snap-align: center;
 }
 

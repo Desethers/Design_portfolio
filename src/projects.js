@@ -679,9 +679,8 @@ export const projects = [
       wireframes: [
         { title: "Overview — le tableau de bord quotidien", src: "/vitreen/gallery-os-overview.png", type: "image", landscape: true },
         { title: "Artworks — l'inventaire partagé", src: "/vitreen/gallery-os-artworks.png", type: "image", landscape: true },
+        { title: "Sales drafts — structurer les réponses aux inquiries", src: "/vitreen/gallery-os-sales-drafts.png", type: "image", landscape: true },
         { title: "Private Selection — composer pour un collectionneur", src: "/vitreen/gallery-os-private-selection.png", type: "image", landscape: true },
-        { title: "Viewing Room Studio — l'éditeur canvas-first", src: "/vitreen/gallery-os-viewing-room-studio.png", type: "image", landscape: true },
-        { title: "Gmail — insérer une œuvre depuis la boîte mail", src: "/vitreen/gallery-os-gmail.png", type: "image", landscape: true },
       ],
     },
     caseStudy: {
@@ -740,24 +739,12 @@ export const projects = [
             mockups: [
               {
                 step: "01",
-                title: "Colonne œuvre",
-                caption: "Une structure d'inventaire partagée pour les informations, statuts, prix et documents. La même fiche peut alimenter chaque sortie.",
-                media: "/vitreen/gallery-os-artworks.png",
-              },
-              {
-                step: "02",
                 title: "Sélections privées",
                 caption: "La galerie prépare un ensemble ciblé d'œuvres pour un collectionneur et le partage sans reconstruire le contenu manuellement.",
                 media: "/vitreen/gallery-os-private-selection.png",
               },
               {
-                step: "03",
-                title: "Communication collectionneur",
-                caption: "Les inquiries entrantes deviennent un travail structuré : œuvres disponibles, contexte et brouillon de réponse restent connectés.",
-                media: "/vitreen/gallery-os-sales-drafts.png",
-              },
-              {
-                step: "04",
+                step: "02",
                 title: "Couche site web",
                 caption: "Les sélections peuvent devenir des viewing rooms ou des pages collectionneur sans se détacher de l'inventaire source.",
                 media: "/vitreen/gallery-os-viewing-room-studio.png",
