@@ -1116,7 +1116,7 @@ const GoscIconArchive = () => (
 
 const GOSC_SURFACES = [
   { top: 70, Icon: GoscIconColumns, title: "Sélections privées", sub: "pour un collectionneur" },
-  { top: 150, Icon: GoscIconGrid, title: "Viewing room", sub: "lien privé partageable" },
+  { top: 150, Icon: GoscIconGrid, title: "Viewing room", sub: "lien privé · PDF partageable" },
   { top: 230, Icon: GoscIconGlobe, title: "Inquiries", sub: "réponse + œuvres liées" },
   { top: 310, Icon: GoscIconMail, title: "Gmail", sub: "insérer l'œuvre dans un email" },
 ];
@@ -1662,6 +1662,14 @@ function HangingUseCaseModal({ project, liveUrl, onClose }) {
                   <div className="vitreen-module-media vitreen-module-media--stack">
                     <VitreenStackFlow items={module.items} />
                   </div>
+                ) : module.type === "diptych" ? (
+                  <div className="gos-diptych">
+                    {module.images.map((img) => (
+                      <figure className="gos-diptych-frame" key={img.src}>
+                        <img src={img.src} alt={img.alt} loading="lazy" />
+                      </figure>
+                    ))}
+                  </div>
                 ) : module.type === "mockup-grid" ? (
                   <GosMockupDeck mockups={module.mockups} />
                 ) : module.type === "vitreen-canvas" ? (
@@ -1669,27 +1677,39 @@ function HangingUseCaseModal({ project, liveUrl, onClose }) {
                     <VitreenCirculationCanvas />
                   </div>
                 ) : module.type === "image-pair" ? (
-                  <div className="gos-pair">
-                    {module.images.map((img) => (
-                      <figure
-                        className={`gos-pair-frame${img.noBar ? " gos-pair-frame--no-bar" : ""}`}
-                        key={img.src ?? img.component}
-                      >
-                        {!img.noBar && (
-                          <div className="gos-mockup-bar" aria-hidden="true">
-                            <span />
-                            <span />
-                            <span />
+                  <div className="gos-pair-block">
+                    {(module.flows ?? [{ ...module.mediaIntro, images: module.images }]).map((flow) => (
+                      <div className="gos-pair-section" key={flow.label}>
+                        {flow.label && (
+                          <div className="gos-pair-intro">
+                            <span className="gos-pair-intro-label">{flow.label}</span>
+                            <p className="gos-pair-intro-text">{flow.text}</p>
                           </div>
                         )}
-                        {img.component === "artwork-detail" ? (
-                          <GalleryOsArtworkDetail />
-                        ) : /\.(mp4|mov|webm)$/i.test(img.src) ? (
-                          <video src={img.src} autoPlay loop muted playsInline loading="lazy" />
-                        ) : (
-                          <img src={img.src} alt={img.alt} loading="lazy" />
-                        )}
-                      </figure>
+                        <div className="gos-pair">
+                          {flow.images.map((img) => (
+                            <figure
+                              className={`gos-pair-frame${img.noBar ? " gos-pair-frame--no-bar" : ""}`}
+                              key={img.src ?? img.component}
+                            >
+                              {!img.noBar && (
+                                <div className="gos-mockup-bar" aria-hidden="true">
+                                  <span />
+                                  <span />
+                                  <span />
+                                </div>
+                              )}
+                              {img.component === "artwork-detail" ? (
+                                <GalleryOsArtworkDetail />
+                              ) : /\.(mp4|mov|webm)$/i.test(img.src) ? (
+                                <video src={img.src} autoPlay loop muted playsInline />
+                              ) : (
+                                <img src={img.src} alt={img.alt} loading="lazy" />
+                              )}
+                            </figure>
+                          ))}
+                        </div>
+                      </div>
                     ))}
                   </div>
                 ) : module.cards ? (

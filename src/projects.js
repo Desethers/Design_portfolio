@@ -708,7 +708,11 @@ export const projects = [
             tag: "Insight",
             title: "L'intégration crée plus de valeur que la migration",
             text: "Les galeries disposent déjà de CRM, inventaires, espaces de stockage et outils de communication. Avec des équipes réduites et des workflows établis, l'enjeu n'est pas d'introduire un nouveau logiciel mais de rendre les systèmes existants plus cohérents et mieux connectés.",
-            media: "/Gallery OS/frame1.png",
+            type: "diptych",
+            images: [
+              { src: "/Gallery OS/frame2.png", alt: "Gallery OS — import et connexion d'inventaire" },
+              { src: "/Gallery OS/frame1.png", alt: "Gallery OS — setup de galerie" },
+            ],
           },
           {
             tag: "Stratégie produit",
@@ -733,32 +737,34 @@ export const projects = [
           // Les verbatims d'interviews ne sont pas inclus ici : aucun extrait vérifié n'a été fourni pour cette section Gallery OS.
           {
             tag: "Solution",
-            title: "Quatre surfaces produit autour d'une même colonne œuvre",
-            text: "L'interface est organisée autour du travail réel d'une galerie : maintenir l'inventaire, préparer des sélections, communiquer avec les collectionneurs et publier depuis la même source.",
-            type: "mockup-grid",
-            mockups: [
-              {
-                step: "01",
-                title: "Sélections privées",
-                caption: "La galerie prépare un ensemble ciblé d'œuvres pour un collectionneur et le partage sans reconstruire le contenu manuellement.",
-                media: "/vitreen/gallery-os-private-selection.png",
-              },
-              {
-                step: "02",
-                title: "Couche site web",
-                caption: "Les sélections peuvent devenir des viewing rooms ou des pages collectionneur sans se détacher de l'inventaire source.",
-                media: "/vitreen/gallery-os-viewing-room-studio.png",
-              },
-            ],
-          },
-          {
-            tag: "Intégration Gmail",
-            title: "De l'inventaire à l'email, sans ressaisie",
-            text: "La fiche œuvre ouverte dans Gallery OS (à gauche) est insérée telle quelle dans un email via l'add-on Gmail (à droite) — mêmes données, aucun copier-coller. La source de vérité surgit dans l'outil que la galerie utilise déjà.",
+            title: "Une même fiche œuvre, plusieurs sorties",
+            text: "Gallery OS part d'une fiche œuvre structurée, puis la réutilise dans les surfaces où la galerie travaille déjà : email, sélection privée et site web.",
             type: "image-pair",
-            images: [
-              { src: "/Gallery OS/fiche oeuvre.png", alt: "Fiche œuvre Gallery OS" },
-              { src: "/Gallery OS/Gmail Extension chrome.mov", alt: "Add-on Gmail : la fiche œuvre Evening field insérée dans un email.", noBar: true },
+            flows: [
+              {
+                label: "01 · Intégration Gmail",
+                text: "De l'inventaire à l'email, sans ressaisie — la fiche œuvre est insérée telle quelle dans un message, mêmes données, aucun copier-coller.",
+                images: [
+                  { src: "/Gallery OS/fiche oeuvre.png", alt: "Fiche œuvre Gallery OS" },
+                  { src: "/Gallery OS/Gmail Extension chrome.mov", alt: "Add-on Gmail : la fiche œuvre Evening field insérée dans un email.", noBar: true },
+                ],
+              },
+              {
+                label: "02 · Sélection privée",
+                text: "De la fiche œuvre à une sélection collector — les mêmes informations alimentent un espace partagé, sans recréer le contenu à la main.",
+                images: [
+                  { src: "/Gallery OS/fiche oeuvre.png", alt: "Fiche œuvre Gallery OS" },
+                  { src: "/vitreen/gallery-os-private-selection.png", alt: "Sélection privée alimentée par la fiche œuvre Gallery OS" },
+                ],
+              },
+              {
+                label: "03 · Website",
+                text: "De l'inventaire au site web — les œuvres sélectionnées peuvent être publiées sans dupliquer les contenus ni perdre le lien avec la source.",
+                images: [
+                  { src: "/Gallery OS/fiche oeuvre.png", alt: "Fiche œuvre Gallery OS" },
+                  { src: "/vitreen/gallery-os-viewing-room-studio.png", alt: "Surface website alimentée par l'inventaire Gallery OS" },
+                ],
+              },
             ],
           },
         ],
