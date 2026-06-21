@@ -744,7 +744,7 @@ export const projects = [
           {
             tag: "Solution",
             title: "Une œuvre, quatre surfaces",
-            text: "La même fiche alimente l'inventaire, l'email collector, la sélection privée et le site web — sans ressaisie, sans duplication.",
+            text: "La même fiche œuvre alimente la base artistes, les add-ins Gmail, les sélections privées et le site web.\nChaque usage s'appuie sur la même source d'information.\nLes données circulent entre les équipes, les collectionneurs et les canaux de diffusion sans duplication.\nL'œuvre devient le point de départ de l'ensemble du système.",
             type: "image-pair",
             flows: [
               {
