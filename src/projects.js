@@ -743,13 +743,11 @@ export const projects = [
           // Les verbatims d'interviews ne sont pas inclus ici : aucun extrait vérifié n'a été fourni pour cette section Gallery OS.
           {
             tag: "Solution",
-            title: "Une même fiche œuvre, plusieurs sorties",
-            text: "Gallery OS part d'une fiche œuvre structurée, puis la réutilise dans les surfaces où la galerie travaille déjà : email, sélection privée et site web.",
+            title: "Une œuvre, quatre surfaces",
+            text: "La même fiche alimente l'inventaire, l'email collector, la sélection privée et le site web — sans ressaisie, sans duplication.",
             type: "image-pair",
             flows: [
               {
-                label: "01 · Intégration Gmail",
-                text: "De l'inventaire à l'email, sans ressaisie — la fiche œuvre est insérée telle quelle dans un message, mêmes données, aucun copier-coller.",
                 images: [
                   { src: "/Gallery OS/fiche oeuvre.png", alt: "Fiche œuvre Gallery OS" },
                   { src: "/Gallery OS/gmail Extension chrome.mov", alt: "Add-on Gmail : la fiche œuvre Evening field insérée dans un email.", noBar: true },
