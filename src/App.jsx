@@ -631,7 +631,26 @@ function Home() {
 }
 
 /* ─── Pages feature — derrière les cards sans page projet dédiée ───────── */
-function FeaturePage({ hero, heroClassName = "", intro }) {
+function renderFeatureText(text) {
+  return text.split("\n\n").map((block, index) => {
+    const lines = block.split("\n").filter(Boolean);
+    const isList = lines.every((line) => line.trim().startsWith("- "));
+
+    if (isList) {
+      return (
+        <ul key={index}>
+          {lines.map((line) => (
+            <li key={line}>{line.trim().replace(/^- /, "")}</li>
+          ))}
+        </ul>
+      );
+    }
+
+    return <p key={index}>{block}</p>;
+  });
+}
+
+function FeaturePage({ hero, heroClassName = "", intro, modules, next }) {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -690,6 +709,47 @@ function FeaturePage({ hero, heroClassName = "", intro }) {
             </Link>
           </div>
         </section>
+
+        {modules?.length > 0 && (
+          <article className="vitreen-modules">
+            {modules.map((module) => (
+              <section className="vitreen-module" key={module.title}>
+                <div className="vitreen-module-copy">
+                  <div>
+                    <span>{module.tag}</span>
+                    <h3>{module.title}</h3>
+                  </div>
+                  <div className="vitreen-module-text">
+                    {renderFeatureText(module.text)}
+                  </div>
+                </div>
+              </section>
+            ))}
+          </article>
+        )}
+
+        {next && (
+          <section
+            className="vitreen-next"
+            aria-label="What's next — prochaines étapes"
+          >
+            <div className="vitreen-module-copy">
+              <div>
+                <span>What's next</span>
+                <h3>{next.title}</h3>
+              </div>
+              <p>{next.text}</p>
+            </div>
+            <div className="vitreen-next-cards">
+              {next.cards.map((card) => (
+                <article className="vitreen-next-card" key={card.title}>
+                  <p className="vitreen-next-card-text">{card.text}</p>
+                  <span className="vitreen-next-card-label">{card.title}</span>
+                </article>
+              ))}
+            </div>
+          </section>
+        )}
       </div>
     </main>
   );
@@ -713,6 +773,41 @@ function SalesAgentPage() {
         text: "Le Sales Agent prépare un brouillon de réponse pour chaque inquiry entrante — œuvres disponibles déjà insérées, contexte collectionneur rappelé. La galerie relit, ajuste, envoie : l'IA accélère sans décider à sa place.",
         buttonHref: "/projet/gallery-os",
         buttonLabel: "Voir Gallery OS",
+      }}
+      modules={[
+        {
+          tag: "Problème",
+          title: "Chaque inquiry repart d'une page blanche",
+          text: "Une demande collectionneur arrive par email : un budget, un format, une intention. Pour y répondre, la galerie rouvre l'inventaire, vérifie les disponibilités, recompose les fiches œuvres et rédige — à chaque fois.\n\nLe goulot n'est pas la décision de vente, c'est le temps passé à rassembler les bonnes informations avant même de pouvoir répondre.",
+        },
+        {
+          tag: "Fonctionnement",
+          title: "Lire l'inquiry, proposer un brouillon",
+          text: "Le Sales Agent s'appuie sur l'inventaire Gallery OS — la même fiche œuvre que partout ailleurs — pour transformer une demande en réponse prête à relire.\n\n- Lecture : l'inquiry est analysée (budget, format, médium, intention) et rapprochée des œuvres disponibles.\n- Sélection : les œuvres qui correspondent sont insérées dans le brouillon, prix et disponibilité à jour.\n- Rédaction : un message contextualisé est proposé, dans le ton de la galerie.\n- Validation : la galerie relit, ajuste, envoie — rien ne part sans approbation.",
+        },
+        {
+          tag: "Principe",
+          title: "Accélérer sans décider à la place",
+          text: "L'agent ne conclut pas la vente et n'envoie rien seul. Il enlève le travail de préparation pour laisser la galerie sur ce qui compte : la relation et le jugement. Chaque sortie reste relue par un humain.",
+        },
+      ]}
+      next={{
+        title: "Du brouillon à la boucle complète",
+        text: "Étendre le Sales Agent au-delà du premier message, jusqu'à un suivi des conversations collectionneurs branché sur l'inventaire.",
+        cards: [
+          {
+            title: "Suivi & relances",
+            text: "Proposer la relance au bon moment quand une inquiry reste sans réponse, avec les œuvres encore disponibles.",
+          },
+          {
+            title: "Multi-canal",
+            text: "Brancher l'agent sur Gmail et WhatsApp pour préparer les réponses là où les collectionneurs écrivent déjà.",
+          },
+          {
+            title: "Mémoire collectionneur",
+            text: "Rappeler l'historique et les goûts d'un collectionneur pour personnaliser chaque brouillon.",
+          },
+        ],
       }}
     />
   );
