@@ -760,7 +760,7 @@ export const projects = [
           {
             tag: "Go to market",
             title: "Entrer par l'usage, pas par la migration",
-            text: "Une galerie ne change pas d'outils sur une promesse. Gallery OS entre donc par un point de friction concret — recomposer les informations d'œuvres à chaque envoi — plutôt que par un remplacement de système.\n\n- Wedge add-in : l'extension Gmail s'installe en quelques minutes et démontre la valeur sans rien migrer — la galerie garde ses outils, gagne la circulation des données.\n- Du gratuit à l'abonnement : l'add-in et les sélections privées servent de porte d'entrée ; l'atelier opérationnel complet (inventaire, inquiries, Viewing Room Studio) se déploie ensuite en abonnement B2B.\n- « Powered by Vitreen » : vitreen.art porte la promesse côté acquisition, Gallery OS prouve la valeur côté usage — deux couches, une marque, un seul récit commercial.\n- Validation avant échelle : objectif d'abord une poignée de galeries pilotes pour valider le modèle de revenu récurrent et le coût d'acquisition réel, pas une ouverture large.",
+            text: "Une galerie ne change pas d'outils sur une promesse. Gallery OS entre par l'add-in Gmail — installé en quelques minutes, sans rien migrer — puis se déploie en abonnement B2B vers l'atelier complet. vitreen.art porte la promesse, Gallery OS prouve la valeur. Quelques galeries pilotes d'abord, pour valider le modèle de revenu avant d'élargir.",
           },
         ],
         next: {
