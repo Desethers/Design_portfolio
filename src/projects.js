@@ -757,7 +757,21 @@ export const projects = [
               },
             ],
           },
+          {
+            tag: "Go to market",
+            title: "À compléter",
+            text: "À compléter.",
+          },
         ],
+        next: {
+          title: "À compléter",
+          text: "À compléter.",
+          cards: [
+            { title: "À compléter", text: "À compléter." },
+            { title: "À compléter", text: "À compléter." },
+            { title: "À compléter", text: "À compléter." },
+          ],
+        },
       },
     },
   },
