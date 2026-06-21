@@ -757,22 +757,6 @@ export const projects = [
                   { src: "/Gallery OS/Website.mp4", alt: "Site web alimenté par l'inventaire Gallery OS" },
                 ],
               },
-              {
-                label: "02 · Sélection privée",
-                text: "De la fiche œuvre à une sélection collector — les mêmes informations alimentent un espace partagé, sans recréer le contenu à la main.",
-                images: [
-                  { src: "/Gallery OS/fiche oeuvre.png", alt: "Fiche œuvre Gallery OS" },
-                  { src: "/vitreen/gallery-os-private-selection.png", alt: "Sélection privée alimentée par la fiche œuvre Gallery OS" },
-                ],
-              },
-              {
-                label: "03 · Website",
-                text: "De l'inventaire au site web — les œuvres sélectionnées peuvent être publiées sans dupliquer les contenus ni perdre le lien avec la source.",
-                images: [
-                  { src: "/Gallery OS/fiche oeuvre.png", alt: "Fiche œuvre Gallery OS" },
-                  { src: "/vitreen/gallery-os-viewing-room-studio.png", alt: "Surface website alimentée par l'inventaire Gallery OS" },
-                ],
-              },
             ],
           },
         ],
