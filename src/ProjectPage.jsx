@@ -1689,7 +1689,7 @@ function HangingUseCaseModal({ project, liveUrl, onClose }) {
                         <div className="gos-pair">
                           {flow.images.map((img) => (
                             <figure
-                              className={`gos-pair-frame${img.noBar ? " gos-pair-frame--no-bar" : ""}${img.fit === "window" ? " gos-pair-frame--window" : ""}`}
+                              className={`gos-pair-frame${img.noBar ? " gos-pair-frame--no-bar" : ""}`}
                               key={img.src ?? img.component}
                             >
                               {!img.noBar && (
@@ -1702,21 +1702,7 @@ function HangingUseCaseModal({ project, liveUrl, onClose }) {
                               {img.component === "artwork-detail" ? (
                                 <GalleryOsArtworkDetail />
                               ) : /\.(mp4|mov|webm)$/i.test(img.src) ? (
-                                <video
-                                  src={img.src}
-                                  autoPlay
-                                  loop
-                                  muted
-                                  playsInline
-                                  style={
-                                    img.zoom || img.x || img.contain
-                                      ? {
-                                          transform: `${img.x ? `translateX(${img.x}) ` : ""}${img.zoom ? `scale(${img.zoom})` : ""}`.trim(),
-                                          objectFit: img.contain ? "contain" : undefined,
-                                        }
-                                      : undefined
-                                  }
-                                />
+                                <video src={img.src} autoPlay loop muted playsInline style={img.objectPosition ? { objectPosition: img.objectPosition } : undefined} />
                               ) : (
                                 <img src={img.src} alt={img.alt} loading="lazy" />
                               )}

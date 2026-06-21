@@ -752,25 +752,9 @@ export const projects = [
                 text: "De l'inventaire à l'email, sans ressaisie — la fiche œuvre est insérée telle quelle dans un message, mêmes données, aucun copier-coller.",
                 images: [
                   { src: "/Gallery OS/fiche oeuvre.png", alt: "Fiche œuvre Gallery OS" },
-                  {
-                    src: "/Gallery OS/gmail Extension chrome.mov",
-                    alt: "Add-on Gmail : la fiche œuvre Evening field insérée dans un email.",
-                    noBar: true,
-                  },
-                  {
-                    src: "/Gallery OS/edit selecction.mov",
-                    alt: "Edit selection — Private Selection dans Gallery OS",
-                    fit: "window",
-                    contain: true,
-                    x: "2%",
-                    zoom: 1.05,
-                  },
-                  {
-                    src: "/Gallery OS/Website.mp4",
-                    alt: "Site web alimenté par l'inventaire Gallery OS",
-                    fit: "window",
-                    zoom: 1.015,
-                  },
+                  { src: "/Gallery OS/gmail Extension chrome.mov", alt: "Add-on Gmail : la fiche œuvre Evening field insérée dans un email.", noBar: true },
+                  { src: "/Gallery OS/edit selecction.mov", alt: "Edit selection — Private Selection dans Gallery OS", objectPosition: "left center" },
+                  { src: "/Gallery OS/Website.mp4", alt: "Site web alimenté par l'inventaire Gallery OS" },
                 ],
               },
               {
