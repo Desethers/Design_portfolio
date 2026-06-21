@@ -650,8 +650,131 @@ function renderFeatureText(text) {
   });
 }
 
-function FeaturePage({ hero, heroClassName = "", intro, modules, next }) {
+function FeatureCaseStudyModal({ hero, caseStudy, intro, liveUrl, onClose }) {
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      className="vitreen-modal"
+      role="dialog"
+      aria-modal="true"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
+      <div className="vitreen-modal-panel" onClick={(e) => e.stopPropagation()}>
+        <div className="vitreen-modal-scroll">
+          <header className="vitreen-header">
+            <div className="vitreen-header-id">
+              <h1 className="vitreen-header-title">{caseStudy.header.title}</h1>
+              <p className="vitreen-header-subtitle">{caseStudy.header.subtitle}</p>
+            </div>
+            <div className="vitreen-header-actions">
+              {liveUrl && (
+                <a
+                  href={liveUrl}
+                  className="vitreen-round-btn"
+                  aria-label={`Voir ${liveUrl}`}
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M7 17 17 7M9 7h8v8" />
+                  </svg>
+                </a>
+              )}
+              <button
+                type="button"
+                className="vitreen-round-btn vitreen-modal-close"
+                onClick={onClose}
+                aria-label="Fermer"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M6 6 18 18M18 6 6 18" />
+                </svg>
+              </button>
+            </div>
+          </header>
+
+          <div className="vitreen-modal-screens" aria-label="Aperçu du produit">
+            <div className="feature-modal-hero">{hero}</div>
+          </div>
+
+          <section className="vitreen-editorial" aria-label="Présentation de la feature">
+            <dl className="vitreen-editorial-meta">
+              {intro.meta.map((row) => (
+                <div key={row.term}>
+                  <dt>{row.term}</dt>
+                  <dd>{row.value}</dd>
+                </div>
+              ))}
+            </dl>
+            <div className="vitreen-editorial-main">
+              <p className="vitreen-editorial-intro">{intro.question}</p>
+              <div className="vitreen-editorial-body">
+                {caseStudy.body.map((paragraph, index) => (
+                  <p key={index}>{paragraph}</p>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <article className="vitreen-modules">
+            {caseStudy.modules.map((module) => (
+              <section className="vitreen-module" key={module.title}>
+                <div className="vitreen-module-copy">
+                  <div>
+                    <span>{module.tag}</span>
+                    <h3>{module.title}</h3>
+                  </div>
+                  <div className="vitreen-module-text">
+                    {renderFeatureText(module.text)}
+                  </div>
+                </div>
+              </section>
+            ))}
+          </article>
+
+          {caseStudy.next && (
+            <section
+              className="vitreen-next"
+              aria-label="What's next — prochaines étapes"
+            >
+              <div className="vitreen-module-copy">
+                <div>
+                  <span>What's next</span>
+                  <h3>{caseStudy.next.title}</h3>
+                </div>
+                <p>{caseStudy.next.text}</p>
+              </div>
+              <div className="vitreen-next-cards">
+                {caseStudy.next.cards.map((card) => (
+                  <article className="vitreen-next-card" key={card.title}>
+                    <p className="vitreen-next-card-text">{card.text}</p>
+                    <span className="vitreen-next-card-label">{card.title}</span>
+                  </article>
+                ))}
+              </div>
+            </section>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function FeaturePage({ hero, heroClassName = "", intro, caseStudy, liveUrl }) {
   const navigate = useNavigate();
+  const [caseOpen, setCaseOpen] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -692,65 +815,53 @@ function FeaturePage({ hero, heroClassName = "", intro, modules, next }) {
           <div className="vitreen-editorial-main">
             <p className="vitreen-editorial-intro">{intro.question}</p>
             <div className="vitreen-editorial-body">
-              <p className="vitreen-intro-preview-text">{intro.text}</p>
+              <p className="vitreen-intro-preview-text">
+                {caseStudy ? `${intro.text.replace(/\s*\.?$/, "")}…` : intro.text}
+              </p>
             </div>
-            <Link
-              to={intro.buttonHref}
-              className="vitreen-pill-btn vitreen-intro-preview-btn"
-            >
-              {intro.buttonLabel}
-              <svg
-                className="vitreen-pill-expand"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
+            {caseStudy ? (
+              <button
+                type="button"
+                className="vitreen-pill-btn vitreen-intro-preview-btn"
+                onClick={() => setCaseOpen(true)}
               >
-                <path d="M10 14 4 20M4 20h4M4 20v-4M14 10l6-6M20 4h-4M20 4v4" />
-              </svg>
-            </Link>
+                Full case study
+                <svg
+                  className="vitreen-pill-expand"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path d="M10 14 4 20M4 20h4M4 20v-4M14 10l6-6M20 4h-4M20 4v4" />
+                </svg>
+              </button>
+            ) : (
+              <Link
+                to={intro.buttonHref}
+                className="vitreen-pill-btn vitreen-intro-preview-btn"
+              >
+                {intro.buttonLabel}
+                <svg
+                  className="vitreen-pill-expand"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path d="M10 14 4 20M4 20h4M4 20v-4M14 10l6-6M20 4h-4M20 4v4" />
+                </svg>
+              </Link>
+            )}
           </div>
         </section>
-
-        {modules?.length > 0 && (
-          <article className="vitreen-modules">
-            {modules.map((module) => (
-              <section className="vitreen-module" key={module.title}>
-                <div className="vitreen-module-copy">
-                  <div>
-                    <span>{module.tag}</span>
-                    <h3>{module.title}</h3>
-                  </div>
-                  <div className="vitreen-module-text">
-                    {renderFeatureText(module.text)}
-                  </div>
-                </div>
-              </section>
-            ))}
-          </article>
-        )}
-
-        {next && (
-          <section
-            className="vitreen-next"
-            aria-label="What's next — prochaines étapes"
-          >
-            <div className="vitreen-module-copy">
-              <div>
-                <span>What's next</span>
-                <h3>{next.title}</h3>
-              </div>
-              <p>{next.text}</p>
-            </div>
-            <div className="vitreen-next-cards">
-              {next.cards.map((card) => (
-                <article className="vitreen-next-card" key={card.title}>
-                  <p className="vitreen-next-card-text">{card.text}</p>
-                  <span className="vitreen-next-card-label">{card.title}</span>
-                </article>
-              ))}
-            </div>
-          </section>
-        )}
       </div>
+
+      {caseStudy && caseOpen && (
+        <FeatureCaseStudyModal
+          hero={hero}
+          caseStudy={caseStudy}
+          intro={intro}
+          liveUrl={liveUrl}
+          onClose={() => setCaseOpen(false)}
+        />
+      )}
     </main>
   );
 }
@@ -760,6 +871,7 @@ function SalesAgentPage() {
     <FeaturePage
       heroClassName="feature-hero--sales"
       hero={<SalesAgentPreview />}
+      liveUrl="https://gallery-os-ten.vercel.app"
       intro={{
         meta: [
           { term: "Produit", value: "Gallery OS · Vitreen" },
@@ -772,48 +884,56 @@ function SalesAgentPage() {
         question:
           "Comment répondre à chaque demande collectionneur sans repartir d'une page blanche ?",
         text: "Le Sales Agent prépare un brouillon de réponse pour chaque inquiry entrante — œuvres disponibles déjà insérées, contexte collectionneur rappelé. La galerie relit, ajuste, envoie : l'IA accélère sans décider à sa place.",
-        buttonHref: "/projet/gallery-os",
-        buttonLabel: "Voir Gallery OS",
       }}
-      modules={[
-        {
-          tag: "Problème",
-          title: "Chaque inquiry repart d'une page blanche",
-          text: "Une demande collectionneur arrive par email : un budget, un format, une intention. Pour y répondre, la galerie rouvre l'inventaire, vérifie les disponibilités, recompose les fiches œuvres et rédige — à chaque fois.\n\nLe goulot n'est pas la décision de vente, c'est le temps passé à rassembler les bonnes informations avant même de pouvoir répondre.",
+      caseStudy={{
+        header: {
+          title: "Sales Agent",
+          subtitle: "Assistant de vente IA — Gallery OS / Vitreen",
         },
-        {
-          tag: "Déclenchement",
-          title: "Filtrer avant de rédiger",
-          text: "L'agent se déclenche sur une réponse depuis la sidebar Gmail ou un webhook email entrant — mais pas sur tout. Un filtre d'intention écarte les messages sans enjeu commercial (« merci », « bien reçu ») et ne traite que les demandes réelles : prix, disponibilité, dimensions, visite.\n\nUn même message ne génère qu'un seul brouillon : la création est idempotente, rien ne se duplique si l'agent est rappelé.",
-        },
-        {
-          tag: "Fonctionnement",
-          title: "Interroger les vraies données, jamais inventer",
-          text: "Avant d'écrire, l'agent appelle des outils branchés sur Gallery OS — il ne devine ni un prix, ni une disponibilité, ni une œuvre.\n\n- Contact : recherche le collectionneur dans le CRM, avec son historique d'achats et ses dernières inquiries.\n- Œuvre : récupère les métadonnées réelles de la pièce concernée (prix, statut, dimensions).\n- Alternatives : si la pièce est vendue ou hors budget, propose des œuvres similaires disponibles.\n- Galerie : reprend le ton, la signature et la langue par défaut de la galerie.\n\nLe brouillon final est structuré et typé : destinataire, sujet, corps, langue, priorité, relance suggérée, raisonnement et œuvres mentionnées.",
-        },
-        {
-          tag: "Garde-fous",
-          title: "Accélérer sans décider à la place",
-          text: "Le comportement est cadré par des règles strictes, pas laissé à l'improvisation du modèle.\n\n- Multilingue : la réponse épouse la langue du collectionneur (fr, en, de, es, it, zh).\n- VIP : ton plus personnel quand le contact est identifié comme tel.\n- Œuvre vendue : jamais un « désolé, vendu » sec — deux ou trois alternatives à la place.\n- Prix sur demande : pas de chiffre inventé, une proposition d'échange (appel, visite).\n- Aucun engagement sur la livraison, la garantie ou l'exclusivité.\n\nEt surtout : jamais d'autopilot. Le brouillon reste en attente — il n'est envoyé qu'après validation humaine.",
-        },
-      ]}
-      next={{
-        title: "Du brouillon à la boucle complète",
-        text: "Étendre le Sales Agent au-delà du premier message, jusqu'à un suivi des conversations collectionneurs branché sur l'inventaire.",
-        cards: [
+        body: [
+          "Le Sales Agent prépare un brouillon de réponse pour chaque inquiry entrante — œuvres disponibles déjà insérées, contexte collectionneur rappelé.",
+          "La galerie relit, ajuste, envoie : l'IA accélère le travail de préparation sans jamais décider, ni envoyer, à sa place.",
+        ],
+        modules: [
           {
-            title: "Relances programmées",
-            text: "Activer la relance suggérée par l'agent quand une inquiry reste sans réponse, avec les œuvres encore disponibles.",
+            tag: "Problème",
+            title: "Chaque inquiry repart d'une page blanche",
+            text: "Une demande collectionneur arrive par email : un budget, un format, une intention. Pour y répondre, la galerie rouvre l'inventaire, vérifie les disponibilités, recompose les fiches œuvres et rédige — à chaque fois.\n\nLe goulot n'est pas la décision de vente, c'est le temps passé à rassembler les bonnes informations avant même de pouvoir répondre.",
           },
           {
-            title: "Multi-canal",
-            text: "Préparer les réponses là où les collectionneurs écrivent — Gmail aujourd'hui, WhatsApp ensuite.",
+            tag: "Déclenchement",
+            title: "Filtrer avant de rédiger",
+            text: "L'agent se déclenche sur une réponse depuis la sidebar Gmail ou un webhook email entrant — mais pas sur tout. Un filtre d'intention écarte les messages sans enjeu commercial (« merci », « bien reçu ») et ne traite que les demandes réelles : prix, disponibilité, dimensions, visite.\n\nUn même message ne génère qu'un seul brouillon : la création est idempotente, rien ne se duplique si l'agent est rappelé.",
           },
           {
-            title: "Mesurer l'usage",
-            text: "Suivre brouillons acceptés, édités ou écartés pour affiner les règles et le ton de l'agent.",
+            tag: "Fonctionnement",
+            title: "Interroger les vraies données, jamais inventer",
+            text: "Avant d'écrire, l'agent appelle des outils branchés sur Gallery OS — il ne devine ni un prix, ni une disponibilité, ni une œuvre.\n\n- Contact : recherche le collectionneur dans le CRM, avec son historique d'achats et ses dernières inquiries.\n- Œuvre : récupère les métadonnées réelles de la pièce concernée (prix, statut, dimensions).\n- Alternatives : si la pièce est vendue ou hors budget, propose des œuvres similaires disponibles.\n- Galerie : reprend le ton, la signature et la langue par défaut de la galerie.\n\nLe brouillon final est structuré et typé : destinataire, sujet, corps, langue, priorité, relance suggérée, raisonnement et œuvres mentionnées.",
+          },
+          {
+            tag: "Garde-fous",
+            title: "Accélérer sans décider à la place",
+            text: "Le comportement est cadré par des règles strictes, pas laissé à l'improvisation du modèle.\n\n- Multilingue : la réponse épouse la langue du collectionneur (fr, en, de, es, it, zh).\n- VIP : ton plus personnel quand le contact est identifié comme tel.\n- Œuvre vendue : jamais un « désolé, vendu » sec — deux ou trois alternatives à la place.\n- Prix sur demande : pas de chiffre inventé, une proposition d'échange (appel, visite).\n- Aucun engagement sur la livraison, la garantie ou l'exclusivité.\n\nEt surtout : jamais d'autopilot. Le brouillon reste en attente — il n'est envoyé qu'après validation humaine.",
           },
         ],
+        next: {
+          title: "Du brouillon à la boucle complète",
+          text: "Étendre le Sales Agent au-delà du premier message, jusqu'à un suivi des conversations collectionneurs branché sur l'inventaire.",
+          cards: [
+            {
+              title: "Relances programmées",
+              text: "Activer la relance suggérée par l'agent quand une inquiry reste sans réponse, avec les œuvres encore disponibles.",
+            },
+            {
+              title: "Multi-canal",
+              text: "Préparer les réponses là où les collectionneurs écrivent — Gmail aujourd'hui, WhatsApp ensuite.",
+            },
+            {
+              title: "Mesurer l'usage",
+              text: "Suivre brouillons acceptés, édités ou écartés pour affiner les règles et le ton de l'agent.",
+            },
+          ],
+        },
       }}
     />
   );
