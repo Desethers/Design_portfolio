@@ -764,8 +764,9 @@ function SalesAgentPage() {
         meta: [
           { term: "Produit", value: "Gallery OS · Vitreen" },
           { term: "Type", value: "Assistant de vente IA" },
-          { term: "Entrée", value: "Inquiry collectionneur" },
-          { term: "Sortie", value: "Brouillon de réponse" },
+          { term: "Modèle", value: "Claude Sonnet 4.5 · tool loop" },
+          { term: "Entrée", value: "Reply sidebar / webhook email" },
+          { term: "Sortie", value: "Brouillon typé à valider" },
           { term: "Statut", value: "Prototype en validation" },
         ],
         question:
@@ -781,14 +782,19 @@ function SalesAgentPage() {
           text: "Une demande collectionneur arrive par email : un budget, un format, une intention. Pour y répondre, la galerie rouvre l'inventaire, vérifie les disponibilités, recompose les fiches œuvres et rédige — à chaque fois.\n\nLe goulot n'est pas la décision de vente, c'est le temps passé à rassembler les bonnes informations avant même de pouvoir répondre.",
         },
         {
-          tag: "Fonctionnement",
-          title: "Lire l'inquiry, proposer un brouillon",
-          text: "Le Sales Agent s'appuie sur l'inventaire Gallery OS — la même fiche œuvre que partout ailleurs — pour transformer une demande en réponse prête à relire.\n\n- Lecture : l'inquiry est analysée (budget, format, médium, intention) et rapprochée des œuvres disponibles.\n- Sélection : les œuvres qui correspondent sont insérées dans le brouillon, prix et disponibilité à jour.\n- Rédaction : un message contextualisé est proposé, dans le ton de la galerie.\n- Validation : la galerie relit, ajuste, envoie — rien ne part sans approbation.",
+          tag: "Déclenchement",
+          title: "Filtrer avant de rédiger",
+          text: "L'agent se déclenche sur une réponse depuis la sidebar Gmail ou un webhook email entrant — mais pas sur tout. Un filtre d'intention écarte les messages sans enjeu commercial (« merci », « bien reçu ») et ne traite que les demandes réelles : prix, disponibilité, dimensions, visite.\n\nUn même message ne génère qu'un seul brouillon : la création est idempotente, rien ne se duplique si l'agent est rappelé.",
         },
         {
-          tag: "Principe",
+          tag: "Fonctionnement",
+          title: "Interroger les vraies données, jamais inventer",
+          text: "Avant d'écrire, l'agent appelle des outils branchés sur Gallery OS — il ne devine ni un prix, ni une disponibilité, ni une œuvre.\n\n- Contact : recherche le collectionneur dans le CRM, avec son historique d'achats et ses dernières inquiries.\n- Œuvre : récupère les métadonnées réelles de la pièce concernée (prix, statut, dimensions).\n- Alternatives : si la pièce est vendue ou hors budget, propose des œuvres similaires disponibles.\n- Galerie : reprend le ton, la signature et la langue par défaut de la galerie.\n\nLe brouillon final est structuré et typé : destinataire, sujet, corps, langue, priorité, relance suggérée, raisonnement et œuvres mentionnées.",
+        },
+        {
+          tag: "Garde-fous",
           title: "Accélérer sans décider à la place",
-          text: "L'agent ne conclut pas la vente et n'envoie rien seul. Il enlève le travail de préparation pour laisser la galerie sur ce qui compte : la relation et le jugement. Chaque sortie reste relue par un humain.",
+          text: "Le comportement est cadré par des règles strictes, pas laissé à l'improvisation du modèle.\n\n- Multilingue : la réponse épouse la langue du collectionneur (fr, en, de, es, it, zh).\n- VIP : ton plus personnel quand le contact est identifié comme tel.\n- Œuvre vendue : jamais un « désolé, vendu » sec — deux ou trois alternatives à la place.\n- Prix sur demande : pas de chiffre inventé, une proposition d'échange (appel, visite).\n- Aucun engagement sur la livraison, la garantie ou l'exclusivité.\n\nEt surtout : jamais d'autopilot. Le brouillon reste en attente — il n'est envoyé qu'après validation humaine.",
         },
       ]}
       next={{
@@ -796,16 +802,16 @@ function SalesAgentPage() {
         text: "Étendre le Sales Agent au-delà du premier message, jusqu'à un suivi des conversations collectionneurs branché sur l'inventaire.",
         cards: [
           {
-            title: "Suivi & relances",
-            text: "Proposer la relance au bon moment quand une inquiry reste sans réponse, avec les œuvres encore disponibles.",
+            title: "Relances programmées",
+            text: "Activer la relance suggérée par l'agent quand une inquiry reste sans réponse, avec les œuvres encore disponibles.",
           },
           {
             title: "Multi-canal",
-            text: "Brancher l'agent sur Gmail et WhatsApp pour préparer les réponses là où les collectionneurs écrivent déjà.",
+            text: "Préparer les réponses là où les collectionneurs écrivent — Gmail aujourd'hui, WhatsApp ensuite.",
           },
           {
-            title: "Mémoire collectionneur",
-            text: "Rappeler l'historique et les goûts d'un collectionneur pour personnaliser chaque brouillon.",
+            title: "Mesurer l'usage",
+            text: "Suivre brouillons acceptés, édités ou écartés pour affiner les règles et le ton de l'agent.",
           },
         ],
       }}
