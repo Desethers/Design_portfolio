@@ -707,7 +707,7 @@ export const projects = [
           { value: "56", label: "composants UI" },
           { value: "4", label: "surfaces produit" },
           { value: "28", label: "fichiers d'intégration" },
-          { value: "1,4 Md", label: "tokens Claude Code" },
+          { value: "68 M", label: "tokens Claude Code" },
         ],
         modules: [
           {
