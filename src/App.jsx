@@ -89,10 +89,9 @@ function GalleryOsCard({ project }) {
   );
 }
 
-function GalleryOsGmailCard({ project }) {
+function GmailAddinMock() {
   return (
-    <Link to={`/projet/${project.slug}`} className="bento-card bento-card--sm gmck-demo">
-      <div className="gmck-embed">
+    <div className="gmck-embed">
         <div className="gmck-scale">
           {/* Rail d'icônes Google */}
           <div className="gmck-rail">
@@ -192,6 +191,24 @@ function GalleryOsGmailCard({ project }) {
           </svg>
         </div>
       </div>
+  );
+}
+
+function GmailAddinPreview() {
+  return (
+    <div
+      className="gmail-addin-preview"
+      aria-label="Démonstration de l'extension Gmail Vitreen"
+    >
+      <GmailAddinMock />
+    </div>
+  );
+}
+
+function GalleryOsGmailCard() {
+  return (
+    <Link to="/gmail-addin" className="bento-card bento-card--sm gmck-demo">
+      <GmailAddinMock />
       <span className="vitreen-card-caption">
         <span>
           <strong>Gallery OS</strong>
@@ -228,7 +245,7 @@ function BentoCard({ project, mediaOverride }) {
   }
 
   if (!mediaOverride && project.slug === "app-sante") {
-    return <GalleryOsGmailCard project={project} />;
+    return <GalleryOsGmailCard />;
   }
 
   const size = BENTO_SIZE[project.slug] ?? "sm";
@@ -939,6 +956,74 @@ function SalesAgentPage() {
   );
 }
 
+function GmailAddinPage() {
+  return (
+    <FeaturePage
+      heroClassName="feature-hero--gmail"
+      hero={<GmailAddinPreview />}
+      liveUrl="https://gallery-os-ten.vercel.app"
+      intro={{
+        meta: [
+          { term: "Produit", value: "Gallery OS · Vitreen" },
+          { term: "Type", value: "Add-in Gmail · Google Workspace" },
+          { term: "Intégration", value: "Sidebar Gmail + fenêtre Compose" },
+          { term: "Source", value: "Inventaire Vitreen — live" },
+          { term: "Connexion", value: "gallery-os-ten.vercel.app" },
+          { term: "Statut", value: "Prototype connecté" },
+        ],
+        question:
+          "Comment insérer la bonne œuvre — visuel, prix, disponibilité — dans un email sans quitter Gmail ?",
+        text: "L'add-in Vitreen vit dans la sidebar Gmail. Au moment de répondre à un collectionneur, la galerie cherche une pièce dans son inventaire et l'insère dans le brouillon — fiche complète, prix et statut repris en direct de Gallery OS, jamais recopiés à la main.",
+      }}
+      caseStudy={{
+        header: {
+          title: "Add-in Gmail",
+          subtitle: "Extension Gmail — Gallery OS / Vitreen",
+        },
+        body: [
+          "L'add-in Vitreen vit directement dans la sidebar Gmail : la galerie reste dans sa boîte mail pour répondre aux collectionneurs.",
+          "Au moment de composer, elle cherche une œuvre dans son inventaire Gallery OS et l'insère dans le brouillon — visuel, titre, année, prix et disponibilité repris en direct, jamais recopiés.",
+        ],
+        modules: [
+          {
+            tag: "Problème",
+            title: "Recopier l'inventaire à la main, à chaque email",
+            text: "Pour répondre à une demande, la galerie ouvre son inventaire dans un autre onglet, copie le titre, le prix et le statut, télécharge l'image, revient sur Gmail, colle, met en forme — pour chaque œuvre, dans chaque message.\n\nLe résultat : des réponses lentes à préparer, et des informations qui se désynchronisent. Un prix périmé, une pièce annoncée disponible alors qu'elle est déjà réservée.",
+          },
+          {
+            tag: "Fonctionnement",
+            title: "Chercher et insérer sans quitter le brouillon",
+            text: "L'add-in s'installe dans la sidebar Gmail (Google Workspace) et se connecte au compte Gallery OS de la galerie.\n\n- Connexion : l'extension affiche l'état de l'inventaire en direct — œuvres disponibles, réservées, vendues.\n- Recherche : depuis un brouillon, un champ cherche par titre ou nom d'artiste dans l'inventaire Vitreen.\n- Insertion : l'œuvre choisie est ajoutée à l'email sous forme de fiche — visuel, titre, année, prix et statut.\n\nLes données sont lues dans Gallery OS au moment de l'insertion : ce qui part dans l'email reflète l'inventaire réel.",
+          },
+          {
+            tag: "Principe",
+            title: "Une seule source de vérité",
+            text: "L'add-in ne stocke ni ne duplique l'inventaire : il interroge Gallery OS à la demande.\n\n- Statut à jour : une œuvre vendue ou réservée n'est jamais présentée comme disponible.\n- Pas de ressaisie : prix et dimensions ne sont jamais retapés, donc jamais faux.\n- Dans le flux : la galerie reste dans Gmail, là où la conversation a déjà lieu.",
+          },
+        ],
+        next: {
+          title: "De l'insertion à la conversation complète",
+          text: "Étendre l'add-in pour qu'il accompagne toute la relation collectionneur depuis Gmail, branché sur l'inventaire et le CRM.",
+          cards: [
+            {
+              title: "Sélections privées",
+              text: "Insérer non plus une œuvre mais une sélection entière, composée pour un collectionneur depuis Gallery OS.",
+            },
+            {
+              title: "Suivi des envois",
+              text: "Savoir quelles œuvres ont été partagées avec qui, directement dans la fiche collectionneur.",
+            },
+            {
+              title: "Lien avec le Sales Agent",
+              text: "Proposer les œuvres à insérer à partir du brouillon déjà préparé par le Sales Agent.",
+            },
+          ],
+        },
+      }}
+    />
+  );
+}
+
 function HangingBookingPage() {
   return (
     <FeaturePage
@@ -976,7 +1061,7 @@ export default function App() {
   const { pathname } = useLocation();
   const hideFooter =
     pathname.startsWith("/projet/") ||
-    ["/reels", "/sales-agent", "/booking"].includes(pathname);
+    ["/reels", "/sales-agent", "/booking", "/gmail-addin"].includes(pathname);
 
   return (
     <div className="page">
@@ -984,6 +1069,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/reels" element={<VitreenReelsPage />} />
         <Route path="/sales-agent" element={<SalesAgentPage />} />
+        <Route path="/gmail-addin" element={<GmailAddinPage />} />
         <Route path="/booking" element={<HangingBookingPage />} />
         <Route path="/projet/:slug" element={<ProjectPage />} />
       </Routes>

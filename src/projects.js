@@ -45,8 +45,10 @@ export const projects = [
         ],
       },
       wireframes: [
-        { title: "V1 — Calendly (état existant)", src: "/wireframes/wireframe-v1.png", type: "image" },
-        { title: "V2 — Custom flow", src: "/wireframes/wireframe-v2.png", type: "image" },
+        { title: "Hanging — Landing", src: "/hanging/hanging landing.mov", type: "video", landscape: true, hangingFrame: true },
+        { title: "Hanging — Écran 01", src: "/hanging/hanging1.png", type: "image", landscape: true, hangingFrame: true },
+        { title: "Hanging — Écran 02", src: "/hanging/hanging2.png", type: "image", landscape: true, hangingFrame: true },
+        { title: "Hanging — Écran 03", src: "/hanging/hanging3.png", type: "image", landscape: true, hangingFrame: true },
       ],
       execution: "Ce projet n'a pas été confié à un développeur. Le design et le code ont été produits par la même personne, en itérant directement dans le navigateur plutôt que de rester dans Figma.",
       stack: [

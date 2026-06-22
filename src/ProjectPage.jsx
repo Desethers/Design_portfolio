@@ -1609,10 +1609,22 @@ function HangingUseCaseModal({ project, liveUrl, onClose }) {
           <div className="vitreen-modal-screens" aria-label="Aperçus du produit">
             {showcaseScreens.map((screen) => (
               <figure
-                className={`vitreen-modal-screen${screen.preserveRatio ? " vitreen-modal-screen--natural" : ""}${screen.landscape ? " vitreen-modal-screen--wide" : ""}`}
+                className={`vitreen-modal-screen${screen.preserveRatio ? " vitreen-modal-screen--natural" : ""}${screen.landscape ? " vitreen-modal-screen--wide" : ""}${screen.hangingFrame ? " vitreen-modal-screen--hanging-frame" : ""}`}
                 key={screen.src ?? screen.title}
               >
-                <img src={screen.src} alt={screen.title ?? `${project.title} — aperçu`} />
+                {/\.(mp4|mov|webm)$/i.test(screen.src) ? (
+                  <video
+                    src={screen.src}
+                    aria-label={screen.title ?? `${project.title} — aperçu`}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                  />
+                ) : (
+                  <img src={screen.src} alt={screen.title ?? `${project.title} — aperçu`} />
+                )}
               </figure>
             ))}
           </div>
@@ -2043,22 +2055,6 @@ export function VitreenReelsPage() {
     window.scrollTo(0, 0);
   }, []);
 
-  useEffect(() => {
-    const process = () => window.instgrm?.embeds?.process();
-    const existing = document.querySelector(
-      'script[src="https://www.instagram.com/embed.js"]'
-    );
-    if (existing) {
-      process();
-      return;
-    }
-    const script = document.createElement("script");
-    script.src = "https://www.instagram.com/embed.js";
-    script.async = true;
-    script.onload = process;
-    document.body.appendChild(script);
-  }, []);
-
   if (!project) return <Navigate to="/" replace />;
 
   const reelsScreen = project.caseStudy?.product?.screens?.find(
@@ -2111,12 +2107,16 @@ export function VitreenReelsPage() {
         </header>
 
         <div className="reels-page-carousel" aria-label="Reels Instagram Vitreen">
-          {orderedReels.map((item) => (
+          {orderedReels.map((item, index) => (
             <article className="vitreen-reel-card" key={item.id}>
-              <blockquote
-                className="instagram-media"
-                data-instgrm-permalink={`https://www.instagram.com/reel/${item.id}/`}
-                data-instgrm-version="14"
+              <video
+                src={`/vitreen/reels/${item.id}.mp4`}
+                aria-label={`Reel Instagram Vitreen ${index + 1}`}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
               />
             </article>
           ))}
@@ -2144,19 +2144,6 @@ export function VitreenReelsPage() {
                   <p className="vitreen-intro-preview-text">{intro.text}</p>
                 </div>
               )}
-              <Link
-                to="/projet/vitreen"
-                className="vitreen-pill-btn vitreen-intro-preview-btn"
-              >
-                Full use case
-                <svg
-                  className="vitreen-pill-expand"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path d="M10 14 4 20M4 20h4M4 20v-4M14 10l6-6M20 4h-4M20 4v4" />
-                </svg>
-              </Link>
             </div>
           </section>
         )}
