@@ -963,8 +963,22 @@ function SalesAgentPage() {
 }
 
 function SalesAgentHeroVideo() {
+  const wrapRef = useRef(null);
+
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el) return;
+    const cap = () => {
+      const maxH = Math.min(window.innerHeight * 0.7, 16 * 42); // 70vh or 42rem
+      el.style.height = maxH + "px";
+    };
+    cap();
+    window.addEventListener("resize", cap);
+    return () => window.removeEventListener("resize", cap);
+  }, []);
+
   return (
-    <div className="sales-agent-hero-video">
+    <div className="sales-agent-hero-video" ref={wrapRef}>
       <video
         src="/Gallery%20OS/sales_agent1.mov"
         muted

@@ -7762,9 +7762,15 @@ a {
   align-self: flex-start;
 }
 
+.feature-modal-hero .sales-agent-hero-video {
+  height: clamp(300px, 70vh, 42rem);
+  overflow: hidden;
+}
+
 .feature-modal-hero .sales-agent-hero-video video {
+  display: block;
   width: 100%;
-  max-height: min(70vh, 42rem);
+  height: 100%;
   object-fit: contain;
   object-position: center;
 }
