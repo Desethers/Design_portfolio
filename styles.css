@@ -3464,6 +3464,7 @@ a {
 
 .sales-agent-module-video {
   width: min(100%, 55rem);
+  aspect-ratio: 16 / 8.32;
   margin: clamp(2.5rem, 5vw, 4rem) auto 0;
   overflow: hidden;
   border: 1px solid #dededb;
@@ -3474,7 +3475,9 @@ a {
 .sales-agent-module-video video {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 @media (max-width: 640px) {
@@ -7987,12 +7990,14 @@ a {
 }
 
 .feature-hero--sales .sales-agent-hero-video {
-  width: 100%;
+  width: min(100%, 56rem);
+  margin: 0 auto;
   border-radius: 22px;
   overflow: hidden;
   border: 1px solid #dededb;
   background: #f7f7f5;
   box-shadow: 0 18px 54px rgba(26, 24, 20, 0.12);
+  line-height: 0;
 }
 
 .feature-modal-hero .sales-agent-hero-video {
