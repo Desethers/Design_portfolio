@@ -7758,14 +7758,15 @@ a {
 }
 
 .feature-modal-hero:has(.sales-agent-hero-video) {
-  flex: 0 0 90%;
-  height: auto;
+  flex: 0 0 min(90%, 72rem);
   align-self: flex-start;
 }
 
 .feature-modal-hero .sales-agent-hero-video video {
-  height: auto;
+  width: 100%;
+  max-height: min(70vh, 42rem);
   object-fit: contain;
+  object-position: center;
 }
 
 .sales-agent-hero-video video {
