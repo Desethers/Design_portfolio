@@ -7,6 +7,7 @@ import HangingTechnicalDrawing from "./HangingTechnicalDrawing.jsx";
 import HangingBookingPreview from "./HangingBookingPreview.jsx";
 import SalesAgentPreview from "./SalesAgentPreview.jsx";
 import SalesAgentFlowMock from "./SalesAgentFlowMock.jsx";
+import SalesAgentContextDiptych from "./SalesAgentContextDiptych.jsx";
 import { VitreenSiteV21 } from "./VitreenSite.jsx";
 
 const BENTO_SIZE = {
@@ -939,16 +940,23 @@ function SalesAgentPage() {
             tag: "Contexte",
             title: "Répondre sans perdre la relation",
             text: "Les galeries reçoivent leurs demandes collectionneurs par email. Préparer une réponse privée demande de vérifier les disponibilités, les fiches œuvres, les images, le contexte collectionneur et les échanges précédents.\n\nCe travail est répétitif, mais commercialement sensible. La réponse doit rester humaine, précise et fidèle au ton de la galerie.",
+            mock: <SalesAgentContextDiptych />,
           },
           {
             tag: "Décisions produit",
             title: "Préparer, jamais envoyer",
-            text: "- L'agent prépare un brouillon, mais n'envoie jamais.\n- Chaque message passe par une validation de la galerie.\n- Les suggestions d'œuvres viennent de Gallery OS.\n- La feature assiste la préparation commerciale sans remplacer le jugement humain.\n- La communication collectionneur conserve le ton et la discrétion de la galerie.",
+            text: "- L'agent prépare un brouillon, mais n'envoie jamais.\n- Chaque message passe par une validation de la galerie.\n- La feature assiste la préparation commerciale sans remplacer le jugement humain.\n- La communication collectionneur conserve le ton et la discrétion de la galerie.",
+            mock: (
+              <SalesAgentModuleVideo
+                src="/Gallery%20OS/sales_agent_decision_produit.mp4"
+                label="Aperçu vidéo des décisions produit du Sales Agent"
+              />
+            ),
           },
           {
             tag: "Design d'expérience",
             title: "Une boucle de validation courte",
-            text: "Demande collectionneur → Analyse de la demande → Suggestions d'œuvres pertinentes → Génération du brouillon → Création d'une notification → Relecture et envoi par la galerie.\n\nLe parcours réduit la préparation sans retirer la décision à la galerie.",
+            text: "Chaque demande est qualifiée, enrichie avec les informations disponibles dans Gallery OS, puis transformée en brouillon prêt à relire. La galerie ajuste si nécessaire et conserve la décision d'envoi.",
             mock: <SalesAgentFlowMock />,
           },
           {
@@ -959,6 +967,22 @@ function SalesAgentPage() {
         ],
       }}
     />
+  );
+}
+
+function SalesAgentModuleVideo({ src, label }) {
+  return (
+    <div className="sales-agent-module-video">
+      <video
+        src={src}
+        muted
+        playsInline
+        autoPlay
+        loop
+        preload="metadata"
+        aria-label={label}
+      />
+    </div>
   );
 }
 
