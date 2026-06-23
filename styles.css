@@ -2921,7 +2921,7 @@ a {
 
 .vitreen-metrics--feature {
   width: min(100%, 55rem);
-  padding: clamp(3rem, 6vw, 5rem) 0 clamp(5rem, 9vw, 8rem);
+  padding: 0 0 clamp(6rem, 11vw, 10rem);
   margin: 0 auto;
 }
 
@@ -7990,7 +7990,7 @@ a {
 }
 
 .feature-hero--sales .sales-agent-hero-video {
-  width: min(100%, 56rem);
+  width: min(100%, 62rem);
   margin: 0 auto;
   border-radius: 22px;
   overflow: hidden;
@@ -8033,8 +8033,10 @@ a {
   height: auto;
 }
 
-.feature-hero--sales + .reels-page-intro {
-  margin-top: 18px;
+.feature-hero--sales + .reels-page-intro.vitreen-editorial {
+  width: min(100%, 55rem);
+  margin: 0 auto;
+  padding: clamp(6rem, 11vw, 10rem) 0;
 }
 
 .sa-preview {

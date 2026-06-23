@@ -939,7 +939,7 @@ function SalesAgentPage() {
           {
             tag: "Contexte",
             title: "Répondre sans perdre la relation",
-            text: "Les galeries reçoivent leurs demandes collectionneurs par email. Préparer une réponse privée demande de vérifier les disponibilités, les fiches œuvres, les images, le contexte collectionneur et les échanges précédents.\n\nCe travail est répétitif, mais commercialement sensible. La réponse doit rester humaine, précise et fidèle au ton de la galerie.",
+            text: "Chaque demande collectionneur nécessite de retrouver les bonnes informations avant de pouvoir répondre.\n\nL'objectif n'est pas d'automatiser la relation, mais de réduire le temps de préparation tout en laissant la galerie maître de chaque échange.",
             mock: <SalesAgentContextDiptych />,
           },
           {
@@ -960,9 +960,9 @@ function SalesAgentPage() {
             mock: <SalesAgentFlowMock />,
           },
           {
-            tag: "Design système",
-            title: "Relier email et données structurées",
-            text: "Gmail → Sales Agent → Gallery OS → Fiches œuvres → Brouillon de réponse → Validation galerie.\n\nLa valeur vient du lien entre les canaux de communication existants et les données d'œuvres structurées dans la couche opérationnelle.",
+            tag: "Faire circuler les données vers la conversation",
+            title: "Product insight",
+            text: "Plutôt que de demander à la galerie de rechercher l'information dans plusieurs outils, le Sales Agent rassemble le contexte nécessaire autour de chaque demande collectionneur afin de maintenir la conversation sans interruption.",
           },
         ],
       }}
@@ -990,7 +990,7 @@ function SalesAgentHeroVideo() {
   return (
     <div className="sales-agent-hero-video">
       <video
-        src="/Gallery%20OS/sales_agent1_hero.mp4"
+        src="/Gallery%20OS/sales_agent1.mov"
         muted
         playsInline
         autoPlay
