@@ -986,6 +986,8 @@ function SalesAgentPage() {
                 <VitreenStackFlow items={[
                   { name: "Gmail", role: "Déclencheur", icon: "/icones/gmail.svg" },
                   { name: "Claude", role: "Génération", icon: "/icones/claudecode-text.svg" },
+                  { name: "Groq", role: "Inférence", icon: "/icones/groq-text.svg" },
+                  { name: "Cursor", role: "Développement", icon: "/icones/cursor.svg" },
                 ]} />
               </div>
             ),
