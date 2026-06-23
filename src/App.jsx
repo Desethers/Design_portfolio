@@ -903,7 +903,7 @@ function SalesAgentPage() {
   return (
     <FeaturePage
       heroClassName="feature-hero--sales"
-      hero={<SalesAgentPreview />}
+      hero={<SalesAgentHeroVideo />}
       liveUrl="https://gallery-os-ten.vercel.app"
       intro={{
         meta: [
@@ -924,8 +924,8 @@ function SalesAgentPage() {
           subtitle: "Assistant de vente IA — Gallery OS / Vitreen",
         },
         body: [
-          "Le Sales Agent prépare un brouillon de réponse pour chaque inquiry entrante — œuvres disponibles déjà insérées, contexte collectionneur rappelé.",
-          "La galerie relit, ajuste, envoie : l'IA accélère le travail de préparation sans jamais décider, ni envoyer, à sa place.",
+          "Le Sales Agent prépare un brouillon pour chaque demande collectionneur — œuvres disponibles proposées, contexte rappelé, réponse prête à relire.",
+          "La galerie relit, ajuste et envoie : l'agent accélère la préparation commerciale sans décider, ni envoyer, à sa place.",
         ],
         metrics: [
           { value: "186", label: "Prompt iterations" },
@@ -936,47 +936,45 @@ function SalesAgentPage() {
         ],
         modules: [
           {
-            tag: "Problème",
-            title: "Chaque inquiry repart d'une page blanche",
-            text: "Une demande collectionneur arrive par email : un budget, un format, une intention. Pour y répondre, la galerie rouvre l'inventaire, vérifie les disponibilités, recompose les fiches œuvres et rédige — à chaque fois.\n\nLe goulot n'est pas la décision de vente, c'est le temps passé à rassembler les bonnes informations avant même de pouvoir répondre.",
+            tag: "Contexte",
+            title: "Répondre sans perdre la relation",
+            text: "Les galeries reçoivent leurs demandes collectionneurs par email. Préparer une réponse privée demande de vérifier les disponibilités, les fiches œuvres, les images, le contexte collectionneur et les échanges précédents.\n\nCe travail est répétitif, mais commercialement sensible. La réponse doit rester humaine, précise et fidèle au ton de la galerie.",
           },
           {
-            tag: "Déclenchement",
-            title: "Filtrer avant de rédiger",
-            text: "L'agent se déclenche sur une réponse depuis la sidebar Gmail ou un webhook email entrant — mais pas sur tout. Un filtre d'intention écarte les messages sans enjeu commercial (« merci », « bien reçu ») et ne traite que les demandes réelles : prix, disponibilité, dimensions, visite.\n\nUn même message ne génère qu'un seul brouillon : la création est idempotente, rien ne se duplique si l'agent est rappelé.",
+            tag: "Décisions produit",
+            title: "Préparer, jamais envoyer",
+            text: "- L'agent prépare un brouillon, mais n'envoie jamais.\n- Chaque message passe par une validation de la galerie.\n- Les suggestions d'œuvres viennent de Gallery OS.\n- La feature assiste la préparation commerciale sans remplacer le jugement humain.\n- La communication collectionneur conserve le ton et la discrétion de la galerie.",
+          },
+          {
+            tag: "Design d'expérience",
+            title: "Une boucle de validation courte",
+            text: "Demande collectionneur → Analyse de la demande → Suggestions d'œuvres pertinentes → Génération du brouillon → Création d'une notification → Relecture et envoi par la galerie.\n\nLe parcours réduit la préparation sans retirer la décision à la galerie.",
             mock: <SalesAgentFlowMock />,
           },
           {
-            tag: "Fonctionnement",
-            title: "Interroger les vraies données, jamais inventer",
-            text: "Avant d'écrire, l'agent appelle des outils branchés sur Gallery OS — il ne devine ni un prix, ni une disponibilité, ni une œuvre.\n\n- Contact : recherche le collectionneur dans le CRM, avec son historique d'achats et ses dernières inquiries.\n- Œuvre : récupère les métadonnées réelles de la pièce concernée (prix, statut, dimensions).\n- Alternatives : si la pièce est vendue ou hors budget, propose des œuvres similaires disponibles.\n- Galerie : reprend le ton, la signature et la langue par défaut de la galerie.\n\nLe brouillon final est structuré et typé : destinataire, sujet, corps, langue, priorité, relance suggérée, raisonnement et œuvres mentionnées.",
-          },
-          {
-            tag: "Garde-fous",
-            title: "Accélérer sans décider à la place",
-            text: "Le comportement est cadré par des règles strictes, pas laissé à l'improvisation du modèle.\n\n- Multilingue : la réponse épouse la langue du collectionneur (fr, en, de, es, it, zh).\n- VIP : ton plus personnel quand le contact est identifié comme tel.\n- Œuvre vendue : jamais un « désolé, vendu » sec — deux ou trois alternatives à la place.\n- Prix sur demande : pas de chiffre inventé, une proposition d'échange (appel, visite).\n- Aucun engagement sur la livraison, la garantie ou l'exclusivité.\n\nEt surtout : jamais d'autopilot. Le brouillon reste en attente — il n'est envoyé qu'après validation humaine.",
+            tag: "Design système",
+            title: "Relier email et données structurées",
+            text: "Gmail → Sales Agent → Gallery OS → Fiches œuvres → Brouillon de réponse → Validation galerie.\n\nLa valeur vient du lien entre les canaux de communication existants et les données d'œuvres structurées dans la couche opérationnelle.",
           },
         ],
-        next: {
-          title: "Du brouillon à la boucle complète",
-          text: "Étendre le Sales Agent au-delà du premier message, jusqu'à un suivi des conversations collectionneurs branché sur l'inventaire.",
-          cards: [
-            {
-              title: "Relances programmées",
-              text: "Activer la relance suggérée par l'agent quand une inquiry reste sans réponse, avec les œuvres encore disponibles.",
-            },
-            {
-              title: "Multi-canal",
-              text: "Préparer les réponses là où les collectionneurs écrivent — Gmail aujourd'hui, WhatsApp ensuite.",
-            },
-            {
-              title: "Mesurer l'usage",
-              text: "Suivre brouillons acceptés, édités ou écartés pour affiner les règles et le ton de l'agent.",
-            },
-          ],
-        },
       }}
     />
+  );
+}
+
+function SalesAgentHeroVideo() {
+  return (
+    <div className="sales-agent-hero-video">
+      <video
+        src="/Gallery%20OS/sales_agent1.mov"
+        muted
+        playsInline
+        autoPlay
+        loop
+        preload="metadata"
+        aria-label="Aperçu vidéo du Sales Agent"
+      />
+    </div>
   );
 }
 

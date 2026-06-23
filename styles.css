@@ -2668,7 +2668,7 @@ a {
 
 .feature-hero--sales {
   min-height: 340px;
-  background: #e3ece0;
+  background: transparent;
 }
 
 .feature-hero--sales .sales-agent-preview {
@@ -2918,7 +2918,7 @@ a {
 
 .vitreen-metrics--feature {
   width: min(100%, 55rem);
-  padding: clamp(2.2rem, 5vw, 4rem) 0 0;
+  padding: clamp(3rem, 6vw, 5rem) 0 clamp(5rem, 9vw, 8rem);
   margin: 0 auto;
 }
 
@@ -7727,13 +7727,52 @@ a {
 
 /* ─── Sales Agent Preview ────────────────────────────────────────────────── */
 .feature-hero--sales {
-  min-height: 420px;
+  min-height: auto;
   align-items: center;
-  padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 4vw, 3rem);
+  padding: 0;
 }
 
 .feature-hero--sales .sa-preview {
   width: min(100%, 540px);
+}
+
+.feature-hero--sales .sales-agent-hero-video {
+  width: 100%;
+  border-radius: 22px;
+  overflow: hidden;
+  border: 1px solid #dededb;
+  background: #f7f7f5;
+  box-shadow: 0 18px 54px rgba(26, 24, 20, 0.12);
+}
+
+.feature-modal-hero .sales-agent-hero-video {
+  width: 100%;
+  border-radius: 22px;
+  overflow: hidden;
+  border: 1px solid #dededb;
+  background: #fff;
+  box-shadow: none;
+}
+
+.feature-modal-hero:has(.sales-agent-hero-video) {
+  flex: 0 0 90%;
+  height: auto;
+  align-self: flex-start;
+}
+
+.feature-modal-hero .sales-agent-hero-video video {
+  height: auto;
+  object-fit: contain;
+}
+
+.sales-agent-hero-video video {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.feature-hero--sales + .reels-page-intro {
+  margin-top: 18px;
 }
 
 .sa-preview {
