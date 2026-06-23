@@ -6,6 +6,7 @@ import ProjectPage, { VitreenReelsPage } from "./ProjectPage.jsx";
 import HangingTechnicalDrawing from "./HangingTechnicalDrawing.jsx";
 import HangingBookingPreview from "./HangingBookingPreview.jsx";
 import SalesAgentPreview from "./SalesAgentPreview.jsx";
+import SalesAgentFlowMock from "./SalesAgentFlowMock.jsx";
 import { VitreenSiteV21 } from "./VitreenSite.jsx";
 
 const BENTO_SIZE = {
@@ -745,6 +746,20 @@ function FeatureCaseStudyModal({ hero, caseStudy, intro, liveUrl, onClose }) {
             </div>
           </section>
 
+          {caseStudy.metrics?.length > 0 && (
+            <section
+              className="vitreen-metrics vitreen-metrics--feature"
+              aria-label="Métriques de la feature"
+            >
+              {caseStudy.metrics.map((metric) => (
+                <article className="vitreen-metric" key={metric.label}>
+                  <span className="vitreen-metric-value">{metric.value}</span>
+                  <span className="vitreen-metric-label">{metric.label}</span>
+                </article>
+              ))}
+            </section>
+          )}
+
           <article className="vitreen-modules">
             {caseStudy.modules.map((module) => (
               <section className="vitreen-module" key={module.title}>
@@ -757,6 +772,7 @@ function FeatureCaseStudyModal({ hero, caseStudy, intro, liveUrl, onClose }) {
                     {renderFeatureText(module.text)}
                   </div>
                 </div>
+                {module.mock}
               </section>
             ))}
           </article>
@@ -899,8 +915,8 @@ function SalesAgentPage() {
           { term: "Statut", value: "Prototype en validation" },
         ],
         question:
-          "Comment répondre à chaque demande collectionneur sans repartir d'une page blanche ?",
-        text: "Le Sales Agent prépare un brouillon de réponse pour chaque inquiry entrante — œuvres disponibles déjà insérées, contexte collectionneur rappelé. La galerie relit, ajuste, envoie : l'IA accélère sans décider à sa place.",
+          "Comment réduire le temps de préparation d'une réponse sans automatiser la relation collectionneur ?",
+        text: "Le Sales Agent assiste le travail commercial en préparant des brouillons contextualisés à partir de l'inventaire, des échanges passés et des œuvres disponibles. La décision et l'envoi restent entièrement entre les mains de la galerie.",
       }}
       caseStudy={{
         header: {
@@ -910,6 +926,13 @@ function SalesAgentPage() {
         body: [
           "Le Sales Agent prépare un brouillon de réponse pour chaque inquiry entrante — œuvres disponibles déjà insérées, contexte collectionneur rappelé.",
           "La galerie relit, ajuste, envoie : l'IA accélère le travail de préparation sans jamais décider, ni envoyer, à sa place.",
+        ],
+        metrics: [
+          { value: "186", label: "Prompt iterations" },
+          { value: "41", label: "Development sessions" },
+          { value: "34", label: "Design revisions" },
+          { value: "62k", label: "AI tokens consumed" },
+          { value: "7 days", label: "From idea to working product" },
         ],
         modules: [
           {
@@ -921,6 +944,7 @@ function SalesAgentPage() {
             tag: "Déclenchement",
             title: "Filtrer avant de rédiger",
             text: "L'agent se déclenche sur une réponse depuis la sidebar Gmail ou un webhook email entrant — mais pas sur tout. Un filtre d'intention écarte les messages sans enjeu commercial (« merci », « bien reçu ») et ne traite que les demandes réelles : prix, disponibilité, dimensions, visite.\n\nUn même message ne génère qu'un seul brouillon : la création est idempotente, rien ne se duplique si l'agent est rappelé.",
+            mock: <SalesAgentFlowMock />,
           },
           {
             tag: "Fonctionnement",
@@ -983,6 +1007,13 @@ function GmailAddinPage() {
         body: [
           "L'add-in Vitreen vit directement dans la sidebar Gmail : la galerie reste dans sa boîte mail pour répondre aux collectionneurs.",
           "Au moment de composer, elle cherche une œuvre dans son inventaire Gallery OS et l'insère dans le brouillon — visuel, titre, année, prix et disponibilité repris en direct, jamais recopiés.",
+        ],
+        metrics: [
+          { value: "28", label: "Prompt iterations" },
+          { value: "10", label: "Development sessions" },
+          { value: "16", label: "Design revisions" },
+          { value: "Not tracked", label: "AI tokens consumed" },
+          { value: "13 days", label: "Concept to prototype" },
         ],
         modules: [
           {

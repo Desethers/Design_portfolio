@@ -2695,7 +2695,7 @@ a {
 }
 
 /* Dans la modale case study : centrer et caler la scène sur la hauteur dispo */
-.feature-modal-hero {
+.feature-modal-hero:has(.gmail-addin-preview) {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2916,6 +2916,12 @@ a {
   color: var(--color-text-muted);
 }
 
+.vitreen-metrics--feature {
+  width: min(100%, 55rem);
+  padding: clamp(2.2rem, 5vw, 4rem) 0 0;
+  margin: 0 auto;
+}
+
 /* ─── Vitreen — modules produit inspirés de la modale Augments ───────── */
 .vitreen-modules {
   width: min(100%, 72rem);
@@ -2984,6 +2990,247 @@ a {
 
 .vitreen-module-text li {
   padding-left: 0.15rem;
+}
+
+/* ─── Sales Agent — schéma de la chaîne d'action (node-graph) ─────────── */
+.sag-wrap {
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+}
+
+.gosc-stage.sag-stage {
+  width: 820px;
+  height: 588px;
+}
+
+/* nœuds (réutilise .gosc-card / .gosc-fiche / .gosc-card--archive) */
+.sag-node { padding: 12px 13px; }
+
+/* cartes source (déclencheurs) — minimal, fond blanc */
+.sag-source {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 13px;
+  background: #fff;
+  border: 1px solid #ebebe8;
+  box-shadow: none;
+}
+.sag-source-id {
+  flex: 1;
+  min-width: 0;
+}
+.sag-source-id .gosc-name {
+  white-space: nowrap;
+}
+.sag-source-id .gosc-sub {
+  margin-top: 2px;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sag-head {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 9px;
+}
+
+.sag-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: #171716;
+}
+
+.sag-tag {
+  margin-left: auto;
+  font-size: 9.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #8a887f;
+  background: #f1f0ea;
+  border-radius: 5px;
+  padding: 2px 6px;
+}
+
+.sag-note {
+  margin: 0 0 9px;
+  font-size: 11px;
+  line-height: 1.35;
+  color: var(--color-text-muted);
+}
+
+.sag-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+/* cœur agent */
+.sag-core .sag-head { margin-bottom: 4px; }
+
+.sag-model {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  margin: 0 0 11px 15px;
+}
+
+.sag-section {
+  font-size: 9.5px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #8a887f;
+  margin-bottom: 7px;
+}
+
+.sag-collect {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+.sag-collect li {
+  position: relative;
+  padding-left: 14px;
+  font-size: 11px;
+  line-height: 1.2;
+  color: #3f3e38;
+}
+.sag-collect li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 5px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #c4c2b8;
+}
+
+/* carte de validation */
+.sag-validate { padding: 0; overflow: hidden; }
+
+.sag-winbar {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 11px;
+  border-bottom: 1px solid #efeeec;
+  background: #fafaf8;
+}
+.sag-winbar i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #dcdcd6;
+}
+.sag-winbar > span {
+  margin-left: 6px;
+  font-size: 10px;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+.sag-winbar-tag {
+  margin-left: auto !important;
+  font-size: 8px !important;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #16a34a !important;
+  background: #f0fdf4;
+  border: 0.5px solid #bbf7d0;
+  border-radius: 20px;
+  padding: 2px 6px;
+  white-space: nowrap;
+}
+
+.sag-validate .sag-f {
+  display: grid;
+  gap: 3px;
+  padding: 0 12px;
+  margin-top: 8px;
+}
+.sag-validate .sag-f > span:first-child {
+  font-size: 8.5px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #9b9a94;
+}
+.sag-in {
+  font-size: 10.5px;
+  color: #171716;
+  border: 1px solid #e6e5e2;
+  border-radius: 6px;
+  padding: 5px 8px;
+  background: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sag-in--hint { color: #9b9a94; font-style: italic; }
+
+.sag-acts {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 12px 12px;
+}
+.sag-grow { flex: 1; }
+.sag-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 10px;
+  color: #171716;
+  border: 1px solid #e6e5e2;
+  border-radius: 6px;
+  padding: 4px 9px;
+  white-space: nowrap;
+}
+.sag-ghost-ico { font-size: 11px; line-height: 1; }
+.sag-solid {
+  font-size: 10px;
+  color: #fff;
+  background: #171716;
+  border-radius: 6px;
+  padding: 4px 12px;
+  white-space: nowrap;
+}
+
+/* règle absolue */
+.sag-rule {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 10px;
+  border: 1px dashed #171716;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.8);
+  font-size: 10.5px;
+  font-weight: 500;
+  color: #171716;
+  opacity: 0;
+  animation: gosc-pop 0.55s ease 1.15s forwards;
+}
+.sag-rule-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  flex: none;
+  border-radius: 50%;
+  background: #171716;
+  color: #fff;
+  font-size: 10px;
+}
+
+@media (max-width: 560px) {
+  .sag-wrap .gosc-stage {
+    background-size: 18px 18px;
+  }
 }
 
 .vitreen-module-media {
