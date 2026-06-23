@@ -2307,8 +2307,11 @@ a {
   object-position: top center;
 }
 
-.vitreen-modal-screen--natural img {
+.vitreen-modal-screen--natural img,
+.vitreen-modal-screen--wide video,
+.vitreen-modal-screen--hanging-frame video {
   object-fit: contain;
+  object-position: center;
 }
 
 .vitreen-modal-screen--zoom img {
