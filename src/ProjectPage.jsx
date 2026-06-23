@@ -1219,7 +1219,7 @@ function VitreenCirculationCanvas() {
   );
 }
 
-function VitreenStackFlow({ items }) {
+export function VitreenStackFlow({ items }) {
   return (
     <div className="vitreen-stack-flow">
       {items.map((item, index) => (

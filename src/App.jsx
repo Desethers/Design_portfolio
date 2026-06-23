@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Routes, Route, Link, useLocation, useNavigate } from "react-router-dom";
 import { projects } from "./projects.js";
 import { SITE } from "./site.js";
-import ProjectPage, { VitreenReelsPage } from "./ProjectPage.jsx";
+import ProjectPage, { VitreenReelsPage, VitreenStackFlow } from "./ProjectPage.jsx";
 import HangingTechnicalDrawing from "./HangingTechnicalDrawing.jsx";
 import HangingBookingPreview from "./HangingBookingPreview.jsx";
 import SalesAgentPreview from "./SalesAgentPreview.jsx";
@@ -520,13 +520,14 @@ function Home() {
   const renderSlot = ({ stack, projectSlug, customContent, landscape, mediaOverride }) => {
     if (customContent === "sales-agent") {
       return (
-        <div
+        <Link
           key={stack.id}
+          to="/sales-agent"
           className="stack-card-slot stack-card-slot--sales-agent"
         >
           <StackCardBadge stack={stack} />
-          <SalesAgentCard />
-        </div>
+          <SalesAgentMock />
+        </Link>
       );
     }
 
@@ -806,29 +807,51 @@ function FeatureCaseStudyModal({ hero, caseStudy, intro, liveUrl, onClose }) {
   );
 }
 
-function FeaturePage({ hero, heroClassName = "", intro, caseStudy, liveUrl }) {
+function FeaturePage({ hero, heroClassName = "", intro, caseStudy, liveUrl, cursorClose = false }) {
   const navigate = useNavigate();
   const [caseOpen, setCaseOpen] = useState(false);
+  const [cursor, setCursor] = useState({ x: 0, y: 0, visible: false });
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
+  const handleMouseMove = (e) => {
+    if (!cursorClose || caseOpen) return;
+    const overContent = e.target.closest(".reels-page-inner");
+    setCursor({ x: e.clientX, y: e.clientY, visible: !overContent });
+  };
+
+  const handleBackgroundClick = (e) => {
+    if (!cursorClose) return;
+    if (caseOpen) return;
+    if (e.target.closest(".reels-page-inner")) return;
+    navigate("/");
+  };
+
   return (
-    <main className="reels-page feature-page">
+    <main
+      className="reels-page feature-page"
+      onMouseMove={cursorClose ? handleMouseMove : undefined}
+      onMouseLeave={cursorClose ? () => setCursor((c) => ({ ...c, visible: false })) : undefined}
+      onClick={cursorClose ? handleBackgroundClick : undefined}
+      style={cursor.visible ? { cursor: "none" } : undefined}
+    >
       <div className="reels-page-inner">
-        <header className="reels-page-header">
-          <button
-            type="button"
-            className="vitreen-round-btn reels-page-close"
-            onClick={() => navigate("/")}
-            aria-label="Fermer"
-          >
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M6 6 18 18M18 6 6 18" />
-            </svg>
-          </button>
-        </header>
+        {!cursorClose && (
+          <header className="reels-page-header">
+            <button
+              type="button"
+              className="vitreen-round-btn reels-page-close"
+              onClick={() => navigate("/")}
+              aria-label="Fermer"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6 6 18 18M18 6 6 18" />
+              </svg>
+            </button>
+          </header>
+        )}
 
         <div className={`feature-hero${heroClassName ? ` ${heroClassName}` : ""}`}>
           {hero}
@@ -896,6 +919,17 @@ function FeaturePage({ hero, heroClassName = "", intro, caseStudy, liveUrl }) {
           onClose={() => setCaseOpen(false)}
         />
       )}
+      {cursorClose && !caseOpen && (
+        <div
+          className={`vitreen-cursor-close${cursor.visible ? " is-visible" : ""}`}
+          style={{ left: cursor.x, top: cursor.y }}
+          aria-hidden="true"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 6 18 18M18 6 6 18" />
+          </svg>
+        </div>
+      )}
     </main>
   );
 }
@@ -903,6 +937,7 @@ function FeaturePage({ hero, heroClassName = "", intro, caseStudy, liveUrl }) {
 function SalesAgentPage() {
   return (
     <FeaturePage
+      cursorClose={true}
       heroClassName="feature-hero--sales"
       hero={<SalesAgentHeroVideo />}
       liveUrl="https://gallery-os-ten.vercel.app"
@@ -943,6 +978,19 @@ function SalesAgentPage() {
             mock: <SalesAgentContextDiptych />,
           },
           {
+            tag: "Stack & workflow",
+            title: "De l'email au brouillon",
+            text: "Chaque outil intervient à une étape précise du flux : réception, lecture du contexte, génération, validation. Rien n'est envoyé sans décision humaine.",
+            mock: (
+              <div className="vitreen-module-media vitreen-module-media--stack">
+                <VitreenStackFlow items={[
+                  { name: "Gmail", role: "Déclencheur", icon: "/icones/gmail.svg" },
+                  { name: "Claude", role: "Génération", icon: "/icones/claudecode-text.svg" },
+                ]} />
+              </div>
+            ),
+          },
+          {
             tag: "Décisions produit",
             title: "Préparer, jamais envoyer",
             text: "- L'agent prépare un brouillon, mais n'envoie jamais.\n- Chaque message passe par une validation de la galerie.\n- La feature assiste la préparation commerciale sans remplacer le jugement humain.\n- La communication collectionneur conserve le ton et la discrétion de la galerie.",
@@ -960,8 +1008,8 @@ function SalesAgentPage() {
             mock: <SalesAgentFlowMock />,
           },
           {
-            tag: "Faire circuler les données vers la conversation",
-            title: "Product insight",
+            tag: "Product insight",
+            title: "Faire circuler les données vers la conversation",
             text: "Plutôt que de demander à la galerie de rechercher l'information dans plusieurs outils, le Sales Agent rassemble le contexte nécessaire autour de chaque demande collectionneur afin de maintenir la conversation sans interruption.",
           },
         ],
