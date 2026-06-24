@@ -249,9 +249,6 @@ function ReframingMock() {
             </div>
           </div>
         </div>
-        <p className="rfr-caption">
-          Une œuvre = un aller-retour entre deux onglets. Pour chaque message.
-        </p>
       </figure>
 
       <figure className="rfr-state rfr-state--after">
@@ -305,9 +302,6 @@ function ReframingMock() {
             </div>
           </div>
         </div>
-        <p className="rfr-caption">
-          L'inventaire arrive là où la conversation a déjà lieu — la même œuvre, à jour, sans ressaisie.
-        </p>
       </figure>
     </div>
   );
