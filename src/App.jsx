@@ -221,8 +221,8 @@ function ReframingMock() {
           <span className="rfr-state-label">Avant</span>
           <span className="rfr-state-desc">Deux mondes séparés</span>
         </figcaption>
-        <div className="rfr-stage">
-          {/* Gallery OS — l'inventaire dans un autre onglet */}
+        <div className="rfr-stage rfr-stage--quinx">
+          {/* Gallery OS — derrière, en haut à gauche */}
           <div className="rfr-app rfr-app--browser">
             <div className="rfr-chrome">
               <i className="rfr-dots" aria-hidden="true" />
@@ -233,7 +233,7 @@ function ReframingMock() {
             </div>
           </div>
 
-          {/* Gmail — le brouillon */}
+          {/* Gmail — devant, en bas à droite */}
           <div className="rfr-app rfr-app--gmail">
             <div className="rfr-gbar">
               <GmailLogo className="rfr-glogo" />
