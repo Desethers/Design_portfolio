@@ -229,7 +229,7 @@ function ReframingMock() {
               <span className="rfr-url">gallery-os</span>
             </div>
             <div className="rfr-shot">
-              <img src="/vitreen/gallery-os-artworks-home.png" alt="" loading="lazy" />
+              <img src="/vitreen/gallery-os-artworks-crop.png" alt="" loading="lazy" />
             </div>
           </div>
 
