@@ -9325,13 +9325,11 @@ a {
   object-fit: cover;
   object-position: top left;
 }
-.rfr-shot--artwork-detail {
-  background: #fff;
-}
-.rfr-shot--artwork-detail img {
+.rfr-shot--fiche img {
   object-fit: contain;
-  object-position: center;
-  padding: 0.45rem;
+  object-position: top center;
+  background: #fff;
+  padding: 0.5rem;
 }
 
 /* brouillon Gmail */

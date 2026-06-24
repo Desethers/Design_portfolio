@@ -228,8 +228,8 @@ function ReframingMock() {
               <i className="rfr-dots" aria-hidden="true" />
               <span className="rfr-url">gallery-os</span>
             </div>
-            <div className="rfr-shot">
-              <img src="/vitreen/gallery-os-artworks-crop.png" alt="" loading="lazy" />
+            <div className="rfr-shot rfr-shot--fiche">
+              <img src="/vitreen/gallery-os-fiche-oeuvre-crop.png" alt="" loading="lazy" />
             </div>
           </div>
 
