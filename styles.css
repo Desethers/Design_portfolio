@@ -2602,6 +2602,10 @@ a {
   padding: 115px 0 clamp(4rem, 7vw, 6rem);
 }
 
+.project-page--hanging .vitreen-intro-preview.vitreen-editorial {
+  padding-top: 155px;
+}
+
 .vitreen-intro-preview-text {
   overflow: hidden;
 }
@@ -5604,6 +5608,10 @@ a {
   aspect-ratio: 16 / 9;
 }
 
+.project-page--hanging .project-page-visual {
+  aspect-ratio: 16 / 8.25;
+}
+
 .project-prototype-video {
   width: 100%;
   height: 100%;
@@ -7105,6 +7113,10 @@ a {
   flex: 0 0 auto;
   width: auto;
   aspect-ratio: 4 / 3;
+}
+
+.stack-card-slot--hanging {
+  aspect-ratio: 4 / 3.12;
 }
 
 .stack-card-slot--reel {
@@ -8814,7 +8826,7 @@ a {
 .gsp-rail {
   position: absolute;
   right: 0;
-  top: 110px;
+  top: 160px;
   bottom: 90px;
   width: 46px;
   display: flex;
@@ -8850,7 +8862,7 @@ a {
 .gsp-compose {
   position: absolute;
   left: 20px;
-  top: 110px;
+  top: 160px;
   bottom: 90px;
   width: 524px;
   display: flex;
@@ -8915,7 +8927,7 @@ a {
 .gsp-art-id em { font-style: italic; font-size: 13px; color: #202124; }
 .gsp-art-inquire {
   flex: none;
-  padding: 7px 16px;
+  padding: 4px 16px;
   border: 1px solid #202124;
   font-size: 12px;
   color: #202124;
@@ -9127,3 +9139,424 @@ a {
 [data-step="5"] .gsp-cursor { transform: translate(250px, 360px); }
 [data-step="6"] .gsp-cursor { transform: translate(518px, 800px); }
 [data-step="7"] .gsp-cursor { transform: translate(330px, 400px); }
+
+/* ── Gmail side panel — mock pair (Reframing) ─────────────────────────── */
+.gsp-mock-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  width: min(100%, 55rem);
+  margin: 0 auto;
+}
+
+.gsp-mock-pair-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  overflow: hidden;
+  background: #f5f5f3;
+  aspect-ratio: 3 / 4;
+}
+
+.gsp-mock-pair-label {
+  flex: none;
+  padding: 0.55rem 0.9rem;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--color-text-secondary, #9aa0a6);
+  border-bottom: 1px solid var(--color-border);
+  background: #fff;
+}
+
+.gsp-mock-pair-card .gsp-wrap,
+.gsp-mock-pair-card .gmail-addin-mock {
+  flex: 1;
+  min-height: 0;
+}
+
+.gsp-mock-pair-card .gmck-embed {
+  flex: 1;
+  min-height: 0;
+  height: 100%;
+}
+
+.gmck-module-media {
+  aspect-ratio: 16 / 10;
+}
+.gmck-module-media .gmck-embed {
+  height: 100%;
+}
+
+/* ─── Reframing — diagramme avant / après (esprit portfolio) ─────────── */
+.rfr {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  width: min(100%, 55rem);
+  margin: 0 auto;
+  color: #1a1814;
+}
+
+.rfr-state {
+  margin: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.rfr-state-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+
+.rfr-state-label {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: #1a1814;
+}
+
+.rfr-state-desc {
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+}
+
+.rfr-stage {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: clamp(1.1rem, 3vw, 1.9rem) clamp(0.9rem, 2.5vw, 1.5rem);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  background: #f5f5f3;
+}
+
+.rfr-state--after .rfr-stage {
+  /* l'après respire : plus calme, plus aéré */
+  padding: clamp(1.4rem, 3.5vw, 2.3rem) clamp(1.1rem, 3vw, 1.8rem);
+}
+
+/* fenêtres (chrome fidèle) */
+.rfr-app {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-border);
+  border-radius: 9px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.rfr-chrome,
+.rfr-gbar {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.55rem;
+  border-bottom: 1px solid var(--color-border);
+}
+.rfr-gbar span {
+  min-width: 0;
+  font-size: 0.58rem;
+  font-weight: 500;
+  color: #1a1814;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.rfr-glogo {
+  width: 15px;
+  height: auto;
+  flex: none;
+}
+.rfr-url {
+  flex: 1;
+  min-width: 0;
+  padding: 0.12rem 0.45rem;
+  border-radius: 999px;
+  background: rgba(26, 24, 20, 0.05);
+  font-size: 0.52rem;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rfr-dots {
+  position: relative;
+  width: 22px;
+  height: 6px;
+  flex: none;
+}
+.rfr-dots::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(26, 24, 20, 0.16);
+  box-shadow: 8px 0 0 rgba(26, 24, 20, 0.16), 16px 0 0 rgba(26, 24, 20, 0.16);
+}
+
+/* capture Gallery OS */
+.rfr-shot {
+  height: 104px;
+  overflow: hidden;
+}
+.rfr-shot img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: top left;
+}
+
+/* brouillon Gmail */
+.rfr-compose {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.55rem 0.55rem 0.6rem;
+}
+.rfr-field {
+  font-size: 0.55rem;
+  color: var(--color-text-muted);
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--color-border);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.rfr-field--subj {
+  color: #1a1814;
+  font-weight: 500;
+}
+.rfr-send {
+  align-self: flex-start;
+  margin-top: 0.15rem;
+  padding: 0.22rem 0.7rem;
+  border-radius: 999px;
+  background: #1a73e8;
+  color: #fff;
+  font-size: 0.55rem;
+  font-weight: 500;
+}
+
+/* lignes de message */
+.rfr-line {
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(26, 24, 20, 0.12);
+}
+.rfr-line.is-short { width: 58%; }
+
+/* navette avant (aller-retour) */
+.rfr-shuttle {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  width: clamp(74px, 12vw, 96px);
+}
+.rfr-shuttle-arrow {
+  width: 100%;
+  height: auto;
+}
+.rfr-shuttle-arrow line,
+.rfr-shuttle-arrow path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.rfr-shuttle span {
+  font-size: 0.6rem;
+  line-height: 1.3;
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+/* après — fenêtre Gmail unifiée */
+.rfr-stage--solo {
+  display: block;
+}
+.rfr-app--unified {
+  max-width: none;
+}
+.rfr-unified {
+  display: grid;
+  grid-template-columns: 1fr 0.96fr;
+}
+.rfr-unified > * {
+  min-width: 0;
+}
+.rfr-unified .rfr-compose {
+  border-right: 1px solid var(--color-border);
+}
+
+/* fiche œuvre insérée */
+.rfr-artcard {
+  display: flex;
+  gap: 0.4rem;
+  margin-top: 0.15rem;
+  padding: 0.35rem;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+}
+.rfr-artcard img {
+  width: 36px;
+  height: 36px;
+  flex: none;
+  border-radius: 4px;
+  object-fit: cover;
+}
+.rfr-artmeta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.06rem;
+  min-width: 0;
+}
+.rfr-artmeta strong { font-size: 0.55rem; }
+.rfr-artmeta em {
+  font-size: 0.52rem;
+  font-style: italic;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.rfr-artmeta b {
+  font-size: 0.5rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+}
+
+/* side panel Vitreen */
+.rfr-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.5rem 0.5rem 0.55rem;
+  background: #fafaf8;
+}
+.rfr-panel-head {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.56rem;
+  font-weight: 500;
+  color: #1a1814;
+}
+.rfr-glyph {
+  width: 18px;
+  height: auto;
+  flex: none;
+  color: #1a1814;
+}
+.rfr-conn {
+  margin-left: auto;
+  font-style: normal;
+  font-size: 0.46rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: #2f7d4f;
+  padding: 0.05rem 0.32rem;
+  border-radius: 999px;
+  background: rgba(47, 125, 79, 0.12);
+}
+.rfr-search {
+  padding: 0.26rem 0.45rem;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background: #fff;
+  font-size: 0.5rem;
+  color: var(--color-text-muted);
+}
+.rfr-results {
+  display: flex;
+  flex-direction: column;
+  gap: 0.22rem;
+}
+.rfr-result {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.22rem;
+  border: 1px solid transparent;
+  border-radius: 5px;
+}
+.rfr-result.is-sel {
+  border-color: #1a1814;
+  background: #fff;
+}
+.rfr-thumb {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  border-radius: 3px;
+}
+.rfr-result-id {
+  display: flex;
+  flex-direction: column;
+  gap: 0.03rem;
+  flex: 1;
+  min-width: 0;
+}
+.rfr-result-id small {
+  font-size: 0.42rem;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+}
+.rfr-result-id em {
+  font-size: 0.5rem;
+  font-style: italic;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.rfr-price {
+  font-size: 0.46rem;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+.rfr-insert {
+  align-self: flex-end;
+  margin-top: 0.1rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: #1a1814;
+  color: #fff;
+  font-size: 0.52rem;
+  font-weight: 500;
+}
+
+.rfr-caption {
+  margin: 0;
+  min-height: 2.8em;
+  font-size: 0.7rem;
+  line-height: 1.4;
+  color: var(--color-text-muted);
+}
+
+@media (max-width: 720px) {
+  .rfr {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+  .rfr-caption {
+    min-height: 0;
+  }
+}

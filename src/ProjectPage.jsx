@@ -1837,7 +1837,7 @@ function ProjectWindowContent({ project, siteReady, onSiteLoad }) {
   }, [liveUrl, project.slug]);
 
   if (project.slug === "hanging") {
-    return <HangingTechnicalDrawing />;
+    return <HangingTechnicalDrawing preserveAspectRatio="xMidYMin slice" />;
   }
 
   if (project.slug === "gallery-os") {
@@ -1946,7 +1946,7 @@ function ShowcaseProjectPage({ project, showUseCase = false }) {
 
   return (
     <main
-      className="project-page project-page--vitreen"
+      className={`project-page project-page--vitreen project-page--${project.slug}`}
       onMouseMove={handleMouseMove}
       onMouseLeave={() => setCursor((c) => ({ ...c, visible: false }))}
       onClick={handleBackgroundClick}

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
-export default function HangingTechnicalDrawing() {
+export default function HangingTechnicalDrawing({ preserveAspectRatio = "xMidYMid slice" }) {
   const containerRef = useRef(null);
   const [pointer, setPointer] = useState({ x: 0.5, y: 0.5 });
 
@@ -50,7 +50,7 @@ export default function HangingTechnicalDrawing() {
 
   return (
     <div ref={containerRef} className="hanging-drawing">
-      <svg viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="xMidYMid slice">
+      <svg viewBox={`0 0 ${width} ${height}`} preserveAspectRatio={preserveAspectRatio}>
         <defs>
           <clipPath id="hanging-background-clip">
             <rect width={width} height={height} rx="14" />

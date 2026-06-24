@@ -197,6 +197,131 @@ function GmailAddinMock() {
   );
 }
 
+const RFR_WORKS = [
+  { artist: "SACHA ELRON", title: "Evening field, 2023", price: "8 000 €", swatch: "#27325e", sel: true },
+  { artist: "SACHA ELRON", title: "Amber Nocturne, 2025", price: "14 000 €", swatch: "#222a4d" },
+  { artist: "SACHA ELRON", title: "Sage Interval, 2022", price: "6 500 €", swatch: "#b4582f" },
+];
+
+const GmailLogo = ({ className }) => (
+  <svg className={className} viewBox="0 0 48 36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M3.4 33.6h7.2V16.2L0 8.2v22c0 2 1.5 3.4 3.4 3.4Z" fill="#4285f4" />
+    <path d="M37.4 33.6h7.2c1.9 0 3.4-1.5 3.4-3.4v-22l-10.6 8Z" fill="#34a853" />
+    <path d="M37.4 5.8v10.4L48 8.2V4.4c0-3.5-4-5.5-6.8-3.4Z" fill="#fbbc04" />
+    <path d="M10.6 16.2V5.8L24 15.8l13.4-10v10.4L24 26.2Z" fill="#ea4335" />
+    <path d="M0 4.4v3.8l10.6 8V5.8L6.8 1C4 -1.1 0 .9 0 4.4Z" fill="#c5221f" />
+  </svg>
+);
+
+function ReframingMock() {
+  return (
+    <div className="rfr">
+      <figure className="rfr-state rfr-state--before">
+        <figcaption className="rfr-state-head">
+          <span className="rfr-state-label">Avant</span>
+          <span className="rfr-state-desc">Deux mondes séparés</span>
+        </figcaption>
+        <div className="rfr-stage">
+          {/* Gallery OS — l'inventaire dans un autre onglet */}
+          <div className="rfr-app rfr-app--browser">
+            <div className="rfr-chrome">
+              <i className="rfr-dots" aria-hidden="true" />
+              <span className="rfr-url">gallery-os</span>
+            </div>
+            <div className="rfr-shot">
+              <img src="/vitreen/gallery-os-artworks-home.png" alt="" loading="lazy" />
+            </div>
+          </div>
+
+          {/* aller-retour fatigant */}
+          <div className="rfr-shuttle" aria-hidden="true">
+            <svg className="rfr-shuttle-arrow" viewBox="0 0 72 16">
+              <line x1="11" y1="8" x2="61" y2="8" />
+              <path d="M11 8 17 4M11 8 17 12M61 8 55 4M61 8 55 12" />
+            </svg>
+            <span>copier · coller · revenir</span>
+          </div>
+
+          {/* Gmail — le brouillon */}
+          <div className="rfr-app rfr-app--gmail">
+            <div className="rfr-gbar">
+              <GmailLogo className="rfr-glogo" />
+              <span>Nouveau message</span>
+            </div>
+            <div className="rfr-compose">
+              <span className="rfr-field">À&nbsp;&nbsp;collectionneur@…</span>
+              <span className="rfr-field rfr-field--subj">Spring selection 2026</span>
+              <span className="rfr-line" />
+              <span className="rfr-line" />
+              <span className="rfr-line is-short" />
+              <span className="rfr-send">Envoyer</span>
+            </div>
+          </div>
+        </div>
+        <p className="rfr-caption">
+          Une œuvre = un aller-retour entre deux onglets. Pour chaque message.
+        </p>
+      </figure>
+
+      <figure className="rfr-state rfr-state--after">
+        <figcaption className="rfr-state-head">
+          <span className="rfr-state-label">Après</span>
+          <span className="rfr-state-desc">Une seule surface</span>
+        </figcaption>
+        <div className="rfr-stage rfr-stage--solo">
+          <div className="rfr-app rfr-app--gmail rfr-app--unified">
+            <div className="rfr-gbar">
+              <GmailLogo className="rfr-glogo" />
+              <span>Spring selection 2026</span>
+            </div>
+            <div className="rfr-unified">
+              {/* le brouillon */}
+              <div className="rfr-compose">
+                <span className="rfr-field">À&nbsp;&nbsp;collectionneur@…</span>
+                <span className="rfr-line" />
+                <span className="rfr-line is-short" />
+                <div className="rfr-artcard">
+                  <img src="/vitreen/painting-05.jpg" alt="" loading="lazy" />
+                  <span className="rfr-artmeta">
+                    <strong>Sacha Elron</strong>
+                    <em>Evening field, 2023</em>
+                    <b>8 000 € · AVAILABLE</b>
+                  </span>
+                </div>
+              </div>
+              {/* le side panel Vitreen, branché sur Gallery OS */}
+              <aside className="rfr-panel">
+                <div className="rfr-panel-head">
+                  <VitreenGlyph className="rfr-glyph" />
+                  <span>Gallery OS</span>
+                  <i className="rfr-conn">Connecté</i>
+                </div>
+                <span className="rfr-search">Rechercher une œuvre…</span>
+                <div className="rfr-results">
+                  {RFR_WORKS.map((w) => (
+                    <div className={`rfr-result${w.sel ? " is-sel" : ""}`} key={w.title}>
+                      <span className="rfr-thumb" style={{ background: w.swatch }} />
+                      <span className="rfr-result-id">
+                        <small>{w.artist}</small>
+                        <em>{w.title}</em>
+                      </span>
+                      <span className="rfr-price">{w.price}</span>
+                    </div>
+                  ))}
+                </div>
+                <span className="rfr-insert">Insérer</span>
+              </aside>
+            </div>
+          </div>
+        </div>
+        <p className="rfr-caption">
+          L'inventaire arrive là où la conversation a déjà lieu — la même œuvre, à jour, sans ressaisie.
+        </p>
+      </figure>
+    </div>
+  );
+}
+
 function GmailAddinPreview() {
   return (
     <div
@@ -221,8 +346,8 @@ function GmailSidePanelPreview() {
 
 function GalleryOsGmailCard() {
   return (
-    <Link to="/gmail-addin" className="bento-card bento-card--sm gmck-demo gsp-demo">
-      <GmailSidePanelMock />
+    <Link to="/gmail-addin" className="bento-card bento-card--sm gmck-demo">
+      <GmailAddinMock />
       <span className="vitreen-card-caption">
         <span>
           <strong>Gallery OS</strong>
@@ -598,7 +723,7 @@ function Home() {
         key={stack.id}
         className={`stack-card-slot${
           landscape ? " stack-card-slot--landscape" : ""
-        }${projectSlug ? " stack-card-slot--desktop-preview" : ""}`}
+        }${projectSlug ? " stack-card-slot--desktop-preview" : ""} stack-card-slot--${project.slug}`}
       >
         <StackCardBadge stack={stack} />
         {projectSlug === "vitreen" && stack.id === "claude-code" && (
@@ -1068,7 +1193,7 @@ function GmailAddinPage() {
   return (
     <FeaturePage
       heroClassName="feature-hero--gmail"
-      hero={<GmailSidePanelPreview />}
+      hero={<GmailAddinPreview />}
       liveUrl="https://gallery-os-ten.vercel.app"
       intro={{
         meta: [
@@ -1079,8 +1204,8 @@ function GmailAddinPage() {
           { term: "Statut", value: "Prototype connecté" },
         ],
         question:
-          "Comment répondre à un collectionneur avec la bonne œuvre sans quitter Gmail ?",
-        text: "Le side panel Vitreen vit dans la sidebar Gmail. La galerie y cherche une œuvre depuis son inventaire et l'insère dans le brouillon — visuel, prix, statut repris en direct. Rien n'est recopié à la main.",
+          "Comment faire passer une œuvre de l'inventaire à l'email en un clic ?",
+        text: "Cette intégration Gmail transforme l'inventaire Gallery OS en source unique de publication. Une œuvre sélectionnée dans la base est injectée directement dans l'email avec ses informations à jour, sans duplication ni ressaisie intermédiaire.",
       }}
       caseStudy={{
         header: {
@@ -1102,17 +1227,29 @@ function GmailAddinPage() {
             tag: "Contexte",
             title: "La galerie répond depuis Gmail, l'inventaire est ailleurs",
             text: "Les galeries gèrent leurs relations collectionneurs depuis Gmail. Pour répondre à une demande — prix, disponibilité, visuel —, la galerie ouvre Gallery OS dans un autre onglet, retrouve l'œuvre, copie le titre et le prix, télécharge le visuel, revient sur Gmail, colle et met en forme. Pour chaque œuvre. Dans chaque message.\n\nLe résultat : des réponses lentes, des données qui se désynchronisent. Une pièce annoncée disponible alors qu'elle vient d'être réservée. Un prix recopié à la main qui ne correspond plus à l'inventaire.",
-            mock: <GmailAddinMock />,
           },
           {
             tag: "Reframing",
             title: "Ne pas déplacer la galerie — déplacer les données",
-            text: "Le problème apparent : la galerie a besoin de chercher plus vite dans son inventaire.\n\nLe problème produit : les données sont dans Gallery OS, la conversation est dans Gmail. Demander à la galerie de changer de contexte à chaque réponse est une friction structurelle, pas un problème de vitesse.\n\nLe reframing : le side panel ne doit pas ouvrir un nouvel outil — il doit amener l'inventaire là où la conversation a déjà lieu.",
+            text: "Les données vivent dans Gallery OS, les conversations dans Gmail. La friction ne vient pas de la recherche d'une œuvre mais du passage constant entre les deux.\n\nL'objectif est devenu simple : amener l'inventaire directement dans l'espace de travail de la galerie.",
+            mock: <ReframingMock />,
           },
           {
             tag: "Architecture produit",
             title: "Une sidebar, deux surfaces, une seule source",
-            text: "Le side panel s'appuie sur l'API Google Workspace Add-on. Il vit dans le rail latéral de Gmail, au même endroit que Calendar, Keep et Tasks.\n\n- Panneau de connexion : affiche le statut Gallery OS et un aperçu de l'inventaire (disponibles, réservées, vendues).\n- Fenêtre de recherche : accessible depuis un brouillon, elle interroge Gallery OS en direct par titre ou nom d'artiste.\n- Insertion : la fiche est générée à partir des données lues au moment de l'action — jamais stockées localement, jamais désynchronisées.",
+            text: "Premier réflexe : une extension Chrome. Contrôle total de l'UI, mais un seul navigateur et une installation par poste — intenable pour des galeries non-techniques. J'ai tranché pour l'API Google Workspace Add-on : UI plus sobre, mais installée une fois et présente partout.\n\nLe side panel vit dans le rail latéral de Gmail, au même endroit que Calendar, Keep et Tasks.\n\n- Panneau de connexion : affiche le statut Gallery OS et un aperçu de l'inventaire (disponibles, réservées, vendues).\n- Fenêtre de recherche : accessible depuis un brouillon, elle interroge Gallery OS en direct par titre ou nom d'artiste.\n- Insertion : la fiche est générée à partir des données lues au moment de l'action — jamais stockées localement, jamais désynchronisées.",
+            mock: (
+              <div className="gsp-mock-pair">
+                <div className="gsp-mock-pair-card">
+                  <span className="gsp-mock-pair-label">Side panel — après</span>
+                  <GmailSidePanelMock />
+                </div>
+                <div className="gsp-mock-pair-card">
+                  <span className="gsp-mock-pair-label">Extension Chrome — avant</span>
+                  <GmailAddinMock />
+                </div>
+              </div>
+            ),
           },
           {
             tag: "Expérience produit",
