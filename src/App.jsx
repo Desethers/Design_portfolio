@@ -92,108 +92,72 @@ function GalleryOsCard({ project }) {
   );
 }
 
+const GADO_WORKS = [
+  { artist: "SACHA ELRON", title: "Evening field, 2023", price: "10 000 €", swatch: "#27325e" },
+  { artist: "SACHA ELRON", title: "Amber Nocturne, 2025", price: "14 000 €", swatch: "#222a4d" },
+  { artist: "SACHA ELRON", title: "Sage Interval, 2022", price: "6 500 €", swatch: "#b4582f" },
+];
+
 function GmailAddinMock() {
   return (
-    <div className="gmck-embed">
-        <div className="gmck-scale">
-          {/* Rail d'icônes Google */}
-          <div className="gmck-rail">
-            <span className="gmck-rail-cal">31</span>
-            <span className="gmck-rail-keep" />
-            <span className="gmck-rail-tasks">✓</span>
-            <span className="gmck-rail-contact" />
-            <i className="gmck-rail-sep" />
-            <span className="gmck-rail-vitreen">
-              <VitreenGlyph className="gmck-glyph" />
-            </span>
-            <span className="gmck-rail-plus">+</span>
+    <div className="gmck-embed gado-embed">
+      <div className="gmck-scale gado-scene">
+        {/* Compose Gmail — arrière-plan */}
+        <div className="gado-compose">
+          <div className="gado-compose-bar">
+            <span>Spring selection 2026</span>
+            <em>−&ensp;⤢&ensp;×</em>
           </div>
-
-          {/* Panneau latéral Vitreen */}
-          <div className="gmck-panel">
-            <div className="gmck-win-bar">
-              <strong>Vitreen</strong>
-              <span>⋮&ensp;×</span>
-            </div>
-            <div className="gmck-panel-app">
-              <VitreenGlyph className="gmck-glyph is-blue" />
-              <span>
-                <strong>Vitreen</strong>
-                <small>Aperçu de votre galerie</small>
-              </span>
-            </div>
-            <div className="gmck-panel-status">
-              <i>✓</i>
-              <span>
-                <strong>Connecté</strong>
-                <small>2 œuvres · gallery-os-ten.vercel.app</small>
-              </span>
-            </div>
-            <div className="gmck-panel-row">
-              <small>Demandes en attente</small>
-              <p>Pas de nouvelle demande.</p>
-            </div>
-            <div className="gmck-panel-row">
-              <small>Inventaire</small>
-              <p>
-                <b className="is-green">2</b> disponibles · <b className="is-orange">0</b> réservées
-              </p>
-              <p className="is-muted">0 vendues</p>
-            </div>
-            <p className="gmck-panel-help">
-              Pour insérer une œuvre dans un mail&nbsp;: ouvre un brouillon (✎ <b>Composer</b>) et
-              clique l'icône Vitreen dans la barre du brouillon.
-            </p>
-            <div className="gmck-panel-footer">
-              <span className="gmck-btn-ghost">Paramètres</span>
-              <span className="gmck-btn-blue">Ouvrir gallery-OS</span>
-            </div>
+          <div className="gado-compose-fields">
+            <div className="gado-field">raphaelrossi@gmail.com</div>
+            <div className="gado-field gado-field--subj">Spring selection 2026</div>
           </div>
+          <div className="gado-compose-body">
+            <span className="gado-ln" />
+            <span className="gado-ln gado-ln--sm" />
+            <span className="gado-ln" />
+            <span className="gado-ln gado-ln--md" />
+          </div>
+          <div className="gado-compose-foot">
+            <span className="gado-send-btn">Send</span>
+            <span className="gado-tools">A<i>a</i>&ensp;⌗&ensp;🔗&ensp;☺</span>
+          </div>
+        </div>
 
-          {/* Fenêtre Insérer une œuvre */}
-          <div className="gmck-dialog">
-            <div className="gmck-win-bar">
-              <strong>Vitreen</strong>
-              <span>⋮&ensp;×</span>
+        {/* Gallery OS — dialogue d'insertion */}
+        <div className="gado-dialog">
+          <div className="gado-dialog-bar">
+            <span>Gallery OS</span>
+            <span className="gado-dialog-acts">⋮&ensp;×</span>
+          </div>
+          <div className="gado-dialog-body">
+            <strong className="gado-dialog-title">Insérer une œuvre</strong>
+            <span className="gado-dialog-sub">Recherche dans Gallery OS</span>
+            <div className="gado-sep" />
+            <div className="gado-input"><span>elron</span></div>
+            <span className="gado-hint">Titre ou nom d'artiste · appuie sur Chercher</span>
+            <div className="gado-btns">
+              <span className="gado-btn-blue">Chercher</span>
+              <span className="gado-btn-ghost">Vue galerie</span>
             </div>
-            <div className="gmck-dialog-body">
-              <strong>Insérer une œuvre</strong>
-              <small>Recherche dans Vitreen</small>
-              <div className="gmck-input">
-                <span className="gmck-typed">Evening</span>
-                <i className="gmck-caret" />
-              </div>
-              <small className="gmck-hint">Titre ou nom d'artiste · appuie sur Chercher</small>
-              <span className="gmck-btn-blue gmck-search-btn">Chercher</span>
-              <div className="gmck-result">
-                <small>1 résultat</small>
-                <div className="gmck-result-item">
-                  <img src="/vitreen/painting-05.jpg" alt="" />
-                  <span>
-                    <small>SUN DOG</small>
-                    <em>Evening field, 2023</em>
-                    <span className="gmck-result-price">
-                      8 000 € · <b>AVAILABLE</b>
-                    </span>
+            <div className="gado-sep" />
+            <span className="gado-count">3 résultats</span>
+            <div className="gado-results">
+              {GADO_WORKS.map((w) => (
+                <div className="gado-row" key={w.title}>
+                  <span className="gado-thumb" style={{ background: w.swatch }} />
+                  <span className="gado-meta">
+                    <small>{w.artist}</small>
+                    <em>{w.title}</em>
+                    <span>{w.price}&nbsp;·&nbsp;<b>AVAILABLE</b></span>
                   </span>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
-
-          {/* Un seul clic sur l'icône Vitreen du rail latéral */}
-          <span className="gmck-pulse gmck-pulse-vitreen" />
-          <svg className="gmck-cursor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path
-              d="M5 2.5v16.2l4.4-3.6 2.6 6 2.7-1.2-2.6-5.9 6.4-.6z"
-              fill="#111110"
-              stroke="#fff"
-              strokeWidth="1.4"
-              strokeLinejoin="round"
-            />
-          </svg>
         </div>
       </div>
+    </div>
   );
 }
 
@@ -311,9 +275,17 @@ function GmailAddinPreview() {
   return (
     <div
       className="gmail-addin-preview"
-      aria-label="Démonstration de l'extension Gmail Vitreen"
+      aria-label="Enregistrement du side panel Gallery OS dans Gmail"
     >
-      <GmailAddinMock />
+      <video
+        src="/Gallery%20OS/Side_panel_Gmail.mp4"
+        muted
+        playsInline
+        autoPlay
+        loop
+        preload="metadata"
+        style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+      />
     </div>
   );
 }
@@ -1179,6 +1151,7 @@ function GmailAddinPage() {
     <FeaturePage
       heroClassName="feature-hero--gmail"
       hero={<GmailAddinPreview />}
+      cursorClose={true}
       liveUrl="https://gallery-os-ten.vercel.app"
       intro={{
         meta: [
@@ -1214,6 +1187,21 @@ function GmailAddinPage() {
             text: "Les galeries gèrent leurs relations collectionneurs depuis Gmail. Pour répondre à une demande — prix, disponibilité, visuel —, la galerie ouvre Gallery OS dans un autre onglet, retrouve l'œuvre, copie le titre et le prix, télécharge le visuel, revient sur Gmail, colle et met en forme. Pour chaque œuvre. Dans chaque message.\n\nLe résultat : des réponses lentes, des données qui se désynchronisent. Une pièce annoncée disponible alors qu'elle vient d'être réservée. Un prix recopié à la main qui ne correspond plus à l'inventaire.",
           },
           {
+            tag: "Stack & workflow",
+            title: "Du brouillon au prototype connecté",
+            text: "Une boucle courte : prototyper le comportement dans l'éditeur, connecter l'inventaire Gallery OS en direct, déployer et tester dans Gmail en quelques minutes.",
+            mock: (
+              <div className="vitreen-module-media vitreen-module-media--stack">
+                <VitreenStackFlow items={[
+                  { name: "Claude Code", role: "Développement", icon: "/icones/claudecode-text.svg" },
+                  { name: "Gmail API", role: "Intégration", icon: "/icones/gmail.svg" },
+                  { name: "Gallery OS", role: "Inventaire live", icon: "/vitreen/gallery-os-gmail.png" },
+                  { name: "Vercel", role: "Déploiement", icon: "/icones/vercel.svg" },
+                ]} />
+              </div>
+            ),
+          },
+          {
             tag: "Reframing",
             title: "Ne pas déplacer la galerie — déplacer les données",
             text: "Les données vivent dans Gallery OS, les conversations dans Gmail. La friction ne vient pas de la recherche d'une œuvre mais du passage constant entre les deux.\n\nL'objectif est devenu simple : amener l'inventaire directement dans l'espace de travail de la galerie.",
@@ -1230,7 +1218,7 @@ function GmailAddinPage() {
                   <GmailSidePanelMock />
                 </div>
                 <div className="gsp-mock-pair-card">
-                  <span className="gsp-mock-pair-label">Extension Chrome — avant</span>
+                  <span className="gsp-mock-pair-label">Dialogue d'insertion</span>
                   <GmailAddinMock />
                 </div>
               </div>
