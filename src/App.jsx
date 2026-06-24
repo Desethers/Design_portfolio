@@ -8,6 +8,7 @@ import HangingBookingPreview from "./HangingBookingPreview.jsx";
 import SalesAgentPreview from "./SalesAgentPreview.jsx";
 import SalesAgentFlowMock from "./SalesAgentFlowMock.jsx";
 import SalesAgentContextDiptych from "./SalesAgentContextDiptych.jsx";
+import GmailSidePanelMock from "./GmailSidePanelMock.jsx";
 import { VitreenSiteV21 } from "./VitreenSite.jsx";
 
 const BENTO_SIZE = {
@@ -207,14 +208,25 @@ function GmailAddinPreview() {
   );
 }
 
+function GmailSidePanelPreview() {
+  return (
+    <div
+      className="gmail-addin-preview gmail-sidepanel-preview"
+      aria-label="Démonstration du side panel Gmail Vitreen"
+    >
+      <GmailSidePanelMock />
+    </div>
+  );
+}
+
 function GalleryOsGmailCard() {
   return (
-    <Link to="/gmail-addin" className="bento-card bento-card--sm gmck-demo">
-      <GmailAddinMock />
+    <Link to="/gmail-addin" className="bento-card bento-card--sm gmck-demo gsp-demo">
+      <GmailSidePanelMock />
       <span className="vitreen-card-caption">
         <span>
           <strong>Gallery OS</strong>
-          <small>Extension Gmail · Vitreen</small>
+          <small>Gmail side panel · Vitreen</small>
         </span>
         <span className="vitreen-card-cta">Voir le projet ↗</span>
       </span>
@@ -1056,57 +1068,61 @@ function GmailAddinPage() {
   return (
     <FeaturePage
       heroClassName="feature-hero--gmail"
-      hero={<GmailAddinPreview />}
+      hero={<GmailSidePanelPreview />}
       liveUrl="https://gallery-os-ten.vercel.app"
       intro={{
         meta: [
           { term: "Produit", value: "Gallery OS · Vitreen" },
-          { term: "Type", value: "Add-in Gmail · Google Workspace" },
-          { term: "Intégration", value: "Sidebar Gmail + fenêtre Compose" },
-          { term: "Source", value: "Inventaire Vitreen — live" },
-          { term: "Connexion", value: "gallery-os-ten.vercel.app" },
+          { term: "Type", value: "Gmail side panel · Google Workspace" },
+          { term: "Surface", value: "Sidebar Gmail" },
+          { term: "Source", value: "Inventaire Gallery OS — live" },
           { term: "Statut", value: "Prototype connecté" },
         ],
         question:
-          "Comment insérer la bonne œuvre — visuel, prix, disponibilité — dans un email sans quitter Gmail ?",
-        text: "L'add-in Vitreen vit dans la sidebar Gmail. Au moment de répondre à un collectionneur, la galerie cherche une pièce dans son inventaire et l'insère dans le brouillon — fiche complète, prix et statut repris en direct de Gallery OS, jamais recopiés à la main.",
+          "Comment répondre à un collectionneur avec la bonne œuvre sans quitter Gmail ?",
+        text: "Le side panel Vitreen vit dans la sidebar Gmail. La galerie y cherche une œuvre depuis son inventaire et l'insère dans le brouillon — visuel, prix, statut repris en direct. Rien n'est recopié à la main.",
       }}
       caseStudy={{
         header: {
-          title: "Add-in Gmail",
-          subtitle: "Extension Gmail — Gallery OS / Vitreen",
+          title: "Gmail side panel",
+          subtitle: "Side panel Gmail — Gallery OS / Vitreen",
         },
         body: [
-          "L'add-in Vitreen vit directement dans la sidebar Gmail : la galerie reste dans sa boîte mail pour répondre aux collectionneurs.",
-          "Au moment de composer, elle cherche une œuvre dans son inventaire Gallery OS et l'insère dans le brouillon — visuel, titre, année, prix et disponibilité repris en direct, jamais recopiés.",
+          "Le side panel Vitreen s'installe dans la sidebar Gmail (Google Workspace Add-on) et se connecte à Gallery OS.",
+          "Depuis n'importe quel brouillon, la galerie cherche une œuvre dans son inventaire et l'insère dans l'email — titre, visuel, année, prix et disponibilité lus en direct.",
         ],
         metrics: [
           { value: "28", label: "Prompt iterations" },
           { value: "10", label: "Development sessions" },
           { value: "16", label: "Design revisions" },
-          { value: "Not tracked", label: "AI tokens consumed" },
           { value: "13 days", label: "Concept to prototype" },
         ],
         modules: [
           {
-            tag: "Problème",
-            title: "Recopier l'inventaire à la main, à chaque email",
-            text: "Pour répondre à une demande, la galerie ouvre son inventaire dans un autre onglet, copie le titre, le prix et le statut, télécharge l'image, revient sur Gmail, colle, met en forme — pour chaque œuvre, dans chaque message.\n\nLe résultat : des réponses lentes à préparer, et des informations qui se désynchronisent. Un prix périmé, une pièce annoncée disponible alors qu'elle est déjà réservée.",
+            tag: "Contexte",
+            title: "La galerie répond depuis Gmail, l'inventaire est ailleurs",
+            text: "Les galeries gèrent leurs relations collectionneurs depuis Gmail. Pour répondre à une demande — prix, disponibilité, visuel —, la galerie ouvre Gallery OS dans un autre onglet, retrouve l'œuvre, copie le titre et le prix, télécharge le visuel, revient sur Gmail, colle et met en forme. Pour chaque œuvre. Dans chaque message.\n\nLe résultat : des réponses lentes, des données qui se désynchronisent. Une pièce annoncée disponible alors qu'elle vient d'être réservée. Un prix recopié à la main qui ne correspond plus à l'inventaire.",
+            mock: <GmailAddinMock />,
           },
           {
-            tag: "Fonctionnement",
-            title: "Chercher et insérer sans quitter le brouillon",
-            text: "L'add-in s'installe dans la sidebar Gmail (Google Workspace) et se connecte au compte Gallery OS de la galerie.\n\n- Connexion : l'extension affiche l'état de l'inventaire en direct — œuvres disponibles, réservées, vendues.\n- Recherche : depuis un brouillon, un champ cherche par titre ou nom d'artiste dans l'inventaire Vitreen.\n- Insertion : l'œuvre choisie est ajoutée à l'email sous forme de fiche — visuel, titre, année, prix et statut.\n\nLes données sont lues dans Gallery OS au moment de l'insertion : ce qui part dans l'email reflète l'inventaire réel.",
+            tag: "Reframing",
+            title: "Ne pas déplacer la galerie — déplacer les données",
+            text: "Le problème apparent : la galerie a besoin de chercher plus vite dans son inventaire.\n\nLe problème produit : les données sont dans Gallery OS, la conversation est dans Gmail. Demander à la galerie de changer de contexte à chaque réponse est une friction structurelle, pas un problème de vitesse.\n\nLe reframing : le side panel ne doit pas ouvrir un nouvel outil — il doit amener l'inventaire là où la conversation a déjà lieu.",
           },
           {
-            tag: "Principe",
-            title: "Une seule source de vérité",
-            text: "L'add-in ne stocke ni ne duplique l'inventaire : il interroge Gallery OS à la demande.\n\n- Statut à jour : une œuvre vendue ou réservée n'est jamais présentée comme disponible.\n- Pas de ressaisie : prix et dimensions ne sont jamais retapés, donc jamais faux.\n- Dans le flux : la galerie reste dans Gmail, là où la conversation a déjà lieu.",
+            tag: "Architecture produit",
+            title: "Une sidebar, deux surfaces, une seule source",
+            text: "Le side panel s'appuie sur l'API Google Workspace Add-on. Il vit dans le rail latéral de Gmail, au même endroit que Calendar, Keep et Tasks.\n\n- Panneau de connexion : affiche le statut Gallery OS et un aperçu de l'inventaire (disponibles, réservées, vendues).\n- Fenêtre de recherche : accessible depuis un brouillon, elle interroge Gallery OS en direct par titre ou nom d'artiste.\n- Insertion : la fiche est générée à partir des données lues au moment de l'action — jamais stockées localement, jamais désynchronisées.",
+          },
+          {
+            tag: "Expérience produit",
+            title: "Chercher, sélectionner, insérer",
+            text: "La galerie ouvre Gmail et clique sur l'icône Vitreen dans le rail latéral. Le panneau affiche le statut de connexion et un aperçu de l'inventaire.\n\nElle ouvre un brouillon. Depuis la fenêtre de composition, elle clique sur l'icône Vitreen dans la barre du brouillon. Un champ de recherche s'ouvre — elle tape un titre ou un nom d'artiste. L'œuvre apparaît avec son visuel, son prix et son statut en direct.\n\nUn clic insère la fiche dans l'email. Ce qui part dans le message reflète exactement l'inventaire Gallery OS au moment de l'envoi.",
           },
         ],
         next: {
           title: "De l'insertion à la conversation complète",
-          text: "Étendre l'add-in pour qu'il accompagne toute la relation collectionneur depuis Gmail, branché sur l'inventaire et le CRM.",
+          text: "Étendre le side panel pour qu'il accompagne toute la relation collectionneur depuis Gmail, branché sur l'inventaire et les échanges passés.",
           cards: [
             {
               title: "Sélections privées",
