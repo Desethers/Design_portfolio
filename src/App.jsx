@@ -228,18 +228,9 @@ function ReframingMock() {
               <i className="rfr-dots" aria-hidden="true" />
               <span className="rfr-url">gallery-os</span>
             </div>
-            <div className="rfr-shot">
-              <img src="/vitreen/gallery-os-artworks-home.png" alt="" loading="lazy" />
+            <div className="rfr-shot rfr-shot--artwork-detail">
+              <img src="/Gallery OS/fiche oeuvre.png" alt="" loading="lazy" />
             </div>
-          </div>
-
-          {/* aller-retour fatigant */}
-          <div className="rfr-shuttle" aria-hidden="true">
-            <svg className="rfr-shuttle-arrow" viewBox="0 0 72 16">
-              <line x1="11" y1="8" x2="61" y2="8" />
-              <path d="M11 8 17 4M11 8 17 12M61 8 55 4M61 8 55 12" />
-            </svg>
-            <span>copier · coller · revenir</span>
           </div>
 
           {/* Gmail — le brouillon */}
