@@ -2730,10 +2730,7 @@ a {
   aspect-ratio: 2940 / 1652;
   border-radius: 12px;
   box-shadow: none;
-}
-
-.feature-modal-hero .gmail-addin-preview video {
-  transform: scale(1.12);
+  border: 1px solid var(--color-border);
 }
 
 
@@ -7027,6 +7024,12 @@ a {
 
 .stack-card-slot .bento-card:hover {
   transform: none;
+}
+
+.stack-card-slot .bento-card,
+.stack-card-slot .bento-card:hover,
+.stack-card-slot .bento-card:focus-visible {
+  border-color: transparent;
 }
 
 .stack-card-slot.is-active {
