@@ -2713,7 +2713,7 @@ a {
 /* Dans la modale case study : centrer et caler la scène sur la hauteur dispo */
 .vitreen-modal:has(.gmail-addin-preview) .vitreen-modal-screens {
   height: auto;
-  padding-bottom: clamp(3.5rem, 7vh, 5rem);
+  min-height: calc(100vh - 20px - 5rem);
 }
 
 .feature-modal-hero:has(.gmail-addin-preview) {
@@ -2721,7 +2721,6 @@ a {
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: auto;
 }
 
 .feature-modal-hero .gmail-addin-preview {
