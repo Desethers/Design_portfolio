@@ -9,6 +9,7 @@ import SalesAgentPreview from "./SalesAgentPreview.jsx";
 import SalesAgentFlowMock from "./SalesAgentFlowMock.jsx";
 import SalesAgentContextDiptych from "./SalesAgentContextDiptych.jsx";
 import GmailSidePanelMock from "./GmailSidePanelMock.jsx";
+import GmailDemoPage from "./GmailDemoPage.jsx";
 import { VitreenSiteV21 } from "./VitreenSite.jsx";
 
 const BENTO_SIZE = {
@@ -93,9 +94,9 @@ function GalleryOsCard({ project }) {
 }
 
 const GADO_WORKS = [
-  { artist: "SACHA ELRON", title: "Evening field, 2023", price: "10 000 €", swatch: "#27325e" },
-  { artist: "SACHA ELRON", title: "Amber Nocturne, 2025", price: "14 000 €", swatch: "#222a4d" },
-  { artist: "SACHA ELRON", title: "Sage Interval, 2022", price: "6 500 €", swatch: "#b4582f" },
+  { artist: "SACHA ELRON", title: "Evening field, 2023", price: "10 000 €", img: "/vitreen/painting-05.jpg" },
+  { artist: "SACHA ELRON", title: "Amber Nocturne, 2025", price: "14 000 €", img: "/vitreen/painting-05.jpg" },
+  { artist: "SACHA ELRON", title: "Sage Interval, 2022", price: "6 500 €", img: "/vitreen/painting-05.jpg" },
 ];
 
 function GmailAddinMock() {
@@ -109,18 +110,24 @@ function GmailAddinMock() {
             <em>−&ensp;⤢&ensp;×</em>
           </div>
           <div className="gado-compose-fields">
-            <div className="gado-field">raphaelrossi@gmail.com</div>
+            <div className="gado-field"><span className="gado-field-label">À</span>collectionneur@elron-galerie.com</div>
             <div className="gado-field gado-field--subj">Spring selection 2026</div>
           </div>
           <div className="gado-compose-body">
-            <span className="gado-ln" />
-            <span className="gado-ln gado-ln--sm" />
-            <span className="gado-ln" />
-            <span className="gado-ln gado-ln--md" />
+            <p className="gado-body-p">Bonjour,</p>
+            <p className="gado-body-p gado-body-p--muted">Dans le cadre de l'exposition actuelle, je souhaitais vous présenter une pièce qui me semble incontournable pour votre collection.</p>
+            <div className="gado-body-card">
+              <img src="/vitreen/painting-05.jpg" alt="" className="gado-body-card-img" />
+              <div className="gado-body-card-meta">
+                <span>Sacha Elron</span>
+                <em>Evening field, 2023</em>
+                <span>10 000 €</span>
+              </div>
+            </div>
           </div>
           <div className="gado-compose-foot">
             <span className="gado-send-btn">Send</span>
-            <span className="gado-tools">A<i>a</i>&ensp;⌗&ensp;🔗&ensp;☺</span>
+            <span className="gado-tools">A<i>a</i></span>
           </div>
         </div>
 
@@ -138,14 +145,14 @@ function GmailAddinMock() {
             <span className="gado-hint">Titre ou nom d'artiste · appuie sur Chercher</span>
             <div className="gado-btns">
               <span className="gado-btn-blue">Chercher</span>
-              <span className="gado-btn-ghost">Vue galerie</span>
+              <span className="gado-btn-ghost">Vue liste</span>
             </div>
             <div className="gado-sep" />
             <span className="gado-count">3 résultats</span>
             <div className="gado-results">
-              {GADO_WORKS.map((w) => (
+              {GADO_WORKS.slice(0, 2).map((w) => (
                 <div className="gado-row" key={w.title}>
-                  <span className="gado-thumb" style={{ background: w.swatch }} />
+                  <img className="gado-thumb" src={w.img} alt="" />
                   <span className="gado-meta">
                     <small>{w.artist}</small>
                     <em>{w.title}</em>
@@ -820,7 +827,24 @@ function FeatureCaseStudyModal({ hero, caseStudy, intro, liveUrl, onClose }) {
           </header>
 
           <div className="vitreen-modal-screens" aria-label="Aperçu du produit">
-            <div className="feature-modal-hero">{hero}</div>
+            <div
+              className={
+                caseStudy.header.title === "Gmail side panel"
+                  ? "feature-modal-hero feature-modal-hero--gmail-duo"
+                  : "feature-modal-hero"
+              }
+            >
+              {hero}
+              {caseStudy.header.title === "Gmail side panel" && (
+                <div className="gmail-modal-phone-card" aria-label="Aperçu mobile iPhone">
+                  <img
+                    src="/Gallery%20OS/iphone16pro.png"
+                    alt="Aperçu mobile du side panel Gmail sur iPhone"
+                    loading="lazy"
+                  />
+                </div>
+              )}
+            </div>
           </div>
 
           <section className="vitreen-editorial" aria-label="Présentation de la feature">
@@ -1261,28 +1285,18 @@ function GmailAddinPage() {
             tag: "Expérience produit",
             title: "Chercher, sélectionner, insérer",
             text: "L'inventaire devient accessible sans quitter Gmail. Une œuvre est recherchée, sélectionnée puis insérée dans l'email à partir des données de Gallery OS.",
-          },
-        ],
-        impact: [
-          {
-            value: "1 clic",
-            label: "Pour insérer une œuvre",
-            text: "La fiche complète — visuel, titre, prix, statut — passe de l'inventaire à l'email en une seule action, sans onglet intermédiaire.",
-          },
-          {
-            value: "0",
-            label: "Ressaisie manuelle",
-            text: "Plus de copier-coller du titre, du prix ou de téléchargement du visuel. Les données sont lues directement dans Gallery OS.",
-          },
-          {
-            value: "100 %",
-            label: "Données à jour",
-            text: "Prix et disponibilité reflètent l'inventaire au moment de l'envoi — fini les pièces annoncées disponibles après réservation.",
-          },
-          {
-            value: "1 install",
-            label: "Présent partout",
-            text: "L'add-on Google Workspace s'installe une fois et suit la galerie sur chaque poste et chaque navigateur.",
+            mock: (
+              <div className="gmail-mobile-grid">
+                {[
+                  { src: "/Gallery%20OS/iphone16pro.png", alt: "Gallery OS side panel Gmail — iPhone 16 Pro" },
+                  { src: "/Gallery%20OS/mockup%20mackbook.png", alt: "Gallery OS side panel Gmail — MacBook" },
+                ].map(({ src, alt }) => (
+                  <figure className="gmail-mobile-card" key={src}>
+                    <img src={src} alt={alt} loading="lazy" />
+                  </figure>
+                ))}
+              </div>
+            ),
           },
         ],
         next: {
@@ -1345,7 +1359,7 @@ export default function App() {
   const { pathname } = useLocation();
   const hideFooter =
     pathname.startsWith("/projet/") ||
-    ["/reels", "/sales-agent", "/booking", "/gmail-addin"].includes(pathname);
+    ["/reels", "/sales-agent", "/booking", "/gmail-addin", "/gmail-demo"].includes(pathname);
 
   return (
     <div className="page">
@@ -1354,6 +1368,7 @@ export default function App() {
         <Route path="/reels" element={<VitreenReelsPage />} />
         <Route path="/sales-agent" element={<SalesAgentPage />} />
         <Route path="/gmail-addin" element={<GmailAddinPage />} />
+        <Route path="/gmail-demo" element={<GmailDemoPage />} />
         <Route path="/booking" element={<HangingBookingPage />} />
         <Route path="/projet/:slug" element={<ProjectPage />} />
       </Routes>
