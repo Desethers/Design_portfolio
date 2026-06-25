@@ -2758,12 +2758,12 @@ a {
   justify-content: center;
   min-width: 0;
   width: auto;
-  height: calc((min(96vw, 1032px) - 40px) * 1652 / 2940 * 0.58);
+  height: calc((min(96vw, 1032px) - 40px) * 1652 / 2940);
   aspect-ratio: 1880 / 2650;
   padding: 0;
   overflow: hidden;
   border: 0;
-  border-radius: 0;
+  border-radius: 18px;
   background: transparent;
 }
 
@@ -9406,9 +9406,29 @@ a {
   mix-blend-mode: multiply;
 }
 
+.gmail-mobile-grid--single {
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.gmail-mobile-card--single {
+  flex: 1 1 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 52rem;
+}
+
+.gmail-mobile-card--single img {
+  width: min(100%, 46rem);
+  height: auto;
+  mix-blend-mode: normal;
+}
+
 @media (max-width: 640px) {
   .gmail-mobile-grid { flex-direction: column; }
   .gmail-mobile-card:first-child img { height: clamp(18rem, 80vw, 25rem); }
+  .gmail-mobile-card--single img { height: auto; }
   .gmail-mobile-card:last-child { width: 100%; }
 }
 

@@ -116,14 +116,6 @@ function GmailAddinMock() {
           <div className="gado-compose-body">
             <p className="gado-body-p">Bonjour,</p>
             <p className="gado-body-p gado-body-p--muted">Dans le cadre de l'exposition actuelle, je souhaitais vous présenter une pièce qui me semble incontournable pour votre collection.</p>
-            <div className="gado-body-card">
-              <img src="/vitreen/painting-05.jpg" alt="" className="gado-body-card-img" />
-              <div className="gado-body-card-meta">
-                <span>Sacha Elron</span>
-                <em>Evening field, 2023</em>
-                <span>10 000 €</span>
-              </div>
-            </div>
           </div>
           <div className="gado-compose-foot">
             <span className="gado-send-btn">Send</span>
@@ -838,7 +830,7 @@ function FeatureCaseStudyModal({ hero, caseStudy, intro, liveUrl, onClose }) {
               {caseStudy.header.title === "Gmail side panel" && (
                 <div className="gmail-modal-phone-card" aria-label="Aperçu mobile iPhone">
                   <img
-                    src="/Gallery%20OS/iphone16pro.png"
+                    src="/Gallery%20OS/Frame%20iphone16.png"
                     alt="Aperçu mobile du side panel Gmail sur iPhone"
                     loading="lazy"
                   />
@@ -1286,15 +1278,14 @@ function GmailAddinPage() {
             title: "Chercher, sélectionner, insérer",
             text: "L'inventaire devient accessible sans quitter Gmail. Une œuvre est recherchée, sélectionnée puis insérée dans l'email à partir des données de Gallery OS.",
             mock: (
-              <div className="gmail-mobile-grid">
-                {[
-                  { src: "/Gallery%20OS/iphone16pro.png", alt: "Gallery OS side panel Gmail — iPhone 16 Pro" },
-                  { src: "/Gallery%20OS/mockup%20mackbook.png", alt: "Gallery OS side panel Gmail — MacBook" },
-                ].map(({ src, alt }) => (
-                  <figure className="gmail-mobile-card" key={src}>
-                    <img src={src} alt={alt} loading="lazy" />
-                  </figure>
-                ))}
+              <div className="gmail-mobile-grid gmail-mobile-grid--single">
+                <figure className="gmail-mobile-card gmail-mobile-card--single">
+                  <img
+                    src="/Gallery%20OS/Iphone_mackbook_mockup.png"
+                    alt="Gallery OS side panel Gmail — iPhone et MacBook"
+                    loading="lazy"
+                  />
+                </figure>
               </div>
             ),
           },
