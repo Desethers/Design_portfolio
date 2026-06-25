@@ -873,6 +873,30 @@ function FeatureCaseStudyModal({ hero, caseStudy, intro, liveUrl, onClose }) {
             ))}
           </article>
 
+          {caseStudy.impact?.length > 0 && (
+            <section
+              className="vitreen-impact"
+              aria-label="Impact — bénéfices mesurables"
+            >
+              <div className="vitreen-impact-head">
+                <span>Impact</span>
+              </div>
+              <div className="vitreen-impact-scroll">
+                <div className="vitreen-impact-cards">
+                  {caseStudy.impact.map((item) => (
+                    <article className="vitreen-impact-card" key={item.label}>
+                      <span className="vitreen-impact-value">{item.value}</span>
+                      <div className="vitreen-impact-foot">
+                        <span className="vitreen-impact-label">{item.label}</span>
+                        <p className="vitreen-impact-text">{item.text}</p>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
+
           {caseStudy.next && (
             <section
               className="vitreen-next"
@@ -1182,9 +1206,10 @@ function GmailAddinPage() {
         ],
         modules: [
           {
-            tag: "Contexte",
-            title: "La galerie répond depuis Gmail, l'inventaire est ailleurs",
-            text: "Les galeries gèrent leurs relations collectionneurs depuis Gmail. Pour répondre à une demande — prix, disponibilité, visuel —, la galerie ouvre Gallery OS dans un autre onglet, retrouve l'œuvre, copie le titre et le prix, télécharge le visuel, revient sur Gmail, colle et met en forme. Pour chaque œuvre. Dans chaque message.\n\nLe résultat : des réponses lentes, des données qui se désynchronisent. Une pièce annoncée disponible alors qu'elle vient d'être réservée. Un prix recopié à la main qui ne correspond plus à l'inventaire.",
+            tag: "Reframing",
+            title: "Ne pas déplacer la galerie — déplacer les données",
+            text: "Les données vivent dans Gallery OS, les conversations dans Gmail. La friction ne vient pas de la recherche d'une œuvre mais du passage constant entre les deux.\n\nL'objectif est devenu simple : amener l'inventaire directement dans l'espace de travail de la galerie.",
+            mock: <ReframingMock />,
           },
           {
             tag: "Stack & workflow",
@@ -1202,15 +1227,9 @@ function GmailAddinPage() {
             ),
           },
           {
-            tag: "Reframing",
-            title: "Ne pas déplacer la galerie — déplacer les données",
-            text: "Les données vivent dans Gallery OS, les conversations dans Gmail. La friction ne vient pas de la recherche d'une œuvre mais du passage constant entre les deux.\n\nL'objectif est devenu simple : amener l'inventaire directement dans l'espace de travail de la galerie.",
-            mock: <ReframingMock />,
-          },
-          {
             tag: "Architecture produit",
-            title: "Une sidebar, deux surfaces, une seule source",
-            text: "Premier réflexe : une extension Chrome. Contrôle total de l'UI, mais un seul navigateur et une installation par poste — intenable pour des galeries non-techniques. J'ai tranché pour l'API Google Workspace Add-on : UI plus sobre, mais installée une fois et présente partout.\n\nLe side panel vit dans le rail latéral de Gmail, au même endroit que Calendar, Keep et Tasks.\n\n- Panneau de connexion : affiche le statut Gallery OS et un aperçu de l'inventaire (disponibles, réservées, vendues).\n- Fenêtre de recherche : accessible depuis un brouillon, elle interroge Gallery OS en direct par titre ou nom d'artiste.\n- Insertion : la fiche est générée à partir des données lues au moment de l'action — jamais stockées localement, jamais désynchronisées.",
+            title: "Un choix d'intégration",
+            text: "Deux implémentations ont été développées : Chrome Extension et Gmail Add-on. Le choix s'est porté sur l'add-on Gmail, plus simple à déployer et à maintenir pour les galeries.\n\nUne même API, deux surfaces.",
             mock: (
               <div className="gsp-mock-pair">
                 <div className="gsp-mock-pair-card gsp-mock-pair-card--video gsp-mock-pair-card--zoom">
@@ -1241,7 +1260,29 @@ function GmailAddinPage() {
           {
             tag: "Expérience produit",
             title: "Chercher, sélectionner, insérer",
-            text: "La galerie ouvre Gmail et clique sur l'icône Vitreen dans le rail latéral. Le panneau affiche le statut de connexion et un aperçu de l'inventaire.\n\nElle ouvre un brouillon. Depuis la fenêtre de composition, elle clique sur l'icône Vitreen dans la barre du brouillon. Un champ de recherche s'ouvre — elle tape un titre ou un nom d'artiste. L'œuvre apparaît avec son visuel, son prix et son statut en direct.\n\nUn clic insère la fiche dans l'email. Ce qui part dans le message reflète exactement l'inventaire Gallery OS au moment de l'envoi.",
+            text: "L'inventaire devient accessible sans quitter Gmail. Une œuvre est recherchée, sélectionnée puis insérée dans l'email à partir des données de Gallery OS.",
+          },
+        ],
+        impact: [
+          {
+            value: "1 clic",
+            label: "Pour insérer une œuvre",
+            text: "La fiche complète — visuel, titre, prix, statut — passe de l'inventaire à l'email en une seule action, sans onglet intermédiaire.",
+          },
+          {
+            value: "0",
+            label: "Ressaisie manuelle",
+            text: "Plus de copier-coller du titre, du prix ou de téléchargement du visuel. Les données sont lues directement dans Gallery OS.",
+          },
+          {
+            value: "100 %",
+            label: "Données à jour",
+            text: "Prix et disponibilité reflètent l'inventaire au moment de l'envoi — fini les pièces annoncées disponibles après réservation.",
+          },
+          {
+            value: "1 install",
+            label: "Présent partout",
+            text: "L'add-on Google Workspace s'installe une fois et suit la galerie sur chaque poste et chaque navigateur.",
           },
         ],
         next: {
