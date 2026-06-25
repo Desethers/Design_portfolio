@@ -2698,7 +2698,7 @@ a {
 }
 
 .feature-hero--gmail + .reels-page-intro.vitreen-editorial {
-  padding-top: clamp(7rem, 10vw, 9rem);
+  padding-top: clamp(10rem, 14vw, 12rem);
 }
 
 .gmail-addin-preview {
@@ -2711,16 +2711,12 @@ a {
 }
 
 /* Dans la modale case study : centrer et caler la scène sur la hauteur dispo */
-.vitreen-modal:has(.gmail-addin-preview) .vitreen-modal-screens {
-  height: auto;
-  min-height: calc(100vh - 20px - 5rem);
-}
-
 .feature-modal-hero:has(.gmail-addin-preview) {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
+  height: 100%;
 }
 
 .feature-modal-hero .gmail-addin-preview {
@@ -7028,7 +7024,9 @@ a {
 .stack-card-slot .bento-card,
 .stack-card-slot .bento-card:hover,
 .stack-card-slot .bento-card:focus-visible {
-  border-color: transparent;
+  border: 0 !important;
+  box-shadow: none !important;
+  outline: 0;
 }
 
 .stack-card-slot.is-active {
@@ -7604,6 +7602,12 @@ a {
 .stack-card-slot .gmck-embed,
 .stack-card-slot .hanging-drawing {
   border-radius: inherit;
+  border: 0;
+}
+
+.stack-card-slot .bento-card-media img,
+.stack-card-slot .bento-card-media video {
+  border: 0;
 }
 
 /* La scène Gmail est calée sur un espace de composition de 626 px de large */
