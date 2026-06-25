@@ -1213,13 +1213,27 @@ function GmailAddinPage() {
             text: "Premier réflexe : une extension Chrome. Contrôle total de l'UI, mais un seul navigateur et une installation par poste — intenable pour des galeries non-techniques. J'ai tranché pour l'API Google Workspace Add-on : UI plus sobre, mais installée une fois et présente partout.\n\nLe side panel vit dans le rail latéral de Gmail, au même endroit que Calendar, Keep et Tasks.\n\n- Panneau de connexion : affiche le statut Gallery OS et un aperçu de l'inventaire (disponibles, réservées, vendues).\n- Fenêtre de recherche : accessible depuis un brouillon, elle interroge Gallery OS en direct par titre ou nom d'artiste.\n- Insertion : la fiche est générée à partir des données lues au moment de l'action — jamais stockées localement, jamais désynchronisées.",
             mock: (
               <div className="gsp-mock-pair">
-                <div className="gsp-mock-pair-card">
-                  <span className="gsp-mock-pair-label">Side panel — après</span>
-                  <GmailSidePanelMock />
+                <div className="gsp-mock-pair-card gsp-mock-pair-card--video gsp-mock-pair-card--zoom">
+                  <video
+                    src="/Gallery%20OS/demo%20chrome%20extension.mp4"
+                    muted
+                    playsInline
+                    autoPlay
+                    loop
+                    preload="metadata"
+                    className="gsp-mock-pair-video"
+                  />
                 </div>
-                <div className="gsp-mock-pair-card">
-                  <span className="gsp-mock-pair-label">Dialogue d'insertion</span>
-                  <GmailAddinMock />
+                <div className="gsp-mock-pair-card gsp-mock-pair-card--video">
+                  <video
+                    src="/Gallery%20OS/demo%20side%20panel%20gmail.mp4"
+                    muted
+                    playsInline
+                    autoPlay
+                    loop
+                    preload="metadata"
+                    className="gsp-mock-pair-video"
+                  />
                 </div>
               </div>
             ),
