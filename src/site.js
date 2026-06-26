@@ -3,5 +3,5 @@ export const SITE = {
   // TODO: remplacer par l'email professionnel réel
   email: "raphael.rossi@proton.me",
   linkedin: "#",
-  cv: "#",
+  cv: "/CV_designer.pdf",
 };
