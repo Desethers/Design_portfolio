@@ -9627,7 +9627,7 @@ a {
 
 .gado-dialog-title {
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 400;
   color: #202124;
   margin-bottom: -4px;
 }
@@ -9646,7 +9646,7 @@ a {
 .gado-input {
   border: 1.5px solid #1a73e8;
   border-radius: 6px;
-  padding: 13px 14px;
+  padding: 8px 14px;
   font-size: 14px;
   color: #202124;
 }
@@ -9663,9 +9663,9 @@ a {
   display: inline-block;
   background: #1a73e8;
   color: #fff;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
-  padding: 11px 22px;
+  padding: 7px 18px;
   border-radius: 22px;
 }
 
@@ -9673,9 +9673,9 @@ a {
   display: inline-block;
   border: 1.5px solid #dadce0;
   color: #1a73e8;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
-  padding: 11px 22px;
+  padding: 7px 18px;
   border-radius: 22px;
 }
 
