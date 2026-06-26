@@ -110,7 +110,7 @@ function GmailAddinMock() {
             <em>−&ensp;⤢&ensp;×</em>
           </div>
           <div className="gado-compose-fields">
-            <div className="gado-field"><span className="gado-field-label">À</span>collectionneur@elron-galerie.com</div>
+            <div className="gado-field"><span className="gado-field-label">À</span>collectionneur@exemple.com</div>
             <div className="gado-field gado-field--subj">Spring selection 2026</div>
           </div>
           <div className="gado-compose-body">
