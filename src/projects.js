@@ -565,9 +565,9 @@ export const projects = [
     slug: "design-system",
     featured: false,
     cover: "/vitreen/Scene-5.mp4",
-    title: "Projet 03",
-    type: "Design System",
-    year: "2023",
+    title: "Selection PDF with WhatsApp Bot",
+    type: "Motion design",
+    year: "2026",
     desc: "Construction d'un design system complet pour une startup SaaS — tokens, composants et documentation.",
     tags: ["Design System", "Composants", "Documentation"],
     process: {
