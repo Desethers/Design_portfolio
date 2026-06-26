@@ -7263,7 +7263,7 @@ a {
 }
 
 .stack-tile--cursor {
-  padding: 10px;
+  padding: 7px;
   background: #111;
   color: #fff;
 }
@@ -7304,6 +7304,27 @@ a {
 
 .stack-tile--buffer img,
 .stack-tile--capcut img {
+  object-fit: contain;
+}
+
+.stack-tile--gmail {
+  padding: 4px;
+}
+
+.stack-tile--gmail img {
+  object-fit: contain;
+}
+
+.stack-tile--whatsapp {
+  background: #25D366;
+}
+
+.stack-tile--groq {
+  padding: 5px;
+  background: #fff;
+}
+
+.stack-tile--groq img {
   object-fit: contain;
 }
 

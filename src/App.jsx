@@ -304,10 +304,6 @@ function GalleryOsGmailCard() {
   return (
     <Link to="/gmail-addin" className="bento-card bento-card--sm gmck-demo">
       <GmailAddinMock />
-      <div className="gmck-demo-hover" aria-hidden="true">
-        <img src="/icones/claudecode-text.svg" alt="Claude Code" className="gmck-demo-icon" />
-        <img src="/icones/gmail.svg" alt="Gmail" className="gmck-demo-icon" />
-      </div>
       <span className="vitreen-card-caption">
         <span>
           <strong>Gallery OS</strong>
@@ -426,6 +422,18 @@ function StackIcon({ id }) {
     capcut: {
       src: "/icones/capcut.png",
       className: "stack-tile--asset stack-tile--capcut",
+    },
+    gmail: {
+      src: "/icones/icon-gmail-96.png",
+      className: "stack-tile--asset stack-tile--gmail",
+    },
+    groq: {
+      src: "/icones/groq.png",
+      className: "stack-tile--asset stack-tile--groq",
+    },
+    whatsapp: {
+      src: "/icones/whatsapp.svg",
+      className: "stack-tile--asset stack-tile--whatsapp",
     },
   };
   const asset = iconAssets[id];
@@ -609,9 +617,9 @@ function Home() {
       customContent: "sales-agent",
     },
     { stack: STACKS[0], customContent: "vitreen-reel" },
-    { stack: STACKS[2] },
+    { stack: STACKS[2], customContent: "design-system" },
     { stack: STACKS[4], customContent: "hanging-booking" },
-    { stack: STACKS[3] },
+    { stack: STACKS[3], customContent: "gmail-addin" },
   ];
 
   const renderSlot = ({ stack, projectSlug, customContent, landscape, mediaOverride }) => {
@@ -623,6 +631,10 @@ function Home() {
           className="stack-card-slot stack-card-slot--sales-agent"
         >
           <StackCardBadge stack={stack} />
+          <StackCardBadge
+            stack={{ id: "groq", name: "Groq" }}
+            className="stack-card-badge--secondary"
+          />
           <SalesAgentMock />
         </Link>
       );
@@ -633,16 +645,27 @@ function Home() {
         <div key={stack.id} className="stack-card-slot stack-card-slot--booking">
           <StackCardBadge stack={stack} />
           <StackCardBadge
-            stack={{ id: "figma", name: "Figma" }}
-            className="stack-card-badge--secondary"
-          />
-          <StackCardBadge
             stack={{ id: "stripe", name: "Stripe" }}
-            className="stack-card-badge--tertiary"
+            className="stack-card-badge--secondary"
           />
           <Link to="/booking" className="hanging-booking-link">
             <HangingBookingPreview />
           </Link>
+        </div>
+      );
+    }
+
+    if (customContent === "design-system") {
+      const project = bentoProjects.find((p) => p.slug === "design-system");
+      if (!project) return null;
+      return (
+        <div key={stack.id} className={`stack-card-slot stack-card-slot--design-system`}>
+          <StackCardBadge stack={stack} />
+          <StackCardBadge
+            stack={{ id: "whatsapp", name: "WhatsApp" }}
+            className="stack-card-badge--secondary"
+          />
+          <BentoCard project={project} />
         </div>
       );
     }
@@ -657,6 +680,19 @@ function Home() {
         >
           <StackCardBadge stack={stack} />
           <GalleryOsCard project={galleryProject} />
+        </div>
+      );
+    }
+
+    if (customContent === "gmail-addin") {
+      return (
+        <div key="gmail-addin" className="stack-card-slot stack-card-slot--app-sante">
+          <StackCardBadge stack={{ id: "claude-code", name: "Claude Code" }} />
+          <StackCardBadge
+            stack={{ id: "gmail", name: "Gmail" }}
+            className="stack-card-badge--secondary"
+          />
+          <GalleryOsGmailCard />
         </div>
       );
     }
