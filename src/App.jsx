@@ -304,6 +304,10 @@ function GalleryOsGmailCard() {
   return (
     <Link to="/gmail-addin" className="bento-card bento-card--sm gmck-demo">
       <GmailAddinMock />
+      <div className="gmck-demo-hover" aria-hidden="true">
+        <img src="/icones/claudecode-text.svg" alt="Claude Code" className="gmck-demo-icon" />
+        <img src="/icones/gmail.svg" alt="Gmail" className="gmck-demo-icon" />
+      </div>
       <span className="vitreen-card-caption">
         <span>
           <strong>Gallery OS</strong>

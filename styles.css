@@ -7096,6 +7096,31 @@ a {
   transform: translateY(0);
 }
 
+.gmck-demo-hover {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+  z-index: 3;
+}
+.gmck-demo:hover .gmck-demo-hover {
+  opacity: 1;
+}
+
+.gmck-demo-icon {
+  width: auto;
+  height: clamp(20px, 3vw, 28px);
+  object-fit: contain;
+}
+
 /* ─── Portfolio V2 — cards par stack + dock d'icônes ─── */
 .page:has(.main--stack) {
   background: #eeeeee;
@@ -7408,10 +7433,9 @@ a {
   width: 100%;
   height: 100%;
   padding: 12px;
-  overflow-y: auto;
+  overflow: hidden;
   background: #fff;
   color: #111;
-  scrollbar-width: none;
 }
 
 .hanging-booking-preview::-webkit-scrollbar {
