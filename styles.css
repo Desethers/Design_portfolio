@@ -9619,17 +9619,17 @@ a {
 }
 
 .gado-dialog-body {
-  padding: 16px 16px 14px;
+  padding: 10px 16px 10px;
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
 .gado-dialog-title {
-  font-size: 16px;
+  font-size: 13px;
   font-weight: 400;
   color: #202124;
-  margin-bottom: -4px;
+  margin-bottom: -6px;
 }
 
 .gado-dialog-sub {
