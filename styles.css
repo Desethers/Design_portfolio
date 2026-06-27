@@ -2,7 +2,7 @@
   --color-bg: #fff;
   --color-bg-elevated: #fff;
   --color-text: #1a1814;
-  --color-text-muted: rgba(26, 24, 20, 0.62);
+  --color-text-muted: #8F8F8F;
   --color-border: rgba(26, 24, 20, 0.1);
   --color-border-strong: rgba(26, 24, 20, 0.18);
   --color-accent: #2c2824;
@@ -2027,9 +2027,25 @@ a {
 
 .vitreen-card-cta {
   flex-shrink: 0;
-  font-size: 0.65rem;
+  font-size: 1.1rem;
   opacity: 0.82;
   transition: opacity 0.2s, transform 0.2s;
+}
+
+.stack-slot-arrow {
+  position: absolute;
+  bottom: 0.9rem;
+  right: 1rem;
+  z-index: 5;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+}
+
+.stack-card-slot:hover .stack-slot-arrow {
+  opacity: 0.82;
+  transform: translateY(0);
 }
 
 .vitreen-card-caption:hover .vitreen-card-cta {
@@ -5185,7 +5201,7 @@ a {
 
 .hanging-card-cta {
   flex-shrink: 0;
-  font-size: 0.65rem;
+  font-size: 1.1rem;
   opacity: 0.82;
   transition: opacity 0.2s, transform 0.2s;
 }
@@ -7126,7 +7142,8 @@ a {
 }
 
 /* ─── Portfolio V2 — cards par stack + dock d'icônes ─── */
-.page:has(.main--stack) {
+.page:has(.main--stack),
+html:has(.main--stack) {
   background: #eeeeee;
 }
 

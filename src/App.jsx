@@ -50,7 +50,7 @@ function VitreenInteractiveCard({ project }) {
           <strong>Vitreen</strong>
           <small>Product design · SaaS B2B · {project.year}</small>
         </span>
-        <span className="vitreen-card-cta">Voir le projet ↗</span>
+        <span className="vitreen-card-cta">↗</span>
       </span>
     </Link>
   );
@@ -87,7 +87,7 @@ function GalleryOsCard({ project }) {
           <strong>Gallery OS</strong>
           <small>Inventaire &amp; inquiries · Vitreen</small>
         </span>
-        <span className="vitreen-card-cta">Voir le projet ↗</span>
+        <span className="vitreen-card-cta">↗</span>
       </span>
     </Link>
   );
@@ -309,7 +309,7 @@ function GalleryOsGmailCard() {
           <strong>Artwork search in Gmail</strong>
           <small>Gmail add-on · Gallery OS</small>
         </span>
-        <span className="vitreen-card-cta">Voir le projet ↗</span>
+        <span className="vitreen-card-cta">↗</span>
       </span>
     </Link>
   );
@@ -324,7 +324,7 @@ function HangingInteractiveCard({ project }) {
           <strong>Hanging</strong>
           <small>Product design · Service · {project.year}</small>
         </span>
-        <span className="hanging-card-cta">Voir le projet ↗</span>
+        <span className="hanging-card-cta">↗</span>
       </span>
     </Link>
   );
@@ -555,7 +555,7 @@ function VitreenReelCard({ reelId }) {
           <strong>Content strategy</strong>
           <small>Instagram · Vitreen</small>
         </span>
-        <span className="vitreen-card-cta">Voir les reels ↗</span>
+        <span className="vitreen-card-cta">↗</span>
       </span>
     </Link>
   );
@@ -641,7 +641,7 @@ function Home() {
               <strong>Sales Agent</strong>
               <small>Cursor · Vitreen</small>
             </span>
-            <span className="vitreen-card-cta">Voir le projet ↗</span>
+            <span className="vitreen-card-cta">↗</span>
           </span>
         </Link>
       );
@@ -663,7 +663,7 @@ function Home() {
                 <strong>Booking flow</strong>
                 <small>Hanging</small>
               </span>
-              <span className="vitreen-card-cta">Voir le projet ↗</span>
+              <span className="vitreen-card-cta">↗</span>
             </span>
           </Link>
         </div>
@@ -681,6 +681,7 @@ function Home() {
             className="stack-card-badge--secondary"
           />
           <BentoCard project={project} />
+          <span className="vitreen-card-cta stack-slot-arrow" aria-hidden="true">↗</span>
         </div>
       );
     }
@@ -817,6 +818,7 @@ function Home() {
       <section className="stack-cards" aria-label="Explorations et features">
         {secondarySlots.map(renderSlot)}
       </section>
+
     </main>
   );
 }
