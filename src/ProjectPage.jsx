@@ -2086,8 +2086,8 @@ export function VitreenReelsPage() {
       { term: "Outils", value: "Buffer · CapCut" },
       { term: "Statut", value: "Diffusion en cours" },
     ],
-    question: reelsScreen?.title,
-    text: reelsScreen?.text,
+    question: reelsScreen?.title ?? "Comment transformer la recherche utilisateur en un canal d'acquisition ?",
+    text: reelsScreen?.text ?? "Pendant le développement de Vitreen, j'ai publié des interviews de galeristes sur Instagram pour explorer leurs pratiques et leurs enjeux quotidiens. Chaque échange nourrissait les choix produit tout en développant une audience ciblée autour de Vitreen. Le contenu est devenu à la fois un outil de recherche, de crédibilité et de distribution avant même le lancement du produit.",
   };
 
   return (

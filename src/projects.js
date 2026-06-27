@@ -567,7 +567,7 @@ export const projects = [
     cover: "/vitreen/Scene-5.mp4",
     title: "Selection PDF with WhatsApp Bot",
     type: "Motion design",
-    year: "2026",
+    year: "",
     desc: "Construction d'un design system complet pour une startup SaaS — tokens, composants et documentation.",
     tags: ["Design System", "Composants", "Documentation"],
     process: {

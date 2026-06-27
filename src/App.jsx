@@ -306,8 +306,8 @@ function GalleryOsGmailCard() {
       <GmailAddinMock />
       <span className="vitreen-card-caption">
         <span>
-          <strong>Gallery OS</strong>
-          <small>Gmail side panel · Vitreen</small>
+          <strong>Artwork search in Gmail</strong>
+          <small>Gmail add-on · Gallery OS</small>
         </span>
         <span className="vitreen-card-cta">Voir le projet ↗</span>
       </span>
@@ -362,7 +362,7 @@ function BentoCard({ project, mediaOverride }) {
       <div className="bento-card-content">
         <h2 className="bento-card-title">{project.title}</h2>
         <p className="bento-card-meta">
-          {project.type} · {project.year}
+          {project.type}{project.year ? ` · ${project.year}` : ""}
         </p>
       </div>
     </Link>
@@ -400,7 +400,7 @@ function StackIcon({ id }) {
       className: "stack-tile--asset",
     },
     sanity: {
-      src: "/icones/id1OvBeURQ_1781124483536.png",
+      src: "/icones/sanity.png",
       className: "stack-tile--asset",
     },
     supabase: {
@@ -552,8 +552,8 @@ function VitreenReelCard({ reelId }) {
       </div>
       <span className="vitreen-card-caption">
         <span>
-          <strong>Vitreen</strong>
-          <small>Content & Positioning · Instagram</small>
+          <strong>Content strategy</strong>
+          <small>Instagram · Vitreen</small>
         </span>
         <span className="vitreen-card-cta">Voir les reels ↗</span>
       </span>
@@ -608,7 +608,7 @@ function Home() {
   const primarySlots = [
     { stack: STACKS[0], projectSlug: "vitreen", landscape: true },
     { stack: STACKS[4], customContent: "gallery-os" },
-    { stack: STACKS[1], landscape: true },
+    { stack: STACKS[1], landscape: true, customContent: "hanging" },
   ];
 
   const secondarySlots = [
@@ -636,6 +636,13 @@ function Home() {
             className="stack-card-badge--secondary"
           />
           <SalesAgentMock />
+          <span className="vitreen-card-caption">
+            <span>
+              <strong>Sales Agent</strong>
+              <small>Cursor · Vitreen</small>
+            </span>
+            <span className="vitreen-card-cta">Voir le projet ↗</span>
+          </span>
         </Link>
       );
     }
@@ -643,13 +650,21 @@ function Home() {
     if (customContent === "hanging-booking") {
       return (
         <div key={stack.id} className="stack-card-slot stack-card-slot--booking">
-          <StackCardBadge stack={stack} />
+          <StackCardBadge stack={{ id: "codex", name: "Codex" }} />
+          <StackCardBadge stack={stack} className="stack-card-badge--secondary" />
           <StackCardBadge
             stack={{ id: "stripe", name: "Stripe" }}
-            className="stack-card-badge--secondary"
+            className="stack-card-badge--tertiary"
           />
           <Link to="/booking" className="hanging-booking-link">
             <HangingBookingPreview />
+            <span className="vitreen-card-caption">
+              <span>
+                <strong>Booking flow</strong>
+                <small>Hanging</small>
+              </span>
+              <span className="vitreen-card-cta">Voir le projet ↗</span>
+            </span>
           </Link>
         </div>
       );
@@ -670,6 +685,19 @@ function Home() {
       );
     }
 
+    if (customContent === "hanging") {
+      const project = bentoProjects.find((p) => p.slug === "hanging");
+      if (!project) return null;
+      return (
+        <div key={stack.id} className="stack-card-slot stack-card-slot--landscape stack-card-slot--hanging">
+          <StackCardBadge stack={stack} />
+          <StackCardBadge stack={{ id: "supabase", name: "Supabase" }} className="stack-card-badge--secondary" />
+          <StackCardBadge stack={{ id: "stripe", name: "Stripe" }} className="stack-card-badge--tertiary" />
+          <BentoCard project={project} />
+        </div>
+      );
+    }
+
     if (customContent === "gallery-os") {
       const galleryProject = projects.find((p) => p.slug === "gallery-os");
       if (!galleryProject) return null;
@@ -678,7 +706,12 @@ function Home() {
           key="gallery-os"
           className="stack-card-slot stack-card-slot--landscape stack-card-slot--gallery-os"
         >
-          <StackCardBadge stack={stack} />
+          <StackCardBadge stack={{ id: "claude-code", name: "Claude Code" }} />
+          <StackCardBadge stack={{ id: "sanity", name: "Sanity" }} className="stack-card-badge--secondary" />
+          <StackCardBadge stack={{ id: "whatsapp", name: "WhatsApp" }} className="stack-card-badge--tertiary" />
+          <StackCardBadge stack={{ id: "gmail", name: "Gmail" }} className="stack-card-badge--quaternary" />
+          <StackCardBadge stack={{ id: "groq", name: "Groq" }} className="stack-card-badge--quinary" />
+          <StackCardBadge stack={{ id: "cursor", name: "Cursor" }} className="stack-card-badge--senary" />
           <GalleryOsCard project={galleryProject} />
         </div>
       );
@@ -723,10 +756,16 @@ function Home() {
       >
         <StackCardBadge stack={stack} />
         {projectSlug === "vitreen" && stack.id === "claude-code" && (
-          <StackCardBadge
-            stack={{ id: "figma", name: "Figma" }}
-            className="stack-card-badge--secondary"
-          />
+          <>
+            <StackCardBadge
+              stack={{ id: "figma", name: "Figma" }}
+              className="stack-card-badge--secondary"
+            />
+            <StackCardBadge
+              stack={{ id: "sanity", name: "Sanity" }}
+              className="stack-card-badge--tertiary"
+            />
+          </>
         )}
         <BentoCard project={project} mediaOverride={mediaOverride} />
       </div>
@@ -743,7 +782,7 @@ function Home() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Product Designer &amp; Founder
+            Product Designer
           </a>
         </p>
         <div className="home-hero-bio">
@@ -752,10 +791,9 @@ function Home() {
             systèmes à partir de problèmes opérationnels réels.
           </p>
           <p>
-            Mon travail explore la manière dont le design, la technologie et
-            l&apos;intelligence artificielle peuvent améliorer les workflows et la
-            circulation de l&apos;information. Cette démarche guide aujourd&apos;hui des
-            projets comme{" "}
+            J&apos;explore comment le design, la technologie et l&apos;intelligence
+            artificielle peuvent rendre les outils plus simples et plus utiles.
+            Cette approche guide aujourd&apos;hui{" "}
             <a href="https://vitreen.art" target="_blank" rel="noopener noreferrer">
               Vitreen
             </a>{" "}
@@ -770,7 +808,7 @@ function Home() {
 
       <h2 className="stack-section-title">Projets récents</h2>
 
-      <section className="stack-cards" aria-label="Projets récents">
+      <section className="stack-cards stack-cards--primary" aria-label="Projets récents">
         {primarySlots.map(renderSlot)}
       </section>
 
